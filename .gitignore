@@ -1,2 +1,3 @@
-\\client\\lib\\
-
+*/client/lib/
+*/.idea/workspace.xml
+*/.idea/tasks.xml
