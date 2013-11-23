@@ -1,0 +1,122 @@
+.navbar .nav> li > a.brand {
+    padding-left: 20px;
+    margin-left: 0;
+}
+
+.row {
+    margin-bottom: 20px;
+}
+.row .row {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+/*
+[class*="col-"] {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+*/
+
+.experience {
+    padding: 0;
+}
+
+
+.content {
+    margin-top: 50px;
+    width: 100%;
+}
+
+footer {
+    position:fixed;
+    left:0px;
+    bottom:0px;
+    height:30px;
+    width:100%;
+    background:#ddd;
+    -webkit-box-shadow: 0 8px 6px 6px black;
+    -moz-box-shadow: 0 8px 6px 6px black;
+    box-shadow: 0 8px 6px 6px black;
+}
+footer p{
+    padding: 5px 0 12px 10px;
+}
+
+.navlist li
+{
+    display: inline;
+    list-style-type: none;
+}
+
+body {
+    min-height: 2000px;
+    padding-top: 70px;
+}
+
+.starter-template {
+    padding: 40px 15px;
+    /*text-align: center;*/
+}
+
+.select2 {
+    direction: ltr;
+}
+
+.select2-container {
+    width: 100%;
+}
+
+.selected {
+    background-color: #23d0ff;
+}
+
+.company-container {
+    min-height: 400px;
+    padding: 30px;
+    background-color: #eeeeee;
+    border-radius: 6px;
+}
+
+.company-listing {
+    line-height: 50px;
+}
+
+.logo {
+    width: 100px;
+}
+
+.address, .domain{
+    max-height: 10px;
+}
+
+#message-wrapper {
+    padding-top: 20px;
+}
+#message {
+    direction: ltr;
+    width: 400px;
+    height: 200px;
+}
+
+.my-drop-zone {
+    border: dotted 3px lightgray;
+    margin-top: 20px;
+    width: 250px;
+}
+.ng-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
+.another-file-over-class { border: dotted 3px green; }
+
+.table-hover > tbody > tr:hover > td {
+    background-color: rgba(54, 25, 25, .1);
+}
+
+.form {
+    border:2px solid white;
+    border-radius:10px;
+    box-shadow:0 0 3px #AAA;
+    width:250px;
+    background:#CCC;
+    margin:10px auto;padding:10px;
+    overflow:auto;
+}
