@@ -50,7 +50,6 @@ footer p{
 }
 
 body {
-    min-height: 2000px;
     padding-top: 70px;
 }
 
@@ -115,7 +114,7 @@ body {
     border:2px solid white;
     border-radius:10px;
     box-shadow:0 0 3px #AAA;
-    width:250px;
+    width:150px;
     background:#CCC;
     margin:10px auto;padding:10px;
     overflow:auto;

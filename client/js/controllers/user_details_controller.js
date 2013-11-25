@@ -11,7 +11,7 @@ userDetailsModule.controller('userDetailsCtrl', ['$scope', '$upload', function (
   var default_message = 'Hi,\nI am interested in open positions in your company.\nContact information can be found in my CV which is attached.\n\nBest Regards,\n';
 
   $scope.user = {
-    name : 'Chen',
+    name : '',
     message : default_message
   };
 
