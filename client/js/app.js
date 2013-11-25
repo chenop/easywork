@@ -7,7 +7,7 @@ var app = angular.module('fantasyApp',
   , 'fantasyApp.controllers.signin'
   , 'fantasyApp.controllers.signup'
   , 'companyListModule'
-//  , 'userDetailsModule'
+  , 'userDetailsModule'
   , 'firebase'
     , 'ui.bootstrap', 'ngRoute']
   );
@@ -19,7 +19,7 @@ app.config(['$routeProvider', '$locationProvider',
         .when('/signin',                  { templateUrl: '/views/users/signin.html' })
         .when('/signup',                  { templateUrl: '/views/users/signup.html' })
         .when("/companies",               { templateUrl: '/views/companies/list.html' })
-//        .when('/user_details',            { templateUrl: 'views/users/details.html' })
+        .when('/user_details',            { templateUrl: '/views/users/details.html' })
         .otherwise(                       { redirectTo: '/' });
 
       $locationProvider.html5Mode(true);

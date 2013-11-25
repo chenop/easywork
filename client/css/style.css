@@ -120,3 +120,8 @@ body {
     margin:10px auto;padding:10px;
     overflow:auto;
 }
+
+textarea.cv-message {
+    height: 150px;
+    direction: ltr;
+}

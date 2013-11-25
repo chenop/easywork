@@ -8,8 +8,19 @@ userDetailsModule.controller('userDetailsCtrl', ['$scope', '$upload', function (
     width: 200
   };
 
-  $scope.message = 'Hi,\nI am interested in open positions in your company.\nContact information can be found in my CV which is attached.\n\nBest Regards.';
+  var default_message = 'Hi,\nI am interested in open positions in your company.\nContact information can be found in my CV which is attached.\n\nBest Regards,\n';
 
+  $scope.user = {
+    name : 'Chen',
+    message : default_message
+  };
+
+
+  $scope.$watch('user.name', function(value) {
+    if(value) {
+      $scope.user.message = default_message + value;
+    }
+  }, true);
 //  $scope.onFileSelect = function ($files) {
 //    //$files: an array of files selected, each file has name, size, and type.
 //    for (var i = 0; i < $files.length; i++) {
