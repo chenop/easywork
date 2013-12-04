@@ -1,23 +1,27 @@
-<div data-ng-controller="CompanyListCtrl" class="container-fluid">
+<div data-ng-controller="CompanyListCtrl">
     <div class="row">
         <h2 style="padding-right: 17px">{{title}}</h2>
 
         <!--Sidebar content-->
         <div class="col-md-3">
-                <div class="nav-header">איזורים</div>
-                <div class="select2">
-                    <select ui-select2="addresses_select2Options" multiple ng-model="selected_addresses" data-placeholder="Pick an area">
-                        <option ng-repeat="address in list_of_addresses" value="{{address}}">{{address}}</option>
-                    </select>
+            <div class="nav-header">איזורים</div>
+            <div class="select2">
+                <select ui-select2="addresses_select2Options" multiple ng-model="selected_addresses"
+                        data-placeholder="Pick an area">
+                    <option ng-repeat="address in list_of_addresses" value="{{address}}">{{address}}</option>
+                </select>
 
-                </div>
+            </div>
 
-                <div class="nav-header">תחומים</div>
-                <div class="select2">
-                    <select ui-select2="domains_select2Options" multiple ng-model="selected_domains" data-placeholder="Pick a domain">
-                        <option ng-repeat="domain in list_of_domains" value="{{domain}}">{{domain}}</option>
-                    </select>
-                </div>
+            <div class="nav-header">תחומים</div>
+            <div class="select2">
+                <select ui-select2="domains_select2Options" multiple ng-model="selected_domains"
+                        data-placeholder="Pick a domain">
+                    <option ng-repeat="domain in list_of_domains" value="{{domain}}">{{domain}}</option>
+                </select>
+            </div>
+
+            <button  ng-click="go('/user_details')"  >Next</button>
         </div>
 
         <!--Body content-->
@@ -36,7 +40,8 @@
                     </thead>
                     <tbody>
                     <tr>Selected companies: {{selection}}</tr>
-                    <tr ng-repeat="company in companies | filter:isRelevant" ng-class="(company.selected) ? 'selected' : ''">
+                    <tr ng-repeat="company in companies | filter:isRelevant"
+                        ng-class="(company.selected) ? 'selected' : ''">
                         <td>
                             <input type="checkbox" ng-model="company.selected">
                         </td>

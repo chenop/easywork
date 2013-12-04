@@ -9,7 +9,7 @@ var app = angular.module('fantasyApp',
   , 'companyListModule'
   , 'userDetailsModule'
   , 'firebase'
-    , 'ui.bootstrap', 'ngRoute']
+    , 'ui.bootstrap', 'ngRoute', 'ngAnimate']
   );
 
 app.config(['$routeProvider', '$locationProvider',

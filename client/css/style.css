@@ -89,23 +89,27 @@ body {
     max-height: 10px;
 }
 
-#message-wrapper {
-    padding-top: 20px;
-}
-#message {
-    direction: ltr;
-    width: 400px;
-    height: 200px;
-}
-
 .my-drop-zone {
-    border: dotted 3px lightgray;
+    border: dashed 3px lightgray;
     margin-top: 20px;
     width: 250px;
+    background: #F8F8F8;
+    height: 40px;
+    text-align: center;
+    padding-top: 6px;
 }
-.ng-file-over { border: dotted 3px red; } /* Default class applied to drop zones on over */
-.another-file-over-class { border: dotted 3px green; }
 
+.my-drop-zone.dragover {
+    border: dashed 3px lightgreen;
+    color:green;
+}
+
+.file-upload-container {
+    padding-right: 0px;
+}
+.upload-button {
+    padding-top: 5px;
+}
 .table-hover > tbody > tr:hover > td {
     background-color: rgba(54, 25, 25, .1);
 }
@@ -124,3 +128,102 @@ textarea.cv-message {
     height: 150px;
     direction: ltr;
 }
+
+.container-animate {
+    /*position: relative;*/
+}
+
+.animate.ng-leave,
+.animate.ng-enter {
+    /*-webkit-animation: enter 1s cubic-bezier(.17,.67,.83,.67);*/
+    /*animation: enter 1s cubic-bezier(.17,.67,.83,.67);*/
+
+    /*-webkit-animation: 0.5s enter;*/
+    /*animation: 0.5s enter;*/
+
+    width: 1140px;
+    height: 509px;
+    /*top:0;*/
+    /*left:0;*/
+    /*right:0;*/
+    float: right;
+    position: absolute;
+    /*overflow: hidden;*/
+}
+
+.animate.ng-enter {
+    -webkit-animation: 0.5s enter;
+    animation: 0.5s enter;
+}
+
+.animate.ng-leave {
+    -webkit-animation: 0.5s leave;
+    animation: 0.5s leave;
+}
+
+@keyframes enter {
+    from {
+        z-index:100;
+        top:600px;
+        opacity:0;
+    }
+    to {
+        top:0;
+        opacity:1;
+    }
+}
+
+@keyframes leave {
+    from {
+        z-index:101;
+        top:0;
+        opacity:1;
+    }
+    to {
+        top:-600px;
+        opacity:0;
+    }
+}
+
+@-webkit-keyframes enter {
+    from {
+        z-index:100;
+        top:600px;
+        opacity:0;
+    }
+    to {
+        top:0;
+        opacity:1;
+    }
+}
+
+@-webkit-keyframes leave {
+    from {
+        z-index:101;
+        top:0;
+        opacity:1;
+    }
+    to {
+        top:-600px;
+        opacity:0;
+    }
+}
+/*@keyframes enter {*/
+    /*from { left:100%; }*/
+    /*to { left:0; }*/
+/*}*/
+
+/*@-webkit-keyframes enter {*/
+    /*from { left:100%; }*/
+    /*to { left:0; }*/
+/*}*/
+
+/*@keyframes switch-leave {*/
+    /*from { left:0; }*/
+    /*to { left:-100%; }*/
+/*}*/
+
+/*@-webkit-keyframes switch-leave {*/
+    /*from { left:0; }*/
+    /*to { left:-100%; }*/
+/*}*/

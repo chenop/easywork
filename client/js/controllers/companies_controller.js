@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('companyListModule', ['ui.select2'])
-  .controller('CompanyListCtrl', ['$scope',
-    function ($scope) {
+  .controller('CompanyListCtrl', ['$scope', '$rootScope', '$location',
+    function ($scope, $rootScope, $location) {
       $scope.companies = [
         {
           'id': 1,
@@ -83,6 +83,10 @@ angular.module('companyListModule', ['ui.select2'])
           }
         }
         return false;
+      }
+
+      $scope.go = function (path) {
+        $location.path(path);
       }
     }
   ]

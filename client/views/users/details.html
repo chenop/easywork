@@ -2,51 +2,42 @@
     <div class="row-fluid">
         <h2>{{welcome}}</h2>
 
+        <button  ng-click="go('/companies')"  >Back</button>
+
         <!--Details content-->
-            <form name="form" class="form-horizontal col-sm-8" novalidate>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">E-mail</label>
-                    <input class="col-sm-10" type="email" ng-model="email" name="uEmail" required placeholder="Your E-mail"/>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Name</label>
-                    <input class="col-sm-10" type="text" ng-model="user.name" name="uName" placeholder="Your name"/>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Experience</label>
-                    <select class="col-sm-10 experience" ui-select2="select2Options" ng-model="user.experience"
-                            data-placeholder="Pick a range">
-                        <option value=""></option>
-                        <option value="student">Student</option>
-                        <option value="graduate">Graduate (0 - 1)</option>
-                        <option value="junior">Junior (2 - 4)</option>
-                        <option value="senior">Senior (5 +)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">Message</label>
-                    <textarea class="col-sm-10 cv-message" ng-model="user.message"/>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label">CV</label>
-                </div>
+        <form name="form" class="form-horizontal col-sm-8" novalidate>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">E-mail</label>
+                <input class="col-sm-10" type="email" ng-model="email" name="uEmail" required
+                       placeholder="Your E-mail"/>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Name</label>
+                <input class="col-sm-10" type="text" ng-model="user.name" name="uName" placeholder="Your name"/>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Experience</label>
+                <select class="col-sm-10 experience" ui-select2="select2Options" ng-model="user.experience"
+                        data-placeholder="Pick a range">
+                    <option value=""></option>
+                    <option value="student">Student</option>
+                    <option value="graduate">Graduate (0 - 1)</option>
+                    <option value="junior">Junior (2 - 4)</option>
+                    <option value="senior">Senior (5 +)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Message</label>
+                <textarea class="col-sm-10 cv-message" ng-model="user.message"/>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">CV</label>
 
-                <!--<div class="well my-drop-zone" ng-file-over>-->
-                <!--Base drop zone-->
-                <!--</div>-->
-
-                <!--&lt;!&ndash; Example: ng-file-drop | ng-file-drop="options" &ndash;&gt;-->
-                <!--&lt;!&ndash;TODO foo is not doing the job&ndash;&gt;-->
-                <!--<div class="well my-drop-zone"  ng-file-drop="{}" ng-file-over="another-file-over-class">-->
-                <!--Another drop zone with its own settings-->
-                <!--</div>-->
-
-                <!--&lt;!&ndash; 2. ng-file-select | ng-file-select="options" &ndash;&gt;-->
-                <!--<input ng-file-select type="file" multiple />-->
-
-                <!--<div id="message-wrapper">-->
-                <!--<textarea ng-model="message" id="message"/>-->
-                <!--</div>-->
-            </form>
+                <div class="col-sm-10 file-upload-container">
+                    <input class="upload-button" type="file" ng-file-select="onFileSelect($files)">
+                    <div class="my-drop-zone" ng-file-drop="onFileSelect($files);">or drop files here</div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>

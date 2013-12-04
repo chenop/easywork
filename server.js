@@ -4,19 +4,21 @@ var express = require('express')
   , http = require('http')
   , path = require('path')
   , reload = require('reload')
-//  , cars = require('./server/api/cars')
+  , users = require('./server/api/users')
   , colors = require('colors')
 
 var app = express()
 
 var clientDir = path.join(__dirname, 'client')
 app.set('port', process.env.PORT || 3000)
-
 app.use(express.static(clientDir))
+app.use(express.bodyParser({uploadDir:'./uploads'}));
 
+app.post('/api/upload', users.upload )
 app.get('*', function (req, res) {
   res.sendfile(path.join(clientDir, 'index.html'))
 })
+
 
 //app.get('/api/cars', cars.list)
 //
