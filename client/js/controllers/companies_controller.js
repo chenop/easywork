@@ -84,10 +84,6 @@ angular.module('companyListModule', ['ui.select2'])
         }
         return false;
       }
-
-      $scope.go = function (path) {
-        $location.path(path);
-      }
     }
   ]
   );

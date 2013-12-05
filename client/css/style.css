@@ -11,12 +11,13 @@
     margin-bottom: 0;
 }
 
-/*
+
 [class*="col-"] {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-right: 0px;
+    padding-left: 0px;
+    /*padding-top: 15px;*/
+    /*padding-bottom: 15px;*/
 }
-*/
 
 .experience {
     padding: 0;
@@ -26,6 +27,7 @@
 .content {
     margin-top: 50px;
     width: 100%;
+    position: relative;
 }
 
 footer {
@@ -129,101 +131,144 @@ textarea.cv-message {
     direction: ltr;
 }
 
-.container-animate {
-    /*position: relative;*/
-}
-
-.animate.ng-leave,
-.animate.ng-enter {
-    /*-webkit-animation: enter 1s cubic-bezier(.17,.67,.83,.67);*/
-    /*animation: enter 1s cubic-bezier(.17,.67,.83,.67);*/
-
-    /*-webkit-animation: 0.5s enter;*/
-    /*animation: 0.5s enter;*/
-
-    width: 1140px;
-    height: 509px;
-    /*top:0;*/
-    /*left:0;*/
-    /*right:0;*/
-    float: right;
+.animate_right.ng-leave,
+.animate_right.ng-enter,
+.animate_left.ng-leave,
+.animate_left.ng-enter {
+    width: inherit;
+    height: inherit;
     position: absolute;
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 
-.animate.ng-enter {
-    -webkit-animation: 0.5s enter;
-    animation: 0.5s enter;
+/* Left Animation - The object the is gone is now from the left --------------------------------------*/
+
+.animate_left.ng-enter {
+    -webkit-animation: 0.5s enter-left;
+    animation: 0.5s enter-left;
 }
 
-.animate.ng-leave {
-    -webkit-animation: 0.5s leave;
-    animation: 0.5s leave;
+.animate_left.ng-leave {
+    -webkit-animation: 0.5s leave-left;
+    animation: 0.5s leave-left;
 }
 
-@keyframes enter {
+@keyframes enter-left {
     from {
         z-index:100;
-        top:600px;
+        left:100%;
         opacity:0;
     }
     to {
-        top:0;
+        left:0;
         opacity:1;
     }
 }
 
-@keyframes leave {
+@keyframes leave-left {
     from {
         z-index:101;
-        top:0;
+        left:0;
         opacity:1;
     }
     to {
-        top:-600px;
+        left:-100%;
         opacity:0;
     }
 }
 
-@-webkit-keyframes enter {
+@-webkit-keyframes enter-left {
     from {
         z-index:100;
-        top:600px;
+        left:100%;
         opacity:0;
     }
     to {
-        top:0;
+        left:0;
         opacity:1;
     }
 }
 
-@-webkit-keyframes leave {
+@-webkit-keyframes leave-left {
     from {
         z-index:101;
-        top:0;
+        left:0;
         opacity:1;
     }
     to {
-        top:-600px;
+        left:-100%;
         opacity:0;
     }
 }
-/*@keyframes enter {*/
-    /*from { left:100%; }*/
-    /*to { left:0; }*/
-/*}*/
 
-/*@-webkit-keyframes enter {*/
-    /*from { left:100%; }*/
-    /*to { left:0; }*/
-/*}*/
+/* Right Animation - The object the is gone is now from the right --------------------------------------*/
+.animate_right.ng-enter {
+    -webkit-animation: 0.5s enter-right;
+    animation: 0.5s enter-right;
+}
 
-/*@keyframes switch-leave {*/
-    /*from { left:0; }*/
-    /*to { left:-100%; }*/
-/*}*/
+.animate_right.ng-leave {
+    -webkit-animation: 0.5s leave-right;
+    animation: 0.5s leave-right;
+}
 
-/*@-webkit-keyframes switch-leave {*/
-    /*from { left:0; }*/
-    /*to { left:-100%; }*/
-/*}*/
+@keyframes enter-right {
+    from {
+        z-index:100;
+        right:100%;
+        opacity:0;
+    }
+    to {
+        right:0;
+        opacity:1;
+    }
+}
+
+@keyframes leave-right {
+    from {
+        z-index:101;
+        right:0;
+        opacity:1;
+    }
+    to {
+        right:-100%;
+        opacity:0;
+    }
+}
+
+@-webkit-keyframes enter-right {
+    from {
+        z-index:100;
+        right:100%;
+        opacity:0;
+    }
+    to {
+        right:0;
+        opacity:1;
+    }
+}
+
+@-webkit-keyframes leave-right {
+    from {
+        z-index:101;
+        right:0;
+        opacity:1;
+    }
+    to {
+        right:-100%;
+        opacity:0;
+    }
+}
+
+#next-button {
+    height: 446px;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+}
+
+#prev-button {
+    height: 446px;
+    border-top-right-radius: 40px;
+    border-bottom-right-radius: 40px;
+}
+

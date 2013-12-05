@@ -20,8 +20,8 @@
 <header data-ng-include="'/views/header.html'" class="navbar navbar-fixed-top ng-scope"></header>
 
 <section class="content">
-    <section class="container">
-        <ng-view class="animate"/>
+    <section class="container" ng-controller="initController">
+        <ng-view ng-class="{animate_left : isRTL(), animate_right : isLTR()}"/>
     </section>
 </section>
 
@@ -51,6 +51,7 @@
 
 <script src="/js/app.js"></script>
 
+<script src="/js/controllers/initcontroller.js"></script>
 <script src="/js/controllers/headercontroller.js"></script>
 <script src="/js/controllers/signincontroller.js"></script>
 <script src="/js/controllers/signupcontroller.js"></script>

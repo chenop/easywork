@@ -48,8 +48,4 @@ userDetailsModule.controller('userDetailsCtrl', ['$scope', '$upload', '$location
       //.then(success, error, progress);
     }
   };
-
-  $scope.go = function (path) {
-    $location.path(path);
-  }
 }]);
