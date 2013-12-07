@@ -9,12 +9,13 @@
         <!--Sidebar content-->
         <div class="col-md-3">
             <div class="nav-header">איזורים</div>
+            <!--{{selection}}-->
+            {{selected_addresses}}
             <div class="select2">
                 <select ui-select2="addresses_select2Options" multiple ng-model="selected_addresses"
                         data-placeholder="Pick an area">
                     <option ng-repeat="address in list_of_addresses" value="{{address}}">{{address}}</option>
                 </select>
-
             </div>
 
             <div class="nav-header">תחומים</div>

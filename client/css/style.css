@@ -272,3 +272,7 @@ textarea.cv-message {
     border-bottom-right-radius: 40px;
 }
 
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}

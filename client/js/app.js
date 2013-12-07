@@ -16,7 +16,7 @@ var app = angular.module('fantasyApp',
 app.config(['$routeProvider', '$locationProvider',
     function ($routeProvider, $locationProvider) {
       $routeProvider
-        .when('/', { templateUrl: '/views/default.html' })
+        .when('/', { templateUrl: '/views/home.html' })
         .when('/signin', { templateUrl: '/views/users/signin.html' })
         .when('/signup', { templateUrl: '/views/users/signup.html' })
         .when("/companies", { templateUrl: '/views/companies/list.html' })
