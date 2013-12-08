@@ -62,6 +62,7 @@ body {
 
 .select2 {
     direction: ltr;
+    padding: 10px 0px 10px  0px;
 }
 
 .select2-container {

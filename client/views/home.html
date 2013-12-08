@@ -1,7 +1,5 @@
 <div data-ng-controller="CompanyListCtrl">
 
-    <h2>Welcome to Easy Work</h2>
-
     <!--Welcome Bla Bla-->
     <div class="row">
         <div class="col-md-12">
@@ -11,7 +9,12 @@
 
     <!-- Controls-->
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-1">
+
+        </div>
+        <div class="col-md-4">
+            <h3>איזור</h3>
+
             <div class="select2">
                 <select ui-select2="addresses_select2Options" multiple ng-model="selected_addresses"
                         data-placeholder="Pick an area">
@@ -19,7 +22,13 @@
                 </select>
             </div>
         </div>
-        <div class="col-md-6">
+
+        <div class="col-md-2">
+
+        </div>
+        <div class="col-md-4">
+            <h3>תחום</h3>
+
             <div class="select2">
                 <select ui-select2="domains_select2Options" multiple ng-model="selected_domains"
                         data-placeholder="Pick a domain">
@@ -27,9 +36,70 @@
                 </select>
             </div>
         </div>
+
+        <div class="col-md-1">
+
+        </div>
     </div>
 
-    <div class="row col-md-3 col-centered">
-        <a class="btn btn-large btn-primary btn-block" href="/companies"><span class="glyphicon glyphicon-arrow-left"></span>בואו נתחיל</a>
+
+    <div class="row">
+
+        <div class="col-md-1">
+
+        </div>
+
+        <div class="col-md-10">
+            <div class="company-container">
+                <div class="nav-header">חברות</div>
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th><input type="checkbox" ng-model="shouldSelectAll" ng-click="selectAll($event)"></th>
+                        <th class="logo">Logo</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Domains</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>Selected companies: {{selection}}</tr>
+                    <tr ng-repeat="company in companies | filter:isRelevant"
+                        ng-class="(company.selected) ? 'selected' : ''">
+                        <td>
+                            <input type="checkbox" ng-model="company.selected">
+                        </td>
+                        <td>
+                            <a href="#/phones/{{company.id}}/{{company.details}}"><img
+                                    ng-src="{{company.logoUrl}}" class="logo"></a>
+                        </td>
+                        <td>
+                            <a href="#/phones/{{company.id}}/{{company.details}}">{{company.name}}</a>
+                        </td>
+                        <td>
+                            <ul ng-repeat="adr in company.addresses" class="address">
+                                <li>{{adr}}</li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul ng-repeat="domain in company.domains" class="domain">
+                                <li>{{domain}}</li>
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+
+        </div>
     </div>
+
+
+    <!--<div class="row col-md-3 col-centered">-->
+        <!--<a class="btn btn-large btn-primary btn-block" href="/companies">בואו נתחיל<i-->
+                <!--class="glyphicon glyphicon-arrow-left"/></a>-->
+    <!--</div>-->
 </div>
