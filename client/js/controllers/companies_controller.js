@@ -38,7 +38,7 @@ angular.module('companyListModule', ['ui.select2'])
 // selected addresses
       $scope.selected_addresses = [];
 
-      $scope.list_of_addresses = ['North', 'Haifa', 'Yoqneaam', 'Migdal Haeemek', 'Tel Aviv', 'Rosh Haain'];
+      $scope.list_of_addresses = ['North', 'Haifa', 'Yoqneaam', 'Migdal Haeemek', 'Center', 'Tel Aviv', 'Rosh Haain'];
       $scope.addresses_select2Options = {
         'multiple': true
       };

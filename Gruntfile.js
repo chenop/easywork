@@ -25,12 +25,24 @@ module.exports = function (grunt) {
       }
     },
     watch: {
-      express: {
-        files:  [ '**/*.js', '**/*.html' ],
-        tasks:  [ 'express:dev' ],
+      html: {
+        files:  [ '**/*.html'],
+        options: {
+          livereload: true
+        }
+      },
+      server: {
+        files:  [ 'server.js'],
+        tasks: ['express:dev'],
         options: {
           livereload: true,
           spawn: false // Without this option specified express won't be reloaded
+        }
+      },
+      js: {
+        files:  [ '**/*.js'],
+        options: {
+          livereload: true,
         }
       }
     },

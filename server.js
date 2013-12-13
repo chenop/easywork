@@ -3,9 +3,7 @@ if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development'
 var express = require('express')
   , http = require('http')
   , path = require('path')
-  , reload = require('reload')
   , users = require('./server/api/users')
-  , colors = require('colors')
 
 var app = express();
 var start = Date.now();
