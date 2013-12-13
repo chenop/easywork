@@ -1,18 +1,17 @@
 {
   "name": "easywork",
-  "version": "0.0.1",
   "private": true,
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "3.4.4",
-    "jade": "*",
-    "reload": "*",
-    "colors": "*"
-  },
-  "devDependencies": {
-    "grunt": "~0.4.2",
+  "version": "0.0.1",
+  "dependencies":
+	{
+		"express": "3.4.4"
+	},
+	"devDependencies":
+	{
+		"grunt": "~0.4.2",
+    "grunt-cli": "~0.1.11",
     "grunt-contrib-watch": "~0.5.3",
-  }
+		"grunt-express-server": "~0.4.9",
+		"grunt-open": "~0.2.2"
+	}
 }
