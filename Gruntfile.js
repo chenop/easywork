@@ -26,13 +26,13 @@ module.exports = function (grunt) {
     },
     watch: {
       html: {
-        files:  [ '**/*.html'],
+        files: [ '**/*.html'],
         options: {
           livereload: true
         }
       },
       server: {
-        files:  [ 'server.js'],
+        files: [ 'server.js'],
         tasks: ['express:dev'],
         options: {
           livereload: true,
@@ -40,9 +40,9 @@ module.exports = function (grunt) {
         }
       },
       js: {
-        files:  [ '**/*.js'],
+        files: [ '**/*.js'],
         options: {
-          livereload: true,
+          livereload: true
         }
       }
     },
@@ -59,7 +59,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-express-server');
   grunt.loadNpmTasks('grunt-open');
 
-  grunt.registerTask('default', [ 'express:dev', 'open', 'watch' ])
+  grunt.registerTask('default', ['express:dev', 'open', 'watch' ])
 }
 ;
 
