@@ -6,6 +6,7 @@ var express = require('express')
 //  , passport = require('passport')
 //  , LocalStrategy = require('passport-local').Strategy
   , users = require('./server/api/users')
+  , companies = require('./server/api/companies')
   , mongoose = require('mongoose');
 
 var app = express();
@@ -52,6 +53,7 @@ app.post('/api/login', users.login)
 app.post('/api/logout', users.logout)
 app.post('/api/upload', users.upload )
 app.post('/api/signup', users.signup)
+app.get('/api/companies', companies.getCompanies)
 app.get('*', function (req, res) {
   res.sendfile(path.join(clientDir, 'index.html'))
 })
