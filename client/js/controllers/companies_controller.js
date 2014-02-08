@@ -39,8 +39,9 @@ companiesController.controller('CompanyListCtrl', ['$scope', '$http', '$rootScop
 			'multiple': true
 		};
 
-
 		$scope.$watch('companies|filter:{selected:true}', function (nv) {
+			if (nv == undefined)
+				return;
 			$scope.selection = nv.map(function (company) {
 				return company.name;
 			});
@@ -48,6 +49,8 @@ companiesController.controller('CompanyListCtrl', ['$scope', '$http', '$rootScop
 
 // watch the selectAll checkBox for changes
 		$scope.$watch('shouldSelectAll', function () {
+			if ($scope.companies == undefined)
+			    return;
 			for (var i = 0; i < $scope.companies.length; i++) {
 				$scope.companies[i].selected = $scope.shouldSelectAll;
 			}

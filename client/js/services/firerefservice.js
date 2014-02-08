@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('fantasyApp.services.firebaseRefs', [])
+angular.module('easywork.services.firebaseRefs', [])
   .factory('FireRef', ['FBURL', 'Firebase',
     function (FBURL, Firebase) {
       return {

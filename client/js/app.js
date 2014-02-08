@@ -1,38 +1,48 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('fantasyApp',
-  [
-    'initController'
-    , 'fantasyApp.controllers.header'
-    , 'fantasyApp.controllers.signin'
-    , 'fantasyApp.controllers.signup'
-    , 'companyListModule'
-    , 'userDetailsModule'
-    , 'firebase'
-    , 'ui.bootstrap', 'ngRoute', 'ngAnimate']
+var app = angular.module('easywork',
+	[
+		'initController'
+		, 'easywork.controllers.header'
+		, 'easywork.services.auth'
+		, 'easywork.controllers.login'
+		, 'easywork.controllers.signup'
+		, 'companyListModule'
+		, 'userDetailsModule'
+		, 'ui.bootstrap', 'ngRoute', 'ngAnimate']
 );
 
-app.config(['$routeProvider', '$locationProvider',
-    function ($routeProvider, $locationProvider) {
-      $routeProvider
-        .when('/', { templateUrl: './views/home.html' })
-        .when('/signin', { templateUrl: '/views/users/signin.html' })
-        .when('/signup', { templateUrl: '/views/users/signup.html' })
-        .when("/companies", { templateUrl: '/views/companies/list.html' })
-        .when('/user_details', { templateUrl: '/views/users/details.html' })
-        .otherwise({ redirectTo: '/' });
+app.config(['$routeProvider', '$locationProvider', '$httpProvider',
+	function ($routeProvider, $locationProvider, $httpProvider) {
+		$routeProvider
+			.when('/', { templateUrl: '/views/home.html' })
+			.when('/login', { templateUrl: '/views/users/login.html' })
+			.when('/signup', { templateUrl: '/views/users/signup.html' })
+			.when("/companies", { templateUrl: '/views/companies/list.html' })
+			.when('/user_details', { templateUrl: '/views/users/details.html' })
+			.otherwise({ redirectTo: '/' });
 
-      $locationProvider.html5Mode(true);
-    }])
+		$locationProvider.html5Mode(true);
 
-//  establish authentication
-  .run(['angularFireAuth', 'FBURL', '$rootScope',
-    function (angularFireAuth, FBURL, $rootScope) {
-      angularFireAuth.initialize(new Firebase(FBURL), {scope: $rootScope, name: 'auth', path: '/signin'});
-      $rootScope.FBURL = FBURL;
-    }])
-
-  // your Firebase URL goes here
-  .constant('FBURL', 'https://chenop-firebase-tutorial.firebaseio.com/');
+		//================================================
+		// Add an interceptor for AJAX errors
+		//================================================
+		$httpProvider.responseInterceptors.push(function ($q, $location) {
+			return function (promise) {
+				return promise.then(
+					// Success: just return the response
+					function (response) {
+						return response;
+					},
+					// Error: check the error status to get only the 401
+					function (response) {
+						if (response.status === 401)
+							$location.url('/login');
+						return $q.reject(response);
+					}
+				);
+			}
+		});
+	}])
 
