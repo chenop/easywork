@@ -1,13 +1,13 @@
 var fs = require('fs')
 	, passport = require('passport')
 	, User = require('../model/user')
+	, mongoose = require('mongoose')
 
 //var fs = require('fs-extra')
 //  , path = require('path')
 //  , _ = require('underscore')
 
 
-module.exports.upload = upload;
 module.exports.logout = logout;
 
 
@@ -40,31 +40,101 @@ function getUniqueFileName(fullFileName) {
  **********************/
 
 exports.login = function (req, res, next) {
-	passport.authenticate('local', function(err, user, info) {
+	passport.authenticate('local', function (err, user, info) {
 		var error = err || info;
 		if (error) {
 			return res.json(401, error);
 		}
-		req.logIn(user, function(err) {
+		req.logIn(user, function (err) {
 			if (err) {
 				return res.send(err);
 			}
-//			res.json(req.user.user_info);
-//			res.cookie('user', JSON.stringify({'username': user.username}), { httpOnly: false } );
 			res.cookie('user', JSON.stringify({
 				'username': user.username,
-				'email': user.email
+				'email': user.email,
+				'id': user.id,
+				'file': user.file
 			}));
-//			res.cookie('user', JSON.stringify(req.user.user_info));
 			return res.send(200);
 
 		});
 	})(req, res, next);
 }
 
+exports.getUser = function (req, res) {
+	return User.findById(req.params.id, function (err, user) {
+		if (!err) {
+			return res.send(user);
+		} else {
+			return console.log(err);
+		}
+	});
+}
+
+/**
+ * Update user details (except file)
+ * @param id
+ * @param newUser
+ * @param callBack
+ * @returns {*}
+ */
+function updateUser(id, newUser, callBack) {
+	return User.findById(id, function (err, user) {
+		if ('undefined' !== typeof newUser.name)
+			user.name = newUser.name;
+		if ('undefined' !== typeof newUser.username)
+			user.username = newUser.username;
+		if ('undefined' !== typeof newUser.email)
+			user.email = newUser.email;
+		if ('undefined' !== typeof newUser.experience)
+			user.experience = newUser.experience;
+//		if ('undefined' !== typeof newUser.file)
+//			user.file = newUser.file;
+		return user.save(callBack);
+	});
+}
+
+function updateUserFile(id, file, callBack) {
+	return User.findById(id, function (err, user) {
+		if (err)
+			throw err;
+
+		if ('undefined' !== typeof file) {
+			user.file = file;
+		}
+		return user.save(callBack);
+
+	});
+}
+
+exports.updateUser = function (req, res) {
+	var user = {
+		name: req.body.name,
+		username: req.body.username,
+		email: req.body.email,
+		experience: req.body.experience
+	}
+	return updateUser(req.params.id, user, function (err) {
+		if (!err) {
+			console.log("updated");
+		} else {
+			console.log(err);
+			return res.json(401, err);
+		}
+		return res.send(user);
+	});
+};
+
 exports.signup = function (req, res) {
 	console.log("signup server");
-	var user = new User({email: req.body.email, username: req.body.username, password: req.body.password});
+	var user = new User(
+		{
+			email: req.body.email,
+			username: req.body.username,
+			password: req.body.password,
+			experience: req.body.experience
+		}
+	);
 	user.save(function (err) {
 		if (err) // ...
 			console.log('meow');
@@ -79,7 +149,7 @@ exports.signup = function (req, res) {
 	});
 }
 
-function upload(req, res) {
+exports.upload = function upload(req, res) {
 	console.log(JSON.stringify(req.files));
 
 	// get the temporary location of the file
@@ -92,6 +162,9 @@ function upload(req, res) {
 		// delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
 		fs.unlink(tmp_path, function () {
 			if (err) throw err;
+			var user = JSON.parse(req.body.user);
+			user.file = target_path;
+			updateUserFile(user.id, target_path, null);
 			console.log('File uploaded to: ' + target_path + ' - ' + req.files.file.size + ' bytes');
 		});
 	});

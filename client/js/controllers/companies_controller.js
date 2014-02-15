@@ -1,5 +1,7 @@
 'use strict';
 
+var SEND_BUTTON_STR = 'שלח';
+
 var companiesController = angular.module('companyListModule', ['ui.select2']);
 
 //companiesController.factory('companiesService', function ($http, $location) {
@@ -15,15 +17,19 @@ var companiesController = angular.module('companyListModule', ['ui.select2']);
 //		}
 //	}
 //});
-companiesController.controller('CompanyListCtrl', ['$scope', '$http', '$rootScope', '$location',
-	function ($scope, $http, $rootScope, $location) {
-		getCompanies().then(function(result) {
+companiesController.controller('CompanyListCtrl', ['$scope', '$http',
+	function ($scope, $http) {
+		getCompanies().then(function (result) {
 			$scope.companies = result.data;
 		});
 
+		$scope.disableSend = false;
+
+		$scope.sendButtonLabel = SEND_BUTTON_STR;
+
 		$scope.title = "Companies List";
 
-// selected addresses
+		// selected addresses
 		$scope.selected_addresses = [];
 
 		$scope.list_of_addresses = ['North', 'Haifa', 'Yoqneaam', 'Migdal Haeemek', 'Center', 'Tel Aviv', 'Rosh Haain'];
@@ -31,7 +37,7 @@ companiesController.controller('CompanyListCtrl', ['$scope', '$http', '$rootScop
 			'multiple': true
 		};
 
-// selected domains
+		// selected domains
 		$scope.selected_domains = [];
 
 		$scope.list_of_domains = ['Java', 'C#', 'Web', 'UI', 'GUI', 'AngularJS', 'HTML', 'CSS', 'C++'];
@@ -45,12 +51,19 @@ companiesController.controller('CompanyListCtrl', ['$scope', '$http', '$rootScop
 			$scope.selection = nv.map(function (company) {
 				return company.name;
 			});
+
+			// Update send button label
+			$scope.disableSend = $scope.selection.length == 0;
+			$scope.sendButtonLabel = SEND_BUTTON_STR;
+			if ($scope.selection.length > 0) {
+				$scope.sendButtonLabel += ' (' + $scope.selection.length + ' משרות)';
+			}
 		}, true);
 
 // watch the selectAll checkBox for changes
 		$scope.$watch('shouldSelectAll', function () {
 			if ($scope.companies == undefined)
-			    return;
+				return;
 			for (var i = 0; i < $scope.companies.length; i++) {
 				$scope.companies[i].selected = $scope.shouldSelectAll;
 			}
@@ -60,7 +73,7 @@ companiesController.controller('CompanyListCtrl', ['$scope', '$http', '$rootScop
 			return (superbag(company.addresses, $scope.selected_addresses) && superbag(company.domains, $scope.selected_domains));
 		};
 
-// This check can be optimize - like sorting alphabetically or do hash-mapping of first letter (hash['i'] -> ['Intel']'.
+		// TODO - This check can be optimize - like sorting alphabetically or do hash-mapping of first letter (hash['i'] -> ['Intel']'.
 		function superbag(superSet, subSet) {
 			if (superSet == undefined || subSet == undefined)
 				return true;
@@ -78,6 +91,10 @@ companiesController.controller('CompanyListCtrl', ['$scope', '$http', '$rootScop
 
 		function getCompanies() {
 			return $http.get('/api/companies');
+		}
+
+		$scope.sendCV = function () {
+			console.log("sendCV, disable:" + $scope.disableSend);
 		}
 	}
 ]

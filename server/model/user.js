@@ -11,9 +11,11 @@ var mongoose = require('mongoose')
 
 var userSchema = new Schema({
 	email: String,
-	name: {first: String, last: String},
+	name: String,
 	username: String,
-	password: String
+	password: String,
+	experience: String,
+	file: String
 });
 
 userSchema.methods.validPassword = function( pwd ) {

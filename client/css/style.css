@@ -62,9 +62,10 @@ body {
 
 .select2 {
     direction: ltr;
-    padding: 10px 0px 10px  0px;
+    padding: 10px 5px 10px  5px;
 }
 
+/* Overriding select2 settings */
 .select2-container {
     width: 100%;
 }
@@ -276,4 +277,10 @@ textarea.cv-message {
 .col-centered {
     float: none;
     margin: 0 auto;
+}
+
+#send-button {
+    margin: 58px 10px 0px 0px;
+    width: 149px;
+    height: 49px;
 }
