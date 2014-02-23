@@ -53,7 +53,8 @@ exports.login = function (req, res, next) {
 				'username': user.username,
 				'email': user.email,
 				'id': user.id,
-				'file': user.file
+				'fileName': user.fileName,
+				'pathName' : user.pathname
 			}));
 			return res.send(200);
 
@@ -94,13 +95,14 @@ function updateUser(id, newUser, callBack) {
 	});
 }
 
-function updateUserFile(id, file, callBack) {
+function updateUserFile(id, pathName, fileName, callBack) {
 	return User.findById(id, function (err, user) {
 		if (err)
 			throw err;
 
-		if ('undefined' !== typeof file) {
-			user.file = file;
+		if ('undefined' !== typeof fileName) {
+			user.fileName = fileName;
+			user.pathName = pathName;
 		}
 		return user.save(callBack);
 
@@ -155,7 +157,8 @@ exports.upload = function upload(req, res) {
 	// get the temporary location of the file
 	var tmp_path = req.files.file.path;
 	// set where the file should actually exists - in this case it is in the "images" directory
-	var target_path = getUniqueFileName('./uploads/' + req.files.file.name);
+	var target_path = getUniqueFileName('.\\uploads\\' + req.files.file.name);
+	var file_path = getUniqueFileName('.\\uploads\\');
 	// move the file from the temporary location to the intended location
 	fs.rename(tmp_path, target_path, function (err) {
 		if (err) throw err;
@@ -163,8 +166,7 @@ exports.upload = function upload(req, res) {
 		fs.unlink(tmp_path, function () {
 			if (err) throw err;
 			var user = JSON.parse(req.body.user);
-			user.file = target_path;
-			updateUserFile(user.id, target_path, null);
+			updateUserFile(user.id, file_path, req.files.file.name, null);
 			console.log('File uploaded to: ' + target_path + ' - ' + req.files.file.size + ' bytes');
 		});
 	});

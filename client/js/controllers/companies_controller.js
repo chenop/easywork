@@ -2,23 +2,10 @@
 
 var SEND_BUTTON_STR = 'שלח';
 
-var companiesController = angular.module('companyListModule', ['ui.select2']);
+var companiesController = angular.module('companyListModule', ['ui.select2', 'easywork.services.mail']);
 
-//companiesController.factory('companiesService', function ($http, $location) {
-//	return {
-//		getCompanies: function () {
-//			return $http({
-//				method: 'GET',
-//				url: '/api/companies'
-//			}).success(function (data, status, headers, config) {
-//					console.log("getCompanies Succeeded!");
-//				}
-//			);
-//		}
-//	}
-//});
-companiesController.controller('CompanyListCtrl', ['$scope', '$http',
-	function ($scope, $http) {
+companiesController.controller('CompanyListCtrl', ['$scope', '$http', 'mailService',
+	function ($scope, $http, mailService) {
 		getCompanies().then(function (result) {
 			$scope.companies = result.data;
 		});
@@ -49,7 +36,7 @@ companiesController.controller('CompanyListCtrl', ['$scope', '$http',
 			if (nv == undefined)
 				return;
 			$scope.selection = nv.map(function (company) {
-				return company.name;
+				return company;
 			});
 
 			// Update send button label
@@ -94,7 +81,9 @@ companiesController.controller('CompanyListCtrl', ['$scope', '$http',
 		}
 
 		$scope.sendCV = function () {
-			console.log("sendCV, disable:" + $scope.disableSend);
+//			console.log("sendCV, disable:" + $scope.disableSend);
+
+			mailService.sendMail($scope.selection);
 		}
 	}
 ]

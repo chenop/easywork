@@ -6,6 +6,7 @@ var express = require('express')
 	, passport = require('passport')
 	, LocalStrategy = require('passport-local').Strategy
 	, users = require('./server/api/users')
+	, mail = require('./server/mail')
 	, companies = require('./server/api/companies')
 	, MongoStore = require('connect-mongostore')(express)
 	, mongoose = require('mongoose')
@@ -27,7 +28,7 @@ var clientDir = path.join(__dirname, 'client')
 app.set('port', process.env.PORT || 3000)
 app.use(express.static(clientDir))
 app.use(express.cookieParser());
-app.use(express.bodyParser({uploadDir:'./uploads'}));
+app.use(express.bodyParser({uploadDir:'.\\uploads'}));
 //app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.session({secret: 'zipori'}));
@@ -48,6 +49,7 @@ app.post('/api/upload', users.upload)
 app.post('/api/signup', users.signup)
 app.get('/api/user/:id', users.getUser)
 app.put('/api/user/:id', users.updateUser)
+app.post('/api/sendMail', mail.sendMail)
 app.get('/api/companies', companies.getCompanies)
 app.get('*', function (req, res) {
 	res.sendfile(path.join(clientDir, 'index.html'))

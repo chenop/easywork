@@ -7,7 +7,7 @@ angular.module('easywork.services.auth', ['ngCookies'])
 
 		var authenticate = false;
 
-		var setAuthenticate = function(newAuthenticate) {
+		var setAuthenticate = function (newAuthenticate) {
 			authenticate = newAuthenticate;
 		}
 
@@ -41,7 +41,7 @@ angular.module('easywork.services.auth', ['ngCookies'])
 			logIn: logIn,
 			logOut: logOut,
 			isAuthenticated: isAuthenticated,
-			setAuthenticate : setAuthenticate,
+			setAuthenticate: setAuthenticate,
 			getActiveUser: getActiveUser
 		}
 	});

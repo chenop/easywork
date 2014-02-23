@@ -15,7 +15,7 @@ var userSchema = new Schema({
 	username: String,
 	password: String,
 	experience: String,
-	file: String
+	fileName: String
 });
 
 userSchema.methods.validPassword = function( pwd ) {
