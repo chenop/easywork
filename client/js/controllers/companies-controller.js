@@ -1,18 +1,17 @@
 'use strict';
 
-var SEND_BUTTON_STR = 'שלח';
 
-var companiesController = angular.module('companyListModule', ['ui.select2', 'easywork.services.mail']);
+var companiesController = angular.module('companyListModule', ['ui.select2', 'easywork.services.mail', 'easywork.services.appManager']);
 
-companiesController.controller('CompanyListCtrl', ['$scope', '$http', 'mailService',
-	function ($scope, $http, mailService) {
+companiesController.controller('CompanyListCtrl', ['$scope', '$http', 'mailService', 'appManager',
+	function ($scope, $http, mailService, appManager) {
 		getCompanies().then(function (result) {
 			$scope.companies = result.data;
 		});
 
-		$scope.disableSend = false;
+		appManager.setDisplaySearchBarInHeader(true);
 
-		$scope.sendButtonLabel = SEND_BUTTON_STR;
+		$scope.disableSend = false;
 
 		$scope.title = "Companies List";
 
@@ -40,7 +39,7 @@ companiesController.controller('CompanyListCtrl', ['$scope', '$http', 'mailServi
 			});
 
 			// Update send button label
-			$scope.disableSend = $scope.selection.length == 0;
+//			$scope.disableSend = $scope.selection.length == 0;
 			$scope.sendButtonLabel = SEND_BUTTON_STR;
 			if ($scope.selection.length > 0) {
 				$scope.sendButtonLabel += ' (' + $scope.selection.length + ' משרות)';
@@ -81,9 +80,19 @@ companiesController.controller('CompanyListCtrl', ['$scope', '$http', 'mailServi
 		}
 
 		$scope.sendCV = function () {
-//			console.log("sendCV, disable:" + $scope.disableSend);
+			console.log("sendCV, disable:" + $scope.disableSend);
 
 			mailService.sendMail($scope.selection);
+		}
+
+		$scope.toggleSelected = function(company) {
+			var selected = company.selected;
+			if (selected == undefined || selected == false) {
+				company.selected = true;
+			}
+			else {
+				company.selected = false;
+			}
 		}
 	}
 ]

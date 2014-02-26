@@ -3,9 +3,10 @@
 // Declare app level module which depends on filters, and services
 var app = angular.module('easywork',
 	[
-		'initController'
+		'easywork.services.appManager'
 		, 'easywork.controllers.header'
 		, 'easywork.services.auth'
+		, 'easywork.controllers.home'
 		, 'easywork.controllers.login'
 		, 'easywork.controllers.signup'
 		, 'companyListModule'
@@ -16,10 +17,10 @@ var app = angular.module('easywork',
 app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 	function ($routeProvider, $locationProvider, $httpProvider) {
 		$routeProvider
-			.when('/', { templateUrl: '/views/home.html' })
+			.when('/', { templateUrl: '/views/home.html'})
 			.when('/login', { templateUrl: '/views/users/login.html' })
 			.when('/signup', { templateUrl: '/views/users/signup.html' })
-			.when("/companies", { templateUrl: '/views/companies/list.html' })
+			.when("/companies", { templateUrl: '/views/companies/companies.html' })
 			.when('/user_details', { templateUrl: '/views/users/details.html' })
 			.otherwise({ redirectTo: '/' });
 

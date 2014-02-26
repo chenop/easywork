@@ -1,46 +1,77 @@
 <div class="navbar navbar-default navbar-fixed-top" ng-controller="headerController">
     <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/">עבודה קלה</a>
+        <div class="row">
+            <div class="col-sm-2 col-md-2">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">עבודה קלה</a>
+                </div>
+            </div>
+            <div class="col-sm-10 col-md-10">
+                <div class="navbar-collapse collapse">
+                    <!--<ul class="nav navbar-nav">-->
+                    <!--&lt;!&ndash;<li class="active"><a href="#">Home</a></li>&ndash;&gt;-->
+                    <!--<li><a href="#contact">Contact</a></li>-->
+                    <!--<li class="dropdown">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>-->
+                    <!--<ul class="dropdown-menu">-->
+                    <!--<li><a href="#">Action</a></li>-->
+                    <!--<li><a href="#">Another action</a></li>-->
+                    <!--<li><a href="#">Something else here</a></li>-->
+                    <!--<li class="divider"></li>-->
+                    <!--<li class="dropdown-header">Nav header</li>-->
+                    <!--<li><a href="#">Separated link</a></li>-->
+                    <!--<li><a href="#">One more separated link</a></li>-->
+                    <!--</ul>-->
+                    <!--</li>-->
+                    <!--</ul>-->
+
+                    <!--<div class="col-md-1">-->
+                    <!---->
+                    <!--</div>-->
+
+                    <div class="row">
+                        <div class="col-sm-5 col-md-5">
+                            <div class="select2" ng-show="appManager.shouldDisplaySearchBarInHeader()">
+                                <select ui-select2="addresses_select2Options" multiple ng-model="selected_addresses"
+                                        data-placeholder="Pick an area">
+                                    <option ng-repeat="address in list_of_addresses" value="{{address}}">{{address}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-5 col-md-5">
+                            <div class="select2" ng-show="appManager.shouldDisplaySearchBarInHeader()">
+                                <select ui-select2="domains_select2Options" multiple ng-model="selected_domains"
+                                        data-placeholder="Pick a domain">
+                                    <option ng-repeat="domain in list_of_domains" value="{{domain}}">{{domain}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-2 col-md-2">
+                            <ul class="nav navbar-nav navbar-left" ng-hide="authService.isAuthenticated()">
+                                <li><a href="/signup/">Register</a></li>
+                                <li class="divider-vertical"></li>
+                                <li><a href="/login">LogIn</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-left ng-hide" ng-show="authService.isAuthenticated()">
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        {{user.username}}<b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/user_details">Details</a></li>
+                                        <li><a href="" ng-click="logout()">Logout</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--/.nav-collapse -->
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <!--<li class="active"><a href="#">Home</a></li>-->
-                <li><a href="#contact">Contact</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-left" ng-hide="authService.isAuthenticated()">
-                <li><a href="/signup/">Register</a></li>
-                <li class="divider-vertical"></li>
-                <li><a href="/login">LogIn</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-left ng-hide" ng-show="authService.isAuthenticated()">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        {{user.username}}<b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/user_details">Details</a></li>
-                        <li><a href="" ng-click="logout()">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div><!--/.nav-collapse -->
+
     </div>
 </div>

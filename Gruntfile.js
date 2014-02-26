@@ -5,11 +5,13 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		express: {
 			options: {
+				port : process.env.PORT || 3000
 				// Override defaults here
 			},
 			dev: {
 				options: {
 					script: 'server.js'
+//					debug : true //enable debugging
 				}
 			},
 			prod: {
@@ -25,6 +27,9 @@ module.exports = function (grunt) {
 			}
 		},
 		watch: {
+			options: {
+				livereload: true
+			},
 			html: {
 				files: [ '**/*.html'],
 				options: {
@@ -44,6 +49,12 @@ module.exports = function (grunt) {
 				options: {
 					livereload: true
 				}
+			},
+			css: {
+				files: [ '**/*.css'],
+				options: {
+					livereload: true
+				}
 			}
 		},
 		open: {
@@ -59,7 +70,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-express-server');
 	grunt.loadNpmTasks('grunt-open');
 
-	grunt.registerTask('default', ['express:dev', 'watch' ])
+	grunt.registerTask('default', ['express:dev', 'open', 'watch' ])
 }
 ;
 

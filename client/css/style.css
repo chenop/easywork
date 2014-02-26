@@ -25,7 +25,6 @@
 
 
 .content {
-    margin-top: 50px;
     width: 100%;
     position: relative;
 }
@@ -74,9 +73,14 @@ body {
     background-color: #23d0ff;
 }
 
+.navbar .container .row {
+    margin-bottom: 3px;
+}
+
 .company-container {
     min-height: 400px;
-    padding: 30px;
+    margin-top: 20px;
+    padding: 40px;
     background-color: #eeeeee;
     border-radius: 6px;
 }
