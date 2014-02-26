@@ -1,0 +1,31 @@
+{
+  "name": "easywork-angularjs",
+  "version": "0.0.0",
+  "homepage": "https://github.com/chenop/easywork-AngularJS-NodeJS",
+  "authors": [
+    "chenop <chenop@gmail.com>"
+  ],
+  "main": "client/css/style.css",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/lib/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": "~1.2.3",
+    "angular-bootstrap": "~0.4.0",
+    "angular-mocks": "1.2.0-rc.1",
+    "angular-cookies": "~1.2.9",
+    "angular-resource": "1.2.0-rc.1",
+    "angular-ui-select2": "~0.0.4",
+    "angular-scenario": "1.2.0-rc.1",
+    "bootstrap-rtl": "~0.9.5",
+    "json3": "~3.2.4",
+    "ng-file-upload": "~1.2.7",
+    "angular-route": "1.2.0-rc.1"
+  }
+}
