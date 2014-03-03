@@ -9,6 +9,7 @@ var app = angular.module('easywork',
 		, 'easywork.controllers.home'
 		, 'easywork.controllers.login'
 		, 'easywork.controllers.signup'
+		, 'easywork.controllers.company'
 		, 'companyListModule'
 		, 'userDetailsModule'
 		, 'ui.bootstrap', 'ngRoute', 'ngAnimate']
@@ -20,6 +21,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 			.when('/', { templateUrl: '/views/home.html'})
 			.when('/login', { templateUrl: '/views/users/login.html' })
 			.when('/signup', { templateUrl: '/views/users/signup.html' })
+			.when("/company", { templateUrl: '/views/companies/company.html' })
 			.when("/companies", { templateUrl: '/views/companies/companies.html' })
 			.when('/user_details', { templateUrl: '/views/users/details.html' })
 			.otherwise({ redirectTo: '/' });
@@ -45,5 +47,13 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 				);
 			}
 		});
-	}])
+	}]);
+// a Fix for holder
+app.directive('bsHolder', [function () {
+    return {
+        link: function (scope, element, attrs) {
+            Holder.run(element);
+        }
+    };
+}]);
 

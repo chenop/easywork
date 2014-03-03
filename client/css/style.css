@@ -1,4 +1,4 @@
-.navbar .nav> li > a.brand {
+.navbar .nav > li > a.brand {
     padding-left: 20px;
     margin-left: 0;
 }
@@ -11,18 +11,9 @@
     margin-bottom: 0;
 }
 
-
-[class*="col-"] {
-    padding-right: 0px;
-    padding-left: 0px;
-    /*padding-top: 15px;*/
-    /*padding-bottom: 15px;*/
-}
-
 .experience {
     padding: 0;
 }
-
 
 .content {
     width: 100%;
@@ -30,22 +21,22 @@
 }
 
 footer {
-    position:fixed;
-    left:0px;
-    bottom:0px;
-    height:30px;
-    width:100%;
-    background:#ddd;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    height: 30px;
+    width: 100%;
+    background: #ddd;
     -webkit-box-shadow: 0 8px 6px 6px black;
     -moz-box-shadow: 0 8px 6px 6px black;
     box-shadow: 0 8px 6px 6px black;
 }
-footer p{
+
+footer p {
     padding: 5px 0 12px 10px;
 }
 
-.navlist li
-{
+.navlist li {
     display: inline;
     list-style-type: none;
 }
@@ -61,7 +52,7 @@ body {
 
 .select2 {
     direction: ltr;
-    padding: 10px 5px 10px  5px;
+    /*padding: 10px 5px 10px  5px;*/
 }
 
 /* Overriding select2 settings */
@@ -93,7 +84,7 @@ body {
     width: 100px;
 }
 
-.address, .domain{
+.address, .domain {
     max-height: 10px;
 }
 
@@ -109,27 +100,30 @@ body {
 
 .my-drop-zone.dragover {
     border: dashed 3px lightgreen;
-    color:green;
+    color: green;
 }
 
 .file-upload-container {
     padding-right: 0px;
 }
+
 .upload-button {
     padding-top: 5px;
 }
+
 .table-hover > tbody > tr:hover > td {
     background-color: rgba(54, 25, 25, .1);
 }
 
 .form {
-    border:2px solid white;
-    border-radius:10px;
-    box-shadow:0 0 3px #AAA;
-    width:150px;
-    background:#CCC;
-    margin:10px auto;padding:10px;
-    overflow:auto;
+    border: 2px solid white;
+    border-radius: 10px;
+    box-shadow: 0 0 3px #AAA;
+    width: 150px;
+    background: #CCC;
+    margin: 10px auto;
+    padding: 10px;
+    overflow: auto;
 }
 
 textarea.cv-message {
@@ -161,49 +155,49 @@ textarea.cv-message {
 
 @keyframes enter-left {
     from {
-        z-index:100;
-        left:100%;
-        opacity:0;
+        z-index: 100;
+        left: 100%;
+        opacity: 0;
     }
     to {
-        left:0;
-        opacity:1;
+        left: 0;
+        opacity: 1;
     }
 }
 
 @keyframes leave-left {
     from {
-        z-index:101;
-        left:0;
-        opacity:1;
+        z-index: 101;
+        left: 0;
+        opacity: 1;
     }
     to {
-        left:-100%;
-        opacity:0;
+        left: -100%;
+        opacity: 0;
     }
 }
 
 @-webkit-keyframes enter-left {
     from {
-        z-index:100;
-        left:100%;
-        opacity:0;
+        z-index: 100;
+        left: 100%;
+        opacity: 0;
     }
     to {
-        left:0;
-        opacity:1;
+        left: 0;
+        opacity: 1;
     }
 }
 
 @-webkit-keyframes leave-left {
     from {
-        z-index:101;
-        left:0;
-        opacity:1;
+        z-index: 101;
+        left: 0;
+        opacity: 1;
     }
     to {
-        left:-100%;
-        opacity:0;
+        left: -100%;
+        opacity: 0;
     }
 }
 
@@ -220,49 +214,49 @@ textarea.cv-message {
 
 @keyframes enter-right {
     from {
-        z-index:100;
-        right:100%;
-        opacity:0;
+        z-index: 100;
+        right: 100%;
+        opacity: 0;
     }
     to {
-        right:0;
-        opacity:1;
+        right: 0;
+        opacity: 1;
     }
 }
 
 @keyframes leave-right {
     from {
-        z-index:101;
-        right:0;
-        opacity:1;
+        z-index: 101;
+        right: 0;
+        opacity: 1;
     }
     to {
-        right:-100%;
-        opacity:0;
+        right: -100%;
+        opacity: 0;
     }
 }
 
 @-webkit-keyframes enter-right {
     from {
-        z-index:100;
-        right:100%;
-        opacity:0;
+        z-index: 100;
+        right: 100%;
+        opacity: 0;
     }
     to {
-        right:0;
-        opacity:1;
+        right: 0;
+        opacity: 1;
     }
 }
 
 @-webkit-keyframes leave-right {
     from {
-        z-index:101;
-        right:0;
-        opacity:1;
+        z-index: 101;
+        right: 0;
+        opacity: 1;
     }
     to {
-        right:-100%;
-        opacity:0;
+        right: -100%;
+        opacity: 0;
     }
 }
 
@@ -287,4 +281,8 @@ textarea.cv-message {
     margin: 58px 10px 0px 0px;
     width: 149px;
     height: 49px;
+}
+
+.buttonHolder {
+    text-align: center;
 }

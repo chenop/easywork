@@ -8,9 +8,9 @@ var express = require('express')
 	, users = require('./server/api/users')
 	, mail = require('./server/mail')
 	, companies = require('./server/api/companies')
-	, MongoStore = require('connect-mongostore')(express)
+//	, MongoStore = require('connect-mongostore')(express)
 	, mongoose = require('mongoose')
-	, flash = require('connect-flash');
+//	, flash = require('connect-flash');
 
 require('./server/pass.js')(passport, LocalStrategy);
 
@@ -32,7 +32,7 @@ app.use(express.bodyParser({uploadDir:'.\\uploads'}));
 //app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.session({secret: 'zipori'}));
-app.use(flash());
+//app.use(flash());
 //app.use(express.session({
 //	store: new MongoStore({'db': 'sessions'}),
 //	secret: 'zipori'
