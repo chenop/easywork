@@ -29,43 +29,52 @@
                     <!---->
                     <!--</div>-->
 
-                    <div class="row">
-                        <div class="col-sm-5 col-md-5">
+                    <div class="row-fluid">
+                        <!--<h1>{{selected_technologies}}</h1>-->
+                        <div class="col-sm-4 col-md-3">
                             <div class="select2" ng-show="appManager.shouldDisplaySearchBarInHeader()">
-                                <select ui-select2="addresses_select2Options" multiple ng-model="selected_addresses"
+                                <select ui-select2="areas_select2Options" multiple ng-model="appManager.selectedAreas"
                                         data-placeholder="Pick an area">
-                                    <option ng-repeat="address in list_of_addresses" value="{{address}}">{{address}}
+                                    <option ng-repeat="area in areas" value="{{area}}">{{area}}
                                     </option>
                                 </select>
                             </div>
                         </div>
 
-                        <div class="col-sm-5 col-md-5">
+                        <div class="col-sm-4 col-md-3">
                             <div class="select2" ng-show="appManager.shouldDisplaySearchBarInHeader()">
-                                <select ui-select2="domains_select2Options" multiple ng-model="selected_domains"
-                                        data-placeholder="Pick a domain">
-                                    <option ng-repeat="domain in list_of_domains" value="{{domain}}">{{domain}}</option>
+                                <select ui-select2="technologies_select2Options" multiple ng-model="appManager.selectedTechnologies"
+                                        data-placeholder="Pick a technology">
+                                    <option ng-repeat="technology in technologies" value="{{technology}}">{{technology}}</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="col-sm-2 col-md-2">
-                            <ul class="nav navbar-nav navbar-left" ng-hide="authService.isAuthenticated()">
-                                <li><a href="/signup/">Register</a></li>
-                                <li class="divider-vertical"></li>
-                                <li><a href="/login">LogIn</a></li>
-                            </ul>
-                            <ul class="nav navbar-nav navbar-left ng-hide" ng-show="authService.isAuthenticated()">
-                                <li class="dropdown">
+                            <button class="btn-lg" ng-show="appManager.shouldDisplaySearchBarInHeader()" id="small-search-button"
+                                    ng-click="search()" ng-class="{'btn-disabled':shouldDisableSend(), 'btn-primary':!shouldDisableSend()}"
+                                    ng-disabled="shouldDisableSend()">{{sendButtonLabel}}
+                            </button>
+                        </div>
+
+                        <div class="col-sm-2 col-md-2">
+                            <div class="nav navbar-nav navbar-left" ng-hide="authService.isAuthenticated()">
+                                <div><a href="/signup/">Register</a></div>
+                                <div class="divider-vertical"></div>
+                                <div><a href="/login">LogIn</a></div>
+                            </div>
+                            <div class="nav navbar-nav navbar-left " ng-show="authService.isAuthenticated()">
+                                <div class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         {{user.username}}<b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="/user_details">Details</a></li>
+                                        <li><a href="/user_details">My Details</a></li>
+                                        <li><a href="/company">My Company</a></li>
                                         <li><a href="" ng-click="logout()">Logout</a></li>
                                     </ul>
-                                </li>
-                            </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

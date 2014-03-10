@@ -7,19 +7,20 @@
  */
 
 var mongoose = require('mongoose')
-	, Schema = mongoose.Schema;
+    , Schema = mongoose.Schema;
 
 var userSchema = new Schema({
-	email: String,
-	name: String,
-	username: String,
-	password: String,
-	experience: String,
-	fileName: String
+    email: String
+    , name: String
+    , username: String
+    , password: String
+    , experience: String
+    , fileName: String
+    , companyId: String
 });
 
-userSchema.methods.validPassword = function( pwd ) {
-	return ( this.password === pwd );
+userSchema.methods.validPassword = function (pwd) {
+    return ( this.password === pwd );
 };
 
 module.exports = mongoose.model('User', userSchema);

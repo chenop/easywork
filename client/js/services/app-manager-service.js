@@ -1,24 +1,29 @@
 'use strict';
 
+var SEARCH_BUTTON_STR = 'חפש';
+
 angular.module('easywork.services.appManager', [])
-	.factory('appManager', function ($location) {
+	.factory('appManager', function () {
 
-//		$scope.animate_direction = 'rtl';
-
-//		$scope.isRTL = function () {
-//			return $scope.animate_direction === 'rtl';
-//		}
-//
-//		$scope.isLTR = function () {
-//			return $scope.animate_direction === 'ltr';
-//		}
-//
-//		$scope.go = function (path, direction) {
-//			$scope.animate_direction = direction;
-//			$location.path(path);
-//		}
-
+        var selection = [];
+        var selectedTechnologies = [];
+        var selectedAreas = [];
+        var disableSend = false;
 		var displaySearchBarInHeader = true;
+
+
+
+        var getSelectionCount = function() {
+            return selection.length;
+        }
+
+        var getSelection = function() {
+            return selection;
+        }
+
+        var setSelection = function(newSelection) {
+            selection = newSelection;
+        }
 
 		var setDisplaySearchBarInHeader = function(disp1) {
 			displaySearchBarInHeader = disp1;
@@ -29,8 +34,14 @@ angular.module('easywork.services.appManager', [])
 		}
 
 		return {
-			shouldDisplaySearchBarInHeader: shouldDisplaySearchBarInHeader,
-			setDisplaySearchBarInHeader: setDisplaySearchBarInHeader
+			shouldDisplaySearchBarInHeader: shouldDisplaySearchBarInHeader
+			, setDisplaySearchBarInHeader: setDisplaySearchBarInHeader
+            , getSelectionCount: getSelectionCount
+            , selectedTechnologies: selectedTechnologies
+            , selectedAreas: selectedAreas
+            , getSelection: getSelection
+            , setSelection: setSelection
+            , disableSend: disableSend
 		}
 	}
 );

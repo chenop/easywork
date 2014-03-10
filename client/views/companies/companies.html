@@ -1,45 +1,4 @@
 <div data-ng-controller="CompanyListCtrl">
-
-    <!-- Controls-->
-    <!--<div class="row">-->
-        <!--<div class="col-md-1">-->
-
-        <!--</div>-->
-        <!--<div class="col-md-4">-->
-            <!--<h3>איזור</h3>-->
-
-            <!--<div class="select2">-->
-                <!--<select ui-select2="addresses_select2Options" multiple ng-model="selected_addresses"-->
-                        <!--data-placeholder="Pick an area">-->
-                    <!--<option ng-repeat="address in list_of_addresses" value="{{address}}">{{address}}</option>-->
-                <!--</select>-->
-            <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="col-md-4">-->
-            <!--<h3>תחום</h3>-->
-
-            <!--<div class="select2">-->
-                <!--<select ui-select2="domains_select2Options" multiple ng-model="selected_domains"-->
-                        <!--data-placeholder="Pick a domain">-->
-                    <!--<option ng-repeat="domain in list_of_domains" value="{{domain}}">{{domain}}</option>-->
-                <!--</select>-->
-            <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="col-md-2">-->
-            <!--<button class="btn-lg" id="send-button" ng-click="sendCV()"-->
-                    <!--ng-class="{'btn-disabled':disableSend, 'btn-primary':!disableSend}"-->
-                    <!--ng-disabled="disableSend">{{sendButtonLabel}}-->
-                <!--</button>-->
-        <!--</div>-->
-
-        <!--<div class="col-md-1">-->
-
-        <!--</div>-->
-    <!--</div>-->
-
-
     <div class="row">
 
         <div class="col-md-12">
@@ -51,8 +10,8 @@
                         <th><input type="checkbox" ng-model="shouldSelectAll" ng-click="selectAll($event)"></th>
                         <th class="logo">Logo</th>
                         <th>Name</th>
-                        <th>Address</th>
-                        <th>Domains</th>
+                        <th>City</th>
+                        <th>Technologies</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -69,13 +28,14 @@
                             <a href="#/phones/{{company.id}}/{{company.details}}">{{company.name}}</a>
                         </td>
                         <td>
-                            <ul ng-repeat="adr in company.addresses" class="address">
-                                <li>{{adr}}</li>
-                            </ul>
+                            {{company.city}}
+                            <!--<ul ng-repeat="adr in company.addresses" class="address">-->
+                                <!--<li>{{adr}}</li>-->
+                            <!--</ul>-->
                         </td>
                         <td>
-                            <ul ng-repeat="domain in company.domains" class="domain">
-                                <li>{{domain}}</li>
+                            <ul ng-repeat="technology in company.technologies" class="technology">
+                                <li>{{technology}}</li>
                             </ul>
                         </td>
                     </tr>
@@ -85,10 +45,4 @@
         </div>
 
     </div>
-
-
-    <!--<div class="row col-md-3 col-centered">-->
-    <!--<a class="btn btn-large btn-primary btn-block" href="/companies">בואו נתחיל<i-->
-    <!--class="glyphicon glyphicon-arrow-left"/></a>-->
-    <!--</div>-->
 </div>

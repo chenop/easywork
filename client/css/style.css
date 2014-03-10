@@ -13,6 +13,7 @@
 
 .experience {
     padding: 0;
+    direction: ltr;
 }
 
 .content {
@@ -52,7 +53,7 @@ body {
 
 .select2 {
     direction: ltr;
-    /*padding: 10px 5px 10px  5px;*/
+    padding: 10px 5px 10px  5px;
 }
 
 /* Overriding select2 settings */
@@ -84,7 +85,7 @@ body {
     width: 100px;
 }
 
-.address, .domain {
+.address, .technology {
     max-height: 10px;
 }
 
@@ -277,10 +278,17 @@ textarea.cv-message {
     margin: 0 auto;
 }
 
-#send-button {
-    margin: 58px 10px 0px 0px;
+#search-button {
+    margin: 58px 0px 0px 0px;
     width: 149px;
     height: 49px;
+}
+
+#small-search-button {
+    padding: 0px 0px 0px 0px;
+    margin: 7px 0px 0px 0px;
+    width: 120px;
+    height: 39px;
 }
 
 .buttonHolder {

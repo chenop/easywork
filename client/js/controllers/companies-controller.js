@@ -11,39 +11,17 @@ companiesController.controller('CompanyListCtrl', ['$scope', '$http', 'mailServi
 
 		appManager.setDisplaySearchBarInHeader(true);
 
-		$scope.disableSend = false;
+		appManager.disableSend = false;
 
 		$scope.title = "Companies List";
-
-		// selected addresses
-		$scope.selected_addresses = [];
-
-		$scope.list_of_addresses = ['North', 'Haifa', 'Yoqneaam', 'Migdal Haeemek', 'Center', 'Tel Aviv', 'Rosh Haain'];
-		$scope.addresses_select2Options = {
-			'multiple': true
-		};
-
-		// selected domains
-		$scope.selected_domains = [];
-
-		$scope.list_of_domains = ['Java', 'C#', 'Web', 'UI', 'GUI', 'AngularJS', 'HTML', 'CSS', 'C++'];
-		$scope.domains_select2Options = {
-			'multiple': true
-		};
 
 		$scope.$watch('companies|filter:{selected:true}', function (nv) {
 			if (nv == undefined)
 				return;
-			$scope.selection = nv.map(function (company) {
+			var selection = nv.map(function (company) {
 				return company;
 			});
-
-			// Update send button label
-//			$scope.disableSend = $scope.selection.length == 0;
-			$scope.sendButtonLabel = SEND_BUTTON_STR;
-			if ($scope.selection.length > 0) {
-				$scope.sendButtonLabel += ' (' + $scope.selection.length + ' משרות)';
-			}
+            appManager.setSelection(selection);
 		}, true);
 
 // watch the selectAll checkBox for changes
@@ -56,7 +34,7 @@ companiesController.controller('CompanyListCtrl', ['$scope', '$http', 'mailServi
 		}, true);
 
 		$scope.isRelevant = function (company) {
-			return (superbag(company.addresses, $scope.selected_addresses) && superbag(company.domains, $scope.selected_domains));
+			return (superbag(company.addresses, appManager.selectedAreas) && superbag(company.technologies, appManager.selectedTechnologies));
 		};
 
 		// TODO - This check can be optimize - like sorting alphabetically or do hash-mapping of first letter (hash['i'] -> ['Intel']'.
@@ -79,10 +57,10 @@ companiesController.controller('CompanyListCtrl', ['$scope', '$http', 'mailServi
 			return $http.get('/api/companies');
 		}
 
-		$scope.sendCV = function () {
-			console.log("sendCV, disable:" + $scope.disableSend);
+		$scope.search = function () {
+			console.log("search, disable:" + appManager.disableSend);
 
-			mailService.sendMail($scope.selection);
+			mailService.sendMail(appManager.selection);
 		}
 
 		$scope.toggleSelected = function(company) {

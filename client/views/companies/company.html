@@ -44,7 +44,7 @@
                             <select class="select2" id="cTechnologies"
                                     ui-select2="technologies_select2Options"
                                     multiple
-                                    ng-model="selected_technologies"
+                                    ng-model="company.technologies"
                                     data-placeholder="Java, Web, C#, C++">
                                 <option ng-repeat="technology in list_of_technologies" value="{{technology}}">
                                     {{technology}}
@@ -57,12 +57,49 @@
                     <div class="form-group">
                         <div class="col-sm-12 col-md-6">
                             <label for="cMail">Mail</label>
-                            <input type="text" class="form-control" ng-model="company.mail" id="cMail" name="cMail"
+                            <input type="text" class="form-control" ng-model="company.email" id="cMail" name="cMail"
                                    placeholder="Job's Mail"/>
                         </div>
                     </div>
                 </div>
+                <!--Angular-->
                 <div class="row-fluid">
+                    <h2>AngularJS</h2>
+
+                    <div class="form-group">
+                        <!--<div class="col-sm-12 col-md-12">-->
+
+                        <!--<div class="fileinput">-->
+                        <!--<div class="thumbnail" style="width: 200px; height: 150px;">-->
+                        <!--<img data-src="holder.js/100%x100%" alt="..." bs-holder>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="col-sm-3 col-md-3">
+
+                            <div class="fileUpload btn btn-default btn-file">Upload
+                                <input id="uploadBtn" type="file" class="upload"
+                                       ng-file-select="onImageSelect($files)"/>
+                            </div>
+
+
+                            <!--<input class="btn btn-default btn-file" ng-file-select type="file" multiple/>-->
+                            <!--<button ng-show="true" class="btn btn-default btn-file" ng-file-select="openFileDialog()">-->
+                            <!--Select Image-->
+                            <!--</button>-->
+                        </div>
+                        <div class="col-sm-9 col-md-9">
+                            <div ng-show="company.logoUrl">{{company.logoUrl}}</div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- JQuery -->
+
+                <div class="row-fluid">
+                    <h2>jQuery</h2>
+
                     <div class="form-group">
                         <div class="col-sm-12 col-md-6">
                             <div class="fileinput fileinput-new" data-provides="fileinput">
@@ -87,7 +124,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-group buttonHolder">
-                        <button class="btn-primary btn-lg" ng-click="updateCompany()">שמור</button>
+                        <button class="btn-primary btn-lg" ng-click="createUpdateCompany()">שמור</button>
                     </div>
                 </div>
             </form>

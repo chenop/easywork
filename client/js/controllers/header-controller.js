@@ -1,22 +1,43 @@
 'use strict';
 
-angular.module('easywork.controllers.header', ['easywork.services.auth', 'easywork.services.appManager'])
-	.controller('headerController', ['$scope', 'authService', 'appManager', function($scope, authService, appManager) {
-		$scope.isError = false;
+var SEND_BUTTON_STR = 'שלח';
 
-		$scope.user = authService.getActiveUser();
+angular.module('easywork.controllers.header', ['easywork.services.auth',
+        'easywork.services.appManager', 'easywork.services.dataManager'])
+    .controller('headerController', ['$scope', 'authService', 'appManager', 'dataManager',
+        function ($scope, authService, appManager, dataManager) {
+            $scope.isError = false;
+            $scope.user = authService.getActiveUser();
+            $scope.authService = authService;
+            $scope.dataManager = dataManager;
+            $scope.appManager = appManager;
 
-		$scope.authService = authService;
+            dataManager.getFiltersData()
+                .success(function (result) {
+                    $scope.areas = result.areas;
+                    $scope.technologies = result.technologies;
+                }
+            );
 
-		$scope.appManager = appManager;
-		$scope.logout = function() {
-			authService.logOut();
-		}
+            $scope.shouldDisableSend = function() {
+                return appManager.getSelectionCount() == 0;
+            }
 
-		$scope.selected_domains = [];
+            $scope.technologies_select2Options = dataManager.getTechnologiesSelect2Options();
+            $scope.areas_select2Options = dataManager.getAreasSelect2Options();
 
-		$scope.list_of_domains = ['Java', 'C#', 'Web', 'UI', 'GUI', 'AngularJS', 'HTML', 'CSS', 'C++'];
-		$scope.domains_select2Options = {
-			'multiple': true
-		};
-	}])
+            $scope.logout = function () {
+                authService.logOut();
+            }
+
+            $scope.$watch('appManager.getSelection()', function () {
+
+                // Update send button label
+                $scope.sendButtonLabel = SEND_BUTTON_STR;
+                if (appManager.getSelectionCount() > 0) {
+                    $scope.sendButtonLabel += ' (' + appManager.getSelectionCount()  + ' משרות)';
+                }
+            }, true);
+
+        }
+    ])

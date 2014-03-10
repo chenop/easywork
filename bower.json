@@ -26,6 +26,7 @@
     "bootstrap-rtl": "~0.9.5",
     "json3": "~3.2.4",
     "ng-file-upload": "~1.2.7",
-    "angular-route": "1.2.0-rc.1"
+    "angular-route": "1.2.0-rc.1",
+    "jasny-bootstrap": "~3.1.0"
   }
 }

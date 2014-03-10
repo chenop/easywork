@@ -50,11 +50,14 @@ exports.login = function (req, res, next) {
 				return res.send(err);
 			}
 			res.cookie('user', JSON.stringify({
-				'username': user.username,
-				'email': user.email,
-				'id': user.id,
-				'fileName': user.fileName,
-				'pathName' : user.pathname
+				'username': user.username
+				, 'email': user.email
+				, 'street': user.street
+                , 'experience': user.experience
+				, 'id': user.id
+				, 'fileName': user.fileName
+				, 'pathName' : user.pathname
+                , 'companyId': user.companyId
 			}));
 			return res.send(200);
 
