@@ -29,7 +29,7 @@ exports.sendMail = function (req, res) {
 	}
 
 	function sendMail(user) {
-		var appDir = path.dirname(require.main.filename) + '\\uploads\\';
+		var appDir = path.dirname(require.main.filename) + '\\images\\';
 
 		var smtpTransport = nodemailer.createTransport("SMTP", {
 //			service: "Gmail",

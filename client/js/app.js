@@ -7,18 +7,18 @@ var app = angular.module('easywork',
 		, 'easywork.controllers.header'
 		, 'easywork.services.auth'
 		, 'easywork.controllers.home'
-		, 'easywork.controllers.login'
 		, 'easywork.controllers.signup'
 		, 'easywork.controllers.company'
 		, 'companyListModule'
 		, 'userDetailsModule'
-		, 'ui.bootstrap', 'ngRoute', 'ngAnimate']
+        , 'ngRoute', 'ngAnimate']
 );
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 	function ($routeProvider, $locationProvider, $httpProvider) {
 		$routeProvider
 			.when('/', { templateUrl: '/views/home.html'})
+			.when('/test', { templateUrl: '/views/users/login.html' })
 			.when('/login', { templateUrl: '/views/users/login.html' })
 			.when('/signup', { templateUrl: '/views/users/signup.html' })
 			.when("/company", { templateUrl: '/views/companies/company.html' })

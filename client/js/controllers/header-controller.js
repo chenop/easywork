@@ -3,9 +3,9 @@
 var SEND_BUTTON_STR = 'שלח';
 
 angular.module('easywork.controllers.header', ['easywork.services.auth',
-        'easywork.services.appManager', 'easywork.services.dataManager'])
-    .controller('headerController', ['$scope', 'authService', 'appManager', 'dataManager',
-        function ($scope, authService, appManager, dataManager) {
+        'easywork.services.appManager', 'easywork.services.dataManager', 'ui.bootstrap'])
+    .controller('headerController', ['$scope', 'authService', 'appManager', 'dataManager', '$modal', '$location',
+        function ($scope, authService, appManager, dataManager, $modal, $location) {
             $scope.isError = false;
             $scope.user = authService.getActiveUser();
             $scope.authService = authService;
@@ -19,6 +19,32 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
                 }
             );
 
+            $scope.send = function() {
+                if (!authService.isAuthenticated()) {
+                    $scope.openLoginDialog();
+                }
+            }
+
+            $scope.message = "Wow!";
+            $scope.openLoginDialog = function() {
+
+                var modalInstance = $modal.open({
+                    templateUrl: '/views/users/login.html',
+                    controller: 'loginCtrl'
+//                resolve: {
+//                    items: function () {
+//                        return $scope.items;
+//                    }
+//                }
+                });
+
+                modalInstance.result.then(function (username) {
+                    $log.info('User: ' + username);
+                }, function () {
+                    $log.info('Modal dismissed at: ' + new Date());
+                });
+            }
+
             $scope.shouldDisableSend = function() {
                 return appManager.getSelectionCount() == 0;
             }
@@ -27,7 +53,10 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
             $scope.areas_select2Options = dataManager.getAreasSelect2Options();
 
             $scope.logout = function () {
-                authService.logOut();
+                authService.logOut()
+                    .success(function(data) {
+                        $location.path('/');
+                    });
             }
 
             $scope.$watch('appManager.getSelection()', function () {

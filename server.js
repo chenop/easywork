@@ -23,13 +23,17 @@ var log = function (message) {
 
 log("Trying to connect to db...");
 mongoose.connect("mongodb://localhost/db");
+mongoose.connection.on('error', function() {
+    log("Cant connect to MongoDB - please verify that it was started.")
+});
+
 log("Begin server.js");
 
 var clientDir = path.join(__dirname, 'client')
 app.set('port', process.env.PORT || 3000)
 app.use(express.static(clientDir))
 app.use(express.cookieParser());
-app.use(express.bodyParser({uploadDir:'.\\uploads'}));
+app.use(express.bodyParser({uploadDir:'.\\images\\'}));
 //app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.session({secret: 'zipori'}));

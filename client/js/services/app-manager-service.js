@@ -11,8 +11,6 @@ angular.module('easywork.services.appManager', [])
         var disableSend = false;
 		var displaySearchBarInHeader = true;
 
-
-
         var getSelectionCount = function() {
             return selection.length;
         }
