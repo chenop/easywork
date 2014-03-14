@@ -38,7 +38,7 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
                 });
 
                 modalInstance.result.then(function (username) {
-                    console.log('User: ' + username);
+                    console.log('User: ' + username + ' has logged in');
                 }, function () {
                     console.log('Modal dismissed at: ' + new Date());
                 });

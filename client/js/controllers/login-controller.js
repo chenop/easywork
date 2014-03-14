@@ -28,7 +28,9 @@ angular.module('easywork.controllers.header')
                 function () {
                     authService.setAuthenticate(true);
                     $modalInstance.close(user.username);
-                    $scope.apply();
+                    if(!$scope.$$phase) { // If digest not in progress
+                        $scope.$apply();
+                    }
                 }
             ).error(
                 function (err) {
