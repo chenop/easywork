@@ -25,7 +25,6 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
                 }
             }
 
-            $scope.message = "Wow!";
             $scope.openLoginDialog = function() {
 
                 var modalInstance = $modal.open({
@@ -39,9 +38,9 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
                 });
 
                 modalInstance.result.then(function (username) {
-                    $log.info('User: ' + username);
+                    console.log('User: ' + username);
                 }, function () {
-                    $log.info('Modal dismissed at: ' + new Date());
+                    console.log('Modal dismissed at: ' + new Date());
                 });
             }
 
@@ -69,4 +68,4 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
             }, true);
 
         }
-    ])
+    ]);
