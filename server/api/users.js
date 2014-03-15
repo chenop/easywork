@@ -49,16 +49,7 @@ exports.login = function (req, res, next) {
 			if (err) {
 				return res.send(err);
 			}
-			res.cookie('user', JSON.stringify({
-				'username': user.username
-				, 'email': user.email
-				, 'street': user.street
-                , 'experience': user.experience
-				, 'id': user.id
-				, 'fileName': user.fileName
-				, 'pathName' : user.pathname
-                , 'companyId': user.companyId
-			}));
+            prepareCookie(res, user);
 			return res.send(200);
 
 		});
@@ -130,26 +121,40 @@ exports.updateUser = function (req, res) {
 	});
 };
 
-exports.signup = function (req, res) {
-	console.log("signup server");
-	var user = new User(
-		{
-			email: req.body.email,
-			username: req.body.username,
-			password: req.body.password,
-			experience: req.body.experience
+function prepareCookie(res, user) {
+    res.cookie('user', JSON.stringify({
+        'username': user.username
+        , 'email': user.email
+        , 'street': user.street
+        , 'experience': user.experience
+        , 'id': user.id
+        , 'fileName': user.fileName
+        , 'pathName': user.pathname
+        , 'companyId': user.companyId
+    }));
+}
+exports.register = function (req, res) {
+    var user = new User(
+        {
+//			email: req.body.email,
+            name: req.body.name
+			, username: req.body.username
+			, password: req.body.password
+//			experience: req.body.experience
 		}
 	);
-	user.save(function (err) {
+    console.log("signup of user: " + user.username);
+    return user.save(function (err) {
 		if (err) // ...
 			console.log('meow');
 		else {
 			req.login(user, function (err) {
-				if (err) {
-					console.log(err);
-				}
-				return res.redirect('/');
-			});
+                if (err) {
+                    return res.send(err);
+                }
+                prepareCookie(res, user);
+                return res.send(200);
+ 			});
 		}
 	});
 }

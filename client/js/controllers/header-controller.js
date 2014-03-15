@@ -44,6 +44,25 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
                 });
             }
 
+            $scope.openRegisterDialog = function() {
+
+                var modalInstance = $modal.open({
+                    templateUrl: '/views/users/register.html',
+                    controller: 'registerCtrl'
+//                resolve: {
+//                    items: function () {
+//                        return $scope.items;
+//                    }
+//                }
+                });
+
+                modalInstance.result.then(function (username) {
+                    console.log('User: ' + username + ' has been registered');
+                }, function () {
+                    console.log('Modal dismissed at: ' + new Date());
+                });
+            }
+
             $scope.shouldDisableSend = function() {
                 return appManager.getSelectionCount() == 0;
             }

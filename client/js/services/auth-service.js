@@ -22,6 +22,15 @@ angular.module('easywork.services.auth', ['ngCookies'])
 			return null;
 		}
 
+        var register = function (user) {
+
+            return $http({
+                method: 'POST',
+                url: '/api/signup',
+                data: user
+            });
+        };
+
 		var logIn = function (user) {
 
 			return $http({
@@ -38,10 +47,11 @@ angular.module('easywork.services.auth', ['ngCookies'])
 		};
 
 		return {
-			logIn: logIn,
-			logOut: logOut,
-			isAuthenticated: isAuthenticated,
-			setAuthenticate: setAuthenticate,
-			getActiveUser: getActiveUser
+            register: register
+			, logIn: logIn
+			, logOut: logOut
+			, isAuthenticated: isAuthenticated
+			, setAuthenticate: setAuthenticate
+			, getActiveUser: getActiveUser
 		}
 	});

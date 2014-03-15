@@ -7,7 +7,6 @@ var app = angular.module('easywork',
 		, 'easywork.controllers.header'
 		, 'easywork.services.auth'
 		, 'easywork.controllers.home'
-		, 'easywork.controllers.signup'
 		, 'easywork.controllers.company'
 		, 'companyListModule'
 		, 'userDetailsModule'
