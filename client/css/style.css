@@ -294,3 +294,11 @@ textarea.cv-message {
 .align-center {
     text-align: center;
 }
+
+.no-padding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.header-actions {
+    padding: 15px 5px 5px 5px;
+}
