@@ -56,7 +56,8 @@
                             <div ng-show="authService.isAuthenticated()">
                                 <div class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        {{user.username}}<b class="caret"></b>
+                                        {{authService.getActiveUser().username}}
+                                        <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="/user_details">My Details</a></li>

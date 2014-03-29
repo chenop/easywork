@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-sm-12">
+        <form name="form" class="form-horizontal col-sm-12 align-center" novalidate>
+            <div class="form-group">
+                <label>PlaceHolder - Register with Facebook</label>
+            </div>
+
+            <div class="form-group">
+                <label>PlaceHolder - Register with Google</label>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Name</label>
+                <input class="col-sm-10" type="text" ng-model="name" name="uName"/>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Username</label>
+                <input class="col-sm-10" type="text" ng-model="username" name="uUsername"/>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Password</label>
+                <input class="col-sm-10" type="password" ng-model="password" name="password"/>
+            </div>
+
+            <div class="form-group">
+                <button class="btn-primary btn-lg" ng-click="register()">הרשמה</button>
+                <button class="btn-default btn-lg" ng-click="cancel()">חזרה</button>
+                <input type="checkbox" ng-model="rememberMe">Remember Me
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="row-fluid">
+        <!--TODO Trying to position the logo in the middle-->
+        <div class="col-xs-3 col-md-3">
+            <img ng-src="{{company.logoUrl}}" class="logo"/>
+        </div>
+        <div class="col-xs-9 col-md-9">
+            <h3>{{job.title}}</h3>
+            <button class="btn btn-primary">
+                Apply
+            </button>
+        </div>
+    </div>
+    <hr>
+    <div class="row-fluid">
+        <div class="col-xs-12 col-md-12">
+            <h3>פרטים</h3>
+            {{job.description}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="align-center">
+            <button class="btn btn-default" ng-click="close()">סגור</button>
+        </div>
+    </div>
+</div>
+

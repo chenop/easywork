@@ -1,36 +1,38 @@
 'use strict';
 
 angular.module('easywork.controllers.header')
-    .controller('loginCtrl', function ($scope, authService, $modalInstance) {
+    .controller('registerCtrl', function ($scope, authService, $modalInstance) {
 
-        $scope.input = {};
-        $scope.input.username = null;
-        $scope.input.password = null;
-        $scope.input.rememeberMe = null;
-        $scope.input.err = undefined;
+        $scope.name = null;
+        $scope.username = null;
+        $scope.password = null;
+        $scope.rememeberMe = null;
+        $scope.err = undefined;
 
         $scope.cancel = function () {
             $modalInstance.dismiss('canceled');
         }; // end cancel
 
-        $scope.hitEnter = function ($event) {
-            if (angular.equals($event.keyCode, 13) && !(angular.equals($scope.input.username, null) || angular.equals($scope.input.username, '')))
-                $scope.login();
+        $scope.hitEnter = function (evt) {
+            if (angular.equals(evt.keyCode, 13) && !(angular.equals($scope.username, null) || angular.equals($scope.username, '')))
+                $scope.register();
         }; // end hitEnter
 
-        $scope.login = function () {
+        $scope.register = function () {
+
             var user = {
-                username: $scope.input.username,
-                password: $scope.input.password
+                name: this.name,
+                username: this.username,
+                password: this.password
             }
 
-            authService.logIn(user)
+            authService.register(user)
                 .success(
                 function () {
                     authService.setAuthenticate(true);
                     $modalInstance.close(user.username);
                     if(!$scope.$$phase) { // If digest not in progress
-                        $scope.$apply();
+                        $scope.$apply(); // Apply
                     }
                 }
             ).error(

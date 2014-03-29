@@ -12,6 +12,7 @@
                         <th>Name</th>
                         <th>City</th>
                         <th>Technologies</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -22,7 +23,7 @@
                         </td>
                         <td>
                             <a href="#/phones/{{company.id}}/{{company.details}}"><img
-                                    ng-src="{{company.logoUrl}}" class="logo"></a>
+                                    ng-src="{{company.logoUrl}}" class="logo"/></a>
                         </td>
                         <td>
                             <a href="#/phones/{{company.id}}/{{company.details}}">{{company.name}}</a>
@@ -37,6 +38,9 @@
                             <ul ng-repeat="technology in company.technologies" class="technology">
                                 <li>{{technology}}</li>
                             </ul>
+                        </td>
+                        <td>
+                            <a href="#" ng-click="showDetails(company)">פרטים</a>
                         </td>
                     </tr>
                     </tbody>
