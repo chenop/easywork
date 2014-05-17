@@ -6,6 +6,7 @@ var app = angular.module('easywork',
 		'easywork.services.appManager'
 		, 'easywork.controllers.header'
 		, 'easywork.services.auth'
+		, 'easywork.controllers.dashboard'
 		, 'easywork.controllers.home'
 		, 'easywork.controllers.company'
 		, 'easywork.controllers.companies'
@@ -17,10 +18,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 	function ($routeProvider, $locationProvider, $httpProvider) {
 		$routeProvider
 			.when('/', { templateUrl: '/views/home.html'})
-			.when('/test', { templateUrl: '/views/companies/companies.html' })
+			.when('/test', { templateUrl: '/views/home.html' })
 			.when('/login', { templateUrl: '/views/users/login.html' })
 			.when('/signup', { templateUrl: '/views/users/signup.html' })
 			.when("/company", { templateUrl: '/views/companies/company.html' })
+			.when("/content_manager", { templateUrl: '/views/admin/dashboard.html' })
 			.when("/companies", { templateUrl: '/views/companies/companies.html' })
 			.when('/user_details', { templateUrl: '/views/users/details.html' })
 			.otherwise({ redirectTo: '/' });

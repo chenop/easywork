@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="col-xs-1 col-sm-1 col-md-1">
-                            <button class="btn-lg" ng-show="appManager.shouldDisplaySearchBarInHeader()"
+                            <button class="btn btn-lg" ng-show="appManager.shouldDisplaySearchBarInHeader()"
                                     id="small-search-button"
                                     ng-click="send()"
                                     ng-class="{'btn-disabled':shouldDisableSend(), 'btn-primary':!shouldDisableSend()}"
@@ -62,6 +62,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="/user_details">My Details</a></li>
                                         <li><a href="/company">My Company</a></li>
+                                        <li><a href="/content_manager">Content Manager</a></li>
                                         <li><a href="" ng-click="logout()">Logout</a></li>
                                     </ul>
                                 </div>

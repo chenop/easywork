@@ -5,14 +5,14 @@
     <title>Easy Work</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="./lib/bootstrap-rtl/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="./lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap RTL -->
     <link href="./lib/bootstrap-rtl/dist/css/bootstrap-rtl.css" rel="stylesheet">
 
     <!-- jasny-bootstrap used for file upload -->
     <link href="./lib/jasny-bootstrap/dist/css/jasny-bootstrap.min.css" rel="stylesheet" media="screen">
-    <!-- Application's CSS -->
+     <!--Application's CSS -->
     <link rel="stylesheet" href="./css/style.css"/>
 
 </head>
@@ -31,7 +31,7 @@
 <script src="./lib/bootstrap-rtl/dist/js/html5shiv.js"></script>
 <script src="./lib/bootstrap-rtl/dist/js/respond.min.js"></script>
 
-<script src="./lib/ng-file-upload/angular-file-upload-shim.min.js"></script>
+<!--<script src="./lib/ng-file-upload/angular-file-upload-shim.min.js"></script>-->
 
 <script src="./lib/angular/angular.js"></script>
 <script src="./lib/angular-cookies/angular-cookies.js"></script>
@@ -49,6 +49,10 @@
 <!--File Upload - jasny-bootstrap - Needed?-->
 <script src="./lib/jasny-bootstrap/dist/js/jasny-bootstrap.min.js"></script>
 
+<!-- Parsing CVs -->
+<script src="./lib/jszip/dist/jszip.js"></script>
+<script src="./lib/docx/docx.js"></script>
+
 <!--File Upload - nervgh -->
 <script src="./lib/ng-file-upload/angular-file-upload.js"></script>
 
@@ -60,6 +64,7 @@
 <script src="./js/controllers/companies-controller.js"></script>
 <script src="./js/controllers/company-controller.js"></script>
 <script src="./js/controllers/home-controller.js"></script>
+<script src="./js/controllers/dashboard-controller.js"></script>
 <script src="./js/controllers/user-details-controller.js"></script>
 <script src="./js/controllers/job-controller.js"></script>
 
@@ -69,5 +74,7 @@
 <script src="./js/services/data-manager-service.js"></script>
 <script src="./js/services/auth-service.js"></script>
 <script src="./js/services/mail-service.js"></script>
+<script src="./js/services/cv-parser.js"></script>
+<script src="./js/services/common-service.js"></script>
 </body>
 </html>

@@ -30,7 +30,6 @@ exports.getCompany = function (req, res) {
 }
 
 exports.createCompany = function (req, res) {
-    var userId = req.params.id;
     var newCompany = new Company(
         {
             name: req.body.name
@@ -42,27 +41,16 @@ exports.createCompany = function (req, res) {
             , technologies: req.body.technologies
         }
     );
-    return User.findById(userId, function (err, user) {
+    newCompany.save(function (err) {
         if (!err) {
-            user.companyId = newCompany.id;
-            user.save(function (err) {
-                if (!err) {
-                    newCompany.save(function (err) {
-                        if (err) // ...
-                            console.log('meow');
-                        else {
-                            console.log("company " + newCompany.name + " create in server")
-                            return res.redirect('/');
-                        }
-                    });
-                }
-            })
+            return console.log("company " + newCompany.name + " create in server")
+        } else {
+            console.log(err);
         }
-
-        return console.log(err);
     });
-
+    return res.send(newCompany);
 }
+
 exports.updateCompany = function (req, res) {
     return Company.findById(req.params.id, function (err, company) {
             company.name = req.body.name;
@@ -83,3 +71,15 @@ exports.updateCompany = function (req, res) {
         }
     )
 };
+
+exports.deleteCompany = function (req, res) {
+    return Company.findById(req.params.id, function (err, company) {
+        return company.remove(function (err) {
+            if (!err) {
+                return res.send(company);
+            } else {
+                console.log(err);
+            }
+        });
+    });
+}

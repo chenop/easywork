@@ -31,8 +31,8 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
                     templateUrl: '/views/users/login.html',
                     controller: 'loginCtrl'
 //                resolve: {
-//                    items: function () {
-//                        return $scope.items;
+//                    entities: function () {
+//                        return $scope.entities;
 //                    }
 //                }
                 });
@@ -50,8 +50,8 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
                     templateUrl: '/views/users/register.html',
                     controller: 'registerCtrl'
 //                resolve: {
-//                    items: function () {
-//                        return $scope.items;
+//                    entities: function () {
+//                        return $scope.entities;
 //                    }
 //                }
                 });

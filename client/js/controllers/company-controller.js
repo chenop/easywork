@@ -2,17 +2,31 @@
 
 
 var companyController = angular.module('easywork.controllers.company',
-    ['ui.select2', 'easywork.services.appManager', 'easywork.services.auth']);
+    ['ui.select2', 'easywork.services.appManager', 'easywork.services.dataManager', 'easywork.services.auth']);
 
-companyController.controller('CompanyCtrl', ['$scope', '$http', 'appManager', 'authService',
-    function ($scope, $http, appManager, authService) {
+companyController.controller('CompanyCtrl', ['$scope', '$http', 'appManager', 'dataManager', 'authService', '$q',
+    function ($scope, $http, appManager, dataManager, authService, $q) {
 
-        var activeUser = authService.getActiveUser();
-        if (activeUser.companyId !== undefined) {
-            getCompany(activeUser.companyId).then(function (result) {
-                $scope.company = result.data;
-            });
+        var activeCompanyId = appManager.getActiveEntityId();
+        if (activeCompanyId !== undefined) {
+            dataManager.getCompany(activeCompanyId).
+                success(function (result) {
+                    $scope.company = result.data;
+                }).
+                error(function (result) {
+                    $scope.company = {};
+                });
         }
+
+        appManager.addSelectionChangeListener(function (selectedEntity) {
+            dataManager.getCompany(selectedEntity._id).
+                success(function (data, status, header, config) {
+                    $scope.company = data;
+                }).
+                error(function (data, status, header, config) {
+                    $scope.company = {};
+                });
+        })
 
         // Technologies
         $scope.selected_technologies = [];
@@ -66,20 +80,19 @@ companyController.controller('CompanyCtrl', ['$scope', '$http', 'appManager', 'a
             console.log("logoUrl: " + $scope.company.logoUrl);
         };
 
+        // TODO sync between the entity name in the list and clicking the "save"
         $scope.createUpdateCompany = function () {
-            var activeUser = authService.getActiveUser();
-            if (activeUser.companyId == undefined) {
-                $http.post('./api/company/' + activeUser.id, $scope.company)
+            var activeCompanyId = appManager.getActiveEntityId();
+            if (activeCompanyId == undefined) {
+                dataManager.createCompany($scope.company.name)
                     .success(function () {
-                        printCompany();
                         $scope.message = "Company created successfully!";
                     }
                 );
             } else {
-                $http.put('./api/company/' + activeUser.companyId, $scope.company)
+                dataManager.updateCompany($scope.company)
                     .success(
                     function () {
-                        printCompany();
                         $scope.message = "Company updated successfully!";
                     }
                 );
@@ -90,14 +103,6 @@ companyController.controller('CompanyCtrl', ['$scope', '$http', 'appManager', 'a
             console.log("jquery - change.bs.fileinput")
             $scope.company.file = "something";
         });
-
-        function getCompanies() {
-            return $http.get('./api/companies');
-        }
-
-        function getCompany(id) {
-            return $http.get('./api/company/' + id);
-        }
     }
 ]
 );

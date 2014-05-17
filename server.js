@@ -33,7 +33,7 @@ var clientDir = path.join(__dirname, 'client')
 app.set('port', process.env.PORT || 3000)
 app.use(express.static(clientDir))
 app.use(express.cookieParser());
-app.use(express.bodyParser({uploadDir:'.\\images\\'}));
+app.use(express.bodyParser({uploadDir:'.\\resources\\cvs\\'}));
 //app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.session({secret: 'zipori'}));
@@ -52,14 +52,32 @@ app.post('/api/login', users.login)
 app.post('/api/logout', users.logout)
 app.post('/api/upload', users.upload)
 app.post('/api/signup', users.register)
-app.get('/api/user/:id', users.getUser)
-app.put('/api/user/:id', users.updateUser)
 app.post('/api/sendMail', mail.sendMail)
-app.get('/api/companies', companies.getCompanies)
-app.post('/api/company/:id', companies.createCompany)
-app.get('/api/company/:id', companies.getCompany)
-app.put('/api/company/:id', companies.updateCompany)
 app.get('/api/filtersData', dataProxy.getFiltersData)
+
+// Users
+app.get('/api/user/list', users.getUsers)
+app.get('/api/user/:id', users.getUser)
+app.post('/api/user', users.createUser)
+app.put('/api/user/:id', users.updateUser)
+app.delete('/api/user/:id', users.deleteUser)
+
+// Companies
+app.get('/api/company/list', companies.getCompanies)
+app.get('/api/company/:id', companies.getCompany)
+app.post('/api/company', companies.createCompany)
+app.put('/api/company/:id', companies.updateCompany)
+app.delete('/api/company/:id', companies.deleteCompany)
+
+// Jobs
+// TODO create jobs.js
+//app.get('/api/job/list', jobs.getJobs)
+//app.get('/api/job/:id', jobs.getJob)
+//app.post('/api/job', jobs.createJob)
+//app.put('/api/job/:id', jobs.updateJob)
+//app.delete('/api/job/:id', jobs.deleteJob)
+
+
 app.get('*', function (req, res) {
 	res.sendfile(path.join(clientDir, 'index.html'))
 })

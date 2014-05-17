@@ -17,6 +17,7 @@ var userSchema = new Schema({
     , experience: String
     , fileName: String
     , companyId: String
+    , skills: Object
 });
 
 userSchema.methods.validPassword = function (pwd) {

@@ -302,3 +302,18 @@ textarea.cv-message {
 .header-actions {
     padding: 15px 5px 5px 5px;
 }
+
+.ul {
+    /*width: 100%;*/
+    display: table;
+    table-layout: fixed; /* optional */
+}
+
+ul li {
+    display:inline;
+    /*width: auto;*/
+    /*text-align: center;*/
+}
+.remove-icon {
+    float: left;
+}

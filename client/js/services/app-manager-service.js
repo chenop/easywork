@@ -2,14 +2,15 @@
 
 var SEARCH_BUTTON_STR = 'חפש';
 
-angular.module('easywork.services.appManager', [])
-	.factory('appManager', function () {
+angular.module('easywork.services.appManager', ['easywork.services.auth'])
+	.factory('appManager', function (authService) {
 
         var selection = [];
         var selectedTechnologies = [];
         var selectedAreas = [];
         var disableSend = false;
 		var displaySearchBarInHeader = true;
+        var _selectedEntity;
 
         var getSelectionCount = function() {
             return selection.length;
@@ -31,6 +32,48 @@ angular.module('easywork.services.appManager', [])
 			return displaySearchBarInHeader;
 		}
 
+        var getActiveUserId = function() {
+            // TODO should be
+            // if (userRole == jobProvider)
+            //      return user.companyID
+            // else
+            //      return selectedEntity
+            // NOT SURE...
+            var activeUser = authService.getActiveUser();
+            if (activeUser !== undefined) {
+                return activeUser.id;
+            }
+        }
+
+        var getActiveEntityId = function() {
+            var selectedEntity = getSelectedEntity();
+            if (selectedEntity !== undefined && selectedEntity._id !== undefined) {
+                return selectedEntity._id;
+            }
+            return null;
+        }
+
+        var selectionChangeListeners = [];
+
+        var addSelectionChangeListener = function(listener) {
+            selectionChangeListeners.push(listener);
+        }
+
+        var fireSelectionChanged = function() {
+            angular.forEach(selectionChangeListeners, function(listener) {
+                listener(getSelectedEntity());
+            })
+        };
+
+        var setSelectedEntity = function(selectedEntity) {
+            _selectedEntity = selectedEntity;
+            fireSelectionChanged();
+        }
+
+		var getSelectedEntity = function() {
+            return _selectedEntity;
+        }
+
 		return {
 			shouldDisplaySearchBarInHeader: shouldDisplaySearchBarInHeader
 			, setDisplaySearchBarInHeader: setDisplaySearchBarInHeader
@@ -40,6 +83,12 @@ angular.module('easywork.services.appManager', [])
             , getSelection: getSelection
             , setSelection: setSelection
             , disableSend: disableSend
+            , getActiveEntityId: getActiveEntityId
+            , getActiveUserId: getActiveUserId
+            , setSelectedEntity: setSelectedEntity
+            , getSelectedEntity: getSelectedEntity
+            , addSelectionChangeListener: addSelectionChangeListener
+            , fireSelectionChanged: fireSelectionChanged
 		}
 	}
 );

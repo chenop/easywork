@@ -1,11 +1,15 @@
 'use strict';
 
 
-var companiesController = angular.module('easywork.controllers.companies', ['ui.select2', 'easywork.services.mail', 'easywork.services.appManager']);
+var companiesController = angular.module('easywork.controllers.companies', [
+    'ui.select2'
+    , 'easywork.services.mail'
+    , 'easywork.services.dataManager'
+    , 'easywork.services.appManager']);
 
-companiesController.controller('CompanyListCtrl', ['$scope', '$http', 'mailService', 'appManager', '$modal',
-    function ($scope, $http, mailService, appManager, $modal) {
-        getCompanies().then(function (result) {
+companiesController.controller('CompanyListCtrl', ['$scope', '$http', 'mailService', 'dataManager', 'appManager', '$modal',
+    function ($scope, $http, mailService, dataManager, appManager, $modal) {
+        dataManager.getCompanies().then(function (result) {
             $scope.companies = result.data;
         });
 
@@ -51,10 +55,6 @@ companiesController.controller('CompanyListCtrl', ['$scope', '$http', 'mailServi
                 }
             }
             return false;
-        }
-
-        function getCompanies() {
-            return $http.get('/api/companies');
         }
 
         $scope.search = function () {

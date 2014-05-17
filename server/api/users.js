@@ -3,11 +3,7 @@ var fs = require('fs')
 	, User = require('../model/user')
 	, mongoose = require('mongoose')
 
-//var fs = require('fs-extra')
-//  , path = require('path')
-//  , _ = require('underscore')
-
-
+var CV_DIRECTORY = "./resources/cvs/";
 module.exports.logout = logout;
 
 
@@ -56,6 +52,26 @@ exports.login = function (req, res, next) {
 	})(req, res, next);
 }
 
+exports.createUser = function (req, res) {
+    var newUser = new User(
+        {
+            name: req.body.name
+            , username: req.body.username
+            , email: req.body.email
+            , experience: req.body.experience
+            , 'id': req.body.id
+        }
+    );
+    newUser.save(function (err) {
+        if (!err) {
+            return console.log("user " + newUser.name + " create in server")
+        } else {
+            console.log(err);
+        }
+    });
+    return res.send(newUser);
+}
+
 exports.getUser = function (req, res) {
 	return User.findById(req.params.id, function (err, user) {
 		if (!err) {
@@ -65,6 +81,17 @@ exports.getUser = function (req, res) {
 		}
 	});
 }
+
+exports.getUsers = function (req, res) {
+    return User.find(function (err, users) {
+        if (!err) {
+            return res.send(users);
+        } else {
+            return console.log(err);
+        }
+    });
+};
+
 
 /**
  * Update user details (except file)
@@ -103,6 +130,19 @@ function updateUserFile(id, pathName, fileName, callBack) {
 	});
 }
 
+function updateUserSkills(id, skills, callBack) {
+	return User.findById(id, function (err, user) {
+		if (err)
+			throw err;
+
+		if ('undefined' !== typeof skills) {
+            user.skills = skills;
+		}
+		return user.save(callBack);
+
+	});
+}
+
 exports.updateUser = function (req, res) {
 	var user = {
 		name: req.body.name,
@@ -122,15 +162,13 @@ exports.updateUser = function (req, res) {
 };
 
 function prepareCookie(res, user) {
-    res.cookie('user', JSON.stringify({
-        'username': user.username
-        , 'email': user.email
-        , 'street': user.street
-        , 'experience': user.experience
+    res.cookie('user', JSON.stringify(
+        {
+        name: user.name
+        , username: user.username
+        , email: user.email
+        , experience: user.experience
         , 'id': user.id
-        , 'fileName': user.fileName
-        , 'pathName': user.pathname
-        , 'companyId': user.companyId
     }));
 }
 exports.register = function (req, res) {
@@ -159,14 +197,14 @@ exports.register = function (req, res) {
 	});
 }
 
-exports.upload = function upload(req, res) {
+exports.upload = function (req, res) {
 	console.log(JSON.stringify(req.files));
 
 	// get the temporary location of the file
 	var tmp_path = req.files.file.path;
-	// set where the file should actually exists - in this case it is in the "images" directory
-	var target_path = getUniqueFileName('.\\images\\' + req.files.file.name);
-	var file_path = getUniqueFileName('.\\images\\');
+	// set where the file should actually exists - in this case it is in the CV_DIRECTORY directory
+	var target_path = getUniqueFileName(CV_DIRECTORY + req.files.file.name);
+	var file_path = getUniqueFileName(CV_DIRECTORY);
 	// move the file from the temporary location to the intended location
 	fs.rename(tmp_path, target_path, function (err) {
 		if (err) throw err;
@@ -174,8 +212,11 @@ exports.upload = function upload(req, res) {
 		fs.unlink(tmp_path, function () {
 			if (err) throw err;
 			var user = JSON.parse(req.body.user);
+			var skills = JSON.parse(req.body.skills);
 			updateUserFile(user.id, file_path, req.files.file.name, null);
+			updateUserSkills(user.id, skills, null);
 			console.log('File uploaded to: ' + target_path + ' - ' + req.files.file.size + ' bytes');
+            res.send(200);
 		});
 	});
 }
@@ -204,4 +245,16 @@ function userExist(req, res, next) {
 			res.redirect("/signup");
 		}
 	});
+}
+
+exports.deleteUser = function (req, res) {
+    return User.findById(req.params.id, function (err, user) {
+        return user.remove(function (err) {
+            if (!err) {
+                return res.send(user);
+            } else {
+                console.log(err);
+            }
+        });
+    });
 }

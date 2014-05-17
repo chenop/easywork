@@ -1,17 +1,34 @@
 'use strict';
 
-var userDetailsModule = angular.module('userDetailsModule', ['angularFileUpload', 'ui.select2', 'easywork.services.auth']);
+var userDetailsModule = angular.module('userDetailsModule',
+    ['angularFileUpload'
+        , 'ui.select2'
+        , 'easywork.services.appManager'
+        , 'easywork.services.auth'
+        , 'easywork.services.cvParser'
+    ]);
 
-userDetailsModule.controller('userDetailsCtrl', ['$scope', '$upload', '$http', 'authService', '$location',
-    function ($scope, $upload, $http, authService, $location) {
+userDetailsModule.controller('userDetailsCtrl',
+    [
+        '$scope'
+        , '$upload'
+        , '$http'
+        , 'appManager'
+        , 'authService'
+        , '$location'
+        , 'cvParser'
+    , function ($scope, $upload, $http, appManager, authService, $location, cvParser) {
 
-        getUserDetails().then(function (result) {
-            $scope.user = result.data;
-        });
+        fetchActiveUser();
 
-        function getUserDetails() {
-            var user = authService.getActiveUser();
-            return $http.get('./api/user/' + user.id);
+        appManager.addSelectionChangeListener(function (selectedEntity) {
+            getUserDetails(selectedEntity._id).then(function (result) {
+                $scope.user = result.data;
+            });
+        })
+
+        function getUserDetails(id) {
+            return $http.get('./api/user/' + id);
         }
 
         $scope.welcome = "אנא הכנס פרטים:";
@@ -32,8 +49,8 @@ userDetailsModule.controller('userDetailsCtrl', ['$scope', '$upload', '$http', '
         };
 
         $scope.updateUser = function () {
-            var user = authService.getActiveUser();
-            $http.put('./api/user/' + user.id, $scope.user)
+            var id = appManager.getActiveUserId();
+            $http.put('./api/user/' + id, $scope.user)
                 .success(
                 function () {
                     $location.path("/");
@@ -47,24 +64,46 @@ userDetailsModule.controller('userDetailsCtrl', ['$scope', '$upload', '$http', '
             }
         }, true);
 
-        $scope.onFileSelect = function ($files) {
-            var activeUser = authService.getActiveUser();
-            //$files: an array of files selected, each file has name, size, and type.
+        function fetchActiveUser() {
+            var activeEntityId = appManager.getActiveUserId();
+            if (activeEntityId !== undefined) {
+                getUserDetails(activeEntityId).then(function (result) {
+                    $scope.user = result.data;
+                    $scope.skills = result.data.skills;
+                });
+            }
+        }
+
+        /**
+         * $files: an array of files selected, each file has name, size, and type.
+         * @param $files
+         * @param activeUser
+         */
+        function sendCVToServer($files, skills, activeUser) {
             for (var i = 0; i < $files.length; i++) {
                 var $file = $files[i];
                 console.log("file: " + i + ", name: " + $file.name);
                 $scope.upload = $upload.upload({
-                    url: './api/upload', //upload.php script, node.js route, or servlet url
+                    url: '/api/upload', //upload.php script, node.js route, or servlet url
                     method: 'POST',
-                    data: {user: activeUser},
+                    data: {user: activeUser, skills: skills},
                     file: $file
                 }).progress(function (evt) {
                     console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
                 }).success(function (data, status, headers, config) {
-                    $scope.uploadedFiles.push(angular.copy($files[index]));
+                    fetchActiveUser();
                     console.log("what data" + data);
+                }).error(function(err) {
+                    console.log("upload finish with err" + err);
                 });
-                //.error(...)
             }
+        }
+
+        $scope.onFileSelect = function ($files) {
+            var activeUser = authService.getActiveUser();
+            cvParser.parseCV($files[0]).
+                then(function(skills) {
+                    sendCVToServer($files, skills, activeUser);
+                })
         };
     }]);

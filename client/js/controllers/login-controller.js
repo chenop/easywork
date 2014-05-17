@@ -1,6 +1,18 @@
 'use strict';
 
 angular.module('easywork.controllers.header')
+
+    // Put the focus on the username textfield
+    .directive('autoFocus', function ($timeout) {
+        return {
+            restrict: 'AC',
+            link: function (_scope, _element) {
+                $timeout(function () {
+                    _element[0].focus();
+                }, 0);
+            }
+        };
+    })
     .controller('loginCtrl', function ($scope, authService, $modalInstance) {
 
         $scope.input = {};
@@ -29,7 +41,7 @@ angular.module('easywork.controllers.header')
                 function () {
                     authService.setAuthenticate(true);
                     $modalInstance.close(user.username);
-                    if(!$scope.$$phase) { // If digest not in progress
+                    if (!$scope.$$phase) { // If digest not in progress
                         $scope.$apply();
                     }
                 }
