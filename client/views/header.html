@@ -43,7 +43,7 @@
 
                         <!-- Login or User menu -->
                         <div class="col-xs-2  col-sm-2  col-md-2 nav navbar-nav navbar-left">
-                            <div ng-hide="authService.isAuthenticated()">
+                            <div ng-hide="authService.isLoggedIn()">
                                 <div class="row-fluid">
                                     <div class="navbar-left header-actions">
                                         <a href="#" ng-click="openRegisterDialog()">Register</a>
@@ -53,17 +53,17 @@
                                     </div>
                                 </div>
                             </div>
-                            <div ng-show="authService.isAuthenticated()">
+                            <div ng-show="authService.isLoggedIn()">
                                 <div class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         {{authService.getActiveUser().username}}
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="/user_details">My Details</a></li>
-                                        <li><a href="/company">My Company</a></li>
-                                        <li><a href="/content_manager">Content Manager</a></li>
-                                        <li><a href="" ng-click="logout()">Logout</a></li>
+                                        <li access-level="jobSeeker" active-user="authService.getActiveUser()"><a href="/user_details">My Details</a></li>
+                                        <li access-level="jobProvider" active-user="authService.getActiveUser()"><a href="/company">My Company</a></li>
+                                        <li access-level="admin" active-user="authService.getActiveUser()"><a href="/content_manager">Content Manager</a></li>
+                                        <li access-level="public" active-user="authService.getActiveUser()"><a href="" ng-click="logout()">Logout</a></li>
                                     </ul>
                                 </div>
                             </div>

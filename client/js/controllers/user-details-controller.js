@@ -43,6 +43,7 @@ userDetailsModule.controller('userDetailsCtrl',
             name: '',
             username: '',
             email: '',
+            role: '',
             message: default_message,
             experience: '',
             file: ''

@@ -1,3 +1,5 @@
+'use strict';
+
 var fs = require('fs')
 	, passport = require('passport')
 	, User = require('../model/user')
@@ -46,7 +48,7 @@ exports.login = function (req, res, next) {
 				return res.send(err);
 			}
             prepareCookie(res, user);
-			return res.send(200);
+			return res.send(user);
 
 		});
 	})(req, res, next);
@@ -57,6 +59,7 @@ exports.createUser = function (req, res) {
         {
             name: req.body.name
             , username: req.body.username
+            , role: req.body.role
             , email: req.body.email
             , experience: req.body.experience
             , 'id': req.body.id
@@ -106,6 +109,8 @@ function updateUser(id, newUser, callBack) {
 			user.name = newUser.name;
 		if ('undefined' !== typeof newUser.username)
 			user.username = newUser.username;
+		if ('undefined' !== typeof newUser.role)
+			user.role = newUser.role;
 		if ('undefined' !== typeof newUser.email)
 			user.email = newUser.email;
 		if ('undefined' !== typeof newUser.experience)
@@ -147,6 +152,7 @@ exports.updateUser = function (req, res) {
 	var user = {
 		name: req.body.name,
 		username: req.body.username,
+		role: req.body.role,
 		email: req.body.email,
 		experience: req.body.experience
 	}
@@ -166,6 +172,7 @@ function prepareCookie(res, user) {
         {
         name: user.name
         , username: user.username
+        , role: user.role
         , email: user.email
         , experience: user.experience
         , 'id': user.id
@@ -177,6 +184,7 @@ exports.register = function (req, res) {
 //			email: req.body.email,
             name: req.body.name
 			, username: req.body.username
+			, role: 'jobSeeker'
 			, password: req.body.password
 //			experience: req.body.experience
 		}
@@ -191,7 +199,7 @@ exports.register = function (req, res) {
                     return res.send(err);
                 }
                 prepareCookie(res, user);
-                return res.send(200);
+                return res.send(user);
  			});
 		}
 	});
@@ -225,14 +233,6 @@ function logout(req, res) {
 	req.logout();
 	res.json("logout");
 };
-
-function authenticatedOrNot(req, res, next) {
-	if (req.isAuthenticated()) {
-		next();
-	} else {
-		res.redirect("/login");
-	}
-}
 
 function userExist(req, res, next) {
 	Users.count({

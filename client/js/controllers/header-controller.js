@@ -20,7 +20,7 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
             );
 
             $scope.send = function() {
-                if (!authService.isAuthenticated()) {
+                if (!authService.isLoggedIn()) {
                     $scope.openLoginDialog();
                 }
             }

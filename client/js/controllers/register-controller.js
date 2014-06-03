@@ -14,8 +14,9 @@ angular.module('easywork.controllers.header')
         }; // end cancel
 
         $scope.hitEnter = function (evt) {
-            if (angular.equals(evt.keyCode, 13) && !(angular.equals($scope.username, null) || angular.equals($scope.username, '')))
+            if (angular.equals(evt.keyCode, 13) && !(angular.equals($scope.username, null) || angular.equals($scope.username, ''))) {
                 $scope.register();
+            }
         }; // end hitEnter
 
         $scope.register = function () {
@@ -29,17 +30,12 @@ angular.module('easywork.controllers.header')
             authService.register(user)
                 .success(
                 function () {
-                    authService.setAuthenticate(true);
                     $modalInstance.close(user.username);
-                    if(!$scope.$$phase) { // If digest not in progress
-                        $scope.$apply(); // Apply
-                    }
                 }
             ).error(
                 function (err) {
                     $scope.err = err;
                     console.log(err);
-                    authService.setAuthenticate(false);
                 }
             );
         }

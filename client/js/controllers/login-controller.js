@@ -39,17 +39,12 @@ angular.module('easywork.controllers.header')
             authService.logIn(user)
                 .success(
                 function () {
-                    authService.setAuthenticate(true);
                     $modalInstance.close(user.username);
-                    if (!$scope.$$phase) { // If digest not in progress
-                        $scope.$apply();
-                    }
                 }
             ).error(
                 function (err) {
                     $scope.err = err;
                     console.log(err);
-                    authService.setAuthenticate(false);
                 }
             );
         }

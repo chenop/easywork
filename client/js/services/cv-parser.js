@@ -3,7 +3,15 @@
  */
 
 var dict = {
-    "java": false, "javascript": false, "c#": false, "perl": false, "web": false, "angularjs": false, "oop": false
+    "java": false
+    , "javascript": false
+    , "c#": false
+    , "C#" : false
+    , "perl": false
+    , "web": false
+    , "angularjs": false
+    , "oop": false
+    , "gwt" :false
 }
 
 angular.module('easywork.services.cvParser', [])

@@ -15,6 +15,7 @@ var userSchema = new Schema({
     , username: String
     , password: String
     , experience: String
+    , role: Object
     , fileName: String
     , companyId: String
     , skills: Object
