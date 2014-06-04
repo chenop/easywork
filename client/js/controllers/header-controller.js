@@ -3,9 +3,8 @@
 var SEND_BUTTON_STR = 'שלח';
 
 angular.module('easywork.controllers.header', ['easywork.services.auth',
-        'easywork.services.appManager', 'easywork.services.dataManager', 'ui.bootstrap'])
-    .controller('headerController', ['$scope', 'authService', 'appManager', 'dataManager', '$modal', '$location',
-        function ($scope, authService, appManager, dataManager, $modal, $location) {
+        'easywork.services.appManager', 'easywork.services.dataManager', 'ui.bootstrap', 'toaster'])
+    .controller('headerController', function ($scope, authService, appManager, dataManager, $modal, $location, toaster) {
             $scope.isError = false;
             $scope.user = authService.getActiveUser();
             $scope.authService = authService;
@@ -23,6 +22,7 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
                 if (!authService.isLoggedIn()) {
                     $scope.openLoginDialog();
                 }
+                toaster.pop('success', "CV was successfully sent!", "");
             }
 
             $scope.openLoginDialog = function() {
@@ -87,4 +87,4 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
             }, true);
 
         }
-    ]);
+);
