@@ -11,6 +11,7 @@ var app = angular.module('easywork',
         , 'easywork.controllers.home'
         , 'easywork.controllers.company'
         , 'easywork.controllers.companies'
+        , 'easywork.controllers.loginRegister'
         , 'userDetailsModule'
         , 'ngRoute', 'ngAnimate']
 );
@@ -21,7 +22,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 
         $routeProvider
             .when('/', { templateUrl: '/views/home.html', access: 'public'})
-            .when('/test', { templateUrl: '/views/home.html', access: 'public' })
+            .when('/test', { templateUrl: '/views/home.html', access: 'public'})
+//            .when('/test', { templateUrl: '/views/users/loginRegister.html', access: 'public' })
             .when('/login', { templateUrl: '/views/users/login.html', access: 'public' })
             .when('/signup', { templateUrl: '/views/users/signup.html', access: 'public' })
             .when("/company", { templateUrl: '/views/companies/company.html', access: 'jobProvider' })
