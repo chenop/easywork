@@ -3,8 +3,9 @@
 var SEND_BUTTON_STR = 'שלח';
 
 angular.module('easywork.controllers.header', ['easywork.services.auth',
-        'easywork.services.appManager', 'easywork.services.dataManager', 'ui.bootstrap', 'toaster'])
-    .controller('headerController', function ($scope, authService, appManager, dataManager, $modal, $location, toaster) {
+        'easywork.services.appManager', 'easywork.services.dataManager',
+    'ui.bootstrap', 'angular-growl', 'ngAnimate'])
+    .controller('headerController', function ($scope, authService, appManager, dataManager, $modal, $location, growl) {
             $scope.isError = false;
             $scope.user = authService.getActiveUser();
             $scope.authService = authService;
@@ -20,25 +21,30 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
 
             $scope.send = function() {
                 if (!authService.isLoggedIn()) {
-                    $scope.openLoginDialog();
+                    $scope.openLoginDialog(function () {
+                        console.log("Sending!");
+                        growl.addSuccessMessage("CVs were sent!",  {ttl: 2000});
+                    });
                 }
-                toaster.pop('success', "CV was successfully sent!", "");
+                else
+                    growl.addSuccessMessage("CVs were sent!",  {ttl: 2000});
             }
 
-            $scope.openLoginDialog = function() {
+            $scope.openLoginDialog = function(callBack) {
 
                 var modalInstance = $modal.open({
-                    templateUrl: '/views/users/login.html',
-                    controller: 'loginCtrl'
-//                resolve: {
-//                    entities: function () {
-//                        return $scope.entities;
-//                    }
-//                }
+                    templateUrl: '/views/users/loginRegister.html',
+                    controller: 'LoginRegisterCtrl',
+                    resolve: {
+                        selectedTab: function () {
+                            return 0;
+                        }
+                    }
                 });
 
                 modalInstance.result.then(function (username) {
                     console.log('User: ' + username + ' has logged in');
+                    callBack();
                 }, function () {
                     console.log('Modal dismissed at: ' + new Date());
                 });
@@ -47,13 +53,13 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
             $scope.openRegisterDialog = function() {
 
                 var modalInstance = $modal.open({
-                    templateUrl: '/views/users/register.html',
-                    controller: 'registerCtrl'
-//                resolve: {
-//                    entities: function () {
-//                        return $scope.entities;
-//                    }
-//                }
+                    templateUrl: '/views/users/loginRegister.html',
+                    controller: 'LoginRegisterCtrl',
+                    resolve: {
+                        selectedTab: function () {
+                            return 1;
+                        }
+                    }
                 });
 
                 modalInstance.result.then(function (username) {

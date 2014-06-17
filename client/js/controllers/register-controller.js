@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('easywork.controllers.header')
-    .controller('registerCtrl', function ($scope, authService, $modalInstance) {
+    .controller('registerCtrl', function ($scope, authService) {
 
+        var modalInstance = $scope.modalInstance;
         $scope.name = null;
         $scope.username = null;
         $scope.password = null;
@@ -10,7 +11,7 @@ angular.module('easywork.controllers.header')
         $scope.err = undefined;
 
         $scope.cancel = function () {
-            $modalInstance.dismiss('canceled');
+            modalInstance.dismiss('canceled');
         }; // end cancel
 
         $scope.hitEnter = function (evt) {
@@ -30,7 +31,7 @@ angular.module('easywork.controllers.header')
             authService.register(user)
                 .success(
                 function () {
-                    $modalInstance.close(user.username);
+                    modalInstance.close(user.username);
                 }
             ).error(
                 function (err) {

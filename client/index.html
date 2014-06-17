@@ -15,6 +15,8 @@
      <!--Application's CSS -->
     <link rel="stylesheet" href="./css/style.css"/>
 
+    <link href="./lib/angular-growl/build/angular-growl.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -22,7 +24,7 @@
 
 <div class="content">
     <div class="container-fluid">
-        <ng-view/>  <!-- ng-class="{animate_left : isRTL(), animate_right : isLTR()}"/>-->
+        <ng-view></ng-view>  <!-- ng-class="{animate_left : isRTL(), animate_right : isLTR()}"/>-->
     </div>
 </div>
 
@@ -33,17 +35,23 @@
 
 <!--<script src="./lib/ng-file-upload/angular-file-upload-shim.min.js"></script>-->
 
+<!-- JQuery -->
+<script src="./lib/jquery/dist/jquery.js"></script>
+
+<!-- Angular 1.2.16 -->
 <script src="./lib/angular/angular.js"></script>
+
 <script src="./lib/angular-cookies/angular-cookies.js"></script>
 <script src="./lib/angular-animate/angular-animate.js"></script>
+<script src="./lib/angular-sanitize/angular-sanitize.js"></script>
 <script src="./lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="./lib/angular-route/angular-route.min.js"></script>
 
+<script src="./lib/angular-growl/build/angular-growl.js"></script>
+
 <!-- Ui-Select2-->
 <link rel="stylesheet" href="./lib/select2/select2.css">
-<script src="./lib/jquery/dist/jquery.js"></script>
 <script src="./lib/select2/select2.js"></script>
-<script src="./lib/angular/angular.js"></script>
 <script src="./lib/angular-ui-select2/src/select2.js"></script>
 
 <!--File Upload - jasny-bootstrap - Needed?-->
@@ -58,12 +66,6 @@
 
 <script src="./lib/bootstrap-rtl/dist/js/holder.js"></script>
 
-<!-- Toaster -->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.4/toaster.css" rel="stylesheet" />
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js" ></script>
-<script src="http://code.angularjs.org/1.2.0/angular-animate.min.js" ></script>
-<script src="http://cdnjs.cloudflare.com/ajax/libs/angularjs-toaster/0.4.4/toaster.js"></script>
-
 <script src="./js/app.js"></script>
 
 <script src="./js/routingConfig.js"></script>
@@ -74,6 +76,7 @@
 <script src="./js/controllers/dashboard-controller.js"></script>
 <script src="./js/controllers/user-details-controller.js"></script>
 <script src="./js/controllers/job-controller.js"></script>
+<script src="./js/controllers/login-register-controller.js"></script>
 
 <script src="./js/services/app-manager-service.js"></script>
 <script src="./js/controllers/login-controller.js"></script>

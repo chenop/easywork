@@ -5,7 +5,8 @@ var companiesController = angular.module('easywork.controllers.companies', [
     'ui.select2'
     , 'easywork.services.mail'
     , 'easywork.services.dataManager'
-    , 'easywork.services.appManager']);
+    , 'easywork.services.appManager'
+]);
 
 companiesController.controller('CompanyListCtrl', ['$scope', '$http', 'mailService', 'dataManager', 'appManager', '$modal',
     function ($scope, $http, mailService, dataManager, appManager, $modal) {

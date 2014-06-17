@@ -16,17 +16,20 @@
     "tests"
   ],
   "dependencies": {
-    "angular-animate": "~1.2.3",
-    "angular-bootstrap": "~0.4.0",
-    "angular-mocks": "1.2.0-rc.1",
-    "angular-cookies": "~1.2.9",
-    "angular-resource": "1.2.0-rc.1",
+    "angular-animate": "latest",
+    "angular-bootstrap": "latest",
+    "angular-mocks": "latest",
+    "angular-cookies": "latest",
+    "angular-resource": "latest",
     "angular-ui-select2": "~0.0.4",
-    "angular-scenario": "1.2.0-rc.1",
-    "bootstrap-rtl": "~0.9.5",
+    "angular-scenario": "latest",
+    "bootstrap-rtl": "latest",
     "json3": "~3.2.4",
     "ng-file-upload": "~1.2.7",
-    "angular-route": "1.2.0-rc.1",
+    "angular-route": "latest",
     "jasny-bootstrap": "~3.1.0"
+  },
+  "resolutions": {
+    "angular": ">=1.2.0"
   }
 }
