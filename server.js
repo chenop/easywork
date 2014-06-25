@@ -51,7 +51,7 @@ app.use(passport.session());
 app.post('/api/login', users.login)
 app.post('/api/logout', users.logout)
 app.post('/api/upload', users.upload)
-app.post('/api/signup', users.register)
+app.post('/api/register', users.register)
 app.post('/api/sendMail', mail.sendMail)
 app.get('/api/filtersData', dataProxy.getFiltersData)
 

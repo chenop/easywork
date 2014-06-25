@@ -1,9 +1,10 @@
 <div class="row" ng-controller="registerCtrl">
-    <div class="col-sm-12">
+    <div class="col-sm-11">
         <form name="form" class="form-horizontal col-sm-12 align-center" novalidate>
             <div class="form-group">
                 <label>PlaceHolder - Register with Facebook</label>
             </div>
+
 
             <div class="form-group">
                 <label>PlaceHolder - Register with Google</label>
@@ -11,23 +12,69 @@
 
             <div class="form-group">
                 <label class="col-sm-2 control-label">Name</label>
-                <input class="col-sm-10" type="text" ng-model="name" name="uName"/>
+                <input class="col-sm-10 form-control" type="text" ng-model="user.name" name="uName"/>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-class="{ 'has-error' : form.username.$invalid && !form.username.$pristine }">
                 <label class="col-sm-2 control-label">Username</label>
-                <input class="col-sm-10" type="text" ng-model="username" name="uUsername"/>
+                <input class="col-sm-10 form-control" type="text" ng-model="user.username" name="username" ng-minlength="3"/>
+                <p ng-show="form.username.$error.minlength" class="help-block">Username should be at least 3 letters long.</p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error' : !isPasswordsEqual() && !form.password.$pristine }">
+                <label class="col-sm-2 control-label">Password</label>
+                <input class="col-sm-10 form-control" type="password" ng-model="user.password" name="password"/>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error' : !isPasswordsEqual()  }">
+                <label class="col-sm-2 control-label">Retype Password</label>
+                <input class="col-sm-10 form-control" type="password" ng-model="user.retypePassword" name="retypePassword"/>
+                <p ng-show="!isPasswordsEqual()" class="help-block">Passwords should match</p>
+            </div>
+
+            <div class="form-group" ng-class="{ 'has-error' : form.email.$invalid && !form.email.$pristine }">
+                <label class="col-sm-2 control-label">Email</label>
+                <input class="col-sm-10 form-control" type="email" ng-model="user.email" name="email"/>
+                <p ng-show="form.email.$invalid" class="help-block">Not a valid email</p>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">Password</label>
-                <input class="col-sm-10" type="password" ng-model="password" name="password"/>
+                <label class="col-sm-2 control-label">Experience</label>
+
+                <div class="col-sm-3 experience">
+                    <select ui-select2="select2Options" ng-model="user.experience"
+                            data-placeholder="Pick a range">
+                        <option value=""></option>
+                        <option value="student">Student</option>
+                        <option value="graduate">Graduate (0 - 1)</option>
+                        <option value="junior">Junior (2 - 4)</option>
+                        <option value="senior">Senior (5 +)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Message</label>
+                <textarea class="col-sm-10 form-control cv-message" ng-model="user.message"/>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">CV</label>
+                {{user.fileName}}
+
+                <div class="col-sm-8 file-upload-container">
+                    <input class="upload-button" type="file" ng-file-select="onFileSelect($files)">
+
+                    <!--<div class="my-drop-zone" ng-file-drop="onFileSelect($files);">or drop files here</div>-->
+                </div>
+                <ul ng-repeat="skill in skills">
+                    <li>{{skill}}</li>
+                </ul>
             </div>
 
             <div class="form-group">
                 <button class="btn-primary btn-lg" ng-click="register()">הרשמה</button>
-                <button class="btn-default btn-lg" ng-click="cancel()">חזרה</button>
-                <input type="checkbox" ng-model="rememberMe">Remember Me
+                <button class="btn-default btn-lg" ng-click="cancel()">סגור</button>
             </div>
         </form>
     </div>

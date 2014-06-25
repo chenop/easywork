@@ -1,14 +1,32 @@
 'use strict';
 
 angular.module('easywork.controllers.header')
-    .controller('registerCtrl', function ($scope, authService) {
+    .controller('registerCtrl', function ($scope, authService, appManager) {
+        var defaultMessage = appManager.defaultMessage;
 
         var modalInstance = $scope.modalInstance;
-        $scope.name = null;
-        $scope.username = null;
-        $scope.password = null;
-        $scope.rememeberMe = null;
+        $scope.user = {};
+        $scope.user.name = null;
+        $scope.user.username = null;
+        $scope.user.password = null;
+        $scope.user.email = null;
+        $scope.user.message = defaultMessage;
         $scope.err = undefined;
+
+        $scope.select2Options = {
+            width: 200,
+            minimumResultsForSearch: -1 // Disable the search field in the combo box
+        };
+
+        $scope.isPasswordsEqual = function() {
+            return $scope.user.password == $scope.user.retypePassword;
+        }
+
+        $scope.$watch('user.name', function (value) {
+            if (value) {
+                $scope.user.message = defaultMessage + value;
+            }
+        }, true);
 
         $scope.cancel = function () {
             modalInstance.dismiss('canceled');
@@ -22,11 +40,7 @@ angular.module('easywork.controllers.header')
 
         $scope.register = function () {
 
-            var user = {
-                name: this.name,
-                username: this.username,
-                password: this.password
-            }
+            var user = $scope.user;
 
             authService.register(user)
                 .success(

@@ -37,7 +37,7 @@ angular.module('easywork.services.auth', ['ngCookies'])
 
             return $http({
                 method: 'POST',
-                url: '/api/signup',
+                url: '/api/register',
                 data: user
             }).success(function(user) {
                 setActiveUser(user);

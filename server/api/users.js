@@ -181,15 +181,16 @@ function prepareCookie(res, user) {
 exports.register = function (req, res) {
     var user = new User(
         {
-//			email: req.body.email,
             name: req.body.name
 			, username: req.body.username
-			, role: 'jobSeeker'
+			, role: { title: 'jobSeeker'}
 			, password: req.body.password
-//			experience: req.body.experience
+			, experience: req.body.experience
+			, email: req.body.email
+			, message: req.body.message
 		}
 	);
-    console.log("signup of user: " + user.username);
+    console.log("registered user: " + user.username);
     return user.save(function (err) {
 		if (err) // ...
 			console.log('meow');
@@ -200,7 +201,7 @@ exports.register = function (req, res) {
                 }
                 prepareCookie(res, user);
                 return res.send(user);
- 			});
+			});
 		}
 	});
 }
@@ -233,19 +234,6 @@ function logout(req, res) {
 	req.logout();
 	res.json("logout");
 };
-
-function userExist(req, res, next) {
-	Users.count({
-		username: req.body.username
-	}, function (err, count) {
-		if (count === 0) {
-			next();
-		} else {
-			// req.session.error = "User Exist"
-			res.redirect("/signup");
-		}
-	});
-}
 
 exports.deleteUser = function (req, res) {
     return User.findById(req.params.id, function (err, user) {

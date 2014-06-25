@@ -1,5 +1,5 @@
 <div class="row" ng-controller="loginCtrl">
-    <div class="col-sm-12">
+    <div class="col-sm-11">
         <form name="form" ng-keyup="hitEnter($event)" class="form-horizontal col-sm-12 align-center" novalidate>
             <div class="form-group">
                 <label>PlaceHolder - Login with Facebook</label>
@@ -9,22 +9,23 @@
                 <label>PlaceHolder - Login with Google</label>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-class="{ 'has-error' : form.username.$invalid && !form.username.$pristine }">
                 <label class="col-sm-2 control-label">Username</label>
-                <input class="col-sm-10" type="text" ng-model="input.username" name="uName" required="username" autoFocus/>
+                <input class="col-sm-10 form-control" type="text" ng-model="input.username" name="username" required="username" ng-minlength="3" autoFocus/>
+                <p ng-show="form.username.$error.minlength" class="help-block">Username should be at least 3 letters long.</p>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" ng-class="{ 'has-error' : form.password.$invalid && !form.password.$pristine }">
                 <label class="col-sm-2 control-label">Password</label>
-                <input class="col-sm-10" type="password" ng-model="input.password" name="password" required="password"/>
+                <input class="col-sm-10 form-control" type="password" ng-model="input.password" name="password" required="password"/>
             </div>
 
-            <div ng-show='form.$error.required'>
-                Please enter username and password
+            <div class="form-group" ng-class="{'has-error' : hasError() }">
+                <p ng-show="errorMessage" class="help-block">{{errorMessage}}</p>
             </div>
 
             <div class="form-group">
-                <button class="btn btn-primary btn-lg" ng-click="">כניסה</button>
+                <button class="btn btn-primary btn-lg" ng-click="login()">כניסה</button>
                 <button class="btn btn-default btn-lg" ng-click="cancel()">חזרה</button>
                 <input type="checkbox" ng-model="input.rememberMe">Remember Me
             </div>

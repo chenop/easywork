@@ -20,8 +20,11 @@ angular.module('easywork.controllers.header')
         $scope.input.username = null;
         $scope.input.password = null;
         $scope.input.rememeberMe = null;
-        $scope.input.err = undefined;
+        $scope.errorMessage = null;
 
+        $scope.hasError = function() {
+            return true;//$scope.errorMessage != null;
+        }
         $scope.cancel = function () {
             modalInstance.dismiss('canceled');
         }; // end cancel
@@ -44,8 +47,7 @@ angular.module('easywork.controllers.header')
                 }
             ).error(
                 function (err) {
-                    $scope.err = err;
-                    console.log(err);
+                    $scope.errorMessage = err.message;
                 }
             );
         }

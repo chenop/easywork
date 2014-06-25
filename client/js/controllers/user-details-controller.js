@@ -37,7 +37,7 @@ userDetailsModule.controller('userDetailsCtrl',
             minimumResultsForSearch: -1 // Disable the search field in the combo box
         };
 
-        var default_message = 'Hi,\nI am interested in open positions in your company.\nContact information can be found in my CV which is attached.\n\nBest Regards,\n';
+        var default_message = appManager.defaultMessage;
 
         $scope.user = {
             name: '',

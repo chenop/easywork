@@ -22,10 +22,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 
         $routeProvider
             .when('/', { templateUrl: '/views/home.html', access: 'public'})
-            .when('/test', { templateUrl: '/views/home.html', access: 'public'})
+            .when('/test', { templateUrl: '/views/users/register.html', access: 'public'})
 //            .when('/test', { templateUrl: '/views/users/loginRegister.html', access: 'public' })
             .when('/login', { templateUrl: '/views/users/login.html', access: 'public' })
-            .when('/signup', { templateUrl: '/views/users/signup.html', access: 'public' })
             .when("/company", { templateUrl: '/views/companies/company.html', access: 'jobProvider' })
             .when("/content_manager", { templateUrl: '/views/admin/dashboard.html', access: 'jobProvider' })
             .when("/companies", { templateUrl: '/views/companies/companies.html', access: 'jobProvider' })
@@ -57,10 +56,10 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
         //================================================
         // Add an interceptor for handling session time out - redirect to login when access denied
         //================================================
-        $httpProvider.interceptors.push(function($q, $location) {
+        $httpProvider.interceptors.push(function($rootScope, $q, $location) {
             return {
                 'responseError': function(response) {
-                    if(response.status === 401 || response.status === 403) {
+                    if ((response.status === 401 || response.status === 403) && $location.path() != '/login') {
                         $location.path('/login');
                     }
                     return $q.reject(response);

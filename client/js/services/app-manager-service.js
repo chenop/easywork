@@ -11,6 +11,7 @@ angular.module('easywork.services.appManager', ['easywork.services.auth'])
         var disableSend = false;
 		var displaySearchBarInHeader = true;
         var _selectedEntity;
+        var default_message = 'Hi,\nI am interested in open positions in your company.\nContact information can be found in my CV which is attached.\n\nBest Regards,\n';
 
         var getSelectionCount = function() {
             return selection.length;
@@ -89,6 +90,7 @@ angular.module('easywork.services.appManager', ['easywork.services.auth'])
             , getSelectedEntity: getSelectedEntity
             , addSelectionChangeListener: addSelectionChangeListener
             , fireSelectionChanged: fireSelectionChanged
+            , defaultMessage: default_message
 		}
 	}
 );
