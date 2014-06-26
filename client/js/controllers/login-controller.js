@@ -15,6 +15,7 @@ angular.module('easywork.controllers.header')
     })
     .controller('loginCtrl', function ($scope, authService) {
 
+        var SOMETHING_WENT_WRONG_MSG = "Oops, Something went wrong!";
         var modalInstance = $scope.modalInstance;
         $scope.input = {};
         $scope.input.username = null;
@@ -47,7 +48,12 @@ angular.module('easywork.controllers.header')
                 }
             ).error(
                 function (err) {
-                    $scope.errorMessage = err.message;
+                    if ((err == undefined) || (err === "")) {
+                        $scope.errorMessage = SOMETHING_WENT_WRONG_MSG;
+                    }
+                    else {
+                        $scope.errorMessage = err.message;
+                    }
                 }
             );
         }

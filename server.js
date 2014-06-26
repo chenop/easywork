@@ -6,6 +6,7 @@ var express = require('express')
 	, passport = require('passport')
 	, LocalStrategy = require('passport-local').Strategy
 	, users = require('./server/api/users')
+	, jobs = require('./server/api/jobs')
 	, mail = require('./server/mail')
 	, companies = require('./server/api/companies')
 	, dataProxy = require('./server/api/dataProxy')
@@ -23,8 +24,8 @@ var log = function (message) {
 
 log("Trying to connect to db...");
 mongoose.connect("mongodb://localhost/db");
-mongoose.connection.on('error', function() {
-    log("Cant connect to MongoDB - please verify that it was started.")
+mongoose.connection.on('error', function(err, req, res, next)  {
+    log("Cant connect to MongoDB - please verify that it was started.");
 });
 
 log("Begin server.js");
@@ -70,12 +71,11 @@ app.put('/api/company/:id', companies.updateCompany)
 app.delete('/api/company/:id', companies.deleteCompany)
 
 // Jobs
-// TODO create jobs.js
-//app.get('/api/job/list', jobs.getJobs)
-//app.get('/api/job/:id', jobs.getJob)
-//app.post('/api/job', jobs.createJob)
-//app.put('/api/job/:id', jobs.updateJob)
-//app.delete('/api/job/:id', jobs.deleteJob)
+app.get('/api/job/list', jobs.getJobs)
+app.get('/api/job/:id', jobs.getJob)
+app.post('/api/job', jobs.createJob)
+app.put('/api/job/:id', jobs.updateJob)
+app.delete('/api/job/:id', jobs.deleteJob)
 
 
 app.get('*', function (req, res) {

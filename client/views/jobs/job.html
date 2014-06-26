@@ -1,26 +1,21 @@
-<div class="container">
-    <div class="row-fluid">
-        <div class="col-xs-3 col-md-3">
-            <img ng-src="{{company.logoUrl}}" class="logo"/>
-        </div>
-        <div class="col-xs-9 col-md-9">
-            <h3>{{job.title}}</h3>
-            <button class="btn btn-primary">
-                Apply
-            </button>
-        </div>
-    </div>
-    <hr>
-    <div class="row-fluid">
-        <div class="col-xs-12 col-md-12">
-            <h3>פרטים</h3>
-            {{job.description}}
-        </div>
-    </div>
+<div class="jumbotron" ng-controller="JobCtrl">
     <div class="row">
-        <div class="align-center">
-            <button class="btn btn-default" ng-click="close()">סגור</button>
-        </div>
+        <form name="form" class="form-horizontal col-sm-12 align-center" novalidate>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Name</label>
+                <input class="col-sm-10 form-control" type="text" ng-model="job.name" name="name" placeholder="Job Name"/>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Code</label>
+                <input class="col-sm-10 form-control" type="text" ng-model="job.code" name="code" placeholder="Job Code"/>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Description</label>
+                <textarea class="col-sm-10 form-control cv-message" ng-model="job.description" placeholder="Description of the job..."/>
+            </div>
+        </form>
     </div>
 </div>
 

@@ -15,7 +15,7 @@ angular.module('easywork.controllers.dashboard', [
 
 //            var selectedEntity;
 
-            $scope.contentTypeValue = common.CONTENT_TYPE.COMPANY.value;
+            $scope.contentTypeValue = common.CONTENT_TYPE.JOB.value;
 
             $scope.isSelected = function (entity) {
                 var selectedEntity = appManager.getSelectedEntity();

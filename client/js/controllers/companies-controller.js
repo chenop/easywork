@@ -94,7 +94,8 @@ companiesController.controller('CompanyListCtrl', ['$scope', '$http', 'mailServi
             });
 
             modalInstance.result.then(function (username) {
-                console.log('User: ' + username + ' has logged in');
+                if (username != undefined)
+                    console.log('User: ' + username + ' has logged in');
             }, function () {
                 console.log('Modal dismissed at: ' + new Date());
             });

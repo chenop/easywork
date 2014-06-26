@@ -1,5 +1,5 @@
 <div data-ng-controller="DashboardCtrl">
-    <div class="row-fluid">
+    <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-3">
             <select ui-select2="select2Options" ng-model="contentTypeValue" data-placeholder="Pick content type">
                 <option value=""></option>
@@ -13,7 +13,7 @@
         </div>
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="col-xs-8 col-sm-6 col-md-3">
             <input placeholder="Add New Item" style="width:100%" ng-model="newEntityName" ng-keyup="hitEnter($event)"/>
         </div>
@@ -26,7 +26,7 @@
         <!--<div class="col-md-offset-7"></div>-->
     </div>
 
-    <div class="row-fluid">
+    <div class="row">
         <div class="col-xs-12 col-md-3">
             {{selectedCompany}}
             <ul class="nav nav-pills nav-stacked">

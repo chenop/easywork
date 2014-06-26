@@ -43,7 +43,8 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
                 });
 
                 modalInstance.result.then(function (username) {
-                    console.log('User: ' + username + ' has logged in');
+                    if (username != undefined)
+                        console.log('User: ' + username + ' has logged in');
                     if (callBack !== undefined)
                         callBack();
                 }, function () {

@@ -40,9 +40,8 @@ angular.module('easywork.services.dataManager', ['easywork.services.common'])
 //            return $http.post('./api/company', company);
         }
 
-        var createJob = function(company) {
-            return createEntity(common.CONTENT_TYPE.JOB, company);
-//            return $http.post('./api/company', company);
+        var createJob = function(job) {
+            return createEntity(common.CONTENT_TYPE.JOB, job);
         }
 
         var createUser = function(company) {

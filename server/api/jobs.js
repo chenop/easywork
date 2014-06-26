@@ -1,0 +1,76 @@
+/**
+ * Created by Chen on 26/06/14.
+ */
+
+'use strict';
+
+var fs = require('fs')
+    , passport = require('passport')
+    , Job = require('../model/job')
+
+exports.createJob = function (req, res) {
+    var newJob = new Job(
+        {
+            name: req.body.name
+            , code: req.body.code
+            , description: req.body.description
+        }
+    );
+    newJob.save(function (err) {
+        if (!err) {
+            return console.log("job " + newJob.name + " create in server")
+        } else {
+            console.log(err);
+        }
+    });
+    return res.send(newJob);
+}
+
+exports.updateJob = function (req, res) {
+    var job = {
+        name: req.body.name
+        , code: req.body.code
+        , description: req.body.description
+    }
+    return updateJob(req.params.id, job, function (err) {
+        if (!err) {
+            console.log("updated");
+        } else {
+            console.log(err);
+            return res.json(401, err);
+        }
+        return res.send(job);
+    });
+};
+
+exports.deleteJob = function (req, res) {
+    return Job.findById(req.params.id, function (err, job) {
+        return job.remove(function (err) {
+            if (!err) {
+                return res.send(job);
+            } else {
+                console.log(err);
+            }
+        });
+    });
+}
+
+exports.getJob = function (req, res) {
+    return Job.findById(req.params.id, function (err, job) {
+        if (!err) {
+            return res.send(job);
+        } else {
+            return console.log(err);
+        }
+    });
+}
+
+exports.getJobs = function (req, res) {
+    return Job.find(function (err, jobs) {
+        if (!err) {
+            return res.send(jobs);
+        } else {
+            return console.log(err);
+        }
+    });
+};
