@@ -34,15 +34,9 @@ angular.module('easywork.services.appManager', ['easywork.services.auth'])
 		}
 
         var getActiveUserId = function() {
-            // TODO should be
-            // if (userRole == jobProvider)
-            //      return user.companyID
-            // else
-            //      return selectedEntity
-            // NOT SURE...
             var activeUser = authService.getActiveUser();
             if (activeUser !== undefined) {
-                return activeUser.id;
+                return activeUser._id;
             }
         }
 
