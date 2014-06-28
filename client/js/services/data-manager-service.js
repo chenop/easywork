@@ -14,8 +14,8 @@ angular.module('easywork.services.dataManager', ['easywork.services.common'])
             return getEntities(common.CONTENT_TYPE.COMPANY);
         }
 
-        var getJobs = function() {
-            return getEntities(common.CONTENT_TYPE.JOB);
+        var getJobs = function(userId) {
+            return $http.get('/api/job/list/' + userId);
         }
 
         var getUsers = function() {

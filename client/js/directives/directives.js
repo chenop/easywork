@@ -7,7 +7,7 @@
  */
 'use strict';
 
-angular.module('easywork.directives.accessLevel', [])
+angular.module('easywork')
     .directive('accessLevel', function (authService) {
         return {
             restrict: 'A',
@@ -19,7 +19,8 @@ angular.module('easywork.directives.accessLevel', [])
                     , userRole
                     , accessLevel;
 
-                scope.$watch('activeUser', function (activeUser) {
+                scope.$watch('authService.getActiveUser()', function () {
+                    var activeUser = authService.getActiveUser();
                     if (activeUser === undefined) {
                         console.log("activeUser not defined")
                         return;
@@ -50,5 +51,17 @@ angular.module('easywork.directives.accessLevel', [])
                 }
             }
         };
-    });
+    })
+    // Put the focus on the username textfield
+    .directive('autoFocus', function ($timeout) {
+        return {
+            restrict: 'AC',
+            link: function (_scope, _element) {
+                $timeout(function () {
+                    _element[0].focus();
+                }, 0);
+            }
+        };
+    })
+
 

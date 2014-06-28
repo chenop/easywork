@@ -33,7 +33,7 @@ angular.module('easywork.controllers.header')
         $scope.hitEnter = function ($event) {
             if (angular.equals($event.keyCode, 13) && !(angular.equals($scope.input.username, null) || angular.equals($scope.input.username, '')))
                 $scope.login();
-        }; // end hitEnter
+        };
 
         $scope.login = function () {
             var user = {

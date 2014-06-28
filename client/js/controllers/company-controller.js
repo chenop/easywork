@@ -106,4 +106,3 @@ companyController.controller('CompanyCtrl', ['$scope', '$http', 'appManager', 'd
     }
 ]
 );
-

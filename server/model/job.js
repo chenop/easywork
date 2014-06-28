@@ -11,6 +11,7 @@ var mongoose = require('mongoose')
 
 var jobSchema = new Schema({
     name: String
+    , userId: String
     , code: String
     , description: String
 });

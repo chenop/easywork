@@ -71,7 +71,7 @@ app.put('/api/company/:id', companies.updateCompany)
 app.delete('/api/company/:id', companies.deleteCompany)
 
 // Jobs
-app.get('/api/job/list', jobs.getJobs)
+app.get('/api/job/list/:id', jobs.getJobs)
 app.get('/api/job/:id', jobs.getJob)
 app.post('/api/job', jobs.createJob)
 app.put('/api/job/:id', jobs.updateJob)

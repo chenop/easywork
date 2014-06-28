@@ -175,7 +175,7 @@ function prepareCookie(res, user) {
         , role: user.role
         , email: user.email
         , experience: user.experience
-        , 'id': user.id
+        , '_id': user.id
     }));
 }
 exports.register = function (req, res) {

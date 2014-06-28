@@ -47,9 +47,16 @@ angular.module('easywork.controllers.dashboard', [
                 }
             }
 
+            $scope.$on('dataChanged', function(event, entity) {
+                refreshEntities(function() {
+                    appManager.setSelectedEntity(entity);
+                    $scope.newEntityName = "";
+                });
+            })
+
             $scope.$watch('contentTypeValue', function () {
                 refreshEntities(function() {
-                    if ($scope.entities != undefined) {
+                    if ($scope.entities != undefined && $scope.entities.length > 0) {
                         appManager.setSelectedEntity($scope.entities[0]);
                     }
                 });
@@ -79,7 +86,8 @@ angular.module('easywork.controllers.dashboard', [
             };
 
             function getJobs(callBack) {
-                dataManager.getJobs().then(function (result) {
+                var userId = appManager.getActiveUserId();
+                dataManager.getJobs(userId).then(function (result) {
                     $scope.entities = $scope.jobs = result.data;
                     if (callBack != undefined)
                         callBack();
@@ -120,12 +128,9 @@ angular.module('easywork.controllers.dashboard', [
                         return common.CONTENT_TYPE.USER;
                 }
             };
-            $scope.addEntity = function () {
 
-                var entity = {
-                    name: $scope.newEntityName
-                }
-                var contentType = getContentType($scope.contentTypeValue);
+            $scope.addEntity = function (entity, entityType) {
+                var contentType = getContentType(entityType);
                 dataManager.createEntity(contentType, entity).
                     success(function (entity) {
                         refreshEntities(function() {
@@ -136,13 +141,16 @@ angular.module('easywork.controllers.dashboard', [
                     });
             }
 
-            $scope.deleteEntity = function (entity) {
+            $scope.deleteEntity = function (entity, index) {
                 var contentType = getContentType($scope.contentTypeValue);
                 dataManager.deleteEntity(contentType, entity._id).
                     success(function () {
                         refreshEntities(function() {
                             if ($scope.entities != undefined) {
-                                appManager.setSelectedEntity($scope.entities[0]);
+                                if (index >= $scope.entities.length) {
+                                    index = $scope.entities.length - 1;
+                                }
+                                appManager.setSelectedEntity($scope.entities[index]);
                             }
                         });
                     });

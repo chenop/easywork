@@ -1,46 +1,33 @@
 <div data-ng-controller="DashboardCtrl">
     <div class="row">
-        <div class="col-xs-12 col-sm-6 col-md-3">
-            <select ui-select2="select2Options" ng-model="contentTypeValue" data-placeholder="Pick content type">
-                <option value=""></option>
-                <option value="0">Jobs</option>
-                <option value="1">Companies</option>
-                <option value="2">Users</option>
-            </select>
-        </div>
-        <div class="col-xs-12 col-md-offset-9">
+        <div class="col-xs-12 col-sm-4">
+            <div class="col-sm-12 no-padding">
+                <select ui-select2="select2Options" ng-model="contentTypeValue" data-placeholder="Pick content type">
+                    <option value=""></option>
+                    <option access-level="jobProvider" value="0">Jobs</option>
+                    <option access-level="admin" value="1">Companies</option>
+                    <option access-level="admin" value="2">Users</option>
+                </select>
+            </div>
 
-        </div>
-    </div>
+            <input placeholder="Search..." style="width:100%" ng-model="searchStr"/>
 
-    <div class="row">
-        <div class="col-xs-8 col-sm-6 col-md-3">
-            <input placeholder="Add New Item" style="width:100%" ng-model="newEntityName" ng-keyup="hitEnter($event)"/>
-        </div>
-        <div class="col-xs-1 col-sm-1 col-md-1">
-            <button ng-click="addEntity()" class="glyphicon glyphicon-plus btn" ng-disabled="!(newEntityName)"></button>
-        </div>
-        <div class="col-xs-3 col-sm-5 col-md-8">
-            <button class="btn btn-default btn-sm" ng-disabled="!isSaveEnable()" ng-click="saveEntities()">שמור הכל</button>
-        </div>
-        <!--<div class="col-md-offset-7"></div>-->
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-md-3">
-            {{selectedCompany}}
-            <ul class="nav nav-pills nav-stacked">
-                <li ng-repeat="entity in entities" ng-class="{'active': isSelected(entity)}"
-                    ng-click="setSelected(entity)">
-                    <a>
-                        {{entity.name}}
-                        <span class="glyphicon glyphicon-remove btn btn-sm" ng-click="deleteEntity(entity)"
+            <div class="no no-padding">
+                <ul class="nav nav-pills nav-stacked">
+                    <li ng-repeat="entity in entities | filter:searchStr" ng-class="{'active': isSelected(entity)}"
+                        ng-click="setSelected(entity)">
+                        <a>
+                            {{entity.name}}
+                        <span class="glyphicon glyphicon-remove btn btn-sm" ng-click="deleteEntity(entity, $index)"
                               style="float: left"></span>
-                    </a>
-                </li>
-            </ul>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
         </div>
-        <div class="col-xs-12 col-md-9">
+
+        <div class="col-xs-12 col-sm-8">
             <div ng-include="getRelevantForm()"></div>
         </div>
     </div>

@@ -12,6 +12,7 @@ exports.createJob = function (req, res) {
     var newJob = new Job(
         {
             name: req.body.name
+            , userId: req.body.userId
             , code: req.body.code
             , description: req.body.description
         }
@@ -43,6 +44,25 @@ exports.updateJob = function (req, res) {
     });
 };
 
+/**
+ * Update user details (except file)
+ * @param id
+ * @param newUser
+ * @param callBack
+ * @returns {*}
+ */
+function updateJob(id, newJob, callBack) {
+    return Job.findById(id, function (err, job) {
+        if ('undefined' !== typeof newJob.name)
+            job.name = newJob.name;
+        if ('undefined' !== typeof newJob.code)
+            job.code = newJob.code;
+        if ('undefined' !== typeof newJob.description)
+            job.description = newJob.description;
+        return job.save(callBack);
+    });
+}
+
 exports.deleteJob = function (req, res) {
     return Job.findById(req.params.id, function (err, job) {
         return job.remove(function (err) {
@@ -66,7 +86,7 @@ exports.getJob = function (req, res) {
 }
 
 exports.getJobs = function (req, res) {
-    return Job.find(function (err, jobs) {
+    return Job.find({ 'userId': req.params.id}, function (err, jobs) {
         if (!err) {
             return res.send(jobs);
         } else {

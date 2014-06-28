@@ -6,7 +6,6 @@ var app = angular.module('easywork',
         'easywork.services.appManager'
         , 'easywork.controllers.header'
         , 'easywork.services.auth'
-        , 'easywork.directives.accessLevel'
         , 'easywork.controllers.dashboard'
         , 'easywork.controllers.home'
         , 'easywork.controllers.company'
@@ -22,7 +21,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 
         $routeProvider
             .when('/', { templateUrl: '/views/home.html', access: 'public'})
-            .when('/test', { templateUrl: '/views/jobs/job.html', access: 'public'})
+            .when('/test', { templateUrl: '/views/admin/dashboard.html', access: 'public'})
 //            .when('/test', { templateUrl: '/views/users/loginRegister.html', access: 'public' })
             .when('/login', { templateUrl: '/views/users/login.html', access: 'public' })
             .when("/company", { templateUrl: '/views/companies/company.html', access: 'jobProvider' })
