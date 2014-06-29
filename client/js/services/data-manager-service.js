@@ -79,19 +79,19 @@ angular.module('easywork.services.dataManager', ['easywork.services.common'])
         }
 
         var getEntity = function(entityType, id) {
-            return $http.get('./api/' + entityType.name +'/' + id);
+            return $http.get('/api/' + entityType.name +'/' + id);
         }
 
         var createEntity = function(entityType, entity) {
-            return $http.post('./api/' + entityType.name, entity);
+            return $http.post('/api/' + entityType.name, entity);
         }
 
         var deleteEntity = function(entityType, id) {
-            return $http.delete('./api/' + entityType.name + '/' + id);
+            return $http.delete('/api/' + entityType.name + '/' + id);
         }
 
         var updateEntity = function(entityType, entity) {
-            return $http.put('./api/' + entityType.name + '/' + entity._id, entity);
+            return $http.put('/api/' + entityType.name + '/' + entity._id, entity);
         }
 
 

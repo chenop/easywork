@@ -7,9 +7,12 @@
                 </div>
             </div>
             <div class="col-xs-2 navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">פרסם משרה</a></li>
-                </ul>
+                <!--<ul class="nav navbar-nav">-->
+                    <!--<li class="active"><a href="#" ng-click="publishJob()">פרסם משרה</a></li>-->
+                <!--</ul>-->
+                <button class="btn btn-default" style="margin-top: 10px" ng-click="publishJob()">
+                    פרסם משרה
+                </button>
             </div>
 
             <div class="col-xs-8 col-md-8 no-padding">
@@ -71,7 +74,7 @@
                                         <li access-level="jobProvider" active-user="authService.getActiveUser()"><a
                                                 href="/company">My Company</a></li>
                                         <li access-level="jobProvider" active-user="authService.getActiveUser()"><a
-                                                href="/content_manager">My Jobs</a></li>
+                                                href="/content_manager/0">My Jobs</a></li>
                                         <li access-level="admin" active-user="authService.getActiveUser()"><a
                                                 href="/content_manager">Content Manager</a></li>
                                         <li access-level="public" active-user="authService.getActiveUser()"><a href=""

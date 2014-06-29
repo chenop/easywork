@@ -9,13 +9,17 @@ angular.module('easywork.controllers.dashboard', [
         'easywork.services.common',
         'ui.bootstrap'
     ])
-    .controller('DashboardCtrl', ['$scope', 'authService', 'appManager', 'dataManager', 'common',
+    .controller('DashboardCtrl', ['$scope', 'authService', 'appManager', 'dataManager', 'common', '$routeParams',
 //        '$modal', '$location',
-        function ($scope, authService, appManager, dataManager, common, $modal, $location) {
+        function ($scope, authService, appManager, dataManager, common, $routeParams) {
 
 //            var selectedEntity;
 
-            $scope.contentTypeValue = common.CONTENT_TYPE.JOB.value;
+            if ($routeParams.contentType == undefined) {
+                $scope.contentTypeValue = common.CONTENT_TYPE.COMPANY.value;
+            } else {
+                $scope.contentTypeValue = $routeParams.contentType;
+            }
 
             $scope.isSelected = function (entity) {
                 var selectedEntity = appManager.getSelectedEntity();

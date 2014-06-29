@@ -25,7 +25,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 //            .when('/test', { templateUrl: '/views/users/loginRegister.html', access: 'public' })
             .when('/login', { templateUrl: '/views/users/login.html', access: 'public' })
             .when("/company", { templateUrl: '/views/companies/company.html', access: 'jobProvider' })
-            .when("/content_manager", { templateUrl: '/views/admin/dashboard.html', access: 'jobProvider' })
+            .when("/content_manager/:contentType?", { templateUrl: '/views/admin/dashboard.html', access: 'jobProvider' })
             .when("/companies", { templateUrl: '/views/companies/companies.html', access: 'jobProvider' })
             .when('/user_details', { templateUrl: '/views/users/details.html', access: 'jobSeeker' })
             .otherwise({ redirectTo: '/' });
