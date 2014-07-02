@@ -35,8 +35,9 @@ companyController.controller('CompanyCtrl', ['$scope', '$http', 'appManager', 'd
 
         $scope.list_of_technologies = ['Java', 'C#', 'Web', 'UI', 'GUI', 'AngularJS', 'HTML', 'CSS', 'C++'];
         $scope.technologies_select2Options = {
-            'multiple': true
-        };
+            'multiple': true,
+            'width': '83.33333%'
+    };
 
         $scope.displayedImage = "holder.js/100%x100%";
 

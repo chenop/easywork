@@ -12,7 +12,7 @@
 }
 
 .experience {
-    margin-right: 51px;
+    float:right;
     direction: ltr;
 }
 
@@ -316,4 +316,26 @@ ul li {
 }
 .remove-icon {
     float: left;
+}
+
+.top-padding {
+    margin: 0px 0px 10px 0px;
+    padding: 0;
+}
+
+.extra-vertical-padding {
+    margin: 0px 0px 33px 0px;
+    padding: 0;
+}
+
+.jumbotron {
+    padding: 20px;
+}
+
+.first-jumbotron-toolbar {
+    margin: 0px 0px 10px 0px;
+}
+
+.jumbotron-toolbar {
+    margin: 0px 15px 10px 0px;
 }

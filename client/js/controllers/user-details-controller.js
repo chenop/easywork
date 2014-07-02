@@ -28,7 +28,7 @@ userDetailsModule.controller('userDetailsCtrl',
         })
 
         function getUserDetails(id) {
-            return $http.get('./api/user/' + id);
+            return $http.get('/api/user/' + id);
         }
 
         $scope.welcome = "אנא הכנס פרטים:";

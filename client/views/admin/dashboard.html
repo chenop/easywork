@@ -1,7 +1,12 @@
 <div data-ng-controller="DashboardCtrl">
     <div class="row">
-        <div class="col-xs-12 col-sm-4">
-            <div class="col-sm-12 no-padding">
+        <div class="col-sm-4">
+            <label class="col-sm-4 control-label"
+                   style="width:95px;">
+                    סוג תוכן:
+            </label>
+
+            <div class="col-sm-6 no-padding">
                 <select ui-select2="select2Options" ng-model="contentTypeValue" data-placeholder="Pick content type">
                     <option value=""></option>
                     <option access-level="jobProvider" value="0">Jobs</option>
@@ -9,8 +14,13 @@
                     <option access-level="admin" value="2">Users</option>
                 </select>
             </div>
-
-            <input placeholder="Search..." style="width:100%" ng-model="searchStr"/>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12 col-sm-4">
+            <input class="form-control top-padding" placeholder="Search..." style="width:100%"
+                   ng-model="searchStr"/>
 
             <div class="no no-padding">
                 <ul class="nav nav-pills nav-stacked">

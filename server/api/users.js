@@ -183,7 +183,7 @@ exports.register = function (req, res) {
         {
             name: req.body.name
 			, username: req.body.username
-			, role: { title: 'jobSeeker'}
+			, role: 'jobSeeker'
 			, password: req.body.password
 			, experience: req.body.experience
 			, email: req.body.email

@@ -26,7 +26,7 @@ angular.module('easywork')
                         return;
                     }
                     if (activeUser.role) {
-                        userRole = activeUser.role.title;
+                        userRole = activeUser.role;
                     }
                     updateCSS();
                 }, true);

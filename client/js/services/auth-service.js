@@ -7,7 +7,7 @@ angular.module('easywork.services.auth', ['ngCookies'])
 
         var accessLevels = routingConfig.accessLevels
             , userRoles = routingConfig.userRoles
-            , ANONYMOUS = {username: '', role: userRoles.public}
+            , ANONYMOUS = {username: '', role: "public"}
             , activeUser = $cookieStore.get('user') || angular.copy(ANONYMOUS);
 
         function setActiveUser(user) {
@@ -16,7 +16,7 @@ angular.module('easywork.services.auth', ['ngCookies'])
 
         var isAuthorize = function(accessLevel, role) {
             if(role === undefined) {
-                role = activeUser.role.title;
+                role = activeUser.role;
             }
 
             return accessLevels[accessLevel].bitMask & userRoles[role].bitMask;
@@ -26,7 +26,7 @@ angular.module('easywork.services.auth', ['ngCookies'])
             if (user === undefined) {
                 user = activeUser;
             }
-            return user.role.title !== userRoles.public.title;
+            return user.role !== userRoles.public.title;
         };
 
         var getActiveUser = function () {
