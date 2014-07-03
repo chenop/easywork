@@ -175,6 +175,7 @@ function prepareCookie(res, user) {
         , role: user.role
         , email: user.email
         , experience: user.experience
+        , companyId: user.companyId
         , '_id': user.id
     }));
 }

@@ -35,7 +35,7 @@ angular.module('easywork')
                 });
         })
 
-        $scope.keyUp = function (event) {
+        $scope.updateJob = function (event) {
             dataManager.updateJob($scope.job)
                 .success(function (entity) {
                     $scope.$emit('dataChanged', entity);

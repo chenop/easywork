@@ -4,7 +4,7 @@ angular.module('easywork.controllers.header')
     .controller('registerCtrl', function ($scope, authService, appManager) {
         var defaultMessage = appManager.defaultMessage;
 
-        var modalInstance = $scope.modalInstance;
+        var modIns = $scope.modIns;
         $scope.user = {};
         $scope.user.name = null;
         $scope.user.username = null;
@@ -29,7 +29,11 @@ angular.module('easywork.controllers.header')
         }, true);
 
         $scope.cancel = function () {
-            modalInstance.dismiss('canceled');
+            if (modIns) {
+                modIns.dismiss('canceled');
+//                console.log("login - modIns.close");
+            }
+            modIns = undefined; // Bug Fix - prevent from closing again the modal
         }; // end cancel
 
         $scope.hitEnter = function (evt) {
@@ -45,7 +49,11 @@ angular.module('easywork.controllers.header')
             authService.register(user)
                 .success(
                 function () {
-                    modalInstance.close(user.username);
+                    if (modIns) {
+                        modIns.close(user.username);
+//                        console.log("login - modIns.close");
+                    }
+                    modIns = undefined; // Bug Fix - prevent from closing again the modal
                 }
             ).error(
                 function (err) {

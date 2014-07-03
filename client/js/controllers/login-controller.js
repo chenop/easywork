@@ -16,7 +16,7 @@ angular.module('easywork.controllers.header')
     .controller('loginCtrl', function ($scope, authService) {
 
         var SOMETHING_WENT_WRONG_MSG = "Oops, Something went wrong!";
-        var modalInstance = $scope.modalInstance;
+        var modIns = $scope.modIns;
         $scope.input = {};
         $scope.input.username = null;
         $scope.input.password = null;
@@ -27,7 +27,11 @@ angular.module('easywork.controllers.header')
             return true;//$scope.errorMessage != null;
         }
         $scope.cancel = function () {
-            modalInstance.dismiss('canceled');
+            if (modIns) {
+                modIns.dismiss('canceled');
+//                console.log("login - modIns.close");
+            }
+            modIns = undefined; // Bug Fix - prevent from closing again the modal
         }; // end cancel
 
         $scope.hitEnter = function ($event) {
@@ -42,12 +46,14 @@ angular.module('easywork.controllers.header')
             }
 
             authService.logIn(user)
-                .success(
-                function () {
-                    modalInstance.close(user.username);
-                }
-            ).error(
-                function (err) {
+                .success(function () {
+                    if (modIns) {
+                        modIns.close(user.username);
+//                        console.log("login - modIns.close");
+                    }
+                    modIns = undefined; // Bug Fix - prevent from closing again the modal
+                })
+                .error(function (err) {
                     if ((err == undefined) || (err === "")) {
                         $scope.errorMessage = SOMETHING_WENT_WRONG_MSG;
                     }

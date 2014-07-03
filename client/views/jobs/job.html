@@ -5,7 +5,7 @@
         <button class="btn btn-lg glyphicon glyphicon-minus jumbotron-toolbar" ng-click="removeJob()"></button>
     </div>
     <div class="row">
-        <form name="form" class="form-horizontal align-center" ng-keyup="keyUp($event)" novalidate>
+        <form name="form" class="form-horizontal align-center" ng-keyup="updateJob($event)" novalidate>
             <div class="form-group">
                 <label class="col-sm-2 control-label">Name</label>
                 <input id="jobName" class="col-sm-10 form-control" type="text" ng-model="job.name" name="name"

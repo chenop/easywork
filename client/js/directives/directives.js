@@ -11,9 +11,6 @@ angular.module('easywork')
     .directive('accessLevel', function (authService) {
         return {
             restrict: 'A',
-            scope: {
-                activeUser: '=activeUser'
-            },
             link: function (scope, element, attrs) {
                 var prevDisp = element.css('display')
                     , userRole

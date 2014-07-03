@@ -17,7 +17,8 @@ userDetailsModule.controller('userDetailsCtrl',
         , 'authService'
         , '$location'
         , 'cvParser'
-    , function ($scope, $upload, $http, appManager, authService, $location, cvParser) {
+        , 'dataManager'
+        , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager) {
 
         fetchActiveUser();
 
@@ -38,6 +39,8 @@ userDetailsModule.controller('userDetailsCtrl',
         };
 
         var default_message = appManager.defaultMessage;
+
+        $scope.userRoles = routingConfig.rolesArray;
 
         $scope.user = {
             name: '',
@@ -94,7 +97,7 @@ userDetailsModule.controller('userDetailsCtrl',
                 }).success(function (data, status, headers, config) {
                     fetchActiveUser();
                     console.log("what data" + data);
-                }).error(function(err) {
+                }).error(function (err) {
                     console.log("upload finish with err" + err);
                 });
             }
@@ -103,8 +106,13 @@ userDetailsModule.controller('userDetailsCtrl',
         $scope.onFileSelect = function ($files) {
             var activeUser = authService.getActiveUser();
             cvParser.parseCV($files[0]).
-                then(function(skills) {
+                then(function (skills) {
                     sendCVToServer($files, skills, activeUser);
                 })
         };
-    }]);
+
+        $scope.updateUser = function (event) {
+            dataManager.updateUser($scope.user);
+        }
+    }
+    ]);

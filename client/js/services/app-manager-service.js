@@ -40,12 +40,9 @@ angular.module('easywork.services.appManager', ['easywork.services.auth'])
             }
         }
 
-        var getActiveEntityId = function() {
-            var selectedEntity = getSelectedEntity();
-            if (selectedEntity !== undefined && selectedEntity._id !== undefined) {
-                return selectedEntity._id;
-            }
-            return null;
+        var getCompanyId = function() {
+            var activeUser = authService.getActiveUser();
+            return activeUser.companyId;
         }
 
         var selectionChangeListeners = [];
@@ -78,7 +75,7 @@ angular.module('easywork.services.appManager', ['easywork.services.auth'])
             , getSelection: getSelection
             , setSelection: setSelection
             , disableSend: disableSend
-            , getActiveEntityId: getActiveEntityId
+            , getCompanyId: getCompanyId
             , getActiveUserId: getActiveUserId
             , setSelectedEntity: setSelectedEntity
             , getSelectedEntity: getSelectedEntity

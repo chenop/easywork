@@ -21,12 +21,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 
         $routeProvider
             .when('/', { templateUrl: '/views/home.html', access: 'public'})
-            .when('/test', { templateUrl: '/views/users/details.html', access: 'public'})
-//            .when('/test', { templateUrl: '/views/users/loginRegister.html', access: 'public' })
+            .when('/test', { templateUrl: '/views/companies/company.html', access: 'public'})
             .when('/login', { templateUrl: '/views/users/login.html', access: 'public' })
             .when("/company", { templateUrl: '/views/companies/company.html', access: 'jobProvider' })
             .when("/content_manager/:contentType?", { templateUrl: '/views/admin/dashboard.html', access: 'jobProvider' })
-            .when("/companies", { templateUrl: '/views/companies/companies.html', access: 'jobProvider' })
+            .when("/companies", { templateUrl: '/views/companies/companies.html', access: 'jobSeeker' })
             .when('/user_details', { templateUrl: '/views/users/details.html', access: 'jobSeeker' })
             .otherwise({ redirectTo: '/' });
 

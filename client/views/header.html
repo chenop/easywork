@@ -7,10 +7,7 @@
                 </div>
             </div>
             <div class="col-xs-2 navbar-collapse collapse">
-                <!--<ul class="nav navbar-nav">-->
-                    <!--<li class="active"><a href="#" ng-click="publishJob()">פרסם משרה</a></li>-->
-                <!--</ul>-->
-                <button class="btn btn-default" style="margin-top: 10px" ng-click="publishJob()">
+                <button class="btn btn-default" style="margin-top: 10px" ng-click="publishJob()" access-level="jobProvider">
                     פרסם משרה
                 </button>
             </div>
@@ -18,7 +15,6 @@
             <div class="col-xs-8 col-md-8 no-padding">
                 <div class="navbar-collapse collapse">
                     <div class="row-fluid">
-                        <!--<h1>{{selected_technologies}}</h1>-->
                         <div class="col-xs-4 col-sm-4 col-md-4">
                             <div class="select2" ng-if="appManager.shouldDisplaySearchBarInHeader()">
                                 <select ui-select2="areas_select2Options" multiple ng-model="appManager.selectedAreas"
@@ -69,13 +65,13 @@
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li access-level="jobSeeker" active-user="authService.getActiveUser()"><a
+                                        <li access-level="jobSeeker"><a
                                                 href="/user_details">My User Profile</a></li>
-                                        <li access-level="jobProvider" active-user="authService.getActiveUser()"><a
+                                        <li access-level="jobProvider"><a
                                                 href="/company">My Company Profile</a></li>
-                                        <li access-level="jobProvider" active-user="authService.getActiveUser()"><a
+                                        <li access-level="jobProvider"><a
                                                 href="/content_manager/0">My Jobs</a></li>
-                                        <li access-level="admin" active-user="authService.getActiveUser()"><a
+                                        <li access-level="admin"><a
                                                 href="/content_manager">Content Manager</a></li>
                                         <li access-level="public" active-user="authService.getActiveUser()"><a href=""
                                                                                                                ng-click="logout()">Logout</a>

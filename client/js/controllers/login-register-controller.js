@@ -11,7 +11,7 @@ app.controller('LoginRegisterCtrl', function ($scope, $modalInstance, selectedTa
     ];
 
     $scope.tabs[selectedTab].active = true;
-    $scope.modalInstance = $modalInstance;
+    $scope.modIns = $modalInstance;
 });
 
 
