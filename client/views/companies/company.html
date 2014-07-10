@@ -1,14 +1,14 @@
 <div class="jumbotron" data-ng-controller="CompanyCtrl">
     <div class="row" access-level="admin">
         <button class="btn btn-info btn-lg glyphicon glyphicon-plus first-jumbotron-toolbar"
-                ng-click="addJob()"></button>
-        <button class="btn btn-lg glyphicon glyphicon-minus jumbotron-toolbar" ng-click="removeJob()"></button>
+                ng-click="addCompany()"></button>
+        <button class="btn btn-lg glyphicon glyphicon-minus jumbotron-toolbar" ng-click="removeCompany()"></button>
     </div>
     <div class="row">
         <form name="form" class="form-horizontal" ng-keyup="updateCompany($event)" novalidate>
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="cName">Name</label>
-                <input type="text" class="col-sm-10 form-control" ng-model="company.name" id="cName" name="cName"
+                <input id="companyName" type="text" class="col-sm-10 form-control" ng-model="company.name" name="cName"
                        placeholder="Company name"/>
             </div>
             <div class="form-group">
@@ -43,61 +43,16 @@
                        placeholder="Job's Mail"/>
             </div>
             <!--Angular-->
-            <div class="row-fluid">
-                <h2>AngularJS</h2>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="cMail">Logo</label>
 
-                <div class="form-group">
-                    <!--<div class="col-sm-12 col-md-12">-->
-
-                    <!--<div class="fileinput">-->
-                    <!--<div class="thumbnail" style="width: 200px; height: 150px;">-->
-                    <!--<img data-src="holder.js/100%x100%" alt="..." bs-holder>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <!--</div>-->
-                    <div class="col-sm-3 col-md-3">
-
-                        <div class="fileUpload btn btn-default btn-file">Upload
-                            <input id="uploadBtn" type="file" class="upload"
-                                   ng-file-select="onImageSelect($files)"/>
+                <div class="col-sm-10 col-md-10 no-padding">
+                    <div class="col-sm-12 no-padding">
+                        <div>
+                            <img class="image-container" ng-src="{{company.logoUrl}}"></img>
                         </div>
-
-
-                        <!--<input class="btn btn-default btn-file" ng-file-select type="file" multiple/>-->
-                        <!--<button ng-show="true" class="btn btn-default btn-file" ng-file-select="openFileDialog()">-->
-                        <!--Select Image-->
-                        <!--</button>-->
-                    </div>
-                    <div class="col-sm-9 col-md-9">
-                        <div ng-show="company.logoUrl">{{company.logoUrl}}</div>
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- JQuery -->
-
-            <div class="row-fluid">
-                <h2>jQuery</h2>
-
-                <div class="form-group">
-                    <div class="col-sm-12 col-md-6">
-                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <div class="fileinput-new thumbnail" style="width: 200px; height: 150px;">
-                                <img data-src="holder.js/100%x100%" alt="..." bs-holder>
-                            </div>
-                            <div class="fileinput-preview fileinput-exists thumbnail"
-                                 style="max-width: 200px; max-height: 150px;">
-                            </div>
-                            <div>
-                                    <span class="btn btn-default btn-file"><span
-                                            class="fileinput-new">Select image</span>
-                                        <span class="fileinput-exists">Change</span>
-                                        <input type="file" name="...">
-                                    </span>
-                                <a href="#" class="btn btn-default fileinput-exists"
-                                   data-dismiss="fileinput">Remove</a>
-                            </div>
+                        <div class="btn btn-default btn-file top-margin">Upload
+                            <input id="uploadBtn" type="file" class="upload" ng-file-select="onImageSelect($files)"/>
                         </div>
                     </div>
                 </div>

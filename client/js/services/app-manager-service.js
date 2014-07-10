@@ -1,7 +1,5 @@
 'use strict';
 
-var SEARCH_BUTTON_STR = 'חפש';
-
 angular.module('easywork.services.appManager', ['easywork.services.auth'])
 	.factory('appManager', function (authService) {
 
@@ -45,21 +43,8 @@ angular.module('easywork.services.appManager', ['easywork.services.auth'])
             return activeUser.companyId;
         }
 
-        var selectionChangeListeners = [];
-
-        var addSelectionChangeListener = function(listener) {
-            selectionChangeListeners.push(listener);
-        }
-
-        var fireSelectionChanged = function() {
-            angular.forEach(selectionChangeListeners, function(listener) {
-                listener(getSelectedEntity());
-            })
-        };
-
         var setSelectedEntity = function(selectedEntity) {
             _selectedEntity = selectedEntity;
-            fireSelectionChanged();
         }
 
 		var getSelectedEntity = function() {
@@ -79,8 +64,6 @@ angular.module('easywork.services.appManager', ['easywork.services.auth'])
             , getActiveUserId: getActiveUserId
             , setSelectedEntity: setSelectedEntity
             , getSelectedEntity: getSelectedEntity
-            , addSelectionChangeListener: addSelectionChangeListener
-            , fireSelectionChanged: fireSelectionChanged
             , defaultMessage: default_message
 		}
 	}

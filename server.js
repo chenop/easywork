@@ -69,6 +69,7 @@ app.get('/api/company/:id', companies.getCompany)
 app.post('/api/company', companies.createCompany)
 app.put('/api/company/:id', companies.updateCompany)
 app.delete('/api/company/:id', companies.deleteCompany)
+app.post('/api/company/logo-upload/:id', companies.upload)
 
 // Jobs
 app.get('/api/job/list/:id', jobs.getJobs)

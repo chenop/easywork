@@ -8,25 +8,15 @@ var userDetailsModule = angular.module('userDetailsModule',
         , 'easywork.services.cvParser'
     ]);
 
-userDetailsModule.controller('userDetailsCtrl',
-    [
-        '$scope'
-        , '$upload'
-        , '$http'
-        , 'appManager'
-        , 'authService'
-        , '$location'
-        , 'cvParser'
-        , 'dataManager'
-        , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager) {
+userDetailsModule.controller('userDetailsCtrl'
+    , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager, $timeout) {
 
-        fetchActiveUser();
-
-        appManager.addSelectionChangeListener(function (selectedEntity) {
-            getUserDetails(selectedEntity._id).then(function (result) {
-                $scope.user = result.data;
-            });
-        })
+        $scope.$on('listSelectionChanged', function (event, selectedEntity) {
+            $scope.user = selectedEntity;
+            $timeout(function () {
+                $('#userName').select();
+            }, 100);
+        });
 
         function getUserDetails(id) {
             return $http.get('/api/user/' + id);
@@ -42,41 +32,11 @@ userDetailsModule.controller('userDetailsCtrl',
 
         $scope.userRoles = routingConfig.rolesArray;
 
-        $scope.user = {
-            name: '',
-            username: '',
-            email: '',
-            role: '',
-            message: default_message,
-            experience: '',
-            file: ''
-        };
-
-        $scope.updateUser = function () {
-            var id = appManager.getActiveUserId();
-            $http.put('./api/user/' + id, $scope.user)
-                .success(
-                function () {
-                    $location.path("/");
-                }
-            );
-        }
-
         $scope.$watch('user.name', function (value) {
             if (value) {
                 $scope.user.message = default_message + value;
             }
         }, true);
-
-        function fetchActiveUser() {
-            var activeEntityId = appManager.getActiveUserId();
-            if (activeEntityId !== undefined) {
-                getUserDetails(activeEntityId).then(function (result) {
-                    $scope.user = result.data;
-                    $scope.skills = result.data.skills;
-                });
-            }
-        }
 
         /**
          * $files: an array of files selected, each file has name, size, and type.
@@ -95,7 +55,6 @@ userDetailsModule.controller('userDetailsCtrl',
                 }).progress(function (evt) {
                     console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
                 }).success(function (data, status, headers, config) {
-                    fetchActiveUser();
                     console.log("what data" + data);
                 }).error(function (err) {
                     console.log("upload finish with err" + err);
@@ -112,7 +71,27 @@ userDetailsModule.controller('userDetailsCtrl',
         };
 
         $scope.updateUser = function (event) {
-            dataManager.updateUser($scope.user);
+            dataManager.updateUser($scope.user)
+                .success(function (entity) {
+                    $scope.$emit('dataChanged', entity);
+                });
+        }
+
+        $scope.addUser = function () {
+            var user = {
+                name: "Untitled User",
+                username: '',
+                email: '',
+                role: '',
+                message: default_message,
+                experience: '',
+                file: ''
+            };
+
+            dataManager.createUser(user)
+                .success(function (entity) {
+                    $scope.$emit('dataChanged', entity);
+                });
         }
     }
-    ]);
+);

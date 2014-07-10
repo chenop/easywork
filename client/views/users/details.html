@@ -1,16 +1,16 @@
-<div class="jumbotron col-xs-12 col-sm-12" ng-controller="userDetailsCtrl" ng-keyup="updateUser($event)">
+<div class="jumbotron col-xs-12 col-sm-12" ng-controller="userDetailsCtrl">
     <div class="row" access-level="admin">
         <button class="btn btn-info btn-lg glyphicon glyphicon-plus first-jumbotron-toolbar"
-                ng-click="addJob()"></button>
+                ng-click="addUser()"></button>
         <button class="btn btn-lg glyphicon glyphicon-minus jumbotron-toolbar" ng-click="removeJob()"></button>
     </div>
     <div class="row">
         <!--<h2>{{welcome}}</h2>-->
         <!--Details content-->
-        <form name="form" class="form-horizontal align-center" novalidate>
+        <form name="form" class="form-horizontal align-center" ng-keyup="updateUser($event)" novalidate>
             <div class="form-group">
                 <label class="col-sm-2 control-label">Name</label>
-                <input class="col-sm-10 form-control" type="text" ng-model="user.name" name="uName"
+                <input id="userName" class="col-sm-10 form-control" type="text" ng-model="user.name" name="uName"
                        placeholder="Your name"/>
             </div>
 

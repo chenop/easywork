@@ -44,9 +44,8 @@ angular.module('easywork.services.dataManager', ['easywork.services.common'])
             return createEntity(common.CONTENT_TYPE.JOB, job);
         }
 
-        var createUser = function(company) {
-            return createEntity(common.CONTENT_TYPE.USER, company);
-//            return $http.post('./api/company', company);
+        var createUser = function(user) {
+            return createEntity(common.CONTENT_TYPE.USER, user);
         }
 
         var deleteCompany = function(id) {
@@ -83,7 +82,7 @@ angular.module('easywork.services.dataManager', ['easywork.services.common'])
         }
 
         var createEntity = function(entityType, entity) {
-            return $http.post('/api/' + entityType.name, entity);
+             return $http.post('/api/' + entityType.name, entity);
         }
 
         var deleteEntity = function(entityType, id) {

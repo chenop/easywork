@@ -11,10 +11,7 @@ var fs = require('fs')
 exports.createJob = function (req, res) {
     var newJob = new Job(
         {
-            name: req.body.name
-            , userId: req.body.userId
-            , code: req.body.code
-            , description: req.body.description
+            name: req.body.name, userId: req.body.userId, code: req.body.code, description: req.body.description
         }
     );
     newJob.save(function (err) {
@@ -28,19 +25,20 @@ exports.createJob = function (req, res) {
 }
 
 exports.updateJob = function (req, res) {
-    var job = {
-        name: req.body.name
-        , code: req.body.code
-        , description: req.body.description
-    }
-    return updateJob(req.params.id, job, function (err) {
-        if (!err) {
-            console.log("updated");
-        } else {
-            console.log(err);
-            return res.json(401, err);
-        }
-        return res.send(job);
+    return Job.findById(req.params.id, function (err, job) {
+        job.name = req.body.name
+            , job.code = req.body.code
+            , job.description = req.body.description
+
+        return job.save(function (err) {
+            if (!err) {
+                console.log("updated");
+            } else {
+                console.log(err);
+                return res.json(401, err);
+            }
+            return res.send(job);
+        });
     });
 };
 

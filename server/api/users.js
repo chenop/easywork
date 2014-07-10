@@ -3,36 +3,11 @@
 var fs = require('fs')
 	, passport = require('passport')
 	, User = require('../model/user')
-	, mongoose = require('mongoose')
+	, utils = require('../utils')
 
 var CV_DIRECTORY = "./resources/cvs/";
 module.exports.logout = logout;
 
-
-function getUniqueFileName(fullFileName) {
-
-	if (!fs.existsSync(fullFileName)) {
-		return fullFileName;
-	}
-
-	var fileExist = true;
-	var fileNumber = 1;
-	var periodIndex = fullFileName.lastIndexOf('.');
-	var fileName = fullFileName.substr(0, periodIndex) || fullFileName;
-	var fileType = fullFileName.substr(periodIndex + 1, fullFileName.length - 1);
-
-	while (fileExist) {
-
-		fileNumber_str = fileNumber.toString();
-		var current = fileName + '(' + fileNumber_str + ').' + fileType;
-
-		if (fs.existsSync(current)) {
-			fileNumber++;
-		} else {
-			return current
-		}
-	}
-}
 /**********************
  * Public Interface
  **********************/
@@ -62,7 +37,7 @@ exports.createUser = function (req, res) {
             , role: req.body.role
             , email: req.body.email
             , experience: req.body.experience
-            , 'id': req.body.id
+            , message: req.body.message
         }
     );
     newUser.save(function (err) {
@@ -149,21 +124,23 @@ function updateUserSkills(id, skills, callBack) {
 }
 
 exports.updateUser = function (req, res) {
-	var user = {
-		name: req.body.name,
-		username: req.body.username,
-		role: req.body.role,
-		email: req.body.email,
-		experience: req.body.experience
-	}
-	return updateUser(req.params.id, user, function (err) {
-		if (!err) {
-			console.log("updated");
-		} else {
-			console.log(err);
-			return res.json(401, err);
-		}
-		return res.send(user);
+    return User.findById(req.params.id, function (err, user) {
+		user.name = req.body.name,
+		user.username = req.body.username,
+		user.email = req.body.email,
+		user.experience = req.body.experience,
+		user.message = req.body.message,
+        user.role = req.body.role
+
+        return user.save(function (err) {
+            if (!err) {
+                console.log("updated");
+            } else {
+                console.log(err);
+                return res.json(401, err);
+            }
+            return res.send(user);
+        });
 	});
 };
 
@@ -213,8 +190,8 @@ exports.upload = function (req, res) {
 	// get the temporary location of the file
 	var tmp_path = req.files.file.path;
 	// set where the file should actually exists - in this case it is in the CV_DIRECTORY directory
-	var target_path = getUniqueFileName(CV_DIRECTORY + req.files.file.name);
-	var file_path = getUniqueFileName(CV_DIRECTORY);
+	var target_path = utils.getUniqueFileName(CV_DIRECTORY + req.files.file.name);
+	var file_path = utils.getUniqueFileName(CV_DIRECTORY);
 	// move the file from the temporary location to the intended location
 	fs.rename(tmp_path, target_path, function (err) {
 		if (err) throw err;

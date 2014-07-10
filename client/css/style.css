@@ -323,6 +323,10 @@ ul li {
     padding: 0;
 }
 
+.top-margin {
+    margin: 10px 0px 0px 0px;
+}
+
 .extra-vertical-padding {
     margin: 0px 0px 33px 0px;
     padding: 0;
@@ -338,4 +342,9 @@ ul li {
 
 .jumbotron-toolbar {
     margin: 0px 15px 10px 0px;
+}
+
+.image-container {
+    max-height: 150px;
+    max-width: 200px;
 }

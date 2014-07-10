@@ -22,18 +22,12 @@ angular.module('easywork')
 
         }
 
-        appManager.addSelectionChangeListener(function (selectedEntity) {
-            dataManager.getJob(selectedEntity._id).
-                success(function (data, status, header, config) {
-                    $scope.job = data;
-                    $timeout(function () {
-                        $('#jobName').select();
-                    }, 100);
-                }).
-                error(function (data, status, header, config) {
-                    $scope.job = {};
-                });
-        })
+        $scope.$on('listSelectionChanged', function (event, selectedEntity) {
+            $scope.job = selectedEntity;
+            $timeout(function () {
+                $('#jobName').select();
+            }, 100);
+        });
 
         $scope.updateJob = function (event) {
             dataManager.updateJob($scope.job)
