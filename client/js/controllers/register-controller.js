@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('easywork.controllers.header')
+angular.module('easywork')
     .controller('registerCtrl', function ($scope, authService, appManager) {
         var defaultMessage = appManager.defaultMessage;
 

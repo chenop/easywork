@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('easywork.services.appManager', ['easywork.services.auth'])
+angular.module('easywork')
 	.factory('appManager', function (authService) {
 
         var selection = [];

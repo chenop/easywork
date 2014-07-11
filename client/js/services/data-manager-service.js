@@ -2,7 +2,7 @@
  * Created by Chen on 06/03/14.
  */
 
-angular.module('easywork.services.dataManager', ['easywork.services.common'])
+angular.module('easywork')
     .factory('dataManager', function ($http, common) {
 
         var getFiltersData = function () {

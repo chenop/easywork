@@ -1,14 +1,7 @@
 'use strict';
 
-var userDetailsModule = angular.module('userDetailsModule',
-    ['angularFileUpload'
-        , 'ui.select2'
-        , 'easywork.services.appManager'
-        , 'easywork.services.auth'
-        , 'easywork.services.cvParser'
-    ]);
-
-userDetailsModule.controller('userDetailsCtrl'
+angular.module('easywork')
+    .controller('userDetailsCtrl'
     , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager, $timeout) {
 
         $scope.$on('listSelectionChanged', function (event, selectedEntity) {

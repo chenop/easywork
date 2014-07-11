@@ -1,10 +1,8 @@
 'use strict';
 
 
-var companyController = angular.module('easywork.controllers.company',
-    ['ui.select2', 'angularFileUpload', 'easywork.services.appManager', 'easywork.services.dataManager', 'easywork.services.auth']);
-
-companyController.controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout) {
+angular.module('easywork')
+    .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout) {
 
         $scope.$on('listSelectionChanged', function (event, selectedEntity) {
             // Update the form according to the selected entity

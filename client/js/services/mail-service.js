@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('easywork.services.mail', ['easywork.services.auth'])
+angular.module('easywork')
 	.factory('mailService', function ($http, authService) {
 
 		var sendMail = function (selected_companies) {

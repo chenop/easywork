@@ -2,10 +2,8 @@
 
 var SEND_BUTTON_STR = 'שלח';
 
-angular.module('easywork.controllers.header', ['easywork.services.auth',
-    'easywork.services.appManager', 'easywork.services.dataManager',
-    'ui.bootstrap', 'angular-growl', 'ngAnimate'])
-    .controller('headerController', function ($scope, authService, appManager, dataManager, $modal, $location, growl, common) {
+angular.module('easywork')
+    .controller('HeaderController', function ($scope, authService, appManager, dataManager, $modal, $location, growl, common) {
         $scope.isError = false;
         $scope.user = authService.getActiveUser();
         $scope.authService = authService;
@@ -91,7 +89,7 @@ angular.module('easywork.controllers.header', ['easywork.services.auth',
 
         $scope.logout = function () {
             authService.logOut()
-                .success(function (data) {
+                .success(function () {
                     $location.path('/');
                 });
         }

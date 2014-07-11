@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('easywork.services.common', [])
+angular.module('easywork')
 	.factory('common', function () {
 
         var CONTENT_TYPE =

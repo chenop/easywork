@@ -3,16 +3,13 @@
 // Declare app level module which depends on filters, and services
 var app = angular.module('easywork',
     [
-        'easywork.services.appManager'
-        , 'easywork.controllers.header'
-        , 'easywork.services.auth'
-        , 'easywork.controllers.dashboard'
-        , 'easywork.controllers.home'
-        , 'easywork.controllers.company'
-        , 'easywork.controllers.companies'
-        , 'easywork.controllers.loginRegister'
-        , 'userDetailsModule'
-        , 'ngRoute', 'ngAnimate']
+        , 'ui.bootstrap'
+        , 'angular-growl'
+        , 'ngRoute'
+        , 'ngCookies'
+        , 'angularFileUpload'
+        , 'ui.select2'
+        , 'ngAnimate']
 );
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider',
@@ -95,11 +92,11 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
     });
 
 // a Fix for holder
-app.directive('bsHolder', [function () {
-    return {
-        link: function (scope, element, attrs) {
-            Holder.run(element);
-        }
-    };
-}]);
+//app.directive('bsHolder', [function () {
+//    return {
+//        link: function (scope, element, attrs) {
+//            Holder.run(element);
+//        }
+//    };
+//}]);
 

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('easywork.controllers.header')
+angular.module('easywork')
 
     // Put the focus on the username textfield
     .directive('autoFocus', function ($timeout) {

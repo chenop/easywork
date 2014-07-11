@@ -2,7 +2,7 @@
 
 /* Services */
 
-angular.module('easywork.services.auth', ['ngCookies'])
+angular.module('easywork')
     .factory('authService', function ($http, $cookieStore) {
 
         var accessLevels = routingConfig.accessLevels

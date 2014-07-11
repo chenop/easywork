@@ -2,10 +2,8 @@
 
 var SEARCH_BUTTON_STR = 'חפש';
 
-var homeController = angular.module('easywork.controllers.home', ['ui.select2',
-    'easywork.services.appManager', 'easywork.services.dataManager']);
-
-homeController.controller('homeCtrl', ['$scope', '$http', '$location', 'appManager', 'dataManager',
+angular.module('easywork')
+    .controller('homeCtrl', ['$scope', '$http', '$location', 'appManager', 'dataManager',
     function ($scope, $http, $location, appManager, dataManager) {
         appManager.setDisplaySearchBarInHeader(false);
 

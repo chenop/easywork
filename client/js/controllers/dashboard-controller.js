@@ -2,13 +2,7 @@
  * Created by Chen on 29/03/14.
  */
 
-angular.module('easywork.controllers.dashboard', [
-    'easywork.services.auth',
-    'easywork.services.appManager',
-    'easywork.services.dataManager',
-    'easywork.services.common',
-    'ui.bootstrap'
-])
+angular.module('easywork')
     .controller('DashboardCtrl', function ($scope, authService, appManager, dataManager, common, $routeParams, $timeout) {
 
         if ($routeParams.contentType == undefined) {

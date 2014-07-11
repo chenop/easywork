@@ -14,7 +14,7 @@ var dict = {
     , "gwt" :false
 }
 
-angular.module('easywork.services.cvParser', [])
+angular.module('easywork')
     .factory('cvParser', function ($q) {
 
         function parseDocx(event) {
