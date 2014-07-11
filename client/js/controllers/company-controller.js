@@ -32,7 +32,7 @@ angular.module('easywork')
                 });
         }
 
-        $scope.message == '';
+        $scope.message === '';
 
         dataManager.getFiltersData()
             .success(function (result) {
@@ -77,7 +77,7 @@ angular.module('easywork')
 
         $scope.createUpdateCompany = function () {
             var activeCompanyId = appManager.getCompany();
-            if (activeCompanyId == undefined) {
+            if (activeCompanyId === undefined) {
                 dataManager.createCompany($scope.company.name)
                     .success(function () {
                         $scope.message = "Company created successfully!";

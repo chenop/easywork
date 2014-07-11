@@ -14,8 +14,9 @@ angular.module('easywork')
         $scope.title = "Companies List";
 
         $scope.$watch('companies|filter:{selected:true}', function (nv) {
-            if (nv == undefined)
+            if (nv === undefined) {
                 return;
+            }
             var selection = nv.map(function (company) {
                 return company;
             });
@@ -24,8 +25,9 @@ angular.module('easywork')
 
 // watch the selectAll checkBox for changes
         $scope.$watch('shouldSelectAll', function () {
-            if ($scope.companies == undefined)
+            if ($scope.companies === undefined) {
                 return;
+            }
             for (var i = 0; i < $scope.companies.length; i++) {
                 $scope.companies[i].selected = $scope.shouldSelectAll;
             }

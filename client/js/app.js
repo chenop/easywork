@@ -14,7 +14,6 @@ var app = angular.module('easywork',
 
 app.config(['$routeProvider', '$locationProvider', '$httpProvider',
     function ($routeProvider, $locationProvider, $httpProvider) {
-        var access = routingConfig.accessLevels;
 
         $routeProvider
             .when('/', { templateUrl: '/views/home.html', access: 'public'})
@@ -40,8 +39,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
                     },
                     // Error: check the error status to get only the 401
                     function (response) {
-                        if (response.status === 401)
+                        if (response.status === 401) {
                             $location.url('/login');
+                        }
                         return $q.reject(response);
                     }
                 );
@@ -54,7 +54,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
         $httpProvider.interceptors.push(function($rootScope, $q, $location) {
             return {
                 'responseError': function(response) {
-                    if ((response.status === 401 || response.status === 403) && $location.path() != '/login') {
+                    if ((response.status === 401 || response.status === 403) && $location.path() !== '/login') {
                         $location.path('/login');
                     }
                     return $q.reject(response);
@@ -74,6 +74,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 
 // ---------------------------------------------------------------
 
+            //noinspection JSUnresolvedVariable
             if (!authService.isAuthorize(next.access)) {
                 console.log("Seems like you tried accessing a route you don't have access to...");
 //                $rootScope.error = "Seems like you tried accessing a route you don't have access to...";

@@ -38,13 +38,13 @@ angular.module('easywork')
             var extension = extractExtension(file.name);
             var skills;
             var fileReader = new FileReader();
-            if (extension == "docx") {
+            if (extension === "docx") {
                 fileReader.onload = function (event) {
                     skills = parseDocx(event);
                     deferred.resolve(skills);
                 }
             }
-            else if (extension == "doc") {
+            else if (extension === "doc") {
                 fileReader.onload = function (event) {
                     skills = parseDoc(event);
                     deferred.resolve(skills);
@@ -79,15 +79,15 @@ angular.module('easywork')
             clearDict(words);
             for (var i = 0; i < words.length; i++) {
                 var word = words[i].toLowerCase();
-                if (dict[word] != undefined) {
+                if (dict[word] !== undefined) {
                     dict[word] = true;
                 }
             }
 
             console.log("Found the following keywords:");
 
-            var result = new Array();
-            for (var i = 0, keys = Object.keys(dict), dictSize = keys.length; i < dictSize; i++) {
+            var result = [];
+            for (i = 0, keys = Object.keys(dict), dictSize = keys.length; i < dictSize; i++) {
 //        console.log('key : ' + keys[i] + ' val : ' + dict[keys[i]]);
                 if (dict[keys[i]] == true) {
                     result.push(keys[i]);
