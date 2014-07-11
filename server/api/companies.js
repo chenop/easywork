@@ -47,7 +47,8 @@ exports.createCompany = function (req, res) {
     );
     newCompany.save(function (err) {
         if (!err) {
-            return console.log("company " + newCompany.name + " create in server")
+            console.log("company " + newCompany.name + " create in server")
+            return res.send(newCompany);
         } else {
             console.log(err);
         }

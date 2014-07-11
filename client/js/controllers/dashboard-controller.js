@@ -24,8 +24,9 @@ angular.module('easywork.controllers.dashboard', [
             return selectedEntity._id == entity._id;
         }
 
-        $scope.setSelected = function (entity) {
-            appManager.setSelectedEntity(entity);
+        $scope.setSelected = function (entity, $index) {
+            appManager.setSelectedEntity(entity, $index);
+            // Entity was selected in the list we need the child controllers to get updated accordingly
             $scope.$broadcast('listSelectionChanged', entity);
         }
 
@@ -51,13 +52,19 @@ angular.module('easywork.controllers.dashboard', [
         $scope.$on('dataChanged', function (event, entity) {
             refreshEntities(function () {
                 appManager.setSelectedEntity(entity);
+
             });
+        })
+
+        $scope.$on('deleteEntityClicked', function (event, entity) {
+            var index = appManager.getIndexOf($scope.entities, entity);
+            $scope.deleteEntity(entity, index);
         })
 
         $scope.$watch('contentTypeValue', function () {
             refreshEntities(function () {
                 if ($scope.entities != undefined && $scope.entities.length > 0) {
-                    appManager.setSelectedEntity($scope.entities[0]);
+                    appManager.setSelectedEntity($scope.entities[0], 0);
                     // Waiting for the child scopes will be instantiated
                     $timeout(function () {
                         $scope.$broadcast('listSelectionChanged', $scope.entities[0]);
@@ -77,7 +84,7 @@ angular.module('easywork.controllers.dashboard', [
                 case common.CONTENT_TYPE.COMPANY.value:
                     return '/views/companies/company.html';
                 case common.CONTENT_TYPE.USER.value:
-                    return '/views/users/details.html';
+                    return '/views/users/user.html';
             }
         };
 
@@ -133,11 +140,14 @@ angular.module('easywork.controllers.dashboard', [
             dataManager.deleteEntity(contentType, entity._id).
                 success(function () {
                     refreshEntities(function () {
+                        if (index === undefined)
+                            return;
+
                         if ($scope.entities != undefined) {
                             if (index >= $scope.entities.length) {
                                 index = $scope.entities.length - 1;
                             }
-                            appManager.setSelectedEntity($scope.entities[index]);
+                            appManager.setSelectedEntity($scope.entities[index], index);
                             $scope.$broadcast('listSelectionChanged', $scope.entities[index]);
                         }
                     });

@@ -43,8 +43,18 @@ angular.module('easywork.services.appManager', ['easywork.services.auth'])
             return activeUser.companyId;
         }
 
-        var setSelectedEntity = function(selectedEntity) {
+        var getIndexOf = function(entities, entity) {
+            for (var index = 0; index < entities.length; ++index) {
+                if (entities[index]._id === entity._id) {
+                    return index;
+                }
+            }
+        }
+
+        var setSelectedEntity = function(selectedEntity, $index) {
             _selectedEntity = selectedEntity;
+            if ($index !== undefined)
+                _selectedEntity.index = $index;
         }
 
 		var getSelectedEntity = function() {
@@ -65,6 +75,7 @@ angular.module('easywork.services.appManager', ['easywork.services.auth'])
             , setSelectedEntity: setSelectedEntity
             , getSelectedEntity: getSelectedEntity
             , defaultMessage: default_message
+            , getIndexOf: getIndexOf
 		}
 	}
 );

@@ -42,7 +42,8 @@ exports.createUser = function (req, res) {
     );
     newUser.save(function (err) {
         if (!err) {
-            return console.log("user " + newUser.name + " create in server")
+            console.log("user " + newUser.name + " create in server")
+            return res.send(newUser);
         } else {
             console.log(err);
         }

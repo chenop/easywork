@@ -6,6 +6,13 @@ angular.module('easywork')
     .controller('JobCtrl', function ($scope, dataManager, common, appManager, $timeout) {
         $scope.job = appManager.getSelectedEntity();
 
+        $scope.$on('listSelectionChanged', function (event, selectedEntity) {
+            $scope.job = selectedEntity;
+            $timeout(function () {
+                $('#jobName').select();
+            }, 100);
+        });
+
         $scope.addJob = function () {
             var activeUserId = appManager.getActiveUserId();
             var job = {
@@ -18,16 +25,12 @@ angular.module('easywork')
             dataManager.createEntity(common.CONTENT_TYPE.JOB, job)
                 .success(function (entity) {
                     $scope.$emit('dataChanged', entity);
+                    $scope.job = entity;
+                    $timeout(function () {
+                        $('#jobName').select();
+                    }, 100);
                 });
-
         }
-
-        $scope.$on('listSelectionChanged', function (event, selectedEntity) {
-            $scope.job = selectedEntity;
-            $timeout(function () {
-                $('#jobName').select();
-            }, 100);
-        });
 
         $scope.updateJob = function (event) {
             dataManager.updateJob($scope.job)
@@ -35,6 +38,11 @@ angular.module('easywork')
                     $scope.$emit('dataChanged', entity);
                 });
         }
+
+        $scope.deleteJob = function () {
+            $scope.$emit('deleteEntityClicked', appManager.getSelectedEntity());
+        }
+
     }
 );
 

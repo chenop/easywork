@@ -7,12 +7,32 @@ var companyController = angular.module('easywork.controllers.company',
 companyController.controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout) {
 
         $scope.$on('listSelectionChanged', function (event, selectedEntity) {
+            // Update the form according to the selected entity
             $scope.company = selectedEntity;
             $timeout(function () {
                 $('#companyName').select();
             }, 100);
         });
 
+        $scope.addCompany = function () {
+            var company = {
+                name: "Untitled Company",
+                street: '',
+                city: '',
+                email: '',
+                technologies: '',
+                logoUrl: ''
+            };
+
+            dataManager.createCompany(company)
+                .success(function (entity) {
+                    $scope.$emit('dataChanged', entity);
+                    $scope.company = entity;
+                    $timeout(function () {
+                        $('#companyName').select();
+                    }, 100);
+                });
+        }
 
         $scope.message == '';
 
@@ -82,20 +102,8 @@ companyController.controller('CompanyCtrl', function ($scope, $upload, $http, ap
                 });
         }
 
-        $scope.addCompany = function () {
-            var company = {
-                name: "Untitled Company",
-                street: '',
-                city: '',
-                email: '',
-                technologies: '',
-                logoUrl: ''
-            };
-
-            dataManager.createCompany(company)
-                .success(function (entity) {
-                    $scope.$emit('dataChanged', entity);
-                });
+        $scope.deleteCompany = function () {
+            $scope.$emit('deleteEntityClicked', appManager.getSelectedEntity());
         }
     }
 );

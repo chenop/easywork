@@ -16,7 +16,8 @@ exports.createJob = function (req, res) {
     );
     newJob.save(function (err) {
         if (!err) {
-            return console.log("job " + newJob.name + " create in server")
+            console.log("job " + newJob.name + " create in server")
+            return res.send(newJob);
         } else {
             console.log(err);
         }

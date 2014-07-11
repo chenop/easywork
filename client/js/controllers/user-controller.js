@@ -18,6 +18,27 @@ userDetailsModule.controller('userDetailsCtrl'
             }, 100);
         });
 
+        $scope.addUser = function () {
+            var user = {
+                name: "Untitled User",
+                username: '',
+                email: '',
+                role: '',
+                message: default_message,
+                experience: '',
+                file: ''
+            };
+
+            dataManager.createUser(user)
+                .success(function (entity) {
+                    $scope.$emit('dataChanged', entity);
+                    $scope.user = entity;
+                    $timeout(function () {
+                        $('#userName').select();
+                    }, 100);
+                });
+        }
+
         function getUserDetails(id) {
             return $http.get('/api/user/' + id);
         }
@@ -77,21 +98,8 @@ userDetailsModule.controller('userDetailsCtrl'
                 });
         }
 
-        $scope.addUser = function () {
-            var user = {
-                name: "Untitled User",
-                username: '',
-                email: '',
-                role: '',
-                message: default_message,
-                experience: '',
-                file: ''
-            };
-
-            dataManager.createUser(user)
-                .success(function (entity) {
-                    $scope.$emit('dataChanged', entity);
-                });
+        $scope.deleteUser = function () {
+            $scope.$emit('deleteEntityClicked', appManager.getSelectedEntity());
         }
     }
 );
