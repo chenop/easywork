@@ -14,6 +14,7 @@ var jobSchema = new Schema({
     , userId: String
     , code: String
     , description: String
+    , company: { type: Number, ref: 'Company'}
 });
 
 module.exports = mongoose.model('Job', jobSchema);

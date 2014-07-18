@@ -15,6 +15,9 @@ angular.module('easywork')
         }
 
         var isAuthorize = function(accessLevel, role) {
+            if (accessLevel === undefined) {
+                accessLevel = 'public';
+            }
             if(role === undefined) {
                 role = activeUser.role;
             }

@@ -11,8 +11,6 @@ angular.module('easywork')
 
         appManager.disableSend = false;
 
-        $scope.title = "Companies List";
-
         $scope.$watch('companies|filter:{selected:true}', function (nv) {
             if (nv === undefined) {
                 return;
@@ -23,7 +21,8 @@ angular.module('easywork')
             appManager.setSelection(selection);
         }, true);
 
-// watch the selectAll checkBox for changes
+        // watch the selectAll checkBox for changes
+        $scope.shouldSelectAll = null;
         $scope.$watch('shouldSelectAll', function () {
             if ($scope.companies === undefined) {
                 return;

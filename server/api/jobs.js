@@ -7,11 +7,19 @@
 var fs = require('fs')
     , passport = require('passport')
     , Job = require('../model/job')
+    , Company = require('../model/company')
 
 exports.createJob = function (req, res) {
+    // TODO Well not sure what to do...
+    // Need to connect between jobs and a company
+    // now need to pass the company (id?) in order to find it and ref it
+    Company.find({ '_id': req.body.userId})
     var newJob = new Job(
         {
-            name: req.body.name, userId: req.body.userId, code: req.body.code, description: req.body.description
+            name: req.body.name
+            , userId: req.body.userId
+            , code: req.body.code
+            , description: req.body.description
         }
     );
     newJob.save(function (err) {

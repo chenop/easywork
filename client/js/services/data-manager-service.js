@@ -78,6 +78,8 @@ angular.module('easywork')
         }
 
         var getEntity = function(entityType, id) {
+            if (id == undefined)
+                return;
             return $http.get('/api/' + entityType.name +'/' + id);
         }
 
@@ -86,6 +88,8 @@ angular.module('easywork')
         }
 
         var deleteEntity = function(entityType, id) {
+            if (id == undefined)
+                return;
             return $http.delete('/api/' + entityType.name + '/' + id);
         }
 
@@ -110,6 +114,21 @@ angular.module('easywork')
             return {
                 minimumResultsForSearch: -1
             };
+        }
+
+        var collectJobs = function () {
+            var users = getUsers();
+            var allJobs = [];
+            users.for(function(user) {
+                if (user.role !== "jobProvider") {
+                    return;
+                }
+            })
+        };
+
+        var getAllJobs = function() {
+            var companies = getCompanies();
+            collectJobs();
         }
 
         return {

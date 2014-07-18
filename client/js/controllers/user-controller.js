@@ -4,12 +4,30 @@ angular.module('easywork')
     .controller('userDetailsCtrl'
     , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager, $timeout) {
 
-        $scope.$on('listSelectionChanged', function (event, selectedEntity) {
-            $scope.user = selectedEntity;
+        var userId = appManager.getActiveUserId();
+        dataManager.getUser(userId).
+            success(function (result) {
+                $scope.user = result;
+            })
+
+        appManager.addSelectionChangedListener(function (selectedEntity) {
             $timeout(function () {
-                $('#userName').select();
-            }, 100);
-        });
+                // Using timeout since we want to this to happen after the initialization of the dataManager.getUser()...
+                // I know... not the best practice ever...
+                $scope.user = selectedEntity;
+                $timeout(function () {
+                    $('#userName').select();
+                }, 100);
+
+            })
+        })
+
+//        $scope.$on('listSelectionChanged', function (event, selectedEntity) {
+//            $scope.user = selectedEntity;
+//            $timeout(function () {
+//                $('#userName').select();
+//            }, 100);
+//        });
 
         $scope.addUser = function () {
             var user = {
@@ -19,6 +37,7 @@ angular.module('easywork')
                 role: '',
                 message: default_message,
                 experience: '',
+                company: null,
                 file: ''
             };
 

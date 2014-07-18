@@ -4,13 +4,23 @@
 angular.module('easywork')
     .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout) {
 
-        $scope.$on('listSelectionChanged', function (event, selectedEntity) {
-            // Update the form according to the selected entity
-            $scope.company = selectedEntity;
+        // TODO 2. addSelectionChangedListener does not add this listener once ..... move to service?
+        var companyId = appManager.getActiveCompanyId();
+        dataManager.getCompany(companyId).
+            success(function (result) {
+                $scope.company = result;
+            })
+
+        appManager.addSelectionChangedListener(function (selectedEntity) {
             $timeout(function () {
-                $('#companyName').select();
-            }, 100);
-        });
+                // Using timeout since we want to this to happen after the initialization of the dataManager.getCompany()...
+                // I know... not the best practice ever...
+                $scope.company = selectedEntity;
+                $timeout(function () {
+                    $('#companyName').select();
+                }, 100);
+            })
+        })
 
         $scope.addCompany = function () {
             var company = {
@@ -21,6 +31,8 @@ angular.module('easywork')
                 technologies: '',
                 logoUrl: ''
             };
+
+            company.owner = appManager.getActiveUserId();
 
             dataManager.createCompany(company)
                 .success(function (entity) {

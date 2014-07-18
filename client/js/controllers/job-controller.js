@@ -4,16 +4,27 @@
 
 angular.module('easywork')
     .controller('JobCtrl', function ($scope, dataManager, common, appManager, $timeout) {
-        $scope.job = appManager.getSelectedEntity();
 
-        $scope.$on('listSelectionChanged', function (event, selectedEntity) {
-            $scope.job = selectedEntity;
+
+        appManager.addSelectionChangedListener(function (selectedEntity) {
             $timeout(function () {
-                $('#jobName').select();
-            }, 100);
-        });
+                // Using timeout since we want to this to happen after the initialization of the dataManager.getUser()...
+                // I know... not the best practice ever...
+                $scope.job = selectedEntity;
+                $timeout(function () {
+                    $('#jobName').select();
+                }, 100);
 
-        $scope.addJob = function () {
+            })
+        })
+//        $scope.$on('listSelectionChanged', function (event, selectedEntity) {
+//            $scope.job = selectedEntity;
+//            $timeout(function () {
+//                $('#jobName').select();
+//            }, 100);
+//        });
+
+        $scope.createJob = function () {
             var activeUserId = appManager.getActiveUserId();
             var job = {
                 name: "Untitled",

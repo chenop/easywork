@@ -36,13 +36,9 @@ exports.getCompany = function (req, res) {
 exports.createCompany = function (req, res) {
     var newCompany = new Company(
         {
-            name: req.body.name
-            , street: req.body.street
-            , city: req.body.city
-            , addresses: req.body.addresses
-            , email: req.body.email
-            , logoUrl: req.body.logoUrl
-            , technologies: req.body.technologies
+            name: req.body.name, street: req.body.street, city: req.body.city, addresses: req.body.addresses
+            , email: req.body.email, logoUrl: req.body.logoUrl, technologies: req.body.technologies
+            , owner: req.body.owner
         }
     );
     newCompany.save(function (err) {
@@ -58,6 +54,10 @@ exports.createCompany = function (req, res) {
 
 exports.updateCompany = function (req, res) {
     return Company.findById(req.params.id, function (err, company) {
+            if (err) {
+                console.log("Error while updateCompany: " + err.message);
+                return;
+            }
             company.name = req.body.name;
             company.street = req.body.street;
             company.city = req.body.city;
@@ -89,7 +89,7 @@ exports.deleteCompany = function (req, res) {
     });
 }
 
-exports.upload = function(req, res) {
+exports.upload = function (req, res) {
     return Company.findById(req.params.id, function (err, company) {
         // get the temporary location of the file
         var companyName = req.body.companyName;

@@ -6,7 +6,7 @@ angular.module('easywork')
     .controller('DashboardCtrl', function ($scope, authService, appManager, dataManager, common, $routeParams, $timeout) {
 
         if ($routeParams.contentType == undefined) {
-            $scope.contentTypeValue = common.CONTENT_TYPE.COMPANY.value;
+            $scope.contentTypeValue = common.CONTENT_TYPE.USER.value;
         } else {
             $scope.contentTypeValue = $routeParams.contentType;
         }

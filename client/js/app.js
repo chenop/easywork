@@ -17,9 +17,18 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 
         $routeProvider
             .when('/', { templateUrl: '/views/home.html', access: 'public'})
-            .when('/test', { templateUrl: '/views/admin/dashboard.html', access: 'public'})
+            .when('/test', {redirectTo: '/content_manager/1'})
             .when('/login', { templateUrl: '/views/users/login.html', access: 'public' })
-            .when("/company", { templateUrl: '/views/companies/company.html', access: 'jobProvider' })
+            .when("/my_company", {templateUrl: '/views/companies/company.html', access: 'jobProvider'})
+//            .when("/company", {
+//                templateUrl: '/views/companies/company.html',
+//                access: 'jobProvider',
+//                resolve: {
+//                    mode: function () {
+//                        return "DASHBOARD";
+//                    }
+//                }
+//            })
             .when("/content_manager/:contentType?", { templateUrl: '/views/admin/dashboard.html', access: 'jobProvider' })
             .when("/companies", { templateUrl: '/views/companies/companies.html', access: 'jobSeeker' })
             .when('/user_details', { templateUrl: '/views/users/user.html', access: 'jobSeeker' })
@@ -51,9 +60,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
         //================================================
         // Add an interceptor for handling session time out - redirect to login when access denied
         //================================================
-        $httpProvider.interceptors.push(function($rootScope, $q, $location) {
+        $httpProvider.interceptors.push(function ($rootScope, $q, $location) {
             return {
-                'responseError': function(response) {
+                'responseError': function (response) {
                     if ((response.status === 401 || response.status === 403) && $location.path() !== '/login') {
                         $location.path('/login');
                     }
@@ -62,8 +71,8 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
             };
         });
     }])
-    .run(function($rootScope, $route, $location, authService) {
-        $rootScope.$on('$routeChangeStart', function(ev, next, current) {
+    .run(function ($rootScope, $route, $location, authService) {
+        $rootScope.$on('$routeChangeStart', function (ev, next, current) {
             // We need the path component of `next`. We can either process `next` and
             // spit out its path component, or simply use $location.path(). I go with
             // the latter.
