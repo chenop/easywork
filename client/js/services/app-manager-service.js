@@ -10,6 +10,7 @@ angular.module('easywork')
 		var displaySearchBarInHeader = true;
         var _selectedEntity;
         var default_message = 'Hi,\nI am interested in open positions in your company.\nContact information can be found in my CV which is attached.\n\nBest Regards,\n';
+        var _listeners = [];
 
         var getSelectionCount = function() {
             return selection.length;
@@ -32,15 +33,21 @@ angular.module('easywork')
 		}
 
         var getActiveUserId = function() {
-            var activeUser = authService.getActiveUser();
+            var activeUser = getActiveUser();
             if (activeUser !== undefined) {
                 return activeUser._id;
             }
         }
 
-        var getCompanyId = function() {
+        var getActiveUser = function() {
+            return authService.getActiveUser();
+        }
+
+        var getActiveCompanyId = function() {
             var activeUser = authService.getActiveUser();
-            return activeUser.companyId;
+            if (activeUser == undefined)
+                return;
+            return JSON.parse(activeUser.company);
         }
 
         var getIndexOf = function(entities, entity) {
@@ -53,12 +60,27 @@ angular.module('easywork')
 
         var setSelectedEntity = function(selectedEntity, $index) {
             _selectedEntity = selectedEntity;
-            if ($index !== undefined)
+            if ($index !== undefined) {
                 _selectedEntity.index = $index;
+                fireSelectionChanged();
+            }
         }
 
 		var getSelectedEntity = function() {
             return _selectedEntity;
+        }
+
+        var fireSelectionChanged = function() {
+            if (_listeners.length == 0) {
+                return;
+            }
+            angular.forEach(_listeners, function(listener) {
+                listener(_selectedEntity);
+            });
+
+        }
+        var addSelectionChangedListener = function(listener) {
+            _listeners.push(listener);
         }
 
 		return {
@@ -70,12 +92,16 @@ angular.module('easywork')
             , getSelection: getSelection
             , setSelection: setSelection
             , disableSend: disableSend
-            , getCompanyId: getCompanyId
+            , getActiveCompanyId: getActiveCompanyId
             , getActiveUserId: getActiveUserId
+            , getActiveUser: getActiveUser
             , setSelectedEntity: setSelectedEntity
+            , selectedEntity: _selectedEntity
             , getSelectedEntity: getSelectedEntity
             , defaultMessage: default_message
             , getIndexOf: getIndexOf
-		}
+            , fireSelectionChanged: fireSelectionChanged
+            , addSelectionChangedListener: addSelectionChangedListener
+        }
 	}
 );
