@@ -47,8 +47,15 @@ var clientDir = path.join(__dirname, 'client')
 app.set('port', process.env.PORT || 3000)
 app.use(express.static(clientDir))
 app.use(express.cookieParser());
+
+// TODO bodyParser was deprecated... use the following 3 commented lines,
+// see http://stackoverflow.com/questions/19581146/how-to-get-rid-of-connect-3-0-deprecation-alert
 app.use(express.bodyParser({uploadDir:'.\\resources\\cvs\\'}));
-//app.use(express.bodyParser());
+//app.use(express.json());
+//app.use(express.urlencoded());
+//app.use(require('multiparty')())
+//app.use(express.multipart({uploadDir: '.\\resources\\cvs\\'}));
+
 app.use(express.methodOverride());
 app.use(express.session({secret: 'zipori'}));
 //app.use(flash());
