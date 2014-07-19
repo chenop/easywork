@@ -23,7 +23,20 @@ var log = function (message) {
 };
 
 log("Trying to connect to db...");
-mongoose.connect("mongodb://localhost/db");
+
+var dbUrl;
+app.configure('development', function(){
+    console.log("Development Mode!");
+    dbUrl = "mongodb://localhost/db";
+});
+
+app.configure('production', function(){
+    console.log("Production Mode!")
+    dbUrl = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
+});
+
+console.log("DB URL: " + dbUrl);
+mongoose.connect(dbUrl);
 mongoose.connection.on('error', function(err, req, res, next)  {
     log("Cant connect to MongoDB - please verify that it was started.");
 });
