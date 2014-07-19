@@ -22,6 +22,7 @@ var companySchema = new Schema({
         {type: String}
     ]
     , owner: { type: Schema.Types.ObjectId, ref: 'User'}
+    , jobs: [{ type: Schema.Types.ObjectId, ref: 'Job'}]
 });
 
 module.exports = mongoose.model('Company', companySchema);

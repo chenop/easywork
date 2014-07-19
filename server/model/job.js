@@ -11,10 +11,9 @@ var mongoose = require('mongoose')
 
 var jobSchema = new Schema({
     name: String
-    , userId: String
     , code: String
     , description: String
-    , company: { type: Number, ref: 'Company'}
+    , company: { type: Schema.Types.ObjectId, ref: 'Company'}
 });
 
 module.exports = mongoose.model('Job', jobSchema);

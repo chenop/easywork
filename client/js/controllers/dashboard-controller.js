@@ -91,8 +91,8 @@ angular.module('easywork')
         };
 
         function getJobs(callBack) {
-            var userId = appManager.getActiveUserId();
-            dataManager.getJobs(userId).then(function (result) {
+            var companyId = appManager.getActiveCompanyId();
+            dataManager.getJobs(companyId).then(function (result) {
                 $scope.entities = $scope.jobs = result.data;
                 if (callBack != undefined)
                     callBack();

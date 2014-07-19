@@ -10,27 +10,35 @@ var fs = require('fs')
     , Company = require('../model/company')
 
 exports.createJob = function (req, res) {
-    // TODO Well not sure what to do...
-    // Need to connect between jobs and a company
-    // now need to pass the company (id?) in order to find it and ref it
-    Company.find({ '_id': req.body.userId})
-    var newJob = new Job(
-        {
-            name: req.body.name
-            , userId: req.body.userId
-            , code: req.body.code
-            , description: req.body.description
-        }
-    );
-    newJob.save(function (err) {
-        if (!err) {
-            console.log("job " + newJob.name + " create in server")
-            return res.send(newJob);
-        } else {
-            console.log(err);
-        }
-    });
-    return res.send(newJob);
+    return Company.findById(req.body.company, function(err, company) {
+
+        var newJob = new Job(
+            {
+                name: req.body.name
+                , code: req.body.code
+                , description: req.body.description
+                , company: company
+            }
+        );
+
+        // Adding job to company
+        company.jobs.push(newJob);
+        company.save(function (err) {
+            if (err) {
+                console.log("Error saving job in company " + company.name);
+            }
+        })
+
+        newJob.save(function (err) {
+            if (!err) {
+                console.log("job " + newJob.name + " create in server")
+                return res.send(newJob);
+            } else {
+                console.log(err);
+            }
+        });
+        return res.send(newJob);
+    })
 }
 
 exports.updateJob = function (req, res) {
@@ -71,7 +79,20 @@ function updateJob(id, newJob, callBack) {
 }
 
 exports.deleteJob = function (req, res) {
-    return Job.findById(req.params.id, function (err, job) {
+    var jobId = req.params.id;
+    return Job.findById(jobId, function (err, job) {
+        // Remove job from company
+        var company = job.company;
+        if (company !== null || company !== undefined) {
+            Company.findById(company, function (err, company) {
+                if (company === null || company === undefined)
+                    return;
+                company.jobs.remove(jobId);
+                company.save();
+            })
+        }
+
+        // Remove job from collection jobs
         return job.remove(function (err) {
             if (!err) {
                 return res.send(job);
@@ -93,7 +114,7 @@ exports.getJob = function (req, res) {
 }
 
 exports.getJobs = function (req, res) {
-    return Job.find({ 'userId': req.params.id}, function (err, jobs) {
+    return Job.find({ 'company': req.params.id}, function (err, jobs) {
         if (!err) {
             return res.send(jobs);
         } else {

@@ -25,10 +25,10 @@ angular.module('easywork')
 //        });
 
         $scope.createJob = function () {
-            var activeUserId = appManager.getActiveUserId();
+            var company = appManager.getActiveCompanyId();
             var job = {
                 name: "Untitled",
-                userId: activeUserId,
+                company: company,
                 code: "",
                 description: ""
             };

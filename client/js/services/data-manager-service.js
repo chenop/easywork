@@ -14,8 +14,8 @@ angular.module('easywork')
             return getEntities(common.CONTENT_TYPE.COMPANY);
         }
 
-        var getJobs = function(userId) {
-            return $http.get('/api/job/list/' + userId);
+        var getJobs = function(companyId) {
+            return $http.get('/api/job/list/' + companyId);
         }
 
         var getUsers = function() {
