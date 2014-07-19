@@ -17,7 +17,25 @@
                 <input class="col-sm-10 form-control" type="text" ng-model="job.code" name="code"
                        placeholder="Job Code"/>
             </div>
-
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="cCity">City</label>
+                <input class="col-sm-10 form-control" type="text" class="form-control" ng-model="job.city"
+                       id="cCity" name="cCity"
+                       placeholder="City name"/>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="cTechnologies">Technologies</label>
+                <select class="col-sm-10 select2" id="cTechnologies"
+                        ui-select2="technologies_select2Options"
+                        multiple
+                        ng-model="job.technologies"
+                        ng-click="updateJob()"
+                        data-placeholder="Java, Web, C#, C++">
+                    <option ng-repeat="technology in technologies" value="{{technology}}">
+                        {{technology}}
+                    </option>
+                </select>
+            </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label">Description</label>
                 <textarea class="col-sm-10 form-control cv-message" ng-model="job.description"

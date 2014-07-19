@@ -19,31 +19,28 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="company in companies | filter:isRelevant"
-                        ng-class="(company.selected) ? 'selected' : ''" ng-click="toggleSelected(company)">
+                    <tr ng-repeat="job in jobs | filter:isRelevant"
+                        ng-class="(job.selected) ? 'selected' : ''" ng-click="toggleSelected(job)">
                         <td>
-                            <input type="checkbox" ng-model="company.selected">
+                            <input type="checkbox" ng-model="job.selected">
                         </td>
                         <td>
-                            <a href="#/phones/{{company.id}}/{{company.details}}"><img
-                                    ng-src="{{company.logoUrl}}" class="logo"/></a>
+                            <img ng-src="{{job.company.logoUrl}}" class="logo"/>
                         </td>
                         <td>
-                            <a href="#/phones/{{company.id}}/{{company.details}}">{{company.name}}</a>
+                            <a href="#/phones/{{company.id}}/{{company.details}}">{{job.company.name}}</a>
                         </td>
                         <td>
-                            {{company.city}}
-                            <!--<ul ng-repeat="adr in company.addresses" class="address">-->
-                                <!--<li>{{adr}}</li>-->
-                            <!--</ul>-->
+                            {{job.city}}
                         </td>
                         <td>
-                            <ul ng-repeat="technology in company.technologies" class="technology">
+                            <ul ng-repeat="technology in job.technologies" class="technology">
                                 <li>{{technology}}</li>
                             </ul>
                         </td>
                         <td>
-                            <a href="#" ng-click="showDetails(company)">חברה</a>
+                            {{job.description}}
+                            <!--<a href="#" ng-click="showDetails(job)">חברה</a>-->
                         </td>
                     </tr>
                     </tbody>

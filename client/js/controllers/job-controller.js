@@ -17,6 +17,18 @@ angular.module('easywork')
 
             })
         })
+
+        dataManager.getFiltersData()
+            .success(function (result) {
+                $scope.technologies = result.technologies;
+            }
+        );
+
+        $scope.technologies_select2Options = {
+            'multiple': true,
+            'width': '83.33333%'
+        };
+
 //        $scope.$on('listSelectionChanged', function (event, selectedEntity) {
 //            $scope.job = selectedEntity;
 //            $timeout(function () {
@@ -30,6 +42,8 @@ angular.module('easywork')
                 name: "Untitled",
                 company: company,
                 code: "",
+                city: '',
+                technologies: '',
                 description: ""
             };
 
@@ -53,7 +67,6 @@ angular.module('easywork')
         $scope.deleteJob = function () {
             $scope.$emit('deleteEntityClicked', appManager.getSelectedEntity());
         }
-
     }
 );
 

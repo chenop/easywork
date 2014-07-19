@@ -31,7 +31,6 @@ angular.module('easywork')
         $scope.publishJob = function () {
             if (!authService.isLoggedIn()) {
                 $scope.openLoginDialog(function () {
-                    growl.addSuccessMessage("CVs were sent!", {ttl: 2000});
                     $location.path('/content_manager/' + common.CONTENT_TYPE.JOB.value)
                 });
             }

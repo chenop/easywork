@@ -17,6 +17,8 @@ exports.createJob = function (req, res) {
                 name: req.body.name
                 , code: req.body.code
                 , description: req.body.description
+                , city: req.body.city
+                , technologies: req.body.technologies
                 , company: company
             }
         );
@@ -43,8 +45,12 @@ exports.createJob = function (req, res) {
 
 exports.updateJob = function (req, res) {
     return Job.findById(req.params.id, function (err, job) {
+        if (job === undefined || job == null)
+            return;
         job.name = req.body.name
             , job.code = req.body.code
+            , job.city = req.body.city
+            , job.technologies = req.body.technologies
             , job.description = req.body.description
 
         return job.save(function (err) {
@@ -122,3 +128,19 @@ exports.getJobs = function (req, res) {
         }
     });
 };
+
+exports.getAllJobs = function(req, res) {
+    var allJobs = [];
+    var populateQuery = [
+        {path: 'name'},
+        {path: 'company'},
+        {path: 'description'}
+    ];
+    Job.find().select('company name description city technologies').populate('company').lean()
+        .exec(function (err, jobs) {
+            if (err) {
+                console.log("error while trying to populate jobs:" + err);
+            }
+            return res.json(jobs);
+        })
+}

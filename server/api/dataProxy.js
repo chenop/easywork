@@ -13,14 +13,3 @@ exports.getFiltersData = function (req, res) {
     return res.send(data);
 };
 
-exports.getAllJobs = function(req, res) {
-    var allJobs = [];
-    return Job.find({ 'userId': req.params.id}, function (err, jobs) {
-
-    })
-    users.for(function(user) {
-        if (user.role !== "jobProvider") {
-            return;
-        }
-    })
-}

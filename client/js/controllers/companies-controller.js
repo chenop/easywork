@@ -3,20 +3,20 @@
 
 angular.module('easywork')
     .controller('CompanyListCtrl', function ($scope, $http, mailService, dataManager, appManager, $modal) {
-        dataManager.getCompanies().then(function (result) {
-            $scope.companies = result.data;
-        });
+        dataManager.getAllJobs().then(function(jobs) {
+            $scope.jobs = jobs.data;
+        })
 
         appManager.setDisplaySearchBarInHeader(true);
 
         appManager.disableSend = false;
 
-        $scope.$watch('companies|filter:{selected:true}', function (nv) {
+        $scope.$watch('jobs|filter:{selected:true}', function (nv) {
             if (nv === undefined) {
                 return;
             }
-            var selection = nv.map(function (company) {
-                return company;
+            var selection = nv.map(function (job) {
+                return job;
             });
             appManager.setSelection(selection);
         }, true);
@@ -24,16 +24,18 @@ angular.module('easywork')
         // watch the selectAll checkBox for changes
         $scope.shouldSelectAll = null;
         $scope.$watch('shouldSelectAll', function () {
-            if ($scope.companies === undefined) {
+            if ($scope.jobs === undefined) {
                 return;
             }
-            for (var i = 0; i < $scope.companies.length; i++) {
-                $scope.companies[i].selected = $scope.shouldSelectAll;
+            for (var i = 0; i < $scope.jobs.length; i++) {
+                $scope.jobs[i].selected = $scope.shouldSelectAll;
             }
         }, true);
 
-        $scope.isRelevant = function (company) {
-            return (superbag(company.addresses, appManager.selectedAreas) && superbag(company.technologies, appManager.selectedTechnologies));
+        $scope.isRelevant = function (job) {
+            if ((appManager.selectedAreas.length === 0) && (appManager.selectedTechnologies.length === 0))
+                return true;
+            return (appManager.selectedAreas.indexOf(job.city) >= 0 && (superbag(job.technologies, appManager.selectedTechnologies)));
         };
 
         // TODO - This check can be optimize - like sorting alphabetically or do hash-mapping of first letter (hash['i'] -> ['Intel']'.

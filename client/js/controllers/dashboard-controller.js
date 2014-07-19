@@ -91,12 +91,21 @@ angular.module('easywork')
         };
 
         function getJobs(callBack) {
-            var companyId = appManager.getActiveCompanyId();
-            dataManager.getJobs(companyId).then(function (result) {
-                $scope.entities = $scope.jobs = result.data;
-                if (callBack != undefined)
-                    callBack();
-            });
+            if (appManager.getActiveUser().role == "admin") {
+                dataManager.getAllJobs().then(function (result) {
+                    $scope.entities = $scope.jobs = result.data;
+                    if (callBack != undefined)
+                        callBack();
+                });
+            }
+            else {
+                var companyId = appManager.getActiveCompanyId();
+                dataManager.getJobs(companyId).then(function (result) {
+                    $scope.entities = $scope.jobs = result.data;
+                    if (callBack != undefined)
+                        callBack();
+                });
+            }
         };
 
         function getUsers(callBack) {

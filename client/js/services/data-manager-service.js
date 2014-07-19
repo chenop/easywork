@@ -6,7 +6,7 @@ angular.module('easywork')
     .factory('dataManager', function ($http, common) {
 
         var getFiltersData = function () {
-            return $http.get('./api/filtersData/');
+            return $http.get('/api/filtersData/');
         }
 
         // Companies
@@ -127,8 +127,11 @@ angular.module('easywork')
         };
 
         var getAllJobs = function() {
-            var companies = getCompanies();
-            collectJobs();
+            var allJobs = [];
+            return $http.get('/api/allJobs')
+                .error(function(err){
+                    console.log("err: " + err);
+                });
         }
 
         return {
@@ -160,6 +163,8 @@ angular.module('easywork')
 
             , createEntity: createEntity
             , deleteEntity: deleteEntity
+
+            , getAllJobs: getAllJobs
         }
     }
 );

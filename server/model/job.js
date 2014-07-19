@@ -13,6 +13,10 @@ var jobSchema = new Schema({
     name: String
     , code: String
     , description: String
+    , city: String
+    , technologies: [
+        {type: String}
+    ]
     , company: { type: Schema.Types.ObjectId, ref: 'Company'}
 });
 
