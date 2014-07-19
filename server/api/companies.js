@@ -15,6 +15,8 @@ var IMAGES_DIRECTORY = "client/img/companies/";
 
 exports.getCompanies = function (req, res) {
     return Company.find(function (err, companies) {
+        if (companies === undefined || companies == null)
+            return;
         if (!err) {
             return res.send(companies);
         } else {
@@ -25,6 +27,9 @@ exports.getCompanies = function (req, res) {
 
 exports.getCompany = function (req, res) {
     return Company.findById(req.params.id, function (err, company) {
+        if (company === undefined || company == null)
+            return;
+
         if (!err) {
             return res.send(company);
         } else {
@@ -34,26 +39,31 @@ exports.getCompany = function (req, res) {
 }
 
 exports.createCompany = function (req, res) {
-    var newCompany = new Company(
-        {
-            name: req.body.name, street: req.body.street, city: req.body.city, addresses: req.body.addresses
-            , email: req.body.email, logoUrl: req.body.logoUrl, technologies: req.body.technologies
-            , owner: req.body.owner
-        }
-    );
-    newCompany.save(function (err) {
-        if (!err) {
-            console.log("company " + newCompany.name + " create in server")
-            return res.send(newCompany);
-        } else {
-            console.log(err);
-        }
-    });
-    return res.send(newCompany);
+    var ownerId = req.body.ownerId;
+    return User.findById(ownerId, function(err, user) {
+        var newCompany = new Company(
+            {
+                name: req.body.name, street: req.body.street, city: req.body.city, addresses: req.body.addresses
+                , email: req.body.email, logoUrl: req.body.logoUrl, technologies: req.body.technologies
+                , owner: user
+            }
+        );
+        newCompany.save(function (err) {
+            if (!err) {
+                console.log("company " + newCompany.name + " create in server")
+                return res.send(newCompany);
+            } else {
+                console.log(err);
+            }
+        });
+        return res.send(newCompany);
+    })
 }
 
 exports.updateCompany = function (req, res) {
     return Company.findById(req.params.id, function (err, company) {
+            if (company === undefined || company == null)
+                return;
             if (err) {
                 console.log("Error while updateCompany: " + err.message);
                 return;
@@ -79,6 +89,9 @@ exports.updateCompany = function (req, res) {
 
 exports.deleteCompany = function (req, res) {
     return Company.findById(req.params.id, function (err, company) {
+        if (company === undefined || company == null)
+            return;
+
         return company.remove(function (err) {
             if (!err) {
                 return res.send(company);
@@ -91,6 +104,9 @@ exports.deleteCompany = function (req, res) {
 
 exports.upload = function (req, res) {
     return Company.findById(req.params.id, function (err, company) {
+        if (company === undefined || company == null)
+            return;
+
         // get the temporary location of the file
         var companyName = req.body.companyName;
         var tmp_path = req.files.file.path;

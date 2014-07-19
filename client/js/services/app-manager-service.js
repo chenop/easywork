@@ -47,7 +47,8 @@ angular.module('easywork')
             var activeUser = authService.getActiveUser();
             if (activeUser == undefined)
                 return;
-            return JSON.parse(activeUser.company);
+//            return JSON.parse(activeUser.company);
+            return activeUser.company;
         }
 
         var getIndexOf = function(entities, entity) {

@@ -45,13 +45,13 @@ exports.createUser = function (req, res) {
 
 //    if (newUser.role === "jobProvider" || newUser.role === "admin") {
     var company = new Company();
-    company.save(function (err, company1) {
+    company.save(function (err, company) {
         if (err) {
             console.log("Error while saving company");
         }
         else {
             console.log("user " + newUser.name + " created in server");
-            newUser.company = company1.id; // Saving the id itself
+            newUser.company = company; // Saving the id itself
             saveUser(newUser, res);
         }
     });
@@ -193,8 +193,8 @@ function prepareCookie(res, user) {
             , role: user.role
             , email: user.email
             , experience: user.experience
-            , company: JSON.stringify(user.company),
-            '_id': user._id // Supspicious! why _id? is it being used?
+            , company: user.company
+            , '_id': user._id // Helping us to find later the active user in DB
         }));
 }
 exports.register = function (req, res) {
@@ -250,6 +250,8 @@ function logout(req, res) {
 
 exports.deleteUser = function (req, res) {
     return User.findById(req.params.id, function (err, user) {
+        if (user == undefined || user == null)
+            return;
         return user.remove(function (err) {
             if (!err) {
                 return res.send(user);

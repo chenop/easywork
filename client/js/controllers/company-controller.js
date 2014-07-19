@@ -6,10 +6,12 @@ angular.module('easywork')
 
         // TODO 2. addSelectionChangedListener does not add this listener once ..... move to service?
         var companyId = appManager.getActiveCompanyId();
-        dataManager.getCompany(companyId).
-            success(function (result) {
-                $scope.company = result;
-            })
+        if (companyId !== undefined) {
+            dataManager.getCompany(companyId).
+                success(function (result) {
+                    $scope.company = result;
+                })
+        }
 
         appManager.addSelectionChangedListener(function (selectedEntity) {
             $timeout(function () {
@@ -32,7 +34,7 @@ angular.module('easywork')
                 logoUrl: ''
             };
 
-            company.owner = appManager.getActiveUserId();
+            company.ownerId = appManager.getActiveUserId();
 
             dataManager.createCompany(company)
                 .success(function (entity) {
