@@ -16,17 +16,12 @@
     "tests"
   ],
   "dependencies": {
-    "angular-animate": "latest",
-    "angular-bootstrap": "latest",
-    "angular-mocks": "latest",
-    "angular-cookies": "latest",
     "angular-resource": "latest",
     "angular-ui-select2": "~0.0.4",
     "angular-scenario": "latest",
     "bootstrap-rtl": "latest",
     "json3": "~3.2.4",
     "ng-file-upload": "~1.2.7",
-    "angular-route": "latest",
     "jasny-bootstrap": "~3.1.0",
     "angular-growl": "~0.4.0"
   }
