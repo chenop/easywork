@@ -122,7 +122,7 @@ function updateUserFile(id, pathName, fileName, callBack) {
         if (err)
             throw err;
 
-        if ('undefined' !== typeof fileName) {
+        if (fileName !== undefined  && fileName != null) {
             user.fileName = fileName;
             user.pathName = pathName;
         }
@@ -235,10 +235,10 @@ exports.upload = function (req, res) {
             if (err) throw err;
             var user = JSON.parse(req.body.user);
             var skills = JSON.parse(req.body.skills);
-            updateUserFile(user.id, file_path, req.files.file.name, null);
-            updateUserSkills(user.id, skills, null);
+            updateUserFile(user._id, file_path, req.files.file.name, null);
+            updateUserSkills(user._id, skills, null);
             console.log('File uploaded to: ' + target_path + ' - ' + req.files.file.size + ' bytes');
-            res.send(200);
+            res.send(skills);
         });
     });
 }

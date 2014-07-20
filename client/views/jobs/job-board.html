@@ -1,4 +1,4 @@
-<div data-ng-controller="CompanyListCtrl">
+<div data-ng-controller="JobsBoardCtrl">
     <div class="row">
 
         <div class="col-md-12">
@@ -15,7 +15,7 @@
                         <th>Name</th>
                         <th>City</th>
                         <th>Technologies</th>
-                        <th>More</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,8 +39,10 @@
                             </ul>
                         </td>
                         <td>
-                            {{job.description}}
-                            <!--<a href="#" ng-click="showDetails(job)">חברה</a>-->
+                            <button tooltip="More Details"
+                                    ng-click="showDetails(job)" class="btn btn-default action-button">
+                                <i class="glyphicon glyphicon-info-sign"></i>
+                            </button>
                         </td>
                     </tr>
                     </tbody>

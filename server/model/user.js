@@ -18,6 +18,8 @@ var userSchema = new Schema({
     , message: String
     , role: Object
     , fileName: String
+    , pathName: String
+    , skills: [String]
     , company: { type: Schema.Types.ObjectId, ref: 'Company'}
     , skills: Object
 });

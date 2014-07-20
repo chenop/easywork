@@ -17,9 +17,10 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 
         $routeProvider
             .when('/', { templateUrl: '/views/home.html', access: 'public'})
-            .when('/test', {redirectTo: '/companies'})
+            .when('/test', {redirectTo: '/user_details'})
             .when('/login', { templateUrl: '/views/users/login.html', access: 'public' })
             .when("/my_company", {templateUrl: '/views/companies/company.html', access: 'jobProvider'})
+            .when("/job_full", {templateUrl: '/views/jobs/job-full.html', access: 'public'})
 //            .when("/company", {
 //                templateUrl: '/views/companies/company.html',
 //                access: 'jobProvider',
@@ -30,7 +31,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 //                }
 //            })
             .when("/content_manager/:contentType?", { templateUrl: '/views/admin/dashboard.html', access: 'jobProvider' })
-            .when("/companies", { templateUrl: '/views/companies/companies.html', access: 'jobSeeker' })
+            .when("/companies", { templateUrl: '/views/jobs/job-board.html', access: 'jobSeeker' })
             .when('/user_details', { templateUrl: '/views/users/user.html', access: 'jobSeeker' })
             .otherwise({ redirectTo: '/' });
 

@@ -2,7 +2,7 @@
 
 
 angular.module('easywork')
-    .controller('CompanyListCtrl', function ($scope, $http, mailService, dataManager, appManager, $modal) {
+    .controller('JobsBoardCtrl', function ($scope, $http, mailService, dataManager, appManager, $modal) {
         dataManager.getAllJobs().then(function(jobs) {
             $scope.jobs = jobs.data;
         })
@@ -70,18 +70,12 @@ angular.module('easywork')
             }
         }
 
-        $scope.showDetails = function (company) {
-            var job = {
-                title: "Job of your life"
-                , description: "Doing nothing...."
-            }
+        $scope.showDetails = function (job) {
             var modalInstance = $modal.open({
-                templateUrl: '/views/jobs/job.html',
-                controller: 'jobCtrl',
+                templateUrl: '/views/jobs/job-full.html',
+                controller: 'JobFullCtrl',
+                windowClass: 'job-full-dialog',
                 resolve: {
-                    company: function() {
-                        return company;
-                    },
                     job: function() {
                         return job;
                     }

@@ -295,6 +295,9 @@ textarea.cv-message {
     text-align: center;
 }
 
+.align-right {
+    text-align: right;
+}
 .no-padding {
     padding: 0 !important;
     margin: 0 !important;
@@ -345,6 +348,24 @@ ul li {
 }
 
 .image-container {
+    max-height: 150px;
+    max-width: 200px;
+}
+
+td button.action-button { display: none; }
+tr:hover button.action-button { display: block; }
+
+.job-full-dialog .modal-dialog {
+    width :90%;
+    min-width: 100px;
+}
+
+.job-container {
+    margin: 50px 50px 50px 50px;
+}
+
+.job-image-container {
+    float: right;
     max-height: 150px;
     max-width: 200px;
 }

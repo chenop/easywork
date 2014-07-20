@@ -4,6 +4,8 @@ angular.module('easywork')
     .controller('userDetailsCtrl'
     , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager, $timeout) {
 
+        $scope.user = {};
+        $scope.user.skills = null;
         var userId = appManager.getActiveUserId();
         dataManager.getUser(userId).
             success(function (result) {
@@ -87,8 +89,8 @@ angular.module('easywork')
                     file: $file
                 }).progress(function (evt) {
                     console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-                }).success(function (data, status, headers, config) {
-                    console.log("what data" + data);
+                }).success(function (skills, status, headers, config) {
+                    console.log("skills: " + skills);
                 }).error(function (err) {
                     console.log("upload finish with err" + err);
                 });
@@ -100,6 +102,7 @@ angular.module('easywork')
             cvParser.parseCV($files[0]).
                 then(function (skills) {
                     sendCVToServer($files, skills, activeUser);
+                    $scope.user.skills = skills;
                 })
         };
 
