@@ -23,7 +23,8 @@
     "grunt-shell": "~0.6.1"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "./node_modules/bower/bin/bower install"
   },
   "description": "Easywork: Building an App with AngularJS, Express andNode.js\r ============================================================",
   "main": "Gruntfile.js",
