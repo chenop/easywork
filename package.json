@@ -6,7 +6,6 @@
         "node": "0.10.29"
     },
     "dependencies": {
-        "angular": "^1.2.18",
         "bower": "^1.2.8",
         "express": "3.4.4",
         "mongoose": "^3.8.8",
@@ -22,6 +21,9 @@
         "grunt-express-server": "~0.4.9",
         "grunt-open": "~0.2.2",
         "grunt-shell": "~0.6.1"
+    },
+    "resolutions": {
+        "angular": "1.2.18"
     },
     "scripts": {
         "start": "node server.js",
