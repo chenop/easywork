@@ -22,9 +22,6 @@
         "grunt-open": "~0.2.2",
         "grunt-shell": "~0.6.1"
     },
-    "resolutions": {
-        "angular": "1.2.18"
-    },
     "scripts": {
         "start": "node server.js",
         "postinstall": "bower install"
