@@ -1,41 +1,42 @@
 {
-  "name": "easywork-AngularJS-NodeJS",
-  "private": true,
-  "version": "0.0.1",
-  "engines": {
-    "node": "0.10.29"
-  },
-  "dependencies": {
-    "bower": "^1.2.8",
-    "express": "3.4.4",
-    "mongoose": "^3.8.8",
-    "nodemailer": "^0.6.1",
-    "passport": "~0.1.17",
-    "passport-local": "~0.1.6",
-    "q": "^1.0.1"
-  },
-  "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-cli": "~0.1.11",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-express-server": "~0.4.9",
-    "grunt-open": "~0.2.2",
-    "grunt-shell": "~0.6.1"
-  },
-  "scripts": {
-    "start": "node server.js",
-    "postinstall": "bower install"
-  },
-  "description": "Easywork: Building an App with AngularJS, Express andNode.js\r ============================================================",
-  "main": "Gruntfile.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/chenop/easywork-AngularJS-NodeJS.git"
-  },
-  "author": "Chen Oppenhaim",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/chenop/easywork-AngularJS-NodeJS/issues"
-  },
-  "homepage": "https://github.com/chenop/easywork-AngularJS-NodeJS"
+    "name": "easywork-AngularJS-NodeJS",
+    "private": true,
+    "version": "0.0.1",
+    "engines": {
+        "node": "0.10.29"
+    },
+    "dependencies": {
+        "angular": "^1.2.18",
+        "bower": "^1.2.8",
+        "express": "3.4.4",
+        "mongoose": "^3.8.8",
+        "nodemailer": "^0.6.1",
+        "passport": "~0.1.17",
+        "passport-local": "~0.1.6",
+        "q": "^1.0.1"
+    },
+    "devDependencies": {
+        "grunt": "~0.4.2",
+        "grunt-cli": "~0.1.11",
+        "grunt-contrib-watch": "~0.5.3",
+        "grunt-express-server": "~0.4.9",
+        "grunt-open": "~0.2.2",
+        "grunt-shell": "~0.6.1"
+    },
+    "scripts": {
+        "start": "node server.js",
+        "postinstall": "bower install"
+    },
+    "description": "Easywork: Building an App with AngularJS, Express andNode.js\r ============================================================",
+    "main": "Gruntfile.js",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/chenop/easywork-AngularJS-NodeJS.git"
+    },
+    "author": "Chen Oppenhaim",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/chenop/easywork-AngularJS-NodeJS/issues"
+    },
+    "homepage": "https://github.com/chenop/easywork-AngularJS-NodeJS"
 }
