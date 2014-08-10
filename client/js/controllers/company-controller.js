@@ -6,11 +6,23 @@ angular.module('easywork')
 
         // TODO 2. addSelectionChangedListener does not add this listener once ..... move to service?
         var companyId = appManager.getActiveCompanyId();
+
         if (companyId !== undefined) {
             dataManager.getCompany(companyId).
                 success(function (result) {
                     $scope.company = result;
+
+                    // Get the logo
+                    dataManager.getCompanyLogo(companyId).
+                        success(function(data) {
+                            var contentType = $scope.company.file.contentType;
+                            $scope.company.file.data = prepareBase64ImgSrc(contentType, data);
+                        })
                 })
+        }
+
+        function prepareBase64ImgSrc(contentType, data) {
+            return 'data:' + contentType + ';base64,' + data;
         }
 
         appManager.addSelectionChangedListener(function (selectedEntity) {
@@ -63,7 +75,7 @@ angular.module('easywork')
         $scope.displayedImage = "holder.js/100%x100%";
 
         $scope.onImageSelect = function ($files) {
-            console.log("file: " + $files[0].name);
+            var contentType = $files[0].type;
             $scope.upload = $upload.upload({
                 url: './api/company/logo-upload/' + $scope.company._id,
                 method: 'POST',
@@ -71,12 +83,12 @@ angular.module('easywork')
                 file: $files[0]
             }).progress(function (evt) {
                 console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-            }).success(function (logoUrl) {
-                $scope.company.logoUrl = logoUrl;
+            }).success(function (data) {
+                $scope.company.file.data = prepareBase64ImgSrc(contentType, data);
             })
-                .error(function (err) {
-                    console.log("Error:" + err.message);
-                })
+            .error(function (err) {
+                console.log("Error:" + err.message);
+            })
         }
 
         var printCompany = function () {

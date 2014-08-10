@@ -112,34 +112,25 @@ exports.upload = function (req, res) {
         var tmp_path = req.files.file.path;
         var ext = utils.getExtension(req.files.file.name);
 
-        // set where the file should actually exists - in this case it is in the IMAGES_DIRECTORY directory
-        var targetFile = utils.getUniqueFileName(IMAGES_DIRECTORY + companyName + '.' + ext);
-        // move the file from the temporary location to the intended location
-        fs.rename(tmp_path, targetFile, function (err) {
-            if (err) throw err;
-            // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
-            fs.unlink(tmp_path, function () {
-                if (err)
-                    throw err;
+        company.file.data = new Buffer(fs.readFileSync(req.files.file.path), 'base64').toString('base64');
+        company.file.contentType = req.files.file.type;
 
-                if (targetFile === undefined) {
-                    res.send(401, "Oops, saving logo failed!");
-                }
-
-                var rootSize = 7; // size of the string 'client/'
-                var logoUrl = './' + targetFile.substr(rootSize, targetFile.length - 1); // Removing 'client/'
-
-                company.logoUrl = logoUrl;
-                return company.save(function (err) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        console.log("updated");
-                    }
-                    return res.send(company.logoUrl);
-                });
-            });
-        });
+        company.save(function(err, company) {
+            if (err)
+                throw err;
+            res.contentType(company.file.contentType);
+            return res.send(company.file.data);
+        })
     });
 }
+
+exports.getCompanyLogo = function(req, res, next) {
+    return Company.findById(req.params.id, function (err, company) {
+        if (err)
+            throw err;
+
+        res.contentType(company.file.contentType);
+        return res.send(company.file.data);
+    });
+};
 

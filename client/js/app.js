@@ -17,7 +17,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 
         $routeProvider
             .when('/', { templateUrl: '/views/home.html', access: 'public'})
-            .when('/test', {redirectTo: '/user_details'})
+            .when('/test', {redirectTo: '/my_company'})
             .when('/login', { templateUrl: '/views/users/login.html', access: 'public' })
             .when("/my_company", {templateUrl: '/views/companies/company.html', access: 'jobProvider'})
             .when("/job_full", {templateUrl: '/views/jobs/job-full.html', access: 'public'})

@@ -24,7 +24,6 @@ angular.module('easywork')
 
         var getCompany = function(id) {
             return getEntity(common.CONTENT_TYPE.COMPANY, id);
-//            return $http.get('./api/company/' + id);
         }
 
         var getJob = function(id) {
@@ -97,6 +96,9 @@ angular.module('easywork')
             return $http.put('/api/' + entityType.name + '/' + entity._id, entity);
         }
 
+        var getCompanyLogo = function(id) {
+            return $http.get('/api/company/logo/' + id);
+        }
 
         var getTechnologiesSelect2Options = function() {
             return {
@@ -146,6 +148,7 @@ angular.module('easywork')
             , updateCompany: updateCompany
             , getCompany: getCompany
             , deleteCompany: deleteCompany
+            , getCompanyLogo: getCompanyLogo
 
             // Jobs
             , getJobs: getJobs

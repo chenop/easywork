@@ -21,6 +21,10 @@ var companySchema = new Schema({
     , technologies: [
         {type: String}
     ]
+    , file: {
+        data: Buffer
+        , contentType: String
+    }
     , owner: { type: Schema.Types.ObjectId, ref: 'User'}
     , jobs: [{ type: Schema.Types.ObjectId, ref: 'Job'}]
 });
