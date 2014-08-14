@@ -6,7 +6,7 @@ angular.module('easywork')
     .controller('DashboardCtrl', function ($scope, authService, appManager, dataManager, common, $routeParams, $timeout) {
 
         if ($routeParams.contentType == undefined) {
-            $scope.contentTypeValue = common.CONTENT_TYPE.USER.value;
+            $scope.contentTypeValue = common.CONTENT_TYPE.COMPANY.value;
         } else {
             $scope.contentTypeValue = $routeParams.contentType;
         }
@@ -55,6 +55,7 @@ angular.module('easywork')
             $scope.deleteEntity(entity, index);
         })
 
+        // User switch content type (users, companies, jobs)
         $scope.$watch('contentTypeValue', function () {
             refreshEntities(function () {
                 if ($scope.entities != undefined && $scope.entities.length > 0) {

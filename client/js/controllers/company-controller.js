@@ -8,28 +8,33 @@ angular.module('easywork')
         var companyId = appManager.getActiveCompanyId();
 
         if (companyId !== undefined) {
-            dataManager.getCompany(companyId).
-                success(function (result) {
+            dataManager.getCompany(companyId)
+                .then(function (result) {
                     $scope.company = result;
-
-                    // Get the logo
-                    dataManager.getCompanyLogo(companyId).
-                        success(function(data) {
-                            var contentType = $scope.company.file.contentType;
-                            $scope.company.file.data = prepareBase64ImgSrc(contentType, data);
-                        })
+                    var formattedData = dataManager.prepareBase64ImgSrc(result.logo.contentType, result.logo.data);
+                    $scope.logo = formattedData;
                 })
-        }
-
-        function prepareBase64ImgSrc(contentType, data) {
-            return 'data:' + contentType + ';base64,' + data;
         }
 
         appManager.addSelectionChangedListener(function (selectedEntity) {
             $timeout(function () {
                 // Using timeout since we want to this to happen after the initialization of the dataManager.getCompany()...
                 // I know... not the best practice ever...
+                if (selectedEntity == null)
+                    return;
                 $scope.company = selectedEntity;
+                // TODO add entity type - what if the entity is not a company?
+                dataManager.getCompanyLogo(selectedEntity._id, $scope.company)
+                    .then(function (data) {
+                        if ($scope.company.logo === undefined) {
+                            $scope.company.logo = {};
+                        }
+                        $scope.company.logo.data = data;
+                        // What if $scope.company.contentType is undefined?
+                        var formattedData = dataManager.prepareBase64ImgSrc(selectedEntity.logo.contentType, data);
+                        $scope.logo = formattedData;
+                    })
+
                 $timeout(function () {
                     $('#companyName').select();
                 }, 100);
@@ -43,7 +48,7 @@ angular.module('easywork')
                 city: '',
                 email: '',
                 technologies: '',
-                logoUrl: ''
+                logo: {}
             };
 
             company.ownerId = appManager.getActiveUserId();
@@ -84,7 +89,13 @@ angular.module('easywork')
             }).progress(function (evt) {
                 console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
             }).success(function (data) {
-                $scope.company.file.data = prepareBase64ImgSrc(contentType, data);
+                // If file is undefined init it
+                if ($scope.company.logo === undefined) {
+                    $scope.company.logo = {};
+                }
+                $scope.company.logo.data = data;
+                $scope.company.logo.contentType = contentType;
+                $scope.logo = dataManager.prepareBase64ImgSrc(contentType, data);
             })
             .error(function (err) {
                 console.log("Error:" + err.message);

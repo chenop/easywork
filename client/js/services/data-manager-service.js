@@ -3,7 +3,7 @@
  */
 
 angular.module('easywork')
-    .factory('dataManager', function ($http, common) {
+    .factory('dataManager', function ($http, common, $q) {
 
         var getFiltersData = function () {
             return $http.get('/api/filtersData/');
@@ -22,8 +22,20 @@ angular.module('easywork')
             return getEntities(common.CONTENT_TYPE.USER);
         }
 
-        var getCompany = function(id) {
-            return getEntity(common.CONTENT_TYPE.COMPANY, id);
+        var getCompany = function (id) {
+            return getEntity(common.CONTENT_TYPE.COMPANY, id)
+                .then(function (result) {                 // Get the logo
+                    var company = result.data;
+                    return getCompanyLogo(id, company)
+                        .then(function (data) {
+                            company.logo.data = data;
+                            return company;
+                        })
+                })
+        }
+
+        function prepareBase64ImgSrc(contentType, data) {
+            return 'data:' + contentType + ';base64,' + data;
         }
 
         var getJob = function(id) {
@@ -96,8 +108,22 @@ angular.module('easywork')
             return $http.put('/api/' + entityType.name + '/' + entity._id, entity);
         }
 
-        var getCompanyLogo = function(id) {
-            return $http.get('/api/company/logo/' + id);
+        var getCompanyLogo = function (id, company) {
+            var deferred = $q.defer();
+            // Check if logo is cached
+            if (company !== undefined && company.logo !== undefined) {
+                var data = company.logo.data;
+                if (data !== undefined && !(data instanceof Array)) { // If array it is not base64 image
+                    deferred.resolve(data);
+                    return deferred.promise;
+                }
+
+            }
+            $http.get('/api/company/logo/' + id)
+                .success(function(data) {
+                    deferred.resolve(data);
+                });
+            return deferred.promise;
         }
 
         var getTechnologiesSelect2Options = function() {
@@ -168,6 +194,7 @@ angular.module('easywork')
             , deleteEntity: deleteEntity
 
             , getAllJobs: getAllJobs
+            , prepareBase64ImgSrc: prepareBase64ImgSrc
         }
     }
 );

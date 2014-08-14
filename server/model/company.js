@@ -17,11 +17,10 @@ var companySchema = new Schema({
     ]
     , city: String
     , email: String
-    , logoUrl: String
     , technologies: [
         {type: String}
     ]
-    , file: {
+    , logo: {
         data: Buffer
         , contentType: String
     }

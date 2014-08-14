@@ -45,7 +45,7 @@ exports.createCompany = function (req, res) {
             {
                 name: req.body.name, street: req.body.street, city: req.body.city, addresses: req.body.addresses
                 , email: req.body.email, logoUrl: req.body.logoUrl, technologies: req.body.technologies
-                , owner: user
+                , owner: user, logo: req.body.logo
             }
         );
         newCompany.save(function (err) {
@@ -74,6 +74,7 @@ exports.updateCompany = function (req, res) {
             company.addresses = req.body.addresses;
             company.email = req.body.email;
             company.logoUrl = req.body.logoUrl;
+            company.logo = req.body.logo;
             company.technologies = req.body.technologies;
             return company.save(function (err) {
                 if (!err) {
@@ -112,14 +113,14 @@ exports.upload = function (req, res) {
         var tmp_path = req.files.file.path;
         var ext = utils.getExtension(req.files.file.name);
 
-        company.file.data = new Buffer(fs.readFileSync(req.files.file.path), 'base64').toString('base64');
-        company.file.contentType = req.files.file.type;
+        company.logo.data = new Buffer(fs.readFileSync(req.files.file.path), 'base64').toString('base64');
+        company.logo.contentType = req.files.file.type;
 
         company.save(function(err, company) {
             if (err)
                 throw err;
-            res.contentType(company.file.contentType);
-            return res.send(company.file.data);
+            res.contentType(company.logo.contentType);
+            return res.send(company.logo.data);
         })
     });
 }
@@ -129,8 +130,12 @@ exports.getCompanyLogo = function(req, res, next) {
         if (err)
             throw err;
 
-        res.contentType(company.file.contentType);
-        return res.send(company.file.data);
+        if (company === undefined || company == null || company.logo === undefined || company.logo.contentType === undefined) {
+            return res.send(404, 'Could not find company logo');
+        }
+
+        res.contentType(company.logo.contentType);
+        return res.send(company.logo.data);
     });
 };
 
