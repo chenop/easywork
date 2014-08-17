@@ -11,8 +11,7 @@ angular.module('easywork')
             dataManager.getCompany(companyId)
                 .then(function (result) {
                     $scope.company = result;
-                    var formattedData = dataManager.prepareBase64ImgSrc(result.logo.contentType, result.logo.data);
-                    $scope.logo = formattedData;
+                    $scope.logo = result.logo.data;
                 })
         }
 
@@ -31,8 +30,7 @@ angular.module('easywork')
                         }
                         $scope.company.logo.data = data;
                         // What if $scope.company.contentType is undefined?
-                        var formattedData = dataManager.prepareBase64ImgSrc(selectedEntity.logo.contentType, data);
-                        $scope.logo = formattedData;
+                        $scope.logo = data;
                     })
 
                 $timeout(function () {
@@ -80,26 +78,32 @@ angular.module('easywork')
         $scope.displayedImage = "holder.js/100%x100%";
 
         $scope.onImageSelect = function ($files) {
-            var contentType = $files[0].type;
-            $scope.upload = $upload.upload({
-                url: './api/company/logo-upload/' + $scope.company._id,
-                method: 'POST',
-                data: {companyName: $scope.company.name},
-                file: $files[0]
-            }).progress(function (evt) {
-                console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-            }).success(function (data) {
-                // If file is undefined init it
-                if ($scope.company.logo === undefined) {
-                    $scope.company.logo = {};
-                }
-                $scope.company.logo.data = data;
-                $scope.company.logo.contentType = contentType;
-                $scope.logo = dataManager.prepareBase64ImgSrc(contentType, data);
-            })
-            .error(function (err) {
-                console.log("Error:" + err.message);
-            })
+            var file = $files[0];
+            var contentType = file.type;
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(file); // Reading the image as base64
+            fileReader.onload = function (e) {
+                $scope.upload = $upload.upload({
+                    url: './api/company/logo-upload/' + $scope.company._id,
+                    method: 'POST',
+                    data: {data: e.target.result} // Image as base64
+                }).progress(function (evt) {
+                    console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+                }).success(function (data) {
+                    // If file is undefined init it
+                    if ($scope.company.logo === undefined) {
+                        $scope.company.logo = {};
+                    }
+                    $scope.company.logo.data = data;
+                    $scope.company.logo.contentType = contentType;
+                    $scope.logo = data;
+
+                    return data;
+                })
+                    .error(function (err) {
+                        console.log("Error:" + err.message);
+                    })
+            }
         }
 
         var printCompany = function () {

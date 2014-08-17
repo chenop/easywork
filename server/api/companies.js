@@ -108,12 +108,10 @@ exports.upload = function (req, res) {
         if (company === undefined || company == null)
             return;
 
-        // get the temporary location of the file
-        var companyName = req.body.companyName;
-        var tmp_path = req.files.file.path;
-        var ext = utils.getExtension(req.files.file.name);
+        // get the logo data
+        var fileData = req.body.data;
 
-        company.logo.data = new Buffer(fs.readFileSync(req.files.file.path), 'base64').toString('base64');
+        company.logo.data = fileData;
         company.logo.contentType = req.files.file.type;
 
         company.save(function(err, company) {
