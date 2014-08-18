@@ -20,8 +20,6 @@ angular.module('easywork')
 
         $scope.setSelected = function (entity, $index) {
             appManager.setSelectedEntity(entity, $index);
-            // Entity was selected in the list we need the child controllers to get updated accordingly
-            $scope.$broadcast('listSelectionChanged', entity);
         }
 
         $scope.select2Options = dataManager.getDashboardSelect2Options();
@@ -60,10 +58,6 @@ angular.module('easywork')
             refreshEntities(function () {
                 if ($scope.entities != undefined && $scope.entities.length > 0) {
                     appManager.setSelectedEntity($scope.entities[0], 0);
-                    // Waiting for the child scopes will be instantiated
-                    $timeout(function () {
-                        $scope.$broadcast('listSelectionChanged', $scope.entities[0]);
-                    });
                 }
             });
 
@@ -152,7 +146,6 @@ angular.module('easywork')
                                 index = $scope.entities.length - 1;
                             }
                             appManager.setSelectedEntity($scope.entities[index], index);
-                            $scope.$broadcast('listSelectionChanged', $scope.entities[index]);
                         }
                     });
                 });

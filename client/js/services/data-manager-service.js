@@ -48,7 +48,6 @@ angular.module('easywork')
 
         var createCompany = function(company) {
             return createEntity(common.CONTENT_TYPE.COMPANY, company);
-//            return $http.post('./api/company', company);
         }
 
         var createJob = function(job) {

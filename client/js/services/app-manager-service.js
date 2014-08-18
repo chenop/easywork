@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-	.factory('appManager', function (authService) {
+	.factory('appManager', function (authService, $rootScope, $timeout) {
 
         var selection = [];
         var selectedTechnologies = [];
@@ -10,7 +10,6 @@ angular.module('easywork')
 		var displaySearchBarInHeader = true;
         var _selectedEntity;
         var default_message = 'Hi,\nI am interested in open positions in your company.\nContact information can be found in my CV which is attached.\n\nBest Regards,\n';
-        var _listeners = [];
 
         var getSelectionCount = function() {
             return selection.length;
@@ -63,25 +62,16 @@ angular.module('easywork')
             _selectedEntity = selectedEntity;
             if ($index !== undefined) {
                 _selectedEntity.index = $index;
-                fireSelectionChanged();
+                // Entity was selected in the list we need the child controllers to get updated accordingly
+                // Waiting for the child scopes will be instantiated
+                $timeout(function () {
+                    $rootScope.$broadcast('selectionChanged', _selectedEntity);
+                })
             }
         }
 
 		var getSelectedEntity = function() {
             return _selectedEntity;
-        }
-
-        var fireSelectionChanged = function() {
-            if (_listeners.length == 0) {
-                return;
-            }
-            angular.forEach(_listeners, function(listener) {
-                listener(_selectedEntity);
-            });
-
-        }
-        var addSelectionChangedListener = function(listener) {
-            _listeners.push(listener);
         }
 
 		return {
@@ -101,8 +91,6 @@ angular.module('easywork')
             , getSelectedEntity: getSelectedEntity
             , defaultMessage: default_message
             , getIndexOf: getIndexOf
-            , fireSelectionChanged: fireSelectionChanged
-            , addSelectionChangedListener: addSelectionChangedListener
         }
 	}
 );

@@ -112,12 +112,10 @@ exports.upload = function (req, res) {
         var fileData = req.body.data;
 
         company.logo.data = fileData;
-        company.logo.contentType = req.files.file.type;
 
         company.save(function(err, company) {
             if (err)
                 throw err;
-            res.contentType(company.logo.contentType);
             return res.send(company.logo.data);
         })
     });
@@ -128,11 +126,10 @@ exports.getCompanyLogo = function(req, res, next) {
         if (err)
             throw err;
 
-        if (company === undefined || company == null || company.logo === undefined || company.logo.contentType === undefined) {
+        if (company === undefined || company == null || company.logo === undefined) { //} || company.logo.contentType === undefined) {
             return res.send(404, 'Could not find company logo');
         }
 
-        res.contentType(company.logo.contentType);
         return res.send(company.logo.data);
     });
 };

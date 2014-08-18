@@ -22,7 +22,6 @@ var companySchema = new Schema({
     ]
     , logo: {
         data: Buffer
-        , contentType: String
     }
     , owner: { type: Schema.Types.ObjectId, ref: 'User'}
     , jobs: [{ type: Schema.Types.ObjectId, ref: 'Job'}]

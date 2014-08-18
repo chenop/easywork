@@ -7,29 +7,29 @@ angular.module('easywork')
         $scope.user = {};
         $scope.user.skills = null;
         var userId = appManager.getActiveUserId();
-        dataManager.getUser(userId).
-            success(function (result) {
-                $scope.user = result;
-            })
 
-        appManager.addSelectionChangedListener(function (selectedEntity) {
+        function refreshUser(selectedEntity) {
+            if (selectedEntity == null)
+                return;
+
+            $scope.user = selectedEntity;
             $timeout(function () {
-                // Using timeout since we want to this to happen after the initialization of the dataManager.getUser()...
-                // I know... not the best practice ever...
-                $scope.user = selectedEntity;
-                $timeout(function () {
-                    $('#userName').select();
-                }, 100);
+                $('#userName').select();
+            }, 100);
+        }
 
+        dataManager.getUser(userId)
+            .then(function (result) {
+                $scope.user = result.data;
+                return result
             })
-        })
-
-//        $scope.$on('listSelectionChanged', function (event, selectedEntity) {
-//            $scope.user = selectedEntity;
-//            $timeout(function () {
-//                $('#userName').select();
-//            }, 100);
-//        });
+            .then(function() {
+                refreshUser(appManager.getSelectedEntity());
+                // We would like to register to the selectionChanged event only after user was fetched
+                $scope.$on('selectionChanged', function (event, selectedEntity) {
+                    refreshUser(selectedEntity);
+                })
+           })
 
         $scope.addUser = function () {
             var user = {

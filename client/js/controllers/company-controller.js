@@ -4,40 +4,44 @@
 angular.module('easywork')
     .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout) {
 
-        // TODO 2. addSelectionChangedListener does not add this listener once ..... move to service?
         var companyId = appManager.getActiveCompanyId();
+
+        function refreshCompany(selectedEntity) {
+            if (selectedEntity == null)
+                return;
+            $scope.company = selectedEntity;
+            dataManager.getCompanyLogo(selectedEntity._id, $scope.company)
+                .then(function (data) {
+                    if ($scope.company.logo === undefined) {
+                        $scope.company.logo = {};
+                    }
+                    $scope.company.logo.data = data;
+                    $scope.logo = data;
+                })
+
+            $timeout(function () {
+                $('#companyName').select();
+            }, 100);
+        }
 
         if (companyId !== undefined) {
             dataManager.getCompany(companyId)
                 .then(function (result) {
                     $scope.company = result;
                     $scope.logo = result.logo.data;
+                    return result;
+                })
+                .then(function () {
+                    var selectedEntity = appManager.getSelectedEntity();
+                    refreshCompany(selectedEntity);
+
+                    // We would like to register to the selectionChanged event only after company was fetched
+                    $scope.$on('selectionChanged', function (event, selectedEntity) {
+                        refreshCompany(selectedEntity);
+                    })
                 })
         }
 
-        appManager.addSelectionChangedListener(function (selectedEntity) {
-            $timeout(function () {
-                // Using timeout since we want to this to happen after the initialization of the dataManager.getCompany()...
-                // I know... not the best practice ever...
-                if (selectedEntity == null)
-                    return;
-                $scope.company = selectedEntity;
-                // TODO add entity type - what if the entity is not a company?
-                dataManager.getCompanyLogo(selectedEntity._id, $scope.company)
-                    .then(function (data) {
-                        if ($scope.company.logo === undefined) {
-                            $scope.company.logo = {};
-                        }
-                        $scope.company.logo.data = data;
-                        // What if $scope.company.contentType is undefined?
-                        $scope.logo = data;
-                    })
-
-                $timeout(function () {
-                    $('#companyName').select();
-                }, 100);
-            })
-        })
 
         $scope.addCompany = function () {
             var company = {
@@ -79,7 +83,6 @@ angular.module('easywork')
 
         $scope.onImageSelect = function ($files) {
             var file = $files[0];
-            var contentType = file.type;
             var fileReader = new FileReader();
             fileReader.readAsDataURL(file); // Reading the image as base64
             fileReader.onload = function (e) {
@@ -95,7 +98,6 @@ angular.module('easywork')
                         $scope.company.logo = {};
                     }
                     $scope.company.logo.data = data;
-                    $scope.company.logo.contentType = contentType;
                     $scope.logo = data;
 
                     return data;
