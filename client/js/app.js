@@ -19,7 +19,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
             .when('/', { templateUrl: '/views/home.html', access: 'public'})
             .when('/test', {redirectTo: '/content_manager'})
             .when('/login', { templateUrl: '/views/users/login.html', access: 'public' })
-            .when("/my_company", {templateUrl: '/views/companies/company.html', access: 'jobProvider'})
+            .when("/my_company", {templateUrl: '/views/companies/company.html', access: 'jobProvider', isDashboard:false})
             .when("/job_full", {templateUrl: '/views/jobs/job-full.html', access: 'public'})
 //            .when("/company", {
 //                templateUrl: '/views/companies/company.html',
@@ -30,9 +30,9 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 //                    }
 //                }
 //            })
-            .when("/content_manager/:contentType?", { templateUrl: '/views/admin/dashboard.html', access: 'jobProvider' })
+            .when("/content_manager/:contentType?", { templateUrl: '/views/admin/dashboard.html', access: 'jobProvider', isDashboard:true })
             .when("/companies", { templateUrl: '/views/jobs/job-board.html', access: 'jobSeeker' })
-            .when('/user_details', { templateUrl: '/views/users/user.html', access: 'jobSeeker' })
+            .when('/user_details', { templateUrl: '/views/users/user.html', access: 'jobSeeker', isDashboard:false })
             .otherwise({ redirectTo: '/' });
 
         $locationProvider.html5Mode(true);

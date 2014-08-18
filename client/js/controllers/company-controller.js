@@ -2,9 +2,32 @@
 
 
 angular.module('easywork')
-    .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout) {
+    .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout, $route) {
 
-        var companyId = appManager.getActiveCompanyId();
+        var isDashboard = $route.current.isDashboard;
+
+        if (isDashboard) {
+            // Content mode
+            var selectedEntity = appManager.getSelectedEntity();
+            refreshCompany(selectedEntity);
+
+            // We would like to register to the selectionChanged event only after company was fetched
+            $scope.$on('selectionChanged', function (event, selectedEntity) {
+                refreshCompany(selectedEntity);
+            })
+        }
+        else {
+            // My Company mode
+            var companyId = appManager.getActiveCompanyId();
+            if (companyId !== undefined) {
+                dataManager.getCompany(companyId)
+                    .then(function (result) {
+                        $scope.company = result;
+                        $scope.logo = result.logo.data;
+                        return result;
+                    })
+            }
+        }
 
         function refreshCompany(selectedEntity) {
             if (selectedEntity == null)
@@ -24,23 +47,6 @@ angular.module('easywork')
             }, 100);
         }
 
-        if (companyId !== undefined) {
-            dataManager.getCompany(companyId)
-                .then(function (result) {
-                    $scope.company = result;
-                    $scope.logo = result.logo.data;
-                    return result;
-                })
-                .then(function () {
-                    var selectedEntity = appManager.getSelectedEntity();
-                    refreshCompany(selectedEntity);
-
-                    // We would like to register to the selectionChanged event only after company was fetched
-                    $scope.$on('selectionChanged', function (event, selectedEntity) {
-                        refreshCompany(selectedEntity);
-                    })
-                })
-        }
 
 
         $scope.addCompany = function () {

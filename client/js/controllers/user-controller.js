@@ -2,11 +2,30 @@
 
 angular.module('easywork')
     .controller('userDetailsCtrl'
-    , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager, $timeout) {
+    , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager, $timeout, $route) {
 
         $scope.user = {};
         $scope.user.skills = null;
-        var userId = appManager.getActiveUserId();
+
+        var isDashboard = $route.current.isDashboard;
+
+        if (isDashboard) {
+            refreshUser(appManager.getSelectedEntity());
+            // We would like to register to the selectionChanged event only after user was fetched
+            $scope.$on('selectionChanged', function (event, selectedEntity) {
+                refreshUser(selectedEntity);
+            })
+        }
+        else {
+            var userId = appManager.getActiveUserId();
+            if (userId !== undefined) {
+                dataManager.getUser(userId)
+                    .then(function (result) {
+                        $scope.user = result.data;
+                        return result
+                    })
+            }
+        }
 
         function refreshUser(selectedEntity) {
             if (selectedEntity == null)
@@ -17,19 +36,6 @@ angular.module('easywork')
                 $('#userName').select();
             }, 100);
         }
-
-        dataManager.getUser(userId)
-            .then(function (result) {
-                $scope.user = result.data;
-                return result
-            })
-            .then(function() {
-                refreshUser(appManager.getSelectedEntity());
-                // We would like to register to the selectionChanged event only after user was fetched
-                $scope.$on('selectionChanged', function (event, selectedEntity) {
-                    refreshUser(selectedEntity);
-                })
-           })
 
         $scope.addUser = function () {
             var user = {
