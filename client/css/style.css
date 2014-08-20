@@ -82,7 +82,8 @@ body {
 }
 
 .logo {
-    width: 100px;
+    max-width: 100px;
+    max-height: 60px;
 }
 
 .address, .technology {
