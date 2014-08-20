@@ -109,15 +109,16 @@ angular.module('easywork')
 
         var getCompanyLogo = function (id, company) {
             var deferred = $q.defer();
+            // TODO cache is not working...
             // Check if logo is cached
-            if (company !== undefined && company.logo !== undefined) {
-                var data = company.logo.data;
-                if (data !== undefined && !(data instanceof Array)) { // If array it is not base64 image
-                    deferred.resolve(data);
-                    return deferred.promise;
-                }
-
-            }
+//            if (company !== undefined && company.logo !== undefined) {
+//                var data = company.logo.data;
+//                if (data !== undefined && !(data instanceof Array)) { // If array it is not base64 image
+//                    deferred.resolve(data);
+//                    return deferred.promise;
+//                }
+//
+//            }
             $http.get('/api/company/logo/' + id)
                 .success(function(data) {
                     deferred.resolve(data);

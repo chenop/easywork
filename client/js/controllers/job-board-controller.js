@@ -5,6 +5,17 @@ angular.module('easywork')
     .controller('JobsBoardCtrl', function ($scope, $http, mailService, dataManager, appManager, $modal) {
         dataManager.getAllJobs().then(function(jobs) {
             $scope.jobs = jobs.data;
+            angular.forEach($scope.jobs, function(job, key) {
+                console.log(job, key);
+                // TODO not ideal... why i dont have the image from the first call?
+                dataManager.getCompanyLogo(job.company._id, job.company)
+                    .then(function(data) {
+                        if (job.company.logo === undefined) {
+                            job.company.logo = {};
+                        }
+                        job.company.logo.data = data;
+                    })
+            })
         })
 
         appManager.setDisplaySearchBarInHeader(true);

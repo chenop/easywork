@@ -141,6 +141,7 @@ exports.getAllJobs = function(req, res) {
             if (err) {
                 console.log("error while trying to populate jobs:" + err);
             }
-            return res.json(jobs);
+            var data = JSON.stringify(jobs);
+            return res.send(data);
         })
 }
