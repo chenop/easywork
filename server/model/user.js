@@ -17,6 +17,7 @@ var userSchema = new Schema({
     , experience: String
     , message: String
     , role: Object
+    , cv : Buffer
     , fileName: String
     , pathName: String
     , skills: [String]

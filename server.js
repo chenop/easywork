@@ -71,7 +71,6 @@ app.use(passport.session());
 
 app.post('/api/login', users.login)
 app.post('/api/logout', users.logout)
-app.post('/api/upload', users.upload)
 app.post('/api/register', users.register)
 app.post('/api/sendMail', mail.sendMail)
 app.get('/api/filtersData', dataProxy.getFiltersData)
@@ -82,6 +81,7 @@ app.get('/api/user/:id', users.getUser)
 app.post('/api/user', users.createUser)
 app.put('/api/user/:id', users.updateUser)
 app.delete('/api/user/:id', users.deleteUser)
+app.post('/api/user/cv-upload/:id', users.upload)
 
 // Companies
 app.get('/api/company/list', companies.getCompanies)

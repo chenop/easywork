@@ -62,7 +62,7 @@ body {
 }
 
 .selected {
-    background-color: #23d0ff;
+    background-color: rgba(151, 173, 254, 0.44);
 }
 
 .navbar .container .row {
@@ -92,7 +92,8 @@ body {
 
 .my-drop-zone {
     border: dashed 3px lightgray;
-    margin-top: 20px;
+    margin-top:
+    20px;
     width: 250px;
     background: #F8F8F8;
     height: 40px;
@@ -353,8 +354,8 @@ ul li {
     max-width: 200px;
 }
 
-td button.action-button { display: none; }
-tr:hover button.action-button { display: block; }
+td button.action-button { opacity: 0; }
+tr:hover button.action-button { opacity: 1; }
 
 .job-full-dialog .modal-dialog {
     width :90%;

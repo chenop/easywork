@@ -81,36 +81,45 @@ angular.module('easywork')
 
         /**
          * $files: an array of files selected, each file has name, size, and type.
-         * @param $files
-         * @param activeUser
+         * @param fileData
+         * @param skills
+         * @param activeUserId
          */
-        function sendCVToServer($files, skills, activeUser) {
-            for (var i = 0; i < $files.length; i++) {
-                var $file = $files[i];
-                console.log("file: " + i + ", name: " + $file.name);
-                $scope.upload = $upload.upload({
-                    url: '/api/upload', //upload.php script, node.js route, or servlet url
-                    method: 'POST',
-                    data: {user: activeUser, skills: skills},
-                    file: $file
-                }).progress(function (evt) {
-                    console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-                }).success(function (skills, status, headers, config) {
-                    console.log("skills: " + skills);
-                }).error(function (err) {
-                    console.log("upload finish with err" + err);
-                });
-            }
+        function sendCVToServer(fileData, skills, activeUserId) {
+            $scope.upload = $upload.upload({
+                url: '/api/user/cv-upload/' + activeUserId, //upload.php script, node.js route, or servlet url
+                method: 'POST',
+                data: {
+                    data: fileData, // File as base64
+                    skills: skills
+                }
+            }).progress(function (evt) {
+                console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+            }).success(function (skills, status, headers, config) {
+                console.log("skills: " + skills);
+
+                // If file is undefined init it
+                if (skills !== undefined) {
+                    $scope.user.skills = skills;
+                }
+            }).error(function (err) {
+                console.log("upload finish with err" + err);
+            });
         }
 
         $scope.onFileSelect = function ($files) {
-            var activeUser = authService.getActiveUser();
+            var activeUserId = appManager.getActiveUserId();
             cvParser.parseCV($files[0]).
                 then(function (skills) {
-                    sendCVToServer($files, skills, activeUser);
-                    $scope.user.skills = skills;
+                    var file = $files[0];
+                    var fileReader = new FileReader();
+                    fileReader.readAsDataURL(file); // Reading the image as base64
+                    fileReader.onload = function (e) {
+                        sendCVToServer(e.target.result, skills, activeUserId);
+                    }
+
                 })
-        };
+        }
 
         $scope.updateUser = function (event) {
             dataManager.updateUser($scope.user)

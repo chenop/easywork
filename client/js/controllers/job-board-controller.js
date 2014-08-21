@@ -45,14 +45,19 @@ angular.module('easywork')
         $scope.isRelevant = function (job) {
             if ((appManager.selectedAreas.length === 0) && (appManager.selectedTechnologies.length === 0))
                 return true;
-            return (appManager.selectedAreas.indexOf(job.city) >= 0 && (superbag(job.technologies, appManager.selectedTechnologies)));
+            var isAreasMatch = appManager.selectedAreas.indexOf(job.city) >= 0;
+            var isTechMatch = (superbag(job.technologies, appManager.selectedTechnologies));
+            if (isAreasMatch && appManager.selectedTechnologies.length === 0)
+                return true;
+            if (isTechMatch && appManager.selectedAreas.length === 0)
+                return true;
+
+            return (isAreasMatch && isTechMatch);
         };
 
         // TODO - This check can be optimize - like sorting alphabetically or do hash-mapping of first letter (hash['i'] -> ['Intel']'.
         function superbag(superSet, subSet) {
             if (superSet == undefined || subSet == undefined)
-                return true;
-            if (subSet.length == 0)
                 return true;
             var i, j;
             for (i = 0; i < subSet.length; i++) {

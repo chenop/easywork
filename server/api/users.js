@@ -200,7 +200,13 @@ function prepareCookie(res, user) {
 exports.register = function (req, res) {
     var user = new User(
         {
-            name: req.body.name, username: req.body.username, role: 'jobSeeker', password: req.body.password, experience: req.body.experience, email: req.body.email, message: req.body.message
+            name: req.body.name,
+            username: req.body.username,
+            role: 'jobSeeker',
+            password: req.body.password,
+            experience: req.body.experience,
+            email: req.body.email,
+            message: req.body.message
         }
     );
     console.log("registered user: " + user.username);
@@ -220,26 +226,22 @@ exports.register = function (req, res) {
 }
 
 exports.upload = function (req, res) {
-    console.log(JSON.stringify(req.files));
+    return User.findById(req.params.id, function (err, user) {
+        if (user === undefined || user == null)
+            return;
 
-    // get the temporary location of the file
-    var tmp_path = req.files.file.path;
-    // set where the file should actually exists - in this case it is in the CV_DIRECTORY directory
-    var target_path = utils.getUniqueFileName(CV_DIRECTORY + req.files.file.name);
-    var file_path = utils.getUniqueFileName(CV_DIRECTORY);
-    // move the file from the temporary location to the intended location
-    fs.rename(tmp_path, target_path, function (err) {
-        if (err) throw err;
-        // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
-        fs.unlink(tmp_path, function () {
-            if (err) throw err;
-            var user = JSON.parse(req.body.user);
-            var skills = JSON.parse(req.body.skills);
-            updateUserFile(user._id, file_path, req.files.file.name, null);
-            updateUserSkills(user._id, skills, null);
-            console.log('File uploaded to: ' + target_path + ' - ' + req.files.file.size + ' bytes');
-            res.send(skills);
-        });
+        // get the logo data
+        var fileData = req.body.data;
+        var skills = JSON.parse(req.body.skills);
+
+        user.cv = fileData;
+        user.skills = skills;
+
+        user.save(function (err, user) {
+            if (err)
+                throw err;
+            return res.send(user.skills);
+        })
     });
 }
 

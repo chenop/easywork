@@ -22,7 +22,7 @@ angular.module('easywork')
         $scope.areas_select2Options = dataManager.getAreasSelect2Options();
 
         $scope.search = function () {
-            $location.path('/companies');
+            $location.path('/job-board');
         }
     }
 ]);
