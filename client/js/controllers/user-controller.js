@@ -4,6 +4,7 @@ angular.module('easywork')
     .controller('userDetailsCtrl'
     , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager, $timeout, $route) {
 
+        appManager.setDisplaySearchBarInHeader(false);
         $scope.user = {};
         $scope.user.skills = null;
 
@@ -113,7 +114,7 @@ angular.module('easywork')
                 then(function (skills) {
                     var file = $files[0];
                     var fileReader = new FileReader();
-                    fileReader.readAsDataURL(file); // Reading the image as base64
+                    fileReader.readAsDataURL(file); // Reading the file as base64
                     fileReader.onload = function (e) {
                         sendCVToServer(e.target.result, skills, activeUserId);
                     }

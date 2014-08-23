@@ -19,7 +19,6 @@ var userSchema = new Schema({
     , role: Object
     , cv : Buffer
     , fileName: String
-    , pathName: String
     , skills: [String]
     , company: { type: Schema.Types.ObjectId, ref: 'Company'}
     , skills: Object

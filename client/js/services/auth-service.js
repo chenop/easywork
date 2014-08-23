@@ -44,6 +44,7 @@ angular.module('easywork')
                 data: user
             }).success(function(user) {
                 setActiveUser(user);
+                return user;
             });
         };
 

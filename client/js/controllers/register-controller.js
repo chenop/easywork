@@ -47,8 +47,7 @@ angular.module('easywork')
             var user = $scope.user;
 
             authService.register(user)
-                .success(
-                function () {
+                .success(function () {
                     if (modIns) {
                         modIns.close(user.username);
 //                        console.log("login - modIns.close");
@@ -61,6 +60,16 @@ angular.module('easywork')
                     console.log(err);
                 }
             );
+        }
+
+        $scope.onFileSelect = function($files) {
+            var file = $files[0];
+            $scope.user.fileName = file.name;
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(file); // Reading the file as base64
+            fileReader.onload = function (e) {
+                $scope.user.cv = e.target.result;
+            }
         }
     }
 );

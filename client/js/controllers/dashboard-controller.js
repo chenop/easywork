@@ -5,6 +5,8 @@
 angular.module('easywork')
     .controller('DashboardCtrl', function ($scope, authService, appManager, dataManager, common, $routeParams, $timeout) {
 
+        appManager.setDisplaySearchBarInHeader(false);
+
         if ($routeParams.contentType == undefined) {
             $scope.contentTypeValue = common.CONTENT_TYPE.COMPANY.value;
         } else {

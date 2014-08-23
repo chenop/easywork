@@ -15,35 +15,38 @@
             <div class="col-xs-8 col-md-8 no-padding">
                 <div class="navbar-collapse collapse">
                     <div class="row-fluid">
-                        <div class="col-xs-4 col-sm-4 col-md-4">
-                            <div class="select2" ng-if="appManager.shouldDisplaySearchBarInHeader()">
-                                <select ui-select2="areas_select2Options" multiple ng-model="appManager.selectedAreas"
-                                        data-placeholder="Pick an area">
-                                    <option ng-repeat="area in areas" value="{{area}}">{{area}}
-                                    </option>
-                                </select>
+                        <div ng-if="appManager.shouldDisplaySearchBarInHeader()">
+                            <div class="col-xs-4 col-sm-4 col-md-4">
+                                <div class="select2">
+                                    <select ui-select2="areas_select2Options" multiple
+                                            ng-model="appManager.selectedAreas"
+                                            data-placeholder="Pick an area">
+                                        <option ng-repeat="area in areas" value="{{area}}">{{area}}
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-xs-3 col-sm-3  col-md-3">
-                            <div class="select2" ng-if="appManager.shouldDisplaySearchBarInHeader()">
-                                <select ui-select2="technologies_select2Options" multiple
-                                        ng-model="appManager.selectedTechnologies"
-                                        data-placeholder="Pick a technology">
-                                    <option ng-repeat="technology in technologies" value="{{technology}}">
-                                        {{technology}}
-                                    </option>
-                                </select>
+                            <div class="col-xs-3 col-sm-3  col-md-3">
+                                <div class="select2">
+                                    <select ui-select2="technologies_select2Options" multiple
+                                            ng-model="appManager.selectedTechnologies"
+                                            data-placeholder="Pick a technology">
+                                        <option ng-repeat="technology in technologies" value="{{technology}}">
+                                            {{technology}}
+                                        </option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-xs-1 col-sm-1 col-md-1">
-                            <button class="btn btn-lg" ng-if="appManager.shouldDisplaySearchBarInHeader()"
-                                    id="small-search-button"
-                                    ng-click="send()"
-                                    ng-class="{'btn-disabled':shouldDisableSend(), 'btn-primary':!shouldDisableSend()}"
-                                    ng-disabled="shouldDisableSend()">{{sendButtonLabel}}
-                            </button>
+                            <div class="col-xs-1 col-sm-1 col-md-1">
+                                <button class="btn btn-lg"
+                                        id="small-search-button"
+                                        ng-click="send()"
+                                        ng-class="{'btn-disabled':shouldDisableSend(), 'btn-primary':!shouldDisableSend()}"
+                                        ng-disabled="shouldDisableSend()">{{sendButtonLabel}}
+                                </button>
+                            </div>
                         </div>
 
                         <!-- Login or User menu -->

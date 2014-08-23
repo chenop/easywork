@@ -194,6 +194,7 @@ function prepareCookie(res, user) {
             , email: user.email
             , experience: user.experience
             , company: user.company
+            , fileName: user.fileName
             , '_id': user._id // Helping us to find later the active user in DB
         }));
 }
@@ -206,7 +207,9 @@ exports.register = function (req, res) {
             password: req.body.password,
             experience: req.body.experience,
             email: req.body.email,
-            message: req.body.message
+            message: req.body.message,
+            fileName: req.body.fileName,
+            cv: req.body.cv
         }
     );
     console.log("registered user: " + user.username);

@@ -46,6 +46,7 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">CV</label>
                 <div class="col-sm-5 file-upload-container">
+                    {{user.fileName}}
                     <input class="upload-button" type="file" ng-file-select="onFileSelect($files)">
                     <div class="my-drop-zone" ng-file-drop="onFileSelect($files);">or drop files here</div>
                 </div>
