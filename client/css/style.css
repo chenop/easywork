@@ -110,10 +110,6 @@ body {
     padding-right: 0px;
 }
 
-.upload-button {
-    padding-top: 5px;
-}
-
 .table-hover > tbody > tr:hover > td {
     background-color: rgba(54, 25, 25, .1);
 }
@@ -374,4 +370,28 @@ tr:hover button.action-button { opacity: 1; }
     float: right;
     max-height: 150px;
     max-width: 200px;
+}
+
+.fileUpload {
+    float: right;
+    overflow: hidden;
+    width: 100px;
+}
+
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.upload-file-name {
+    padding-top: 5px;
+    text-align: left;
+    width: 250px;
 }

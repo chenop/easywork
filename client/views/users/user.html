@@ -46,8 +46,12 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label">CV</label>
                 <div class="col-sm-5 file-upload-container">
-                    {{user.fileName}}
-                    <input class="upload-button" type="file" ng-file-select="onFileSelect($files)">
+                    <div class="fileUpload btn btn-primary">
+                        <span>Upload</span>
+                        <input style="width: 100px" type="file" class="upload" ng-file-select="onFileSelect($files)"/>
+                    </div>
+                    <div class="upload-file-name"> {{user.fileName}} </div>
+                    <!--<input class="upload-button" type="file" value="{{user.fileName}}" ng-file-select="onFileSelect($files)">-->
                     <div class="my-drop-zone" ng-file-drop="onFileSelect($files);">or drop files here</div>
                 </div>
                 <div ng-show="user.skills" class="col-sm-5 align-left no-padding">
