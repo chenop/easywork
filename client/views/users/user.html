@@ -50,8 +50,8 @@
                     <input class="upload-button" type="file" ng-file-select="onFileSelect($files)">
                     <div class="my-drop-zone" ng-file-drop="onFileSelect($files);">or drop files here</div>
                 </div>
-                <div ng-show="user.skills" class="col-sm-5 align-right">
-                    {{user.skills}}
+                <div ng-show="user.skills" class="col-sm-5 align-left no-padding">
+                    <span ng-repeat="skill in user.skills">{{skill}} </span>
                     <a href="#" class="btn btn-default btn-md" tooltip="Interesting keywords: {{user.skills}}">
                         <i class="glyphicon glyphicon-star"></i>
                     </a>

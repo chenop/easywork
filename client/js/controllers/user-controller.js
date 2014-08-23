@@ -86,13 +86,14 @@ angular.module('easywork')
          * @param skills
          * @param activeUserId
          */
-        function sendCVToServer(fileData, skills, activeUserId) {
+        function sendCVToServer(fileName, fileData, skills, activeUserId) {
             $scope.upload = $upload.upload({
                 url: '/api/user/cv-upload/' + activeUserId, //upload.php script, node.js route, or servlet url
                 method: 'POST',
                 data: {
                     data: fileData, // File as base64
-                    skills: skills
+                    skills: skills,
+                    fileName: fileName
                 }
             }).progress(function (evt) {
                 console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
@@ -103,9 +104,11 @@ angular.module('easywork')
                 if (skills !== undefined) {
                     $scope.user.skills = skills;
                 }
+                return skills;
             }).error(function (err) {
                 console.log("upload finish with err" + err);
             });
+            return $scope.upload;
         }
 
         $scope.onFileSelect = function ($files) {
@@ -116,7 +119,10 @@ angular.module('easywork')
                     var fileReader = new FileReader();
                     fileReader.readAsDataURL(file); // Reading the file as base64
                     fileReader.onload = function (e) {
-                        sendCVToServer(e.target.result, skills, activeUserId);
+                        sendCVToServer(file.name, e.target.result, skills, activeUserId)
+                            .then(function() {
+                                $scope.user.fileName = file.name;
+                            });
                     }
 
                 })
