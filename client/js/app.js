@@ -21,15 +21,6 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
             .when('/login', { templateUrl: '/views/users/login.html', access: 'public' })
             .when("/my_company", {templateUrl: '/views/companies/company.html', access: 'jobProvider', isDashboard:false})
             .when("/job_full", {templateUrl: '/views/jobs/job-full.html', access: 'public'})
-//            .when("/company", {
-//                templateUrl: '/views/companies/company.html',
-//                access: 'jobProvider',
-//                resolve: {
-//                    mode: function () {
-//                        return "DASHBOARD";
-//                    }
-//                }
-//            })
             .when("/content_manager/:contentType?", { templateUrl: '/views/admin/dashboard.html', access: 'jobProvider', isDashboard:true })
             .when("/job-board", { templateUrl: '/views/jobs/job-board.html', access: 'jobSeeker' })
             .when('/user_details', { templateUrl: '/views/users/user.html', access: 'jobSeeker', isDashboard:false })
@@ -73,7 +64,7 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
         });
     }])
     .run(function ($rootScope, $route, $location, authService) {
-        $rootScope.$on('$routeChangeStart', function (ev, next, current) {
+        $rootScope.$on('$routeChangeStart', function (event, next, current) {
             // We need the path component of `next`. We can either process `next` and
             // spit out its path component, or simply use $location.path(). I go with
             // the latter.
@@ -84,20 +75,14 @@ app.config(['$routeProvider', '$locationProvider', '$httpProvider',
 
 // ---------------------------------------------------------------
 
-            //noinspection JSUnresolvedVariable
             if (!authService.isAuthorize(next.access)) {
                 console.log("Seems like you tried accessing a route you don't have access to...");
-//                $rootScope.error = "Seems like you tried accessing a route you don't have access to...";
-//                event.preventDefault();
-
-//                if(fromState.url === '^') {
-//                    if(Auth.isLoggedIn()) {
-//                        $state.go('user.home');
-//                    } else {
-//                        $rootScope.error = null;
-//                        $state.go('anon.login');
-//                    }
-//                }
+                event.preventDefault();
+                if (!authService.isLoggedIn()) {
+                    $location.path("/login");
+                }
+                else
+                    $location.path("/");//go('user.home');
             }
         });
     });

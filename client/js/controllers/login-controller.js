@@ -13,7 +13,7 @@ angular.module('easywork')
             }
         };
     })
-    .controller('loginCtrl', function ($scope, authService) {
+    .controller('loginCtrl', function ($scope, authService, $location) {
 
         var SOMETHING_WENT_WRONG_MSG = "Oops, Something went wrong!";
         var modIns = $scope.modIns;
@@ -52,6 +52,7 @@ angular.module('easywork')
 //                        console.log("login - modIns.close");
                     }
                     modIns = undefined; // Bug Fix - prevent from closing again the modal
+                    $location.path('/');
                 })
                 .error(function (err) {
                     if ((err == undefined) || (err === "")) {
