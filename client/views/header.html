@@ -68,16 +68,20 @@
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li access-level="jobSeeker"><a
-                                                href="/user_details">My User Profile</a></li>
-                                        <li access-level="jobProvider"><a
-                                                href="/my_company">My Company Profile</a></li>
-                                        <li access-level="jobProvider"><a
-                                                href="/content_manager/0">My Jobs</a></li>
-                                        <li access-level="admin"><a
-                                                href="/content_manager">Content Manager</a></li>
-                                        <li access-level="public" active-user="authService.getActiveUser()"><a href=""
-                                                                                                               ng-click="logout()">Logout</a>
+                                        <li access-level="jobSeeker">
+                                            <a ui-sref="user_details">My User Profile</a>
+                                        </li>
+                                        <li access-level="jobProvider">
+                                            <a ui-sref="my_company">My Company Profile</a>
+                                        </li>
+                                        <li access-level="jobProvider">
+                                            <a ui-sref="content_manager/0">My Jobs</a>
+                                        </li>
+                                        <li access-level="admin">
+                                            <a ui-sref="content_manager">Content Manager</a>
+                                        </li>
+                                        <li access-level="public" active-user="authService.getActiveUser()">
+                                            <a ui-sref="home" ng-click="logout()">Logout</a>
                                         </li>
                                     </ul>
                                 </div>

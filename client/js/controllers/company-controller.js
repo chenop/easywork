@@ -2,9 +2,9 @@
 
 
 angular.module('easywork')
-    .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout, $route) {
+    .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout, $state) {
 
-        var isDashboard = $route.current.isDashboard;
+        var isDashboard = $state.current.isDashboard;
 
         if (isDashboard) {
             // Content mode

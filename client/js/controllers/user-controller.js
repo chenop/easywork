@@ -2,13 +2,13 @@
 
 angular.module('easywork')
     .controller('userDetailsCtrl'
-    , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager, $timeout, $route) {
+    , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager, $timeout, $state) {
 
         appManager.setDisplaySearchBarInHeader(false);
         $scope.user = {};
         $scope.user.skills = null;
 
-        var isDashboard = $route.current.isDashboard;
+        var isDashboard = $state.current.isDashboard;
 
         if (isDashboard) {
             refreshUser(appManager.getSelectedEntity());

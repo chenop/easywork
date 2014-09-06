@@ -3,15 +3,15 @@
  */
 
 angular.module('easywork')
-    .controller('DashboardCtrl', function ($scope, authService, appManager, dataManager, common, $routeParams, $timeout) {
+    .controller('DashboardCtrl', function ($scope, authService, appManager, dataManager, common, $stateParams) {
 
         appManager.setDisplaySearchBarInHeader(false);
 
-        if ($routeParams.contentType == undefined) {
+//        if ($stateParams.contentType == undefined) {
             $scope.contentTypeValue = common.CONTENT_TYPE.COMPANY.value;
-        } else {
-            $scope.contentTypeValue = $routeParams.contentType;
-        }
+//        } else {
+//            $scope.contentTypeValue = $stateParams.contentType;
+//        }
 
         $scope.isSelected = function (entity) {
             var selectedEntity = appManager.getSelectedEntity();
@@ -65,6 +65,9 @@ angular.module('easywork')
 
         }, true);
 
+        $scope.changeContentType = function(newContentType) {
+            $scope.contentTypeValue = newContentType;
+        }
 
         $scope.getRelevantForm = function () {
             switch (Number($scope.contentTypeValue)) {

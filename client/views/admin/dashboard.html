@@ -1,18 +1,20 @@
 <div data-ng-controller="DashboardCtrl">
     <div class="row">
-        <div class="col-sm-4">
-            <label class="col-sm-4 control-label"
-                   style="width:95px;">
-                    סוג תוכן:
-            </label>
-
-            <div class="col-sm-6 no-padding">
-                <select ui-select2="select2Options" ng-model="contentTypeValue" data-placeholder="Pick content type">
-                    <option value=""></option>
-                    <option access-level="jobProvider" value="0">Jobs</option>
-                    <option access-level="admin" value="1">Companies</option>
-                    <option access-level="admin" value="2">Users</option>
-                </select>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="buttonGroup">סוג תוכן:</label>
+            <div class="col-sm-10 btn-group" id="buttonGroup">
+                <button ng-click="changeContentType(0)" ng-class="{ 'active' : contentTypeValue == '0' }"
+                        ui-sref=".jobs"
+                        access-level="jobProvider" type="button" class="btn btn-default">Jobs
+                </button>
+                <button ng-click="changeContentType(1)" ng-class="{ 'active' : contentTypeValue == '1' }"
+                        ui-sref=".companies"
+                        access-level="admin" type="button" class="btn btn-default">Companies
+                </button>
+                <button ng-click="changeContentType(2)" ng-class="{ 'active' : contentTypeValue == '2' }"
+                        ui-sref=".users"
+                        access-level="admin" type="button" class="btn btn-default">Users
+                </button>
             </div>
         </div>
     </div>
@@ -38,7 +40,8 @@
         </div>
 
         <div class="col-xs-12 col-sm-8">
-            <div ng-include="getRelevantForm()"></div>
+            <div ui-view></div>
+            <!--<div ng-include="getRelevantForm()"></div>-->
         </div>
     </div>
 </div>
