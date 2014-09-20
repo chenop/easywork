@@ -398,3 +398,10 @@ tr:hover button.action-button { opacity: 1; }
     padding-top: 20px;
     text-align: left;
 }
+
+.empty-panel {
+    height: 300px;
+    vertical-align: middle;
+    display: table-cell;
+    color: rgba(0, 0, 0, 0.52);
+}

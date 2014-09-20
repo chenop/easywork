@@ -58,6 +58,10 @@ app.config(
                 url: "/user/:entityId",
                 templateUrl: "/views/users/user.html"
             })
+            .state('dashboard.list.empty', {
+                url: "/list/empty",
+                templateUrl: "/views/admin/empty.html"
+            })
             .state('job-board', {
                 url: "/job-board",
                 templateUrl: "/views/jobs/job-board.html"

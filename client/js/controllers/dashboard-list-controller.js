@@ -3,11 +3,7 @@ angular.module('easywork')
         var contentTypeValue = $stateParams.contentTypeValue;
         var selectedEntityId = $stateParams.selectedEntityId;
 
-//        if (selectedEntityId != null) {
-//            dataManager.getEntity(contentTypeValue)
-            // todo when i got valid selectedEntityId i should somehow letafel refreshEntities
-            refreshEntities(contentTypeValue, selectedEntityId)
-//        }
+        refreshEntities(contentTypeValue, selectedEntityId)
 
         function setSelectedEntity(entity) {
             if ($scope.entities != undefined && $scope.entities.length > 0) {
@@ -23,7 +19,10 @@ angular.module('easywork')
 //        function refreshEntities(contentTypeValue, callBack) {
         function handleSelection(entityId) {
             var contentType = appManager.getCurrentContentType();
-            if (entityId === '-1') {
+            if ($scope.entities.length === 0) {
+                $state.go("dashboard.list.empty");
+            }
+            else if (entityId === '-1') {
                 // Just take the first entity
                 var entity = $scope.entities[0];
                 setSelectedEntity(entity);
@@ -44,6 +43,7 @@ angular.module('easywork')
             if (contentTypeValue == undefined) {
                 contentTypeValue = appManager.getCurrentContentType();
             }
+
             switch (Number(contentTypeValue)) {
 
                 case common.CONTENT_TYPE.JOB.value:
@@ -72,42 +72,22 @@ angular.module('easywork')
             }
         }
 
-        function getCompanies(callBack) {
+        function getCompanies() {
             return dataManager.getCompanies();
-//                .then(function (result) {
-//                $scope.entities = result.data;
-//                if (callBack != undefined)
-//                    callBack();
-//            });
         };
 
-        function getJobs(callBack) {
+        function getJobs() {
             if (appManager.getActiveUser().role == "admin") {
                 return dataManager.getAllJobs();
-//                    .then(function (result) {
-//                    $scope.entities = result.data;
-//                    if (callBack != undefined)
-//                        callBack();
-//                });
             }
             else {
                 var companyId = appManager.getActiveCompanyId();
                 return dataManager.getJobs(companyId);
-//                    .then(function (result) {
-//                    $scope.entities = result.data;
-//                    if (callBack != undefined)
-//                        callBack();
-//                });
             }
         };
 
-        function getUsers(callBack) {
+        function getUsers() {
             return dataManager.getUsers();
-//                .then(function (result) {
-//                $scope.entities = result.data;
-//                if (callBack != undefined)
-//                    callBack();
-//            });
         };
 
         $scope.$on('deleteEntityClicked', function (event, entity) {
