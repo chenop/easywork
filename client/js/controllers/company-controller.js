@@ -2,32 +2,14 @@
 
 
 angular.module('easywork')
-    .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout, $state) {
+    .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout, $state, $stateParams) {
 
-        var isDashboard = $state.current.isDashboard;
+        // Basically we pass the entityId so the state will change and will have the update
+        // But we take the entity from the appManager (cause its cached)
+        var entityId = $stateParams.entityId;
 
-        if (isDashboard) {
-            // Content mode
-            var selectedEntity = appManager.getSelectedEntity();
-            refreshCompany(selectedEntity);
-
-            // We would like to register to the selectionChanged event only after company was fetched
-            $scope.$on('selectionChanged', function (event, selectedEntity) {
-                refreshCompany(selectedEntity);
-            })
-        }
-        else {
-            // My Company mode
-            var companyId = appManager.getActiveCompanyId();
-            if (companyId !== undefined) {
-                dataManager.getCompany(companyId)
-                    .then(function (result) {
-                        $scope.company = result;
-                        $scope.logo = result.logo.data;
-                        return result;
-                    })
-            }
-        }
+        var selectedEntity = appManager.getSelectedEntity();
+        refreshCompany(selectedEntity);
 
         function refreshCompany(selectedEntity) {
             if (selectedEntity == null)
@@ -46,32 +28,6 @@ angular.module('easywork')
                 $('#companyName').select();
             }, 100);
         }
-
-
-
-        $scope.addCompany = function () {
-            var company = {
-                name: "Untitled Company",
-                street: '',
-                city: '',
-                email: '',
-                technologies: '',
-                logo: {}
-            };
-
-            company.ownerId = appManager.getActiveUserId();
-
-            dataManager.createCompany(company)
-                .success(function (entity) {
-                    $scope.$emit('dataChanged', entity);
-                    $scope.company = entity;
-                    $timeout(function () {
-                        $('#companyName').select();
-                    }, 100);
-                });
-        }
-
-        $scope.message === '';
 
         dataManager.getFiltersData()
             .success(function (result) {
@@ -123,24 +79,6 @@ angular.module('easywork')
             console.log("email: " + $scope.company.email);
             console.log("logoUrl: " + $scope.company.logoUrl);
         };
-
-        $scope.createUpdateCompany = function () {
-            var activeCompanyId = appManager.getCompany();
-            if (activeCompanyId === undefined) {
-                dataManager.createCompany($scope.company.name)
-                    .success(function () {
-                        $scope.message = "Company created successfully!";
-                    }
-                );
-            } else {
-                dataManager.updateCompany($scope.company)
-                    .success(
-                    function () {
-                        $scope.message = "Company updated successfully!";
-                    }
-                );
-            }
-        }
 
         $scope.updateCompany = function (event) {
             dataManager.updateCompany($scope.company)

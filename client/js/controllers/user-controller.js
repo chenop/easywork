@@ -2,31 +2,15 @@
 
 angular.module('easywork')
     .controller('userDetailsCtrl'
-    , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager, $timeout, $state) {
+    , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager, $timeout, $state, $stateParams) {
 
         appManager.setDisplaySearchBarInHeader(false);
         $scope.user = {};
         $scope.user.skills = null;
 
-        var isDashboard = $state.current.isDashboard;
-
-        if (isDashboard) {
-            refreshUser(appManager.getSelectedEntity());
-            // We would like to register to the selectionChanged event only after user was fetched
-            $scope.$on('selectionChanged', function (event, selectedEntity) {
-                refreshUser(selectedEntity);
-            })
-        }
-        else {
-            var userId = appManager.getActiveUserId();
-            if (userId !== undefined) {
-                dataManager.getUser(userId)
-                    .then(function (result) {
-                        $scope.user = result.data;
-                        return result
-                    })
-            }
-        }
+        var selectedEntity = appManager.getSelectedEntity();
+        var entityId = $stateParams.entityId;
+        refreshUser(selectedEntity);
 
         function refreshUser(selectedEntity) {
             if (selectedEntity == null)
@@ -36,28 +20,6 @@ angular.module('easywork')
             $timeout(function () {
                 $('#userName').select();
             }, 100);
-        }
-
-        $scope.addUser = function () {
-            var user = {
-                name: "Untitled User",
-                username: '',
-                email: '',
-                role: '',
-                message: default_message,
-                experience: '',
-                company: null,
-                file: ''
-            };
-
-            dataManager.createUser(user)
-                .success(function (entity) {
-                    $scope.$emit('dataChanged', entity);
-                    $scope.user = entity;
-                    $timeout(function () {
-                        $('#userName').select();
-                    }, 100);
-                });
         }
 
         function getUserDetails(id) {

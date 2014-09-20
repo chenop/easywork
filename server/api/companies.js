@@ -48,15 +48,14 @@ exports.createCompany = function (req, res) {
                 , owner: user, logo: req.body.logo
             }
         );
-        newCompany.save(function (err) {
+        return newCompany.save(function (err, savedCompany) {
             if (!err) {
-                console.log("company " + newCompany.name + " create in server")
-                return res.send(newCompany);
+                console.log("company " + savedCompany.name + " create in server")
+                return res.send(savedCompany);
             } else {
                 console.log(err);
             }
         });
-        return res.send(newCompany);
     })
 }
 
@@ -126,7 +125,7 @@ exports.getCompanyLogo = function(req, res, next) {
         if (err)
             throw err;
 
-        if (company === undefined || company == null || company.logo === undefined) { //} || company.logo.contentType === undefined) {
+        if (company === undefined || company == null || company.logo === undefined) {
             return res.send(404, 'Could not find company logo');
         }
 

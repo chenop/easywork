@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-	.factory('appManager', function (authService, $rootScope, $timeout) {
+	.factory('appManager', function (authService, common) {
 
         var selection = [];
         var selectedTechnologies = [];
@@ -9,6 +9,7 @@ angular.module('easywork')
         var disableSend = false;
 		var displaySearchBarInHeader = true;
         var _selectedEntity;
+        var currentContentType = common.CONTENT_TYPE.COMPANY;
         var default_message = 'Hi,\nI am interested in open positions in your company.\nContact information can be found in my CV which is attached.\n\nBest Regards,\n';
 
         var getSelectionCount = function() {
@@ -58,20 +59,21 @@ angular.module('easywork')
             }
         }
 
-        var setSelectedEntity = function(selectedEntity, $index) {
+
+        var setSelectedEntity = function(selectedEntity) {
             _selectedEntity = selectedEntity;
-            if ($index !== undefined) {
-                _selectedEntity.index = $index;
-                // Entity was selected in the list we need the child controllers to get updated accordingly
-                // Waiting for the child scopes will be instantiated
-                $timeout(function () {
-                    $rootScope.$broadcast('selectionChanged', _selectedEntity);
-                })
-            }
         }
 
 		var getSelectedEntity = function() {
             return _selectedEntity;
+        }
+
+        function getCurrentContentType() {
+            return currentContentType;
+        }
+
+        function setCurrentContentType(contentType) {
+            currentContentType = contentType;
         }
 
 		return {
@@ -91,6 +93,8 @@ angular.module('easywork')
             , getSelectedEntity: getSelectedEntity
             , defaultMessage: default_message
             , getIndexOf: getIndexOf
+            , getCurrentContentType: getCurrentContentType
+            , setCurrentContentType: setCurrentContentType
         }
 	}
 );

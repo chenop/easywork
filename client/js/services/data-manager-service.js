@@ -3,7 +3,7 @@
  */
 
 angular.module('easywork')
-    .factory('dataManager', function ($http, common, $q) {
+    .factory('dataManager', function ($http, common, $q, appManager) {
 
         var getFiltersData = function () {
             return $http.get('/api/filtersData/');
@@ -162,11 +162,74 @@ angular.module('easywork')
                 });
         }
 
+        function createEmptyEntity(contentTypeValue) {
+            var entity;
+
+            switch (Number(contentTypeValue)) {
+
+                case common.CONTENT_TYPE.JOB.value:
+                    entity = createEmptyJob()
+                    return createEntity(common.CONTENT_TYPE.JOB, entity);
+                case common.CONTENT_TYPE.COMPANY.value:
+                    entity = createEmptyCompany()
+                    return createEntity(common.CONTENT_TYPE.COMPANY, entity);
+                case common.CONTENT_TYPE.USER.value:
+                    entity = createEmptyUser()
+                    return createEntity(common.CONTENT_TYPE.USER, entity);
+            }
+
+        }
+
+        function createEmptyJob() {
+            var company = appManager.getActiveCompanyId();
+            var job = {
+                name: "Untitled",
+                company: company,
+                code: "",
+                city: '',
+                technologies: '',
+                description: ""
+            };
+
+            return job;
+        }
+
+        function createEmptyCompany() {
+            var company = {
+                name: "Untitled Company",
+                street: '',
+                city: '',
+                email: '',
+                technologies: '',
+                logo: {}
+            };
+
+            company.ownerId = appManager.getActiveUserId();
+
+            return company;
+        }
+
+        function createEmptyUser() {
+            var defaultMessage = appManager.defaultMessage;
+            var user = {
+                name: "Untitled User",
+                username: '',
+                email: '',
+                role: '',
+                message: defaultMessage,
+                experience: '',
+                company: null,
+                file: ''
+            };
+        }
+
         return {
             getFiltersData: getFiltersData
             , getTechnologiesSelect2Options: getTechnologiesSelect2Options
             , getAreasSelect2Options: getAreasSelect2Options
             , getDashboardSelect2Options: getDashboardSelect2Options
+
+            , getEntity: getEntity
 
             // Companies
             , getCompanies: getCompanies
@@ -195,6 +258,7 @@ angular.module('easywork')
 
             , getAllJobs: getAllJobs
             , prepareBase64ImgSrc: prepareBase64ImgSrc
+            , createEmptyEntity: createEmptyEntity
         }
     }
 );

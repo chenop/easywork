@@ -17,17 +17,13 @@ app.config(
     function($stateProvider, $urlRouterProvider) {
         //
         // For any unmatched url, redirect to /state1
-        $urlRouterProvider.otherwise("/home");
+//        $urlRouterProvider.otherwise("/home");
         //
         // Now set up the states
         $stateProvider
             .state('home', {
                 url: "",
                 templateUrl: "/views/home.html"
-            })
-            .state('test', {
-                url: "/content_manager/0"
-//                templateUrl: "/views/home.html"
             })
             .state('login', {
                 url: "/login",
@@ -42,21 +38,24 @@ app.config(
                 url: "/job_full",
                 templateUrl: "/views/jobs/job-full.html"
             })
-            .state('content_manager', {
-                url: "/content_manager/:contentType",
-                templateUrl: "/views/admin/dashboard.html",
-                isDashboard: true
+            .state('dashboard', {
+                url: "/dashboard",
+                templateUrl: "/views/admin/dashboard.html"
             })
-            .state('content_manager.jobs', {
-                url: "/content_manager/0",
+            .state('dashboard.list', {
+                url: "/list/:contentTypeValue/:selectedEntityId",
+                templateUrl: "/views/admin/dashboard-list.html"
+            })
+            .state('dashboard.list.job', {
+                url: "/job/:entityId",
                 templateUrl: "/views/jobs/job.html"
             })
-            .state('content_manager.companies', {
-                url: "/content_manager/1",
+            .state('dashboard.list.company', {
+                url: "/company/:entityId",
                 templateUrl: "/views/companies/company.html"
             })
-            .state('content_manager.users', {
-                url: "/content_manager/2",
+            .state('dashboard.list.user', {
+                url: "/user/:entityId",
                 templateUrl: "/views/users/user.html"
             })
             .state('job-board', {
@@ -65,8 +64,7 @@ app.config(
             })
             .state('user_details', {
                 url: "/user_details",
-                templateUrl: "/views/users/user.html",
-                isDashboard: false
+                templateUrl: "/views/users/user.html"
             })
     }
 
@@ -79,7 +77,7 @@ app.config(
 //            .when('/login', { templateUrl: '/views/users/login.html', access: 'public' })
 //            .when("/my_company", {templateUrl: '/views/companies/company.html', access: 'jobProvider', isDashboard:false})
 //            .when("/job_full", {templateUrl: '/views/jobs/job-full.html', access: 'public'})
-//            .when("/content_manager/:contentType?", { templateUrl: '/views/admin/dashboard.html', access: 'jobProvider', isDashboard:true })
+//            .when("/content_manager/:contentTypeValue?", { templateUrl: '/views/admin/dashboard.html', access: 'jobProvider', isDashboard:true })
 //            .when("/job-board", { templateUrl: '/views/jobs/job-board.html', access: 'jobSeeker' })
 //            .when('/user_details', { templateUrl: '/views/users/user.html', access: 'jobSeeker', isDashboard:false })
 //            .otherwise({ redirectTo: '/' });
