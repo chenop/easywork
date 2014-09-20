@@ -85,7 +85,12 @@ angular.module('easywork')
             }
         }
 
-        $scope.showDetails = function (job) {
+        $scope.showDetails = function (job, event) {
+            // Do not propagate the event to the table
+            if(event){
+                event.stopPropagation();
+                event.preventDefault();
+            }
             var modalInstance = $modal.open({
                 templateUrl: '/views/jobs/job-full.html',
                 controller: 'JobFullCtrl',
