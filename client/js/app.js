@@ -40,7 +40,8 @@ app.config(
             })
             .state('dashboard', {
                 url: "/dashboard",
-                templateUrl: "/views/admin/dashboard.html"
+                templateUrl: "/views/admin/dashboard.html",
+                isDashboard: true
             })
             .state('dashboard.list', {
                 url: "/list/:contentTypeValue/:selectedEntityId",
@@ -52,11 +53,13 @@ app.config(
             })
             .state('dashboard.list.company', {
                 url: "/company/:entityId",
-                templateUrl: "/views/companies/company.html"
+                templateUrl: "/views/companies/company.html",
+                isDashboard: true
             })
             .state('dashboard.list.user', {
                 url: "/user/:entityId",
-                templateUrl: "/views/users/user.html"
+                templateUrl: "/views/users/user.html",
+                isDashboard: true
             })
             .state('dashboard.list.empty', {
                 url: "/list/empty",
@@ -68,7 +71,8 @@ app.config(
             })
             .state('user_details', {
                 url: "/user_details",
-                templateUrl: "/views/users/user.html"
+                templateUrl: "/views/users/user.html",
+                isDashboard: false
             })
     }
 

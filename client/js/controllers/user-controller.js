@@ -8,9 +8,18 @@ angular.module('easywork')
         $scope.user = {};
         $scope.user.skills = null;
 
-        var selectedEntity = appManager.getSelectedEntity();
-        var entityId = $stateParams.entityId;
-        refreshUser(selectedEntity);
+        if ($state.current.isDashboard) {
+            var selectedEntity = appManager.getSelectedEntity();
+            var entityId = $stateParams.entityId;
+            refreshUser(selectedEntity);
+        }
+        else {
+            var activeUserId = appManager.getActiveUserId();
+            dataManager.getUser(activeUserId)
+                .then(function(result) {
+                    refreshUser(result.data);
+                })
+        }
 
         function refreshUser(selectedEntity) {
             if (selectedEntity == null)

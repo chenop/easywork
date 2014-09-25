@@ -405,3 +405,20 @@ tr:hover button.action-button { opacity: 1; }
     display: table-cell;
     color: rgba(0, 0, 0, 0.52);
 }
+
+.button-padding {
+    margin: 10px;
+}
+
+#remember-me-label {
+    color: slategray;
+    margin-left: 5px;
+}
+
+#remember-me-input {
+    color: #ffff00;
+    padding-right: 50px;
+
+}
+
+

@@ -1,6 +1,6 @@
 <div class="row" ng-controller="loginCtrl">
     <div class="col-sm-11">
-        <form name="form" ng-keyup="hitEnter($event)" class="form-horizontal col-sm-12 align-center" novalidate>
+        <form name="form" ng-submit="submit()" ng-keyup="hitEnter($event)" class="form-horizontal col-sm-12 align-center" novalidate>
             <div class="form-group">
                 <label>PlaceHolder - Login with Facebook</label>
             </div>
@@ -11,23 +11,31 @@
 
             <div class="form-group" ng-class="{ 'has-error' : form.username.$invalid && !form.username.$pristine }">
                 <label class="col-sm-2 control-label">Username</label>
-                <input class="col-sm-10 form-control" type="text" ng-model="input.username" name="username" required="username" ng-minlength="3" auto-focus/>
-                <p ng-show="form.username.$error.minlength" class="help-block">Username should be at least 3 letters long.</p>
+                <input class="col-sm-10 form-control" type="text" ng-model="input.username" name="username"
+                       required="username" ng-minlength="3" auto-focus/>
+
+                <p ng-show="form.username.$error.minlength" class="help-block">Username should be at least 3 letters
+                    long.</p>
             </div>
 
             <div class="form-group" ng-class="{ 'has-error' : form.password.$invalid && !form.password.$pristine }">
                 <label class="col-sm-2 control-label">Password</label>
-                <input class="col-sm-10 form-control" type="password" ng-model="input.password" name="password" required="password"/>
+                <input class="col-sm-10 form-control" type="password" ng-model="input.password" name="password"
+                       required="password"/>
             </div>
 
             <div class="form-group" ng-class="{'has-error' : hasError() }">
                 <p ng-show="errorMessage" class="help-block">{{errorMessage}}</p>
             </div>
 
-            <div class="form-group">
-                <button class="btn btn-primary btn-lg" ng-click="login()">כניסה</button>
-                <button class="btn btn-default btn-lg" ng-click="cancel()">חזרה</button>
-                <input type="checkbox" ng-model="input.rememberMe">Remember Me
+            <div class="form-group align-center">
+                <label class="col-sm-2 control-label"></label>
+
+                <div class="col-sm-10">
+                    <input type="submit" class="btn btn-primary btn-lg button-padding"\>כניסה</button>
+                    <button class="btn btn-default btn-lg button-padding" ng-click="cancel()">חזרה</button>
+                    <label id="remember-me-label">Remember Me</label><input id="#remember-me-input" type="checkbox" ng-model="input.rememberMe">
+                </div>
             </div>
         </form>
     </div>

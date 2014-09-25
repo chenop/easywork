@@ -4,13 +4,32 @@
 angular.module('easywork')
     .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout, $state, $stateParams) {
 
-        // Basically we pass the entityId so the state will change and will have the update
-        // But we take the entity from the appManager (cause its cached)
-        var entityId = $stateParams.entityId;
+        if ($state.current.isDashboard) {
+            // Basically we pass the entityId so the state will change and will have the update
+            // But we take the entity from the appManager (cause its cached)
+            var entityId = $stateParams.entityId;
 
-        var selectedEntity = appManager.getSelectedEntity();
-        refreshCompany(selectedEntity);
+            var selectedEntity = appManager.getSelectedEntity();
+            refreshCompany(selectedEntity);
+        }
+        else {
+            var activeCompanyId = appManager.getActiveCompanyId();
+            dataManager.getCompany(activeCompanyId)
+                .then(function(company){
+                    $scope.company = company;
+                    // TODO wrap this function
+                    dataManager.getCompanyLogo(company._id, company)
+                        .then(function (data) {
+                            if ($scope.company.logo === undefined) {
+                                $scope.company.logo = {};
+                            }
+                            $scope.company.logo.data = data;
+                            $scope.logo = data;
+                        })
+                })
+        }
 
+        // TODO what about my_company? ahhhhhaaaaahahaah
         function refreshCompany(selectedEntity) {
             if (selectedEntity == null)
                 return;

@@ -36,10 +36,10 @@ angular.module('easywork')
 
         $scope.hitEnter = function ($event) {
             if (angular.equals($event.keyCode, 13) && !(angular.equals($scope.input.username, null) || angular.equals($scope.input.username, '')))
-                $scope.login();
+                $scope.submit();
         };
 
-        $scope.login = function () {
+        $scope.submit = function () {
             var user = {
                 username: $scope.input.username,
                 password: $scope.input.password
