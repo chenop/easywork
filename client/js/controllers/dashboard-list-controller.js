@@ -95,13 +95,20 @@ angular.module('easywork')
             $scope.deleteEntity(entity, index);
         })
 
+        function isLastEntity(index) {
+            return index == $scope.entities.length - 1;
+        }
+
         function prepareNextEntityToSelect(index) {
             if (index === undefined)
                 return $scope.entities[0];
 
             if ($scope.entities != undefined) {
-                if (index >= $scope.entities.length) {
-                    index = $scope.entities.length - 1;
+                if (!isLastEntity(index)) {
+                    index++;
+                }
+                else if (index != 0) {
+                    index--;
                 }
                 return $scope.entities[index];
             }
