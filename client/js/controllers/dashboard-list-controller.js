@@ -1,9 +1,9 @@
 angular.module('easywork')
     .controller('DashboardListCtrl', function ($scope, dataManager, appManager, common, $stateParams, $state) {
-        var contentTypeValue = $stateParams.contentTypeValue;
+        var contentTypeName = $stateParams.contentTypeName;
         var selectedEntityId = $stateParams.selectedEntityId;
 
-        refreshEntities(contentTypeValue, selectedEntityId)
+        refreshEntities(contentTypeName, selectedEntityId)
 
         function setSelectedEntity(entity) {
             if ($scope.entities != undefined && $scope.entities.length > 0) {
@@ -16,7 +16,6 @@ angular.module('easywork')
             return null;
         }
 
-//        function refreshEntities(contentTypeValue, callBack) {
         function handleSelection(entityId) {
             var contentType = appManager.getCurrentContentType();
             if ($scope.entities.length === 0) {
@@ -39,14 +38,14 @@ angular.module('easywork')
             }
         }
 
-        function refreshEntities(contentTypeValue, nextEntityIdToSelect) {
-            if (contentTypeValue == undefined) {
-                contentTypeValue = appManager.getCurrentContentType();
+        function refreshEntities(contentTypeName, nextEntityIdToSelect) {
+            if (contentTypeName == undefined) {
+                contentTypeName = appManager.getCurrentContentType().name;
             }
 
-            switch (Number(contentTypeValue)) {
+            switch (contentTypeName) {
 
-                case common.CONTENT_TYPE.JOB.value:
+                case common.CONTENT_TYPE.JOB.name:
                     getJobs().then(function(result) {
                         $scope.entities = result.data;
                         appManager.setCurrentContentType(common.CONTENT_TYPE.JOB);
@@ -54,7 +53,7 @@ angular.module('easywork')
                     });
                     break;
 
-                case common.CONTENT_TYPE.COMPANY.value:
+                case common.CONTENT_TYPE.COMPANY.name:
                     getCompanies().then(function(result) {
                         $scope.entities = result.data;
                         appManager.setCurrentContentType(common.CONTENT_TYPE.COMPANY);
@@ -62,7 +61,7 @@ angular.module('easywork')
                     });
                     break;
 
-                case common.CONTENT_TYPE.USER.value:
+                case common.CONTENT_TYPE.USER.name:
                     getUsers().then(function(result) {
                         $scope.entities = result.data;
                         appManager.setCurrentContentType(common.CONTENT_TYPE.USER);
@@ -121,7 +120,7 @@ angular.module('easywork')
             var nextEntityToSelect = prepareNextEntityToSelect(index);
             dataManager.deleteEntity(contentType, entity._id).
                 success(function () {
-                    refreshEntities(contentType.value, nextEntityToSelect._id);
+                    refreshEntities(contentType.name, nextEntityToSelect._id);
                 });
         }
 
@@ -137,7 +136,7 @@ angular.module('easywork')
         }
 
         $scope.$on('dataChanged', function (event, entity) {
-            refreshEntities(contentTypeValue, entity._id);
+            refreshEntities(contentTypeName, entity._id);
         })
 
     });

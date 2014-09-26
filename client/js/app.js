@@ -44,7 +44,7 @@ app.config(
                 isDashboard: true
             })
             .state('dashboard.list', {
-                url: "/list/:contentTypeValue/:selectedEntityId",
+                url: "/list/:contentTypeName/:selectedEntityId",
                 templateUrl: "/views/admin/dashboard-list.html"
             })
             .state('dashboard.list.job', {

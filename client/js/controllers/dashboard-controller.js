@@ -7,10 +7,10 @@ angular.module('easywork')
 
         appManager.setDisplaySearchBarInHeader(false);
         $scope.contentTypeSelected = function(newContentTypeValue) {
-            $scope.contentTypeValue = newContentTypeValue;
+            $scope.contentType = getContentType(newContentTypeValue);
 
             $state.go("dashboard.list", {
-                "contentTypeValue": $scope.contentTypeValue
+                "contentTypeName": $scope.contentType.name
                 , "selectedEntityId" : '-1'
             });
         }
@@ -23,10 +23,21 @@ angular.module('easywork')
             dataManager.createEmptyEntity($scope.contentTypeValue)
                 .then(function (result) {
                     $state.go("dashboard.list", {
-                        "contentTypeValue": $scope.contentTypeValue
+                        "contentTypeName": $scope.contentType.name
                         , "selectedEntityId" : result.data._id
                     });
                 })
+        }
+
+        function getContentType(contentTypeValue) {
+            switch(contentTypeValue) {
+                case common.CONTENT_TYPE.COMPANY.value:
+                    return common.CONTENT_TYPE.COMPANY;
+                case common.CONTENT_TYPE.JOB.value:
+                    return common.CONTENT_TYPE.JOB;
+                case common.CONTENT_TYPE.USER.value:
+                    return common.CONTENT_TYPE.USER;
+            }
         }
     }
 );
