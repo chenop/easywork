@@ -3,24 +3,25 @@
  */
 
 angular.module('easywork')
-    .controller('DashboardCtrl', function ($scope, authService, appManager, dataManager, common, $state) {
+    .controller('DashboardCtrl', function ($scope, authService, appManager, dataManager, common, $state, $stateParams) {
 
         appManager.setDisplaySearchBarInHeader(false);
-        $scope.contentTypeSelected = function(newContentTypeValue) {
-            $scope.contentType = getContentType(newContentTypeValue);
+        $scope.contentTypeSelected = function(newContentTypeName) {
+            $scope.contentType = getContentType(newContentTypeName);
 
             $state.go("dashboard.list", {
-                "contentTypeName": $scope.contentType.name
+                "contentTypeName": newContentTypeName
                 , "selectedEntityId" : '-1'
             });
         }
 
-        $scope.contentTypeSelected(common.CONTENT_TYPE.COMPANY.value)
+        var contentTypeName = $stateParams.contentTypeName;
+        $scope.contentTypeSelected(contentTypeName);
 
         $scope.select2Options = dataManager.getDashboardSelect2Options();
 
         $scope.addEntity = function() {
-            dataManager.createEmptyEntity($scope.contentTypeValue)
+            dataManager.createEmptyEntity($scope.contentType.name)
                 .then(function (result) {
                     $state.go("dashboard.list", {
                         "contentTypeName": $scope.contentType.name
@@ -29,13 +30,13 @@ angular.module('easywork')
                 })
         }
 
-        function getContentType(contentTypeValue) {
-            switch(contentTypeValue) {
-                case common.CONTENT_TYPE.COMPANY.value:
+        function getContentType(contentTypeName) {
+            switch(contentTypeName) {
+                case common.CONTENT_TYPE.COMPANY.name:
                     return common.CONTENT_TYPE.COMPANY;
-                case common.CONTENT_TYPE.JOB.value:
+                case common.CONTENT_TYPE.JOB.name:
                     return common.CONTENT_TYPE.JOB;
-                case common.CONTENT_TYPE.USER.value:
+                case common.CONTENT_TYPE.USER.name:
                     return common.CONTENT_TYPE.USER;
             }
         }

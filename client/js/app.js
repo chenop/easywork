@@ -39,12 +39,12 @@ app.config(
                 templateUrl: "/views/jobs/job-full.html"
             })
             .state('dashboard', {
-                url: "/dashboard",
+                url: "/dashboard/:contentTypeName",
                 templateUrl: "/views/admin/dashboard.html",
                 isDashboard: true
             })
             .state('dashboard.list', {
-                url: "/list/:contentTypeName/:selectedEntityId",
+                url: "/:selectedEntityId",
                 templateUrl: "/views/admin/dashboard-list.html"
             })
             .state('dashboard.list.job', {

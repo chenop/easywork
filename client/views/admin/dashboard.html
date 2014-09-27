@@ -3,15 +3,15 @@
         <div class="form-group">
             <div class="col-sm-4 btn-group" id="buttonGroup">
                 <button ng-class="{ 'active' : contentType.value == '0' }"
-                        ng-click="contentTypeSelected(0)"
+                        ng-click="contentTypeSelected('job')"
                         access-level="jobProvider" type="button" class="btn btn-default">Jobs
                 </button>
                 <button ng-class="{ 'active' : contentType.value == '1' }"
-                        ng-click="contentTypeSelected(1)"
+                        ng-click="contentTypeSelected('company')"
                         access-level="admin" type="button" class="btn btn-default">Companies
                 </button>
                 <button ng-class="{ 'active' : contentType.value == '2' }"
-                        ng-click="contentTypeSelected(2)"
+                        ng-click="contentTypeSelected('user')"
                         access-level="admin" type="button" class="btn btn-default">Users
                 </button>
             </div>

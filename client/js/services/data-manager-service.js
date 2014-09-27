@@ -162,18 +162,18 @@ angular.module('easywork')
                 });
         }
 
-        function createEmptyEntity(contentTypeValue) {
+        function createEmptyEntity(contentTypeName) {
             var entity;
 
-            switch (Number(contentTypeValue)) {
+            switch (contentTypeName) {
 
-                case common.CONTENT_TYPE.JOB.value:
+                case common.CONTENT_TYPE.JOB.name:
                     entity = createEmptyJob()
                     return createEntity(common.CONTENT_TYPE.JOB, entity);
-                case common.CONTENT_TYPE.COMPANY.value:
+                case common.CONTENT_TYPE.COMPANY.name:
                     entity = createEmptyCompany()
                     return createEntity(common.CONTENT_TYPE.COMPANY, entity);
-                case common.CONTENT_TYPE.USER.value:
+                case common.CONTENT_TYPE.USER.name:
                     entity = createEmptyUser()
                     return createEntity(common.CONTENT_TYPE.USER, entity);
             }
