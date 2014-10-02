@@ -181,6 +181,7 @@ exports.updateUser = function (req, res) {
         user.experience = req.body.experience;
         user.message = req.body.message;
         user.role = req.body.role;
+        user.company = req.body.company;
         saveUser(user, res);
     });
 };
