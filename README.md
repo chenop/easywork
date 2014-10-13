@@ -16,21 +16,3 @@ Easywork: CV Engine
 <li>Intuitive UI</li>
 </ul>
 
-
-<b>User Flows:</b>
-Company
-Manage Company Content
-1. login (user:wix, pass:w)
-2. wix --> My Jobs --> create, remove and update a job
-User
-Search for a job
-1. login (user:user, pass:u)
-2. In Technologies enter "Haifa" --> Search
-3. Change search preferences as you like
-4. Click "More Details" for a job
-Manage my profile
-1. login (user:user, pass:u)
-2. chen --> My User Profile --> Update details (Uploading CV not working well in Heroku)
-Admin 
-login (user:admin, pass:a)
-All the above + permissions to access all content
