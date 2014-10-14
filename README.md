@@ -4,7 +4,7 @@ Easywork: CV Engine
 
 <b>General idea of the application</b>
 <ul>
-  <li>Provide Companies to enter jobs and look for potentia lemployees.</li>
+  <li>Provide Companies to enter jobs and look for potentia employees.</li>
   <li>Provide Users the ability to look for jobs and contact companies.</li>
 </ul>
 
