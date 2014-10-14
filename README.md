@@ -2,6 +2,7 @@
 Easywork: CV Engine
 ============================================================
 
+Live demo can be found <a href="http://easywork.herokuapp.com/">here</a>
 <b>General idea of the application</b>
 <ul>
   <li>Provide Companies to enter jobs and look for potentia employees.</li>
