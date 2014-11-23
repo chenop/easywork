@@ -1,20 +1,20 @@
 if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development'
 
 var express = require('express')
-	, http = require('http')
 	, path = require('path')
 	, passport = require('passport')
-	, LocalStrategy = require('passport-local').Strategy
 	, users = require('./server/api/users')
 	, jobs = require('./server/api/jobs')
 	, mail = require('./server/mail')
 	, companies = require('./server/api/companies')
 	, dataProxy = require('./server/api/dataProxy')
-//	, MongoStore = require('connect-mongostore')(express)
+    , morgan = require('morgan')
+    , errorhandler = require('errorhandler')
+    , cookieParser = require('cookie-parser')
+    , bodyParser = require('body-parser')
+    , methodOverride = require('method-override')
+    , session = require('express-session')
 	, mongoose = require('mongoose')
-//	, flash = require('connect-flash');
-
-require('./server/pass.js')(passport, LocalStrategy);
 
 var app = express();
 var start = Date.now();
@@ -25,49 +25,41 @@ var log = function (message) {
 log("Trying to connect to db...");
 
 var dbUrl;
-app.configure('development', function(){
+if ('development' == app.get('env')) {
     console.log("Development Mode!");
     dbUrl = "mongodb://localhost/db";
-});
+    app.use(morgan('dev'));
+    app.use(errorhandler())
+};
 
-app.configure('production', function(){
+if ('production' == app.get('env')) {
     console.log("Production Mode!")
     dbUrl = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
-});
+};
 
 console.log("DB URL: " + dbUrl);
 mongoose.connect(dbUrl);
 mongoose.connection.on('error', function(err, req, res, next)  {
     log("Cant connect to MongoDB - please verify that it was started.");
 });
+mongoose.connection.once('open', function callback() {
+    log("Connected to db");
+});
 
 log("Begin server.js");
 
 var clientDir = path.join(__dirname, 'client')
 app.set('port', process.env.PORT || 3000)
-app.use(express.static(clientDir))
-app.use(express.cookieParser());
 
-// TODO bodyParser was deprecated... use the following 3 commented lines,
-// see http://stackoverflow.com/questions/19581146/how-to-get-rid-of-connect-3-0-deprecation-alert
-app.use(express.bodyParser({uploadDir:'.\\resources\\cvs\\'}));
-//app.use(express.json());
-//app.use(express.urlencoded());
-//app.use(require('multiparty')())
-//app.use(express.multipart({uploadDir: '.\\resources\\cvs\\'}));
-
-app.use(express.methodOverride());
-app.use(express.session({secret: 'zipori'}));
-//app.use(flash());
-//app.use(express.session({
-//	store: new MongoStore({'db': 'sessions'}),
-//	secret: 'zipori'
-//}));
-
+app.use(bodyParser());
+app.use(cookieParser());
+app.use(methodOverride());
+app.use(session({secret: 'zipori'}))
 app.use(passport.initialize());
 app.use(passport.session());
-//app.use(express.urlencoded());
+app.use(express.static(clientDir))
 
+require('./server/pass.js')(passport);
 
 app.post('/api/login', users.login)
 app.post('/api/logout', users.logout)
@@ -100,7 +92,6 @@ app.post('/api/job', jobs.createJob)
 app.put('/api/job/:id', jobs.updateJob)
 app.delete('/api/job/:id', jobs.deleteJob)
 
-
 app.get('*', function (req, res) {
 	res.sendfile(path.join(clientDir, 'index.html'))
 })
@@ -110,5 +101,3 @@ app.listen(app.get('port'), function () {
 });
 
 module.exports = app;
-
-

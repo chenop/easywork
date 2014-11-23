@@ -34,8 +34,6 @@ angular.module('easywork')
                     $location.path('/content_manager/' + common.CONTENT_TYPE.JOB.value)
                 });
             }
-            else
-                $location.path('/content_manager/' + common.CONTENT_TYPE.JOB.value)
         }
 
         $scope.openLoginDialog = function (callBack) {
