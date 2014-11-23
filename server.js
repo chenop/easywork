@@ -38,7 +38,7 @@ if ('production' == app.get('env')) {
 };
 
 console.log("DB URL: " + dbUrl);
-mongoose.connect(dbUrl);
+mongoose.connect(dbUrl); // comment
 mongoose.connection.on('error', function(err, req, res, next)  {
     log("Cant connect to MongoDB - please verify that it was started.");
 });
