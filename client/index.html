@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <title>Easy Work</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
-
+    <!-- Bootstrap core CSS  + Material Design-->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./lib/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet">
+    <link href="./lib/bootstrap-material-design/dist/css/material-wfont.min.css" rel="stylesheet">
     <!-- Bootstrap RTL -->
     <link href="./lib/bootstrap-rtl/dist/css/bootstrap-rtl.css" rel="stylesheet">
 
@@ -37,6 +38,17 @@
 
 <!-- JQuery -->
 <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<!-- Material Design -->
+<script src="./lib/bootstrap-material-design/dist/js/ripples.min.js"></script>
+<script src="./lib/bootstrap-material-design/dist/js/material.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $.material.init();
+    });
+</script>
+
 
 <!-- Angular 1.2.16 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular.js"></script>
@@ -91,7 +103,6 @@
 <script src="./js/services/mail-service.js"></script>
 <script src="./js/services/cv-parser.js"></script>
 <script src="./js/services/common-service.js"></script>
-
 <script src="js/directives/directives.js"></script>
 </body>
 </html>

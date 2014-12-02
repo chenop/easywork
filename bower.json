@@ -1,31 +1,32 @@
 {
-    "name": "easywork-angularjs",
-    "version": "0.0.0",
-    "homepage": "https://github.com/chenop/easywork-AngularJS-NodeJS",
-    "authors": [
-        "chenop <chenop@gmail.com>"
-    ],
-    "main": "client/css/style.css",
-    "license": "MIT",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "client/lib/",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "angular-resource": "latest",
-        "angular-ui-select2": "~0.0.4",
-        "angular-scenario": "latest",
-        "bootstrap-rtl": "latest",
-        "json3": "~3.2.4",
-        "ng-file-upload": "~1.2.7",
-        "jasny-bootstrap": "~3.1.0",
-        "angular-growl": "~0.4.0"
-    },
-    "resolutions": {
-        "angular": ">=1.2.0"
-    }
+  "name": "easywork-angularjs",
+  "version": "0.0.0",
+  "homepage": "https://github.com/chenop/easywork-AngularJS-NodeJS",
+  "authors": [
+    "chenop <chenop@gmail.com>"
+  ],
+  "main": "client/css/style.css",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "client/lib/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-resource": "latest",
+    "angular-ui-select2": "~0.0.4",
+    "angular-scenario": "latest",
+    "bootstrap-rtl": "latest",
+    "json3": "~3.2.4",
+    "ng-file-upload": "~1.2.7",
+    "jasny-bootstrap": "~3.1.0",
+    "angular-growl": "~0.4.0",
+    "bootstrap-material-design": "~0.2.0"
+  },
+  "resolutions": {
+    "angular": ">=1.2.0"
+  }
 }

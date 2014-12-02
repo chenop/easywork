@@ -16,7 +16,7 @@ var express = require('express')
     , session = require('express-session')
 	, mongoose = require('mongoose')
 
-var app = express(); // comment
+var app = express();
 var start = Date.now();
 var log = function (message) {
 	console.log("[" + (Date.now() - start) + "] " + message);
