@@ -94,7 +94,11 @@ angular.module('easywork')
 
         $scope.onFileSelect = function ($files) {
             var activeUserId = appManager.getActiveUserId();
-            cvParser.parseCV($files[0]).
+            var $file = $files[0];
+
+            if ($file === undefined)
+                return;
+            cvParser.parseCV($file).
                 then(function (skills) {
                     var file = $files[0];
                     var fileReader = new FileReader();
