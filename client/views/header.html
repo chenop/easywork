@@ -1,68 +1,66 @@
-<div class="navbar navbar-default navbar-fixed-top" ng-controller="HeaderController">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="/">עבודה קלה</a>
-    </div>
-    <!--<button class="btn btn-default" style="margin-top: 10px" ng-click="publishJob()" access-level="jobProvider">-->
-    <!--פרסם משרה-->
-    <!--</button>-->
+<div ng-controller="HeaderController">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <a class="navbar-brand" href="/">עבודה קלה</a>
+            <md-button class="md-raised md-primary" ng-click="publishJob()" access-level="jobProvider">פרסם משרה
+            </md-button>
 
+            <ul ng-if="appManager.shouldDisplaySearchBarInHeader()" class="navbar-nav col-xs-7 col-sm-7 col-md-7">
+                <li class="select2 col-xs-4 col-sm-4 col-md-4">
+                    <select ui-select2="areas_select2Options" multiple
+                            ng-model="appManager.selectedAreas"
+                            data-placeholder="Pick an area">
+                        <option ng-repeat="area in areas" value="{{area}}">{{area}}
+                        </option>
+                    </select>
+                </li>
+                <li class="select2 col-xs-4 col-sm-4 col-md-4">
+                    <select ui-select2="technologies_select2Options" multiple
+                            ng-model="appManager.selectedTechnologies"
+                            data-placeholder="Pick a technology">
+                        <option ng-repeat="technology in technologies" value="{{technology}}">
+                            {{technology}}
+                        </option>
+                    </select>
+                </li>
+                <md-button class="md-primary md-raised"
+                        id="small-search-button"
+                        ng-click="send()"
+                        ng-disabled="shouldDisableSend()">{{sendButtonLabel}}
+                </md-button>
+            </ul>
 
-    <div class="navbar-collapse collapse no-padding">
-        <!--Search Bar Header-->
-        <ul ng-if="appManager.shouldDisplaySearchBarInHeader()" class="nav navbar-nav col-xs-7 col-sm-7 col-md-7">
-            <li class="select2 col-xs-4 col-sm-4 col-md-4">
-                <select ui-select2="areas_select2Options" multiple
-                        ng-model="appManager.selectedAreas"
-                        data-placeholder="Pick an area">
-                    <option ng-repeat="area in areas" value="{{area}}">{{area}}
-                    </option>
-                </select>
-            </li>
-            <li class="select2 col-xs-4 col-sm-4 col-md-4">
-                <select ui-select2="technologies_select2Options" multiple
-                        ng-model="appManager.selectedTechnologies"
-                        data-placeholder="Pick a technology">
-                    <option ng-repeat="technology in technologies" value="{{technology}}">
-                        {{technology}}
-                    </option>
-                </select>
-            </li>
-            <button type="button" class="btn btn-lg"
-                    id="small-search-button"
-                    ng-click="send()"
-                    ng-class="{'btn-disabled':shouldDisableSend(), 'btn-primary':!shouldDisableSend()}"
-                    ng-disabled="shouldDisableSend()">{{sendButtonLabel}}
-            </button>
-        </ul>
+            <!-- Login or User menu -->
+            <!-- Replace that with md-select when version 0.8 will be released -->
+            <ul class="navbar-nav navbar-right col-xs-3 col-sm-3 col-md-3">
 
-        <!-- Login or User menu -->
-        <ul class="nav navbar-nav navbar-left col-xs-3 col-sm-3 col-md-3">
-            <li ng-if="!authService.isLoggedIn()"><a href="#" ng-click="openRegisterDialog()">Register</a></li>
-            <li ng-if="!authService.isLoggedIn()"><a href="#" ng-click="openLoginDialog()">LogIn</a></li>
+                <li ng-if="!authService.isLoggedIn()"><a href="#" ng-click="openRegisterDialog()">Register</a></li>
+                <li ng-if="!authService.isLoggedIn()"><a href="#" ng-click="openLoginDialog()">LogIn</a></li>
 
-            <li ng-if="authService.isLoggedIn()" class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    {{authService.getActiveUser().username}}
-                    <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                    <li access-level="jobSeeker">
-                        <a ui-sref="user_details">My User Profile</a>
-                    </li>
-                    <li access-level="jobProvider">
-                        <a ui-sref="my_company">My Company Profile</a>
-                    </li>
-                    <li access-level="jobProvider">
-                        <a ui-sref="dashboard({contentTypeName: 'job'})">My Jobs</a>
-                    </li>
-                    <li access-level="admin">
-                        <a ui-sref="dashboard({contentTypeName: 'company'})">Content Manager</a>
-                    </li>
-                    <li access-level="public" active-user="authService.getActiveUser()">
-                        <a ui-sref="home" ng-click="logout()">Logout</a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+                <li ng-if="authService.isLoggedIn()" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        {{authService.getActiveUser().username}}
+                        <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li access-level="jobSeeker">
+                            <a ui-sref="user_details">My User Profile</a>
+                        </li>
+                        <li access-level="jobProvider">
+                            <a ui-sref="my_company">My Company Profile</a>
+                        </li>
+                        <li access-level="jobProvider">
+                            <a ui-sref="dashboard({contentTypeName: 'job'})">My Jobs</a>
+                        </li>
+                        <li access-level="admin">
+                            <a ui-sref="dashboard({contentTypeName: 'company'})">Content Manager</a>
+                        </li>
+                        <li access-level="public" active-user="authService.getActiveUser()">
+                            <a ui-sref="home" ng-click="logout()">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </md-toolbar>
 </div>

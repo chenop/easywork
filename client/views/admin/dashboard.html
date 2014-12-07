@@ -1,26 +1,10 @@
 <div data-ng-controller="DashboardCtrl">
     <div class="row">
-        <div class="form-group">
-            <div class="col-sm-4 btn-group" id="buttonGroup">
-                <button ng-class="{ 'active' : contentType.value == '0' }"
-                        ng-click="contentTypeSelected('job')"
-                        access-level="jobProvider" type="button" class="btn btn-default">Jobs
-                </button>
-                <button ng-class="{ 'active' : contentType.value == '1' }"
-                        ng-click="contentTypeSelected('company')"
-                        access-level="admin" type="button" class="btn btn-default">Companies
-                </button>
-                <button ng-class="{ 'active' : contentType.value == '2' }"
-                        ng-click="contentTypeSelected('user')"
-                        access-level="admin" type="button" class="btn btn-default">Users
-                </button>
-            </div>
-            <div class="col-sm-6 btn-group">
-                <button class="btn btn-primary"
-                        ng-click="addEntity()">New</button>
-                <!--<button class="btn btn-lg glyphicon glyphicon-minus jumbotron-toolbar"-->
-                        <!--ng-click="deleteCompany()"></button>-->
-            </div>
+        <div class="btn-group btn-group-raised">
+            <a ng-class="{ 'active' : contentType.value == '0' }" ng-click="contentTypeSelected('job')" class="btn btn-default">Jobs</a>
+            <a ng-class="{ 'active' : contentType.value == '1' }" ng-click="contentTypeSelected('company')" class="btn btn-default">Companies</a>
+            <a ng-class="{ 'active' : contentType.value == '2' }" ng-click="contentTypeSelected('user')" class="btn btn-default">Users</a>
+            <a class="btn btn-primary" ng-click="addEntity()">New</a>
         </div>
     </div>
     <hr>
