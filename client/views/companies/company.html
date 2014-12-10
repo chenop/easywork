@@ -1,36 +1,57 @@
-<div ng-controller="CompanyCtrl" class="well" >
-    <form ng-keyup="updateCompany($event)" novalidate="">
-        <md-text-float label="שם החברה" ng-model="company.name"></md-text-float>
-        <md-text-float label="כתובת" ng-model="company.street"></md-text-float>
-        <md-text-float label="עיר" ng-model="company.city"></md-text-float>
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="cTechnologies">Technologies</label>
-            <select class="col-sm-10 select2" id="cTechnologies"
-                    ui-select2="technologies_select2Options"
-                    multiple
-                    ng-model="company.technologies"
-                    ng-click="updateCompany()"
-                    data-placeholder="Java, Web, C#, C++">
-                <option ng-repeat="technology in technologies" value="{{technology}}">
-                    {{technology}}
-                </option>
-            </select>
-        </div>
-        <md-text-float label="מייל" ng-model="company.email"></md-text-float>
-        <!--Angular-->
-        <div class="form-group">
-            <label class="col-sm-2 control-label">Logo</label>
+<div class="jumbotron" ng-controller="CompanyCtrl">
+    <div class="row">
+        <form name="form" class="form-horizontal" ng-keyup="updateCompany($event)" novalidate>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="cName">Name</label>
+                <input id="companyName" type="text" class="col-sm-10 form-control" ng-model="company.name" name="cName"
+                       placeholder="Company name"/>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="cStreet">Street</label>
+                <input class="col-sm-10 form-control" type="text" ng-model="company.street" id="cStreet"
+                       name="cStreet"
+                       placeholder="Street and Number"/>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="cCity">City</label>
+                <input class="col-sm-10 form-control" type="text" class="form-control" ng-model="company.city"
+                       id="cCity" name="cCity"
+                       placeholder="City name"/>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="cTechnologies">Technologies</label>
+                <select class="col-sm-10 select2" id="cTechnologies"
+                        ui-select2="technologies_select2Options"
+                        multiple
+                        ng-model="company.technologies"
+                        ng-click="updateCompany()"
+                        data-placeholder="Java, Web, C#, C++">
+                    <option ng-repeat="technology in technologies" value="{{technology}}">
+                        {{technology}}
+                    </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="cMail">Mail</label>
+                <input class="col-sm-10 form-control" type="text" class="form-control" ng-model="company.email"
+                       id="cMail" name="cMail"
+                       placeholder="Job's Mail"/>
+            </div>
+            <!--Angular-->
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="cMail">Logo</label>
 
-            <div class="col-sm-10 col-md-10 no-padding">
-                <div class="col-sm-12 no-padding">
-                    <div>
-                        <img class="image-container" ng-src="{{logo}}"></img>
-                    </div>
-                    <div class="btn btn-default btn-file top-margin">Upload
-                        <input id="uploadBtn" type="file" class="upload" ng-file-select="onImageSelect($files)"/>
+                <div class="col-sm-10 col-md-10 no-padding">
+                    <div class="col-sm-12 no-padding">
+                        <div>
+                            <img class="image-container" ng-src="{{logo}}"></img>
+                        </div>
+                        <div class="btn btn-default btn-file top-margin">Upload
+                            <input id="uploadBtn" type="file" class="upload" ng-file-select="onImageSelect($files)"/>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>

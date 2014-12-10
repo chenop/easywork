@@ -5,7 +5,7 @@ var app = angular.module('easywork',
     [
         , 'ui.bootstrap'
         , 'angular-growl'
-        , 'ngMaterial'
+//        , 'ngRoute'
         , 'ui.router'
         , 'ngCookies'
         , 'angularFileUpload'
