@@ -5,7 +5,7 @@
  */
 var User = require('./model/user')
     , LocalStrategy = require('passport-local').Strategy;
-//    , LinkedInStrategy = require('passport-linkedin').Strategy;
+    , LinkedInStrategy = require('passport-linkedin').Strategy;
 
 module.exports = function (passport) {
 
