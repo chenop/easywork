@@ -4,8 +4,8 @@
  * Time: 12:58 PM
  */
 var User = require('./model/user')
-    , LocalStrategy = require('passport-local').Strategy
-    , LinkedInStrategy = require('passport-linkedin').Strategy;
+    , LocalStrategy = require('passport-local').Strategy;
+//    , LinkedInStrategy = require('passport-linkedin').Strategy;
 
 module.exports = function (passport) {
 
@@ -17,7 +17,7 @@ module.exports = function (passport) {
 //   serialize users into and deserialize users out of the session.  Typically,
 //   this will be as simple as storing the user ID when serializing, and finding
 //   the user by ID when deserializing.  However, since this example does not
-//   have a database of user records, the complete LinkedIn profile is
+//   have a databasef of user records, the complete LinkedIn profile is
 //   serialized and deserialized.
     passport.serializeUser(function(user, done) {
         done(null, user);
