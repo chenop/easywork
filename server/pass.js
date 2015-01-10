@@ -4,7 +4,7 @@
  * Time: 12:58 PM
  */
 var User = require('./model/user')
-    , LocalStrategy = require('passport-local').Strategy;
+    , LocalStrategy = require('passport-local').Strategy
     , LinkedInStrategy = require('passport-linkedin').Strategy;
 
 module.exports = function (passport) {
