@@ -65,19 +65,19 @@ module.exports = function (passport) {
 //        }
 //    ));
 
-    // LinkedIn
-    app.get('/auth/linkedin',
-        passport.authenticate('linkedin'),
-        function(req, res){
-            console.log('hey')
-            // The request will be redirected to LinkedIn for authentication, so this
-            // function will not be called.
-        });
-
-    app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
-        successRedirect: '/',
-        failureRedirect: '/login'
-    }));
+//    // LinkedIn
+//    app.get('/auth/linkedin',
+//        passport.authenticate('linkedin'),
+//        function(req, res){
+//            console.log('hey')
+//            // The request will be redirected to LinkedIn for authentication, so this
+//            // function will not be called.
+//        });
+//
+//    app.get('/auth/linkedin/callback', passport.authenticate('linkedin', {
+//        successRedirect: '/',
+//        failureRedirect: '/login'
+//    }));
 
 //app.get('/auth/linkedin/callback', function(req, res) {
 //    passport.authenticate('linkedin', function (err, user, info) {

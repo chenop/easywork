@@ -44,6 +44,25 @@ angular.module('easywork')
                 username: $scope.input.username,
                 password: $scope.input.password
             }
+
+            authService.logIn(user)
+                .success(function () {
+                    if (modIns) {
+                        modIns.close(user.username);
+//                        console.log("login - modIns.close");
+                    }
+                    modIns = undefined; // Bug Fix - prevent from closing again the modal
+                    $location.path('/');
+                })
+                .error(function (err) {
+                    if ((err == undefined) || (err === "")) {
+                        $scope.errorMessage = SOMETHING_WENT_WRONG_MSG;
+                    }
+                    else {
+                        $scope.errorMessage = err.message;
+                    }
+                }
+            );
         }
     }
 );
