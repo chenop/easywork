@@ -11,6 +11,8 @@ var mongoose = require('mongoose')
 
 var companySchema = new Schema({
     name: String
+    , site : String
+    , Description : String
     , street: String
     , addresses: [
         {type: String}

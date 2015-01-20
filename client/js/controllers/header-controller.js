@@ -11,11 +11,10 @@ angular.module('easywork')
         $scope.appManager = appManager;
 
         dataManager.getFiltersData()
-            .success(function (result) {
-                $scope.areas = result.areas;
-                $scope.technologies = result.technologies;
-            }
-        );
+            .then(function(result) {
+                $scope.areas = result.data.areas;
+                $scope.technologies = result.data.technologies;
+            });
 
         $scope.send = function () {
             if (!authService.isLoggedIn()) {

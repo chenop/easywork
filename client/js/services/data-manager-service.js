@@ -4,9 +4,18 @@
 
 angular.module('easywork')
     .factory('dataManager', function ($http, common, $q, appManager) {
+        var filterData = null;
 
+        // Optimizing filterData call
         var getFiltersData = function () {
-            return $http.get('/api/filtersData/');
+            if (!filterData) {
+                filterData = $http.get('/api/filtersData/')
+                    .success(function (result) {
+                        return result;
+                    }
+                );
+            }
+            return filterData;
         }
 
         // Companies

@@ -20,10 +20,9 @@ angular.module('easywork')
         }
 
         dataManager.getFiltersData()
-            .success(function (result) {
-                $scope.technologies = result.technologies;
-            }
-        );
+            .then(function(result) {
+                $scope.technologies = result.data.technologies
+            });
 
         $scope.technologies_select2Options = {
             'multiple': true,

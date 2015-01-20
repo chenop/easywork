@@ -42,8 +42,9 @@ footer p {
     list-style-type: none;
 }
 
-body {
+body, html {
     padding-top: 70px;
+    height: 100%;
 }
 
 .starter-template {
@@ -421,4 +422,15 @@ tr:hover button.action-button { opacity: 1; }
 
 }
 
+.dashboard-list {
+    overflow: auto;
+    height:65vh
+}
 
+.dashboard-list ul li {
+    height: 30px;
+}
+
+.dashboard-list li a {
+    padding: 6px 11px;
+}

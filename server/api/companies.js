@@ -45,7 +45,7 @@ exports.createCompany = function (req, res) {
             {
                 name: req.body.name, street: req.body.street, city: req.body.city, addresses: req.body.addresses
                 , email: req.body.email, logoUrl: req.body.logoUrl, technologies: req.body.technologies
-                , owner: user, logo: req.body.logo
+                , owner: user, logo: req.body.logo, site: req.body.site, description: req.body.description
             }
         );
         return newCompany.save(function (err, savedCompany) {
@@ -75,6 +75,9 @@ exports.updateCompany = function (req, res) {
             company.logoUrl = req.body.logoUrl;
             company.logo = req.body.logo;
             company.technologies = req.body.technologies;
+            company.site = req.body.site;
+            company.description = req.body.description;
+
             return company.save(function (err) {
                 if (!err) {
                     console.log("updated");

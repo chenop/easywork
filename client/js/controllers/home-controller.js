@@ -12,11 +12,10 @@ angular.module('easywork')
         $scope.searchButtonLabel = SEARCH_BUTTON_STR;
 
         dataManager.getFiltersData()
-            .success(function (result) {
-                $scope.areas = result.areas;
-                $scope.technologies = result.technologies;
-            }
-        );
+            .then(function(result) {
+                $scope.areas = result.data.areas
+                $scope.technologies = result.data.technologies
+            });
 
         $scope.technologies_select2Options = dataManager.getTechnologiesSelect2Options();
         $scope.areas_select2Options = dataManager.getAreasSelect2Options();

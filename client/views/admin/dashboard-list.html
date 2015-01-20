@@ -3,14 +3,13 @@
         <input class="form-control top-padding" placeholder="Search..." style="width:100%"
                ng-model="searchStr"/>
 
-        <div class="no no-padding">
+        <div class="no-padding dashboard-list">
             <ul class="nav nav-pills nav-stacked">
                 <li ng-repeat="entity in entities | filter:searchStr" ng-class="{'active': isSelected(entity)}"
                     ng-click="setSelected(entity, $index)">
                     <a>
                         {{entity.name}}
-<span class="glyphicon glyphicon-remove btn btn-sm" ng-click="deleteEntity(entity, $index)"
-      style="float: left"></span>
+<span class="glyphicon glyphicon-remove btn btn-sm" ng-click="deleteEntity(entity, $index)" style="float: left"></span>
                     </a>
                 </li>
             </ul>
