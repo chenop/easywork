@@ -57,7 +57,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 app.use(cookieParser());
 app.use(methodOverride());
-app.use(session({secret: 'zipori'}))
+app.use(session({
+    secret: 'zipori'
+    , resave: false
+    , saveUninitialized: true
+}))
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(clientDir))
