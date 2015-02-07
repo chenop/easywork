@@ -11,6 +11,7 @@ var express = require('express')
     , morgan = require('morgan')
     , errorhandler = require('errorhandler')
     , cookieParser = require('cookie-parser')
+    , bodyParser = require('body-parser')
     , multer  = require('multer')
     , methodOverride = require('method-override')
     , session = require('express-session')
@@ -51,6 +52,8 @@ log("Begin server.js");
 var clientDir = path.join(__dirname, 'client')
 app.set('port', process.env.PORT || 3000)
 
+app.use(bodyParser.json()); // get information from html forms
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 app.use(cookieParser());
 app.use(methodOverride());
