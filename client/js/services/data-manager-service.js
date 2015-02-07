@@ -171,6 +171,14 @@ angular.module('easywork')
                 });
         }
 
+        var getAllCompanies = function() {
+            var allCompanies = [];
+            return $http.get('/api/allCompanies')
+                .error(function(err){
+                    console.log("err: " + err);
+                });
+        }
+
         function createEmptyEntity(contentTypeName) {
             var entity;
 
@@ -266,6 +274,7 @@ angular.module('easywork')
             , deleteEntity: deleteEntity
 
             , getAllJobs: getAllJobs
+            , getAllCompanies: getAllCompanies
             , prepareBase64ImgSrc: prepareBase64ImgSrc
             , createEmptyEntity: createEmptyEntity
         }

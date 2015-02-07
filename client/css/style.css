@@ -357,12 +357,12 @@ ul li {
 td button.action-button { opacity: 0; }
 tr:hover button.action-button { opacity: 1; }
 
-.job-full-dialog .modal-dialog {
+.company-details-dialog .job-full-dialog .modal-dialog {
     width :90%;
     min-width: 100px;
 }
 
-.job-container {
+.job-container{
     margin: 50px 50px 50px 50px;
 }
 

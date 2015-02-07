@@ -130,12 +130,6 @@ exports.getJobs = function (req, res) {
 };
 
 exports.getAllJobs = function(req, res) {
-    var allJobs = [];
-    var populateQuery = [
-        {path: 'name'},
-        {path: 'company'},
-        {path: 'description'}
-    ];
     Job.find().select('company name description city technologies').populate('company').lean()
         .exec(function (err, jobs) {
             if (err) {

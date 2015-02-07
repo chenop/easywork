@@ -10,6 +10,34 @@ var log = function (message) {
 
 log("Trying to connect to db...");
 
+var parseAddress = function(company) {
+    Company.findOne({ 'name': company.name }, function(err, res) {
+        // New Company = lets save it
+        if (res != null) {
+
+            if (!res.addresses)
+                res.addresses = {};
+            else {
+                for (var i = 0; i < res.addresses.length; i++) {
+                    if (res.addresses[i] == company.address)
+                        return;
+                }
+            }
+
+            // new address
+            res.addresses.push(company.address);
+            return res.save(function (err, savedCompany) {
+                if (!err) {
+                    console.log("company " + savedCompany.name + " updated in server")
+                } else {
+                    console.log(err);
+                }
+            });
+
+        }
+    })
+}
+
 var saveCompany = function(company) {
 
     Company.findOne({ 'name': company.name }, function(err, res) {
@@ -57,9 +85,11 @@ mongoose.connection.once('open', function callback() {
 log("Begin server.js");
 
 var fs = require('fs');
-var companies = JSON.parse(fs.readFileSync('C:/Users/Chen/My Projects/easywork-AngularJS-NodeJS/resources/companies.json', 'utf8'));
+var companies = JSON.parse(fs.readFileSync('C:/Users/Chen/My Projects/easywork-AngularJS-NodeJS/resources/addresses.json', 'utf8'));
 
 for (var i = 0; i < companies.length; i++) {
     var company = companies[i];
-    saveCompany(company);
+    //saveCompany(company);
+    parseAddress(company);
 }
+

@@ -136,3 +136,14 @@ exports.getCompanyLogo = function(req, res, next) {
     });
 };
 
+
+exports.getAllCompanies = function(req, res) {
+    Company.find().select('name description site city technologies addresses')
+        .exec(function (err, companies) {
+            if (err) {
+                console.log("error while trying to populate jobs:" + err);
+            }
+            var data = JSON.stringify(companies);
+            return res.send(data);
+        })
+}

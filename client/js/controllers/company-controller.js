@@ -68,7 +68,7 @@ angular.module('easywork')
                 $scope.upload = $upload.upload({
                     url: './api/company/logo-upload/' + $scope.company._id,
                     method: 'POST',
-                    data: {data: e.target.result} // Image as base64
+                    data: e.target.result // Image as base64
                 }).progress(function (evt) {
                     console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
                 }).success(function (data) {
@@ -80,10 +80,9 @@ angular.module('easywork')
                     $scope.logo = data;
 
                     return data;
+                }).error(function (err) {
+                    console.log("Error:" + err.message);
                 })
-                    .error(function (err) {
-                        console.log("Error:" + err.message);
-                    })
             }
         }
 

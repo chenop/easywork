@@ -11,7 +11,7 @@ var express = require('express')
     , morgan = require('morgan')
     , errorhandler = require('errorhandler')
     , cookieParser = require('cookie-parser')
-    , bodyParser = require('body-parser')
+    , multer  = require('multer')
     , methodOverride = require('method-override')
     , session = require('express-session')
 	, mongoose = require('mongoose')
@@ -51,7 +51,7 @@ log("Begin server.js");
 var clientDir = path.join(__dirname, 'client')
 app.set('port', process.env.PORT || 3000)
 
-app.use(bodyParser());
+app.use(multer());
 app.use(cookieParser());
 app.use(methodOverride());
 app.use(session({secret: 'zipori'}))
@@ -87,13 +87,14 @@ app.get('/api/company/logo/:id', companies.getCompanyLogo)
 // Jobs
 app.get('/api/job/list/:id', jobs.getJobs)
 app.get('/api/allJobs', jobs.getAllJobs)
+app.get('/api/allCompanies', companies.getAllCompanies)
 app.get('/api/job/:id', jobs.getJob)
 app.post('/api/job', jobs.createJob)
 app.put('/api/job/:id', jobs.updateJob)
 app.delete('/api/job/:id', jobs.deleteJob)
 
 app.get('*', function (req, res) {
-	res.sendfile(path.join(clientDir, 'index.html'))
+	res.sendFile(path.join(clientDir, 'index.html'))
 })
 
 app.listen(app.get('port'), function () {

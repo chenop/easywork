@@ -1,4 +1,4 @@
-<div data-ng-controller="JobsBoardCtrl">
+<div data-ng-controller="CompaniesBoardCtrl">
 
     <div class="row">
 
@@ -10,13 +10,19 @@
             <div class="company-container">
                 <div class="nav-header">חברות</div>
                 <table class="table table-hover">
+                    <colgroup>
+                        <col span="1" style="width: 5%;">
+                        <col span="1" style="width: 15%;">
+                        <col span="1" style="width: 40%;">
+                        <col span="1" style="width: 40%;">
+                    </colgroup>
                     <thead>
                     <tr>
                         <th><input type="checkbox" ng-model="shouldSelectAll" ng-click="selectAll($event)"></th>
                         <th class="logo">Logo</th>
                         <th>Name</th>
-                        <th>Address</th>
-                        <th>Domains</th>
+                        <th>Addresses</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -26,21 +32,21 @@
                             <input type="checkbox" ng-model="company.selected">
                         </td>
                         <td>
-                            <a href="#/phones/{{company.id}}/{{company.details}}"><img
-                                    ng-src="{{company.logoUrl}}" class="logo"></a>
+                            <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank"><img ng-src="{{company.logoUrl}}" class="logo"></a>
                         </td>
                         <td>
-                            <a href="#/phones/{{company.id}}/{{company.details}}">{{company.name}}</a>
+                            <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank">{{company.name}}</a>
                         </td>
                         <td>
-                            <ul ng-repeat="adr in company.addresses" class="address">
-                                <li>{{adr}}</li>
+                            <ul ng-repeat="address in company.addresses" class="technology">
+                                <li>{{address}}</li>
                             </ul>
                         </td>
                         <td>
-                            <ul ng-repeat="domain in company.domains" class="technology">
-                                <li>{{domain}}</li>
-                            </ul>
+                            <button tooltip="More Details"
+                                    ng-click="showDetails(company, $event)" class="btn btn-sm action-button">
+                                Details <i class="glyphicon glyphicon-info-sign"></i>
+                            </button>
                         </td>
                     </tr>
                     </tbody>

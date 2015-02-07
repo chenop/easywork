@@ -69,6 +69,10 @@ app.config(
                 url: "/job-board",
                 templateUrl: "/views/jobs/job-board.html"
             })
+            .state('company-board', {
+                url: "/company-board",
+                templateUrl: "/views/companies/list.html"
+            })
             .state('user_details', {
                 url: "/user_details",
                 templateUrl: "/views/users/user.html",
