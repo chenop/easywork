@@ -14,6 +14,12 @@ var companySchema = new Schema({
     , site : String
     , Description : String
     , street: String
+    , locations: [
+        {
+            street: String
+            , city: String
+        }
+    ]
     , addresses: [
         {type: String}
     ]

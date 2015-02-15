@@ -1,7 +1,5 @@
 'use strict';
 
-
-
 angular.module('easywork')
     .filter("linkFixer", function () {
         var startWith = function (str, startString) {

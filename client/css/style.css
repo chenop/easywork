@@ -434,3 +434,9 @@ tr:hover button.action-button { opacity: 1; }
 .dashboard-list li a {
     padding: 6px 11px;
 }
+
+.no-office {
+    color: #808080;
+    padding-top: 7px;
+    padding-right: 5px;
+}

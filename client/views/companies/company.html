@@ -6,17 +6,30 @@
                 <input id="companyName" type="text" class="col-sm-10 form-control" ng-model="company.name" name="cName"
                        placeholder="Company name"/>
             </div>
-            <div class="form-group">
-                <label class="col-sm-2 control-label" for="cStreet">Street</label>
-                <input class="col-sm-10 form-control" type="text" ng-model="company.street" id="cStreet"
-                       name="cStreet"
-                       placeholder="Street and Number"/>
+
+            <div ng-if="company.locations.length > 0">
+                <div class="form-group" ng-repeat="location in company.locations">
+                    <label class="col-sm-2 control-label">{{$index > 0 ? "" : 'משרדים'}}</label>
+                    <input class="col-sm-4 form-control" type="text"
+                           ng-model="location.street" id="cStreet"
+                           name="cStreet"
+                           placeholder="Street and Number"/>
+                    <input class="col-sm-3 col-sm-offset-1 form-control" type="text"
+                           ng-model="location.city"
+                           id="cCity" name="cCity"
+                           placeholder="City name"/>
+                <span class="glyphicon glyphicon-remove btn btn-sm" ng-click="removeLocation($index)"
+                      style="float: left"></span>
+                </div>
             </div>
+
+            <div class="form-group" ng-if="company.locations.length == 0">
+                <label class="col-sm-2 control-label">{{$index > 0 ? "" : 'משרדים'}}</label>
+                <div class="col-sm-10 no-office" ng-if="company.locations.length == 0">אין מידע על מיקום המשרדים...</div>
+            </div>
+
             <div class="form-group">
-                <label class="col-sm-2 control-label" for="cCity">City</label>
-                <input class="col-sm-10 form-control" type="text" class="form-control" ng-model="company.city"
-                       id="cCity" name="cCity"
-                       placeholder="City name"/>
+                <button class="btn btn-xs col-sm-offset-2" ng-click="addLocation()">Add Location</button>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="cTechnologies">Technologies</label>

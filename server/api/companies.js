@@ -46,6 +46,7 @@ exports.createCompany = function (req, res) {
                 name: req.body.name, street: req.body.street, city: req.body.city, addresses: req.body.addresses
                 , email: req.body.email, logoUrl: req.body.logoUrl, technologies: req.body.technologies
                 , owner: user, logo: req.body.logo, site: req.body.site, description: req.body.description
+                , locations: req.body.locations
             }
         );
         return newCompany.save(function (err, savedCompany) {
@@ -70,7 +71,8 @@ exports.updateCompany = function (req, res) {
             company.name = req.body.name;
             company.street = req.body.street;
             company.city = req.body.city;
-            company.addresses = req.body.addresses;
+            company.addresses = req.body.addresses; // Deprecated
+            company.locations = req.body.locations;
             company.email = req.body.email;
             company.logoUrl = req.body.logoUrl;
             company.logo = req.body.logo;
@@ -138,7 +140,7 @@ exports.getCompanyLogo = function(req, res, next) {
 
 
 exports.getAllCompanies = function(req, res) {
-    Company.find().select('name description site city technologies addresses')
+    Company.find().select('name description site city technologies locations')
         .exec(function (err, companies) {
             if (err) {
                 console.log("error while trying to populate jobs:" + err);

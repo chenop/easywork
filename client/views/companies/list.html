@@ -21,7 +21,7 @@
                         <th><input type="checkbox" ng-model="shouldSelectAll" ng-click="selectAll($event)"></th>
                         <th class="logo">Logo</th>
                         <th>Name</th>
-                        <th>Addresses</th>
+                        <th>Offices</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -38,8 +38,8 @@
                             <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank">{{company.name}}</a>
                         </td>
                         <td>
-                            <ul ng-repeat="address in company.addresses" class="technology">
-                                <li>{{address}}</li>
+                            <ul ng-repeat="location in company.locations" class="technology">
+                                <li>{{location.street}}, {{location.city}}</li>
                             </ul>
                         </td>
                         <td>

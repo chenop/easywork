@@ -10,67 +10,6 @@ var log = function (message) {
 
 log("Trying to connect to db...");
 
-var parseAddress = function(company) {
-    Company.findOne({ 'name': company.name }, function(err, res) {
-        // New Company = lets save it
-        if (res != null) {
-
-            if (!res.addresses)
-                res.addresses = {};
-            else {
-                for (var i = 0; i < res.addresses.length; i++) {
-                    if (res.addresses[i] == company.address)
-                        return;
-                }
-            }
-
-            // new address
-            res.addresses.push(company.address);
-            return res.save(function (err, savedCompany) {
-                if (!err) {
-                    console.log("company " + savedCompany.name + " updated in server")
-                } else {
-                    console.log(err);
-                }
-            });
-
-        }
-    })
-}
-
-var saveCompany = function(company) {
-
-    Company.findOne({ 'name': company.name }, function(err, res) {
-        // New Company = lets save it
-        if (res == null) {
-
-            var newCompany = new Company(
-                {
-                    name: company.name
-                    , street: ''
-                    , city: ''
-                    , addresses: ''
-                    , email: company.email
-                    , logoUrl: ''
-                    , site: company.site
-                    , description: company.description
-                    , technologies: ''
-                    , owner: null,
-                    logo: ''
-                });
-
-            return newCompany.save(function (err, savedCompany) {
-                if (!err) {
-                    console.log("company " + savedCompany.name + " create in server")
-                } else {
-                    console.log(err);
-                }
-            });
-
-        }
-    });
-}
-
 var dbUrl = "mongodb://localhost/db";
 
 console.log("DB URL: " + dbUrl);
@@ -85,11 +24,143 @@ mongoose.connection.once('open', function callback() {
 log("Begin server.js");
 
 var fs = require('fs');
-var companies = JSON.parse(fs.readFileSync('C:/Users/Chen/My Projects/easywork-AngularJS-NodeJS/resources/addresses.json', 'utf8'));
 
-for (var i = 0; i < companies.length; i++) {
-    var company = companies[i];
-    //saveCompany(company);
-    parseAddress(company);
+var cities = [
+    'ירושליים'
+    , 'ירושלים'
+    , 'תל אביב'
+    , 'יקום'
+    , 'חיפה'
+    , 'קרית גת'
+    , 'פתח תקוה'
+    , 'יקנעם'
+    , 'ראש העין'
+    , 'בני ברק'
+    , 'ראשון לציון'
+    , 'קיסריה'
+    , 'מגדל העמק'
+    , 'רמת גן'
+    , 'גבעתיים'
+    , 'הרצלייה'
+    , 'יהוד'
+    , 'אור יהודה'
+    , 'רחובות'
+    , 'גבעת שמואל'
+    , 'כפר סבא'
+    , 'רעננה'
+    , 'חולון'
+    , 'רמת השרון'
+    , 'הוד השרון'
+    , 'יבנה'
+    , 'קרית מוצקין'
+    , 'קרית ביאליק'
+    , 'טירת הכרמל'
+    , 'באר שבע'
+    , 'אילת'
+    , 'חדרה'
+    , 'נתניה'
+];
+function searchCity(address) {
+    for (var i = 0; i < cities.length; i++) {
+        var city = cities[i];
+        if (address.indexOf(city) > -1) {
+            return city
+        }
+    }
+    return "";
 }
 
+function createCompany(company) {
+    var newAddresses = reformatAddresses(company);
+    var newCompany = new Company ({
+        name : company.name
+        , site : company.site
+        , Description : company.Description
+        , street: company.street
+        , addresses: newAddresses
+        , city: company.city
+        , email: company.email
+        , technologies: company.technologies
+        , logo: company.logo
+        , owner: company.owner
+        , jobs: company.jobs
+    })
+
+    return newCompany.save(function (err, savedCompany) {
+        if (!err) {
+            console.log("company " + savedCompany.name + " saved in DB")
+            console.log("remove old company");
+
+
+        } else {
+            console.log(err);
+        }
+    });
+}
+
+function reformatAddresses(company) {
+    if (company.addresses && company.addresses.length > 0) {
+        var newAddresses = [];
+
+        for (var i = 0; i < company.addresses.length; i++) {
+            var address = company.addresses[i];
+
+            if (address == "" || address.length <= 3)
+                continue;
+
+            var city = searchCity(address);
+
+            if (city !== "") { // Found a city - remove it from street
+                address = address.replace(", " + city, '');
+                address = address.replace("," + city, '');
+                address = address.replace(city, '');
+            }
+
+            newAddresses.push({
+                street: address
+                , city: city
+            })
+
+            console.log(company.addresses);
+        }
+        // resave company
+        console.log((JSON.stringify(newAddresses, null, 4)));
+        return newAddresses;
+    }
+}
+
+function updateCompany(company) {
+    var newAddresses = reformatAddresses(company);
+
+    if (company.name) {
+        var query = {name: company.name};
+        Company.update(query, {$set: {'addresses': newAddresses}}, null, function (error) {
+            console.log(company);
+        });
+    }
+}
+
+//Company.find( { locations : { $exists : false } } ).forEach( function (company) {
+Company.find({}, function(err, companies) {
+
+//Company.findOne({name : 'Intel'}, function(err, company) {
+
+    companies.forEach(function (company) {
+        // Setting locations
+        var locations = reformatAddresses(company);
+        company.locations = locations;
+
+        // Remove addrsses
+        company.addresses = undefined;
+
+        // Save the updated document
+        company.save(function (err, savedCompany) {
+            if (!err) {
+                console.log("company " + savedCompany.name + " was saved")
+            } else {
+                console.log(err);
+            }
+        });
+
+    })
+});
