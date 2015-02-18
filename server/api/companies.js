@@ -130,8 +130,10 @@ exports.getCompanyLogo = function(req, res, next) {
         if (err)
             throw err;
 
-        if (company === undefined || company == null || company.logo === undefined) {
+        if (company === undefined || company == null) {
             return res.send(404, 'Could not find company logo');
+        } else if (company.logo === undefined || company.logo.data === undefined || company.logo.data === "") {
+            return res.send('http://placehold.it/150x150.jpg&text=Logo..');
         }
 
         return res.send(company.logo.data);
