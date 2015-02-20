@@ -12,7 +12,7 @@ var mongoose = require('mongoose')
 var companySchema = new Schema({
     name: String
     , site : String
-    , Description : String
+    , description : String
     , street: String
     , locations: [
         {

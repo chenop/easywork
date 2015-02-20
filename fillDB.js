@@ -75,7 +75,7 @@ function createCompany(company) {
     var newCompany = new Company ({
         name : company.name
         , site : company.site
-        , Description : company.Description
+        , description : company.description
         , street: company.street
         , addresses: newAddresses
         , city: company.city
