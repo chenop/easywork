@@ -1,22 +1,22 @@
 <div class="navbar navbar-default navbar-fixed-top" ng-controller="HeaderController">
     <div class="container">
         <div class="row-fluid">
-            <div class="col-xs-2 col-md-2 no-padding">
+            <div class="no-padding">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/">עבודה קלה</a>
                 </div>
             </div>
-            <div class="col-xs-2 navbar-collapse collapse">
-                <button class="btn btn-default" style="margin-top: 10px" ng-click="publishJob()" access-level="jobProvider">
-                    פרסם משרה
-                </button>
-            </div>
+            <!--<div class="col-xs-2 navbar-collapse collapse">-->
+                <!--<button class="btn btn-default" style="margin-top: 10px" ng-click="publishJob()" access-level="jobProvider">-->
+                    <!--פרסם משרה-->
+                <!--</button>-->
+            <!--</div>-->
 
-            <div class="col-xs-8 col-md-8 no-padding">
+            <div class="col-xs-10 col-md-10 no-padding">
                 <div class="navbar-collapse collapse">
                     <div class="row-fluid">
                         <div ng-if="appManager.shouldDisplaySearchBarInHeader()">
-                            <div class="col-xs-4 col-sm-4 col-md-4">
+                            <div class="col-xs-4 col-sm-4 col-md-4 no-padding">
                                 <div class="select2">
                                     <select ui-select2="areas_select2Options" multiple
                                             ng-model="appManager.selectedAreas"
@@ -27,7 +27,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-xs-3 col-sm-3  col-md-3">
+                            <div class="col-xs-4 col-sm-4 col-md-4 no-padding">
                                 <div class="select2">
                                     <select ui-select2="technologies_select2Options" multiple
                                             ng-model="appManager.selectedTechnologies"
@@ -50,9 +50,9 @@
                         </div>
 
                         <!-- Login or User menu -->
-                        <div class="col-xs-3  col-sm-3  col-md-3 nav navbar-nav navbar-left">
+                        <div class="nav navbar-nav navbar-left no-padding">
                             <div ng-if="!authService.isLoggedIn()">
-                                <div class="row-fluid">
+                                <div class="col-xs-2  col-sm-2  col-md-2 register-login row-fluid">
                                     <div class="navbar-left header-actions">
                                         <a href="#" ng-click="openRegisterDialog()">Register</a>
                                     </div>
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                             <div ng-if="authService.isLoggedIn()">
-                                <div class="dropdown">
+                                <div class="col-xs-1  col-sm-1  col-md-1 dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         {{authService.getActiveUser().username}}
                                         <b class="caret"></b>

@@ -93,7 +93,7 @@ angular.module('easywork')
             console.log("street: " + $scope.company.address.street);
             console.log("city: " + $scope.company.address.city);
             console.log("email: " + $scope.company.email);
-            console.log("logoUrl: " + $scope.company.logoUrl);
+            console.log("logoUrl: " + $scope.company.logo);
         };
 
         $scope.updateCompany = function (event) {

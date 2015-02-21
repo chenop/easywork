@@ -27,19 +27,40 @@ angular.module('easywork')
         }
     })
     .controller('CompaniesBoardCtrl', function ($scope, $http, mailService, dataManager, appManager, $modal) {
-        dataManager.getAllCompanies().then(function(companies) {
+        function setLogo(company, data) {
+            if (typeof company.logo === 'undefined') {
+                company.logo = {};
+            }
+            company.logo.data = data;
+        }
+
+        function setEmptyLogo(company) {
+            setLogo(company, 'http://placehold.it/150x150.jpg&text=Logo..');
+            company.logo.shape = 'round';
+        }
+
+        dataManager.getAllCompanies().then(function (companies) {
             $scope.companies = companies.data;
-            angular.forEach($scope.companies, function(company, key) {
-                dataManager.getCompanyLogo(company._id, company)
-                    .then(function(data) {
-                        company.logoUrl = data;
-                    })
-            })
-        })
+            angular.forEach($scope.companies, function (company, key) {
+                if ($scope.isLogoExists(company)) {
+                    dataManager.getCompanyLogo(company._id, company)
+                        .then(function (data) {
+                            setLogo(company, data);
+                        })
+                }
+                else {
+                    setEmptyLogo(company);
+                }
+            });
+        });
 
         appManager.setDisplaySearchBarInHeader(true);
 
         appManager.disableSend = false;
+
+        $scope.isLogoExists = function(company) {
+            return company.logo && company.logo.data && company.logo.data.length > 0;
+        }
 
         $scope.$watch('companies|filter:{selected:true}', function (nv) {
             if (nv === undefined) {

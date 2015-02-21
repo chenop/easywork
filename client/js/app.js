@@ -71,7 +71,7 @@ app.config(
             })
             .state('company-board', {
                 url: "/company-board",
-                templateUrl: "/views/companies/list.html"
+                templateUrl: "/views/companies/company-board.html"
             })
             .state('user_details', {
                 url: "/user_details",

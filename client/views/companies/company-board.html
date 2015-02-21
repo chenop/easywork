@@ -32,14 +32,14 @@
                             <input type="checkbox" ng-model="company.selected">
                         </td>
                         <td>
-                            <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank"><img ng-src="{{company.logoUrl}}" class="logo"></a>
+                            <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank"><img ng-src="{{company.logo.data}}" class="logo" ng-class="{'round-logo' : company.logo.shape === 'round'}"></a>
                         </td>
                         <td>
-                            <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank">{{company.name}}</a>
+                            <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank">{{::company.name}}</a>
                         </td>
                         <td>
                             <ul ng-repeat="location in company.locations" class="technology">
-                                <li>{{location.street}}, {{location.city}}</li>
+                                <li>{{::location.street}}, {{::location.city}}</li>
                             </ul>
                         </td>
                         <td>
