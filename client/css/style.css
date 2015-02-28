@@ -1,3 +1,31 @@
+/* Colors */
+.header-background {
+    background: #483A3A; //rgba(190, 193, 184, 0.8);
+    border-color: #483A3A; //rgba(190, 193, 184, 0.8);;
+}
+
+.primary-color {
+    background: #8FB98B;
+    border-color: #8FB98B;
+}
+
+.font-color-on-light-background {
+    color: #DE564B;
+}
+
+.font-color-on-dark-background {
+    color: #F5EEDB;
+}
+
+.col2 {
+    background: #dcdae5;
+}
+.background-color {
+    background: #EAE1C0; //rgba(238, 238, 238, 0.8);
+}
+
+/* Colors - End*/
+
 .navbar .nav > li > a.brand {
     padding-left: 20px;
     margin-left: 0;
@@ -21,6 +49,10 @@
     position: relative;
 }
 
+.view-container {
+    margin-top: 150px;
+}
+
 footer {
     position: fixed;
     left: 0px;
@@ -40,11 +72,6 @@ footer p {
 .navlist li {
     display: inline;
     list-style-type: none;
-}
-
-body, html {
-    padding-top: 70px;
-    height: 100%;
 }
 
 .starter-template {
@@ -72,7 +99,6 @@ body, html {
 
 .company-container {
     min-height: 400px;
-    margin-top: 20px;
     padding: 40px;
     background-color: #eeeeee;
     border-radius: 6px;
@@ -452,14 +478,9 @@ tr:hover button.action-button { opacity: 1; }
     border-radius: 4px;
 }
 
-.navbar-header {
-    width: 100px;
-}
-
 .dropdown {
     padding-top: 15px;
-    padding-left: 0px;
-    width: inherit;
+    padding-left: 15px;
 }
 
 .register-login {

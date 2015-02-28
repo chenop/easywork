@@ -1,9 +1,13 @@
-<div class="navbar navbar-default navbar-fixed-top" ng-controller="HeaderController">
+<div class="navbar navbar-default navbar-fixed-top header-background" ng-controller="HeaderController">
     <div class="container">
         <div class="row-fluid">
             <div class="no-padding">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">עבודה קלה</a>
+                    <a class="navbar-brand" href="/">
+                        <div class="font-color-on-dark-background">
+                        עבודה קלה
+                        </div>
+                    </a>
                 </div>
             </div>
             <!--<div class="col-xs-2 navbar-collapse collapse">-->
@@ -50,22 +54,30 @@
                         </div>
 
                         <!-- Login or User menu -->
-                        <div class="nav navbar-nav navbar-left no-padding">
+                        <div class="nav navbar-nav navbar-left font-color-on-dark-background">
                             <div ng-if="!authService.isLoggedIn()">
-                                <div class="col-xs-2  col-sm-2  col-md-2 register-login row-fluid">
+                                <div class="register-login row-fluid">
                                     <div class="navbar-left header-actions">
-                                        <a href="#" ng-click="openRegisterDialog()">Register</a>
+                                        <a href="#" ng-click="openRegisterDialog()">
+                                            <div class="font-color-on-dark-background">
+                                                Register
+                                            </div></a>
                                     </div>
                                     <div class="navbar-left header-actions">
-                                        <a href="#" ng-click="openLoginDialog()">LogIn</a>
+                                        <a href="#" ng-click="openLoginDialog()">
+                                            <div class="font-color-on-dark-background">
+                                                LogIn
+                                            </div></a>
                                     </div>
                                 </div>
                             </div>
                             <div ng-if="authService.isLoggedIn()">
-                                <div class="col-xs-1  col-sm-1  col-md-1 dropdown">
+                                <div class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        {{authService.getActiveUser().username}}
-                                        <b class="caret"></b>
+                                        <div class="font-color-on-dark-background">
+                                            {{authService.getActiveUser().username}}
+                                            <b class="caret"></b>
+                                        </div>
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li access-level="jobSeeker">
