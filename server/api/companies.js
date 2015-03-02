@@ -136,7 +136,7 @@ exports.getCompanyLogo = function(req, res, next) {
             return res.send(404, 'Could not find company logo');
         } else if (company.logo === undefined || company.logo.data === undefined || company.logo.data.length === 0) {
 
-            // TODO extract that to a different module or service
+            // TODO extract that to a different module or service bitch
             return customsearch.cse.list({ cx: CX, q: company.name + ' logo', searchType: 'image', auth: API_KEY }, function(err, resp) {
                 if (err) {
                     console.log('An error occured', err);
