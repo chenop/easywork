@@ -10,8 +10,11 @@ var Company = require('../model/company')
     , User = require('../model/user')
     , utils = require('../utils')
     , fs = require('fs')
+    , google = require('googleapis')
+    , customsearch = google.customsearch('v1');
 
-var IMAGES_DIRECTORY = "client/img/companies/";
+var CX = '008985495639693800406:puf4b2va1gk';
+var API_KEY = 'AIzaSyB2FUs8REJu3r759qD-xSGpKhLPU6rAoY4';
 
 exports.getCompanies = function (req, res) {
     return Company.find(function (err, companies) {
@@ -131,14 +134,27 @@ exports.getCompanyLogo = function(req, res, next) {
 
         if (company === undefined || company == null) {
             return res.send(404, 'Could not find company logo');
-        } else if (company.logo === undefined || company.logo.data === undefined || company.logo.data === "") {
-            return res.send('http://placehold.it/150x150.jpg&text=Logo..');
+        } else if (company.logo === undefined || company.logo.data === undefined || company.logo.data.length === 0) {
+
+            // TODO extract that to a different module or service
+            return customsearch.cse.list({ cx: CX, q: company.name + ' logo', searchType: 'image', auth: API_KEY }, function(err, resp) {
+                if (err) {
+                    console.log('An error occured', err);
+                    return;
+                }
+                // Got the response from custom search
+                console.log('Result: ' + resp.searchInformation.formattedTotalResults);
+                if (resp.items && resp.items.length > 0) {
+                    company.logo.data = resp.items[0].link;
+
+                    return res.send(company.logo.data);
+                }
+            });
         }
 
         return res.send(company.logo.data);
     });
 };
-
 
 exports.getAllCompanies = function(req, res) {
     Company.find().select('name description site city technologies locations logo')

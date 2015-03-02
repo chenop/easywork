@@ -42,15 +42,10 @@ angular.module('easywork')
         dataManager.getAllCompanies().then(function (companies) {
             $scope.companies = companies.data;
             angular.forEach($scope.companies, function (company, key) {
-                if ($scope.isLogoExists(company)) {
-                    dataManager.getCompanyLogo(company._id, company)
-                        .then(function (data) {
-                            setLogo(company, data);
-                        })
-                }
-                else {
-                    setEmptyLogo(company);
-                }
+                dataManager.getCompanyLogo(company._id, company)
+                    .then(function (data) {
+                        setLogo(company, data);
+                    })
             });
         });
 
