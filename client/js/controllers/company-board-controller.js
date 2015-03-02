@@ -28,7 +28,7 @@ angular.module('easywork')
     })
     .controller('CompaniesBoardCtrl', function ($scope, $http, mailService, dataManager, appManager, $modal) {
         function setLogo(company, data) {
-            if (typeof company.logo === 'undefined') {
+            if ((typeof company.logo === 'undefined') || company.logo === null) {
                 company.logo = {};
             }
             company.logo.data = data;

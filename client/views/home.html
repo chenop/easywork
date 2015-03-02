@@ -9,22 +9,22 @@
     <!-- Controls-->
     <div class="row-fluid">
         <div class="col-sm-4">
-            <h3>איזור</h3>
+            <h3 class="big-title">איזור</h3>
 
             <div class="select2">
                 <select ui-select2="areas_select2Options" multiple ng-model="appManager.selectedAreas"
-                        data-placeholder="Pick an area">
+                        data-placeholder="בחר איזור">
                     <option ng-repeat="area in areas" value="{{area}}">{{area}}</option>
                 </select>
         </div>
         </div>
 
         <div class="col-sm-4">
-            <h3>טכנולוגיות</h3>
+            <h3 class="big-title">טכנולוגיות</h3>
 
             <div class="select2">
                 <select ui-select2="technologies_select2Options" multiple ng-model="appManager.selectedTechnologies"
-                        data-placeholder="Pick a technology">
+                        data-placeholder="בחר טכנולוגיה">
                     <option ng-repeat="technology in technologies" value="{{technology}}">{{technology}}</option>
                 </select>
             </div>

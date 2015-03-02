@@ -157,12 +157,24 @@ exports.getCompanyLogo = function(req, res, next) {
 };
 
 exports.getAllCompanies = function(req, res) {
-    Company.find().select('name description site city technologies locations logo')
-        .exec(function (err, companies) {
+    Company.find({}, 'name description site city technologies locations isLogoExists logo',
+        function (err, companies) {
             if (err) {
                 console.log("error while trying to populate jobs:" + err);
             }
+
+            companies.forEach(function (company) {
+                company.isLogoExists = isLogoExists(company);
+                company.logo = null; // We do not want to send the logo in this query
+            });
+
+
             var data = JSON.stringify(companies);
             return res.send(data);
         })
+}
+
+var isLogoExists = function(company) {
+    //return false;
+    return company.logo && company.logo.data && company.logo.data.length > 0;
 }

@@ -1,9 +1,11 @@
-<div class="navbar navbar-default navbar-fixed-top" ng-controller="HeaderController">
+<div class="navbar navbar-default navbar-fixed-top header" ng-controller="HeaderController">
     <div class="container">
         <div class="row-fluid">
             <div class="no-padding">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="/">עבודה קלה</a>
+                    <a class="navbar-brand" href="/">
+                        עבודה קלה
+                    </a>
                 </div>
             </div>
             <!--<div class="col-xs-2 navbar-collapse collapse">-->
@@ -20,7 +22,7 @@
                                 <div class="select2">
                                     <select ui-select2="areas_select2Options" multiple
                                             ng-model="appManager.selectedAreas"
-                                            data-placeholder="Pick an area">
+                                            data-placeholder="בחר איזור">
                                         <option ng-repeat="area in areas" value="{{area}}">{{area}}
                                         </option>
                                     </select>
@@ -31,7 +33,7 @@
                                 <div class="select2">
                                     <select ui-select2="technologies_select2Options" multiple
                                             ng-model="appManager.selectedTechnologies"
-                                            data-placeholder="Pick a technology">
+                                            data-placeholder="בחר טכנולוגיה">
                                         <option ng-repeat="technology in technologies" value="{{technology}}">
                                             {{technology}}
                                         </option>
@@ -50,19 +52,23 @@
                         </div>
 
                         <!-- Login or User menu -->
-                        <div class="nav navbar-nav navbar-left no-padding">
+                        <div class="nav navbar-nav navbar-left">
                             <div ng-if="!authService.isLoggedIn()">
-                                <div class="col-xs-2  col-sm-2  col-md-2 register-login row-fluid">
+                                <div class="register-login row-fluid">
                                     <div class="navbar-left header-actions">
-                                        <a href="#" ng-click="openRegisterDialog()">Register</a>
+                                        <a href="#" ng-click="openRegisterDialog()">
+                                                Register
+                                        </a>
                                     </div>
                                     <div class="navbar-left header-actions">
-                                        <a href="#" ng-click="openLoginDialog()">LogIn</a>
+                                        <a href="#" ng-click="openLoginDialog()">
+                                                LogIn
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                             <div ng-if="authService.isLoggedIn()">
-                                <div class="col-xs-1  col-sm-1  col-md-1 dropdown">
+                                <div class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                         {{authService.getActiveUser().username}}
                                         <b class="caret"></b>
