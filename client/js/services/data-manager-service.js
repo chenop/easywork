@@ -128,11 +128,12 @@ angular.module('easywork')
 //                }
 //
 //            }
-            $http.get('/api/company/logo/' + id)
-                .success(function(data) {
-                    deferred.resolve(data);
-                });
-            return deferred.promise;
+//            $http.get('/api/company/logo/' + id)
+//                .success(function(data) {
+//                    deferred.resolve(data);
+//                });
+//            return deferred.promise;
+            return $http.get('/api/company/logo/' + id);
         }
 
         var getTechnologiesSelect2Options = function() {

@@ -128,10 +128,14 @@ exports.getCompanyLogo = function(req, res, next) {
         if (err)
             throw err;
 
-        return googleApis.fetchFirstImage(company.name + ' logo image transparent', function(firstImage) {
+        return googleApis.fetchFirstImage(company.name + ' logo image transparent', function(err, result) {
+            if (err) {
+                res.writeHead(500); res.end(); console.log(err);
+            }
+
             //company.logo.data = firstImage;
             //return res.send(company.logo.data);
-            return res.send(firstImage);
+            return res.send(result);
         });
 
         //if (company === undefined || company == null) {

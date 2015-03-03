@@ -9,14 +9,13 @@ var API_KEY = 'AIzaSyB2FUs8REJu3r759qD-xSGpKhLPU6rAoY4';
 exports.fetchFirstImage = function(keyword, callback) {
     return customsearch.cse.list({ cx: CX, q: keyword, searchType: 'image', auth: API_KEY }, function(err, resp) {
         if (err) {
-            console.log('An error occured', err);
-            return;
+            return callback(err);
         }
         // Got the response from custom search
         console.log('Result: ' + resp.searchInformation.formattedTotalResults);
         if (resp.items && resp.items.length > 0) {
             var firstItem = resp.items[0].link;
-            return callback(firstItem);
+            return callback(null, firstItem);
         }
     });
 

@@ -62,9 +62,13 @@ angular.module('easywork')
             $scope.companies = companies.data;
             angular.forEach($scope.companies, function (company, key) {
                 dataManager.getCompanyLogo(company._id, company)
-                    .then(function (data) {
+                    .success(function (data) {
                         setLogo(company, data);
                     })
+                    .error(function(err) {
+                       setEmptyLogo(company);
+                    });
+
                 angular.forEach(company.locations, function(location) {
                     location.formattedLocation = prepareFormattedLocation(location);
                 })
