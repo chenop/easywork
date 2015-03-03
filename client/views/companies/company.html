@@ -1,23 +1,22 @@
 <div class="jumbotron" ng-controller="CompanyCtrl">
     <div class="row">
-        <form name="form" class="form-horizontal" ng-keyup="updateCompany($event)" novalidate>
+        <form name="form" class="form-horizontal" novalidate>
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="cName">Name</label>
                 <input id="companyName" type="text" class="col-sm-10 form-control" ng-model="company.name" name="cName"
-                       placeholder="Company name"/>
+                       placeholder="Company name" ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
             </div>
 
             <div ng-if="company.locations.length > 0">
                 <div class="form-group" ng-repeat="location in company.locations">
                     <label class="col-sm-2 control-label">{{$index > 0 ? "" : 'משרדים'}}</label>
-                    <input class="col-sm-4 form-control" type="text"
-                           ng-model="location.street" id="cStreet"
-                           name="cStreet"
-                           placeholder="Street and Number"/>
+                    <input class="col-sm-4 form-control" type="text" ng-model="location.street" id="cStreet"
+                           name="cStreet" placeholder="Street and Number"
+                           ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
                     <input class="col-sm-3 col-sm-offset-1 form-control" type="text"
-                           ng-model="location.city"
-                           id="cCity" name="cCity"
-                           placeholder="City name"/>
+                           ng-model="location.city" id="cCity" name="cCity"
+                           placeholder="City name"
+                           ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
                 <span class="glyphicon glyphicon-remove btn btn-sm" ng-click="removeLocation($index)"
                       style="float: left"></span>
                 </div>
@@ -47,20 +46,20 @@
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="cMail">Mail</label>
                 <input class="col-sm-10 form-control" type="email" class="form-control" ng-model="company.email"
-                       id="cMail" name="cMail"
-                       placeholder="Job's Mail"/>
+                       id="cMail" name="cMail" placeholder="Job's Mail"
+                       ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="cMail">WebSite</label>
                 <input class="col-sm-10 form-control" type="text" class="form-control" ng-model="company.site"
-                       id="cSite" name="cSite"
-                       placeholder="Web Site"/>
+                       id="cSite" name="cSite" placeholder="Web Site"
+                       ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
             </div>
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="cMail">Description</label>
                 <textarea rows="5" class="col-sm-10 form-control" type="text" class="form-control" ng-model="company.description"
-                       id="cDescription" name="cDescription"
-                       placeholder="Few words about the company..."/>
+                       id="cDescription" name="cDescription" placeholder="Few words about the company..."
+                       ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
             </div>
             <!--Angular-->
             <div class="form-group">

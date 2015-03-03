@@ -128,18 +128,24 @@ exports.getCompanyLogo = function(req, res, next) {
         if (err)
             throw err;
 
-        if (company === undefined || company == null) {
-            return res.send(404, 'Could not find company logo');
-        } else if (company.logo === undefined || company.logo.data === undefined || company.logo.data.length === 0) {
+        return googleApis.fetchFirstImage(company.name + ' logo image transparent', function(firstImage) {
+            //company.logo.data = firstImage;
+            //return res.send(company.logo.data);
+            return res.send(firstImage);
+        });
 
-            return googleApis.fetchFirstImage(company.name + ' logo', function(firstImage) {
-                //company.logo.data = firstImage;
-                //return res.send(company.logo.data);
-                return res.send(firstImage);
-            })
-        }
-
-        return res.send(company.logo.data);
+        //if (company === undefined || company == null) {
+        //    return res.send(404, 'Could not find company logo');
+        //} else if (company.logo === undefined || company.logo.data === undefined || company.logo.data.length === 0) {
+        //
+        //    return googleApis.fetchFirstImage(company.name + ' logo', function(firstImage) {
+        //        //company.logo.data = firstImage;
+        //        //return res.send(company.logo.data);
+        //        return res.send(firstImage);
+        //    })
+        //}
+        //
+        //return res.send(company.logo.data);
     });
 };
 

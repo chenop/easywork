@@ -27,6 +27,12 @@ angular.module('easywork')
         }
     })
     .controller('CompaniesBoardCtrl', function ($scope, $http, mailService, dataManager, appManager, $modal) {
+        function isUndefined(value){return typeof value === 'undefined';}
+        function isDefined(value){return typeof value !== 'undefined';}
+        function isEmpty(value) {
+            return isUndefined(value) || value === '' || value === null || value !== value;
+        };
+
         function setLogo(company, data) {
             if ((typeof company.logo === 'undefined') || company.logo === null) {
                 company.logo = {};
@@ -39,6 +45,19 @@ angular.module('easywork')
             company.logo.shape = 'round';
         }
 
+        var prepareFormattedLocation = function (location) {
+            if (!isEmpty(location.street) && !isEmpty(location.city)) {
+                return (location.street + ", " + location.city);
+            }
+
+            if (isDefined(location.city)) {
+                return location.city;
+            }
+
+            if (isDefined(location.street)) {
+                return location.street;
+            }
+        };
         dataManager.getAllCompanies().then(function (companies) {
             $scope.companies = companies.data;
             angular.forEach($scope.companies, function (company, key) {
@@ -46,6 +65,9 @@ angular.module('easywork')
                     .then(function (data) {
                         setLogo(company, data);
                     })
+                angular.forEach(company.locations, function(location) {
+                    location.formattedLocation = prepareFormattedLocation(location);
+                })
             });
         });
 

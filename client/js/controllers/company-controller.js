@@ -96,7 +96,7 @@ angular.module('easywork')
             console.log("logoUrl: " + $scope.company.logo);
         };
 
-        $scope.updateCompany = function (event) {
+        $scope.updateCompany = function () {
             dataManager.updateCompany($scope.company)
                 .success(function (entity) {
                     $scope.$emit('dataChanged', entity);
