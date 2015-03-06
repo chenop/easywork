@@ -128,28 +128,27 @@ exports.getCompanyLogo = function(req, res, next) {
         if (err)
             throw err;
 
-        return googleApis.fetchFirstImage(company.name + ' logo image transparent', function(err, result) {
-            if (err) {
-                res.writeHead(500); res.end(); console.log(err);
-            }
-
-            //company.logo.data = firstImage;
-            //return res.send(company.logo.data);
-            return res.send(result);
-        });
-
-        //if (company === undefined || company == null) {
-        //    return res.send(404, 'Could not find company logo');
-        //} else if (company.logo === undefined || company.logo.data === undefined || company.logo.data.length === 0) {
+        //return googleApis.fetchFirstImage(company.name + ' logo image transparent', function(err, result) {
+        //    if (err) {
+        //        res.writeHead(500); res.end(); console.log(err);
+        //    }
         //
-        //    return googleApis.fetchFirstImage(company.name + ' logo', function(firstImage) {
-        //        //company.logo.data = firstImage;
-        //        //return res.send(company.logo.data);
-        //        return res.send(firstImage);
-        //    })
-        //}
-        //
-        //return res.send(company.logo.data);
+        //    //company.logo.data = firstImage;
+        //    //return res.send(company.logo.data);
+        //    return res.send(result);
+        //});
+
+        if (company === undefined || company == null) {
+            return res.send(500, 'Could not find company logo');
+        } else if (company.logo === undefined || company.logo.data === undefined || company.logo.data.length === 0) {
+
+            return googleApis.fetchFirstImage(company.name + ' logo', function(firstImage) {
+                company.logo.data = firstImage;
+                return res.send(firstImage);
+            })
+        }
+
+        return res.send(company.logo.data);
     });
 };
 
