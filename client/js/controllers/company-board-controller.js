@@ -105,10 +105,10 @@ angular.module('easywork')
         }, true);
 
         function isAreaMatch(company) {
-            for (var i = 0; i < company.addresses.length; i++) {
-                var address = company.addresses[i];
+            for (var i = 0; i < company.locations.length; i++) {
+                var location = company.locations[i];
 
-                if (appManager.selectedAreas.indexOf(address) >= 0)
+                if (appManager.selectedAreas.indexOf(location.city) >= 0)
                     return true;
             }
             return false;
