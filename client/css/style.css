@@ -82,7 +82,9 @@ footer {
   border-radius: 50%; }
 
 .address, .technology {
-  max-height: 10px; }
+  max-height: 10px;
+    padding-right: 0px;
+}
 
 .my-drop-zone {
   border: dashed 3px lightgray;
