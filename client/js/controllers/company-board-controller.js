@@ -33,18 +33,6 @@ angular.module('easywork')
             return isUndefined(value) || value === '' || value === null || value !== value;
         };
 
-        function setLogo(company, data) {
-            if ((typeof company.logo === 'undefined') || company.logo === null) {
-                company.logo = {};
-            }
-            company.logo.data = data;
-        }
-
-        function setEmptyLogo(company) {
-            setLogo(company, 'http://placehold.it/150x150.jpg&text=Logo..');
-            company.logo.shape = 'round';
-        }
-
         var prepareFormattedLocation = function (location) {
             if (!isEmpty(location.street) && !isEmpty(location.city)) {
                 return (location.street + ", " + location.city);
@@ -61,13 +49,7 @@ angular.module('easywork')
         dataManager.getAllCompanies().then(function (companies) {
             $scope.companies = companies.data;
             angular.forEach($scope.companies, function (company, key) {
-                dataManager.getCompanyLogo(company._id, company)
-                    .success(function (data) {
-                        setLogo(company, data);
-                    })
-                    .error(function(err) {
-                       setEmptyLogo(company);
-                    });
+                dataManager.getCompanyLogo(company._id, company);
 
                 angular.forEach(company.locations, function(location) {
                     location.formattedLocation = prepareFormattedLocation(location);
@@ -78,10 +60,6 @@ angular.module('easywork')
         appManager.setDisplaySearchBarInHeader(true);
 
         appManager.disableSend = false;
-
-        $scope.isLogoExists = function(company) {
-            return company.logo && company.logo.data && company.logo.data.length > 0;
-        }
 
         $scope.$watch('companies|filter:{selected:true}', function (nv) {
             if (nv === undefined) {

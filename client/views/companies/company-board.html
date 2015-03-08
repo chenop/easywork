@@ -32,7 +32,7 @@
                             <input type="checkbox" ng-model="company.selected">
                         </td>
                         <td>
-                            <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank"><img ng-src="{{company.logo.data}}" class="logo" ng-class="{'round-logo' : company.logo.shape === 'round'}"></a>
+                            <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank"><img ng-src="{{company.logo.url}}" class="logo" ng-class="{'round-logo' : company.logo.shape === 'round'}"></a>
                         </td>
                         <td>
                             <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank">{{::company.name}}</a>

@@ -4,6 +4,13 @@
 
 angular.module('easywork')
     .factory('dataManager', function ($http, common, $q, appManager) {
+        function isUndefined(value){return typeof value === 'undefined';}
+        function isDefined(value){return typeof value !== 'undefined';}
+        function isEmpty(value) {
+            return isUndefined(value) || value === '' || value === null || value !== value;
+        };
+
+
         var filterData = null;
 
         // Optimizing filterData call
@@ -36,8 +43,7 @@ angular.module('easywork')
                 .then(function (result) {                 // Get the logo
                     var company = result.data;
                     return getCompanyLogo(id, company)
-                        .then(function (data) {
-                            company.logo.data = data;
+                        .then(function (logoUrl) {
                             return company;
                         })
                 })
@@ -118,23 +124,35 @@ angular.module('easywork')
 
         var getCompanyLogo = function (id, company) {
             var deferred = $q.defer();
-            // TODO cache is not working...
             // Check if logo is cached
-//            if (company !== undefined && company.logo !== undefined) {
-//                var data = company.logo.data;
-//                if (data !== undefined && !(data instanceof Array)) { // If array it is not base64 image
-//                    deferred.resolve(data);
-//                    return deferred.promise;
-//                }
-//
-//            }
-//            $http.get('/api/company/logo/' + id)
-//                .success(function(data) {
-//                    deferred.resolve(data);
-//                });
-//            return deferred.promise;
-            return $http.get('/api/company/logo/' + id);
+            if (!isEmpty(company) && !isEmpty(company.logo) && !isEmpty(company.logo.url)) {
+                deferred.resolve(company.logo.url);
+                return deferred.promise;
+            }
+            return $http.get('/api/company/logo/' + id)
+                .then(function (result) {
+                    if (result.data) {
+                        setLogo(company, result.data);
+                        return company.logo.url;
+                    } else {
+                        setEmptyLogo(company);
+                        return company.logo.url;
+                    }
+                });
         }
+
+        function setLogo(company, url) {
+            if ((typeof company.logo === 'undefined') || company.logo === null) {
+                company.logo = {};
+            }
+            company.logo.url = url;
+        }
+
+        function setEmptyLogo(company) {
+            setLogo(company, 'http://placehold.it/150x150.jpg&text=Logo..');
+            company.logo.shape = 'round';
+        }
+
 
         var getTechnologiesSelect2Options = function() {
             return {

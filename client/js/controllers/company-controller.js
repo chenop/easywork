@@ -2,7 +2,8 @@
 
 
 angular.module('easywork')
-    .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout, $state, $stateParams) {
+    .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout, $state, $stateParams, $modal) {
+        function isDefined(value){return typeof value !== 'undefined';}
 
         if ($state.current.isDashboard) {
             // Basically we pass the entityId so the state will change and will have the update
@@ -17,31 +18,15 @@ angular.module('easywork')
             dataManager.getCompany(activeCompanyId)
                 .then(function(company){
                     $scope.company = company;
-                    // TODO wrap this function
-                    dataManager.getCompanyLogo(company._id, company)
-                        .then(function (data) {
-                            if ($scope.company.logo === undefined) {
-                                $scope.company.logo = {};
-                            }
-                            $scope.company.logo.data = data;
-                            $scope.logo = data;
-                        })
+                    dataManager.getCompanyLogo(company._id, company);
                 })
         }
 
-        // TODO what about my_company? ahhhhhaaaaahahaah
         function refreshCompany(selectedEntity) {
             if (selectedEntity == null)
                 return;
             $scope.company = selectedEntity;
-            dataManager.getCompanyLogo(selectedEntity._id, $scope.company)
-                .then(function (data) {
-                    if ($scope.company.logo === undefined) {
-                        $scope.company.logo = {};
-                    }
-                    $scope.company.logo.data = data;
-                    $scope.logo = data;
-                })
+            dataManager.getCompanyLogo(selectedEntity._id, $scope.company);
 
             $timeout(function () {
                 $('#companyName').select();
@@ -116,6 +101,26 @@ angular.module('easywork')
             dataManager.updateCompany($scope.company);
         }
 
+        $scope.showLogoGallery = function() {
+            var modalInstance = $modal.open({
+                templateUrl: '/views/companies/logo-gallery.html',
+                controller: 'LogoGalleryCtrl',
+                resolve: {
+                    company: function() {
+                        return company;
+                    }
+                }
+
+            });
+
+            modalInstance.result.then(function (logo) {
+                if (isDefined(logo)) {
+                    company.logo = logo;
+                }
+            }, function () {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+        }
 
     }
 );

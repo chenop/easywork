@@ -128,27 +128,21 @@ exports.getCompanyLogo = function(req, res, next) {
         if (err)
             throw err;
 
-        //return googleApis.fetchFirstImage(company.name + ' logo image transparent', function(err, result) {
-        //    if (err) {
-        //        res.writeHead(500); res.end(); console.log(err);
-        //    }
-        //
-        //    //company.logo.data = firstImage;
-        //    //return res.send(company.logo.data);
-        //    return res.send(result);
-        //});
-
         if (company === undefined || company == null) {
-            return res.send(500, 'Could not find company logo');
-        } else if (company.logo === undefined || company.logo.data === undefined || company.logo.data.length === 0) {
+            return res.send(false);
+        } else if (company.logo === undefined || company.logo.url === undefined || company.logo.url.length === 0) {
 
-            return googleApis.fetchFirstImage(company.name + ' logo', function(firstImage) {
-                company.logo.data = firstImage;
-                return res.send(firstImage);
+            return googleApis.fetchFirstImage(company.name + ' logo image', function(firstImageUrl) {
+                if (firstImageUrl instanceof Error)
+                    return res.send(false);
+
+                company.logo.url = firstImageUrl;
+                company.save(); // update local DB
+                return res.send(firstImageUrl);
             })
         }
 
-        return res.send(company.logo.data);
+        return res.send(company.logo.url);
     });
 };
 
@@ -172,5 +166,5 @@ exports.getAllCompanies = function(req, res) {
 
 var isLogoExists = function(company) {
     //return false;
-    return company.logo && company.logo.data && company.logo.data.length > 0;
+    return company.logo && company.logo.url;
 }
