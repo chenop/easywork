@@ -28,7 +28,11 @@ body {
   position: relative; }
 
 .view-container {
-  margin-top: 150px; }
+  margin-top: 150px;
+  min-height: 400px;
+  padding: 40px;
+  background-color: #EAE1C0;
+  border-radius: 6px; }
 
 footer {
   position: fixed;
@@ -82,9 +86,7 @@ footer {
   border-radius: 50%; }
 
 .address, .technology {
-  max-height: 10px;
-    padding-right: 0px;
-}
+  max-height: 10px; }
 
 .my-drop-zone {
   border: dashed 3px lightgray;
