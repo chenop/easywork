@@ -55,24 +55,24 @@ angular.module('easywork')
             switch (contentTypeName) {
 
                 case common.CONTENT_TYPE.JOB.name:
-                    getJobs().then(function(result) {
-                        $scope.entities = result.data;
+                    getJobs().then(function(entites) {
+                        $scope.entities = entites;
                         appManager.setCurrentContentType(common.CONTENT_TYPE.JOB);
                         handleSelection(nextEntityIdToSelect);
                     });
                     break;
 
                 case common.CONTENT_TYPE.COMPANY.name:
-                    getCompanies().then(function(result) {
-                        $scope.entities = result.data;
+                    getCompanies().then(function(entites) {
+                        $scope.entities = entites;
                         appManager.setCurrentContentType(common.CONTENT_TYPE.COMPANY);
                         handleSelection(nextEntityIdToSelect);
                     });
                     break;
 
                 case common.CONTENT_TYPE.USER.name:
-                    getUsers().then(function(result) {
-                        $scope.entities = result.data;
+                    getUsers().then(function(entites) {
+                        $scope.entities = entites;
                         appManager.setCurrentContentType(common.CONTENT_TYPE.USER);
                         handleSelection(nextEntityIdToSelect);
                     });

@@ -90,11 +90,11 @@ app.put('/api/company/:id', companies.updateCompany)
 app.delete('/api/company/:id', companies.deleteCompany)
 app.post('/api/company/logo-upload/:id', companies.upload)
 app.get('/api/company/logo/:id', companies.getCompanyLogo)
+app.get('/api/allCompanies', companies.getAllCompanies)
 
 // Jobs
 app.get('/api/job/list/:id', jobs.getJobs)
 app.get('/api/allJobs', jobs.getAllJobs)
-app.get('/api/allCompanies', companies.getAllCompanies)
 app.get('/api/job/:id', jobs.getJob)
 app.post('/api/job', jobs.createJob)
 app.put('/api/job/:id', jobs.updateJob)

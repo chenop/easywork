@@ -10,6 +10,9 @@ angular.module('easywork')
             return isUndefined(value) || value === '' || value === null || value !== value;
         };
 
+        var jobs = null;
+        var companies = null;
+        var users = null;
 
         var filterData = null;
 
@@ -27,15 +30,41 @@ angular.module('easywork')
 
         // Companies
         var getCompanies = function() {
-            return getEntities(common.CONTENT_TYPE.COMPANY);
+            var deferred = $q.defer();
+            // Check if logo is cached
+            if (companies !== null) {
+                deferred.resolve(companies);
+                return deferred.promise;
+            }
+
+            return getEntities(common.CONTENT_TYPE.COMPANY)
+                .then(function(result) {
+                    companies = result.data;
+                    return companies;
+                });
         }
 
         var getJobs = function(companyId) {
-            return $http.get('/api/job/list/' + companyId);
+            return $http.get('/api/job/list/' + companyId)
+                .then(function(result) {
+                    jobs = result.data;
+                    return jobs;
+                });
         }
 
         var getUsers = function() {
-            return getEntities(common.CONTENT_TYPE.USER);
+            var deferred = $q.defer();
+            // Check if logo is cached
+            if (users !== null) {
+                deferred.resolve(users);
+                return deferred.promise;
+            }
+
+            return getEntities(common.CONTENT_TYPE.USER)
+                .then(function(result) {
+                    users = result.data;
+                    return users;
+                });;
         }
 
         var getCompany = function (id) {
@@ -183,10 +212,17 @@ angular.module('easywork')
         };
 
         var getAllJobs = function() {
-            var allJobs = [];
+            var deferred = $q.defer();
+            // Check if logo is cached
+            if (jobs !== null) {
+                deferred.resolve(jobs);
+                return deferred.promise;
+            }
+
             return $http.get('/api/allJobs')
-                .error(function(err){
-                    console.log("err: " + err);
+                .then(function(result) {
+                    jobs = result.data;
+                    return jobs;
                 });
         }
 

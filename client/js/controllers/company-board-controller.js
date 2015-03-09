@@ -46,8 +46,8 @@ angular.module('easywork')
                 return location.street;
             }
         };
-        dataManager.getAllCompanies().then(function (companies) {
-            $scope.companies = companies.data;
+        dataManager.getCompanies().then(function (companies) {
+            $scope.companies = companies;
             angular.forEach($scope.companies, function (company, key) {
                 dataManager.getCompanyLogo(company._id, company);
 

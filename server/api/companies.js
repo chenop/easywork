@@ -147,17 +147,11 @@ exports.getCompanyLogo = function(req, res, next) {
 };
 
 exports.getAllCompanies = function(req, res) {
-    Company.find({}, 'name description site city technologies locations isLogoExists logo',
+    Company.find({}, 'name description site city technologies locations logo',
         function (err, companies) {
             if (err) {
                 console.log("error while trying to populate jobs:" + err);
             }
-
-            companies.forEach(function (company) {
-                company.isLogoExists = isLogoExists(company);
-                company.logo = null; // We do not want to send the logo in this query
-            });
-
 
             var data = JSON.stringify(companies);
             return res.send(data);

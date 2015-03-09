@@ -4,7 +4,7 @@
 angular.module('easywork')
     .controller('JobsBoardCtrl', function ($scope, $http, mailService, dataManager, appManager, $modal) {
         dataManager.getAllJobs().then(function(jobs) {
-            $scope.jobs = jobs.data;
+            $scope.jobs = jobs;
             angular.forEach($scope.jobs, function(job, key) {
                 dataManager.getCompanyLogo(job.company._id, job.company);
             })
