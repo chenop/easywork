@@ -1,18 +1,16 @@
 <div>
     <div class="row job-container">
         <form name="form" class="form-horizontal">
-            <div class="form-group">
-                <img class="job-image-container" ng-src="{{company.logo.url}}"></img>
-                <h3 class="col-sm-8 control-label">{{company.name}}</h3>
+            <div class="form-group details-title vertical-align">
+                <img class="col-sm-4 job-image-container" ng-src="{{company.logo.url}}"/>
+                <h3 class="col-sm-8 control-label">
+                    <div class="align-right vertical-align">{{company.name}}</div>
+                </h3>
             </div>
             <hr>
             <div class="form-group">
-                <h3 class="col-sm-10">שם החברה</h3>
-                <label class="col-sm-10">{{company.name}}</label>
-            </div>
-            <div class="form-group">
-                <h3 class="col-sm-10">פרטי החברה</h3>
-                <label class="col-sm-10">{{company.description}}</label>
+                <label class="col-sm-3 control-label">על החברה:</label>
+                <label class="col-sm-9">{{company.description}}</label>
             </div>
         </form>
     </div>

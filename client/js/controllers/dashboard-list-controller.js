@@ -29,13 +29,22 @@ angular.module('easywork')
             }
             else {
                 // Need to select the entity
-                dataManager.getEntity(contentType, entityId)
-                    .then(function(result) {
-                        setSelectedEntity(result.data);
-                        // For some reason entity._id does not work...
-                        $state.go("dashboard.list." + contentType.name, {entityId: result.data._id});
-                    })
+                var selectedEntity = getEntity($scope.entities, entityId);
+                setSelectedEntity(selectedEntity);
+                $state.go("dashboard.list." + contentType.name, {entityId: selectedEntity._id});
             }
+        }
+
+        function getEntity(entities, id) {
+            for (var index in entities) {
+                if (entities.hasOwnProperty(index)) {
+                    var entity = entities[index];
+                    if (entity._id === id) {
+                        return entity;
+                    }
+                }
+            }
+            return null;
         }
 
         function refreshEntities(contentTypeName, nextEntityIdToSelect) {

@@ -201,6 +201,10 @@ textarea.cv-message {
   text-align: left;
 }
 
+.vertical-align {
+  vertical-align: middle;
+}
+
 .no-padding {
   padding: 0 !important;
   margin: 0 !important;
@@ -411,4 +415,9 @@ header a {
   color: #fff;
   background-color: darken($base30-1, 20%);
   border-color: darken($base30-1, 20%);
+}
+
+.details-title {
+  height: 130px;
+  line-height: 130px;
 }
