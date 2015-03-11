@@ -101,7 +101,7 @@ angular.module('easywork')
             dataManager.updateCompany($scope.company);
         }
 
-        $scope.showLogoGallery = function() {
+        $scope.showLogoGallery = function(company) {
             var modalInstance = $modal.open({
                 templateUrl: '/views/companies/logo-gallery.html',
                 controller: 'LogoGalleryCtrl',
@@ -111,14 +111,6 @@ angular.module('easywork')
                     }
                 }
 
-            });
-
-            modalInstance.result.then(function (logo) {
-                if (isDefined(logo)) {
-                    company.logo = logo;
-                }
-            }, function () {
-                console.log('Modal dismissed at: ' + new Date());
             });
         }
 

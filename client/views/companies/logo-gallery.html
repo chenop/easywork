@@ -1,3 +1,9 @@
-<div>
-    {{company.name}}
+<div class="row modal-body">
+    <div class="col-sm-9">
+        <input type="url" class="form-control" ng-model="urlObject.url" placeholder="הדבק כתובת URL..."/>
+    </div>
+    <div class="col-sm-3">
+        <img class="align-middle img-responsive" ng-src="{{urlObject.url}}"/>
+        <button class="btn btn-primary align-middle select-button" ng-disabled="!urlObject.url" ng-click="selectLogo()">בחר</button>
+    </div>
 </div>

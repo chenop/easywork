@@ -331,4 +331,12 @@ header a {
   height: 130px;
   line-height: 130px; }
 
+.align-middle {
+  margin-left: auto;
+  margin-right: auto;
+  display: block; }
+
+.select-button {
+  margin-top: 10px; }
+
 /*# sourceMappingURL=style.css.map */
