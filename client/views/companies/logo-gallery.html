@@ -1,6 +1,6 @@
 <div class="row modal-body">
     <div class="col-sm-9">
-        <input type="url" class="form-control" ng-model="urlObject.url" placeholder="הדבק כתובת URL..."/>
+        <input type="url" ng-keyup="hitEnter($event)" class="form-control" ng-model="urlObject.url" auto-focus placeholder="הדבק כתובת URL..."/>
     </div>
     <div class="col-sm-3">
         <img class="align-middle img-responsive" ng-src="{{urlObject.url}}"/>

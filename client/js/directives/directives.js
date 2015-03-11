@@ -50,15 +50,16 @@ angular.module('easywork')
         };
     })
     // Put the focus on the username textfield
-    .directive('autoFocus', function ($timeout) {
+    .directive('autoFocus', ['$timeout', function($timeout) {
         return {
-            restrict: 'AC',
-            link: function (_scope, _element) {
-                $timeout(function () {
-                    _element[0].focus();
-                }, 0);
+            restrict: 'A',
+            link : function($scope, $element) {
+                $timeout(function() {
+                    $element[0].focus();
+                    $element[0].select();
+                }, 200);
             }
-        };
-    })
+        }
+    }])
 
 

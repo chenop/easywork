@@ -17,4 +17,11 @@ angular.module('easywork')
             dataManager.updateCompany(company);
             $modalInstance.dismiss();
         }
+
+        $scope.hitEnter = function (evt) {
+            if (angular.equals(evt.keyCode, 13)) {
+                $scope.selectLogo();
+            }
+        }; // end hitEnter
+
     })
