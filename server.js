@@ -66,7 +66,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(clientDir))
 
-require('./server/pass.js')(passport);
+require('./server/pass.js')(passport, app);
 
 app.post('/api/login', users.login)
 app.post('/api/logout', users.logout)

@@ -5,12 +5,19 @@
  */
 var User = require('./model/user')
     , LocalStrategy = require('passport-local').Strategy
-    , LinkedInStrategy = require('passport-linkedin').Strategy;
+    , LinkedInStrategy = require('passport-linkedin').Strategy
+    , GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 
-module.exports = function (passport) {
+module.exports = function (passport, app) {
 
     var LINKEDIN_API_KEY = '773ypiul1vn3og';
     var LINKEDIN_SECRET_KEY = '5IxzyfsRcBh7tQqA';
+
+    // API Access link for creating client ID and secret:
+    // https://code.google.com/apis/console/
+    var GOOGLE_CLIENT_ID      = "359347801376-rjbie888j10dfgjfq95i4gjo9ckdi4nn.apps.googleusercontent.com"
+    , GOOGLE_CLIENT_SECRET  = "DgPhwbvRjzyzhnkvcv_qI9wE";
+
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
@@ -115,4 +122,55 @@ module.exports = function (passport) {
 		}
 	));
 
+
+    // Use the GoogleStrategy within Passport.
+    //   Strategies in Passport require a `verify` function, which accept
+    //   credentials (in this case, an accessToken, refreshToken, and Google
+    //   profile), and invoke a callback with a user object.
+    passport.use(new GoogleStrategy({
+            clientID:     GOOGLE_CLIENT_ID,
+            clientSecret: GOOGLE_CLIENT_SECRET,
+            //NOTE :
+            //Carefull ! and avoid usage of Private IP, otherwise you will get the device_id device_name issue for Private IP during authentication
+            //The workaround is to set up thru the google cloud console a fully qualified domain name such as http://mydomain:3000/
+            //then edit your /etc/hosts local file to point on your private IP.
+            //Also both sign-in button + callbackURL has to be share the same url, otherwise two cookies will be created and lead to lost your session
+            //if you use it.
+            callbackURL: "http://localhost:3000/auth/google/callback",
+            passReqToCallback   : true
+        },
+        function(request, accessToken, refreshToken, profile, done) {
+            // asynchronous verification, for effect...
+            console.log('profile: ' + profile);
+            process.nextTick(function () {
+                //Check whether the User exists or not using profile.id
+                //Further DB code.
+                return done(null, profile);
+            });
+            //User.findOrCreate({ googleId: profile.id }, function (err, user) {
+            //    return done(err, user);
+            //});
+        }
+    ));
+
+    // GET /auth/google
+    //   Use passport.authenticate() as route middleware to authenticate the
+    //   request.  The first step in Google authentication will involve
+    //   redirecting the user to google.com.  After authorization, Google
+    //   will redirect the user back to this application at /auth/google/callback
+    app.get('/auth/google', passport.authenticate('google', { scope: [
+        'https://www.googleapis.com/auth/plus.login',
+        'https://www.googleapis.com/auth/plus.profile.emails.read']
+    }));
+
+    // GET /auth/google/callback
+    //   Use passport.authenticate() as route middleware to authenticate the
+    //   request.  If authentication fails, the user will be redirected back to the
+    //   login page.  Otherwise, the primary route function function will be called,
+    //   which, in this example, will redirect the user to the home page.
+    app.get( '/auth/google/callback',
+        passport.authenticate('google', {
+            successRedirect: '/api/register', // TODO chen Not fully understand this... but its a  good start
+            failureRedirect: '/auth/google/failure'
+        }));
 };
