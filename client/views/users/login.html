@@ -1,39 +1,39 @@
 <div class="row" ng-controller="loginCtrl">
-    <div class="col-sm-11">
-        <form name="form" ng-submit="submit()" ng-keyup="hitEnter($event)" class="form-horizontal col-sm-12 align-center" novalidate>
-            <div class="form-group">
-                <!--<label>PlaceHolder - Login with Google</label>-->
-                <a class="btn btn-danger" href="/auth/google">Sign On with Google</a>
-            </div>
+    <!--<div class="container">-->
 
-            <div class="form-group" ng-class="{ 'has-error' : form.username.$invalid && !form.username.$pristine }">
-                <label class="col-sm-2 control-label">Username</label>
-                <input class="col-sm-10 form-control" type="text" ng-model="input.username" name="username"
-                       required="username" ng-minlength="3" auto-focus/>
+        <script id="metamorph-1-start" type="text/x-placeholder"></script><script id="metamorph-21-start" type="text/x-placeholder"></script>
 
-                <p ng-show="form.username.$error.minlength" class="help-block">Username should be at least 3 letters
-                    long.</p>
-            </div>
+        <div class="text-center">
+            <form class="form-signin" data-ember-action="2">
+                <h2 class="form-signin-heading">כניסה</h2>
 
-            <div class="form-group" ng-class="{ 'has-error' : form.password.$invalid && !form.password.$pristine }">
-                <label class="col-sm-2 control-label">Password</label>
-                <input class="col-sm-10 form-control" type="password" ng-model="input.password" name="password"
-                       required="password"/>
-            </div>
+                <small class="text-muted">התחבר עם...</small>
+                <br><br>
 
-            <div class="form-group" ng-class="{'has-error' : hasError() }">
-                <p ng-show="errorMessage" class="help-block">{{errorMessage}}</p>
-            </div>
 
-            <div class="form-group align-center">
-                <label class="col-sm-2 control-label"></label>
+                <p>
+                    <a class="btn btn-primary social-login-btn social-google" href="/auth/google"><i class="fa fa-google-plus"></i></a>
+                    <a ng-disabled="true" class="btn btn-primary social-login-btn social-facebook" href="/auth/facebook"><i class="fa fa-facebook"></i></a>
+                </p>
+                <!--<p>-->
+                <!--<a class="btn btn-primary social-login-btn social-twitter" href="/auth/twitter"><i class="fa fa-twitter"></i></a>-->
+                    <!--<a class="btn btn-primary social-login-btn social-linkedin" href="/auth/linkedin"><i class="fa fa-linkedin"></i></a>-->
+                <!--</p>-->
 
-                <div class="col-sm-10">
-                    <input type="submit" class="btn btn-primary btn-lg button-padding"\>כניסה</button>
-                    <button class="btn btn-default btn-lg button-padding" ng-click="cancel()">חזרה</button>
-                    <label id="remember-me-label">Remember Me</label><input id="#remember-me-input" type="checkbox" ng-model="input.rememberMe">
-                </div>
-            </div>
-        </form>
-    </div>
+                <!--<br><br>-->
+
+
+                <small class="text-muted">או</small>
+                <br><br>
+
+                <input id="ember360" class="ember-view ember-text-field form-control login-input" ng-model="input.username" placeholder="שם משתמש" type="text">
+                <input id="ember361" class="ember-view ember-text-field form-control login-input-pass" ng-model="input.password" placeholder="סיסמא" type="password">
+
+                <script id="metamorph-22-start" type="text/x-placeholder"></script><script id="metamorph-22-end" type="text/x-placeholder"></script>
+
+                <button class="btn btn-lg btn-primary btn-block btn-center" ng-click="submit()" data-bindattr-3="3">התחבר</button>
+                <br>
+                <small class="create-account text-muted">אין לך חשבון עדיין?<button id="ember363" class="ember-view btn btn-sm btn-default"> הרשמה </button> </small>
+            </form>
+        </div>
 </div>

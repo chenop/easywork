@@ -32,7 +32,6 @@ var companySchema = new Schema({
         data: Buffer,
         url: String
     }
-    , isLogoExists: Boolean
     , owner: { type: Schema.Types.ObjectId, ref: 'User'}
     , jobs: [{ type: Schema.Types.ObjectId, ref: 'Job'}]
 });

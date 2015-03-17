@@ -64,7 +64,7 @@ app.use(session({
 }))
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(express.static(clientDir))
+app.use(express.static(clientDir));
 
 require('./server/pass.js')(passport, app);
 

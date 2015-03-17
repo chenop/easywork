@@ -141,15 +141,34 @@ module.exports = function (passport, app) {
         },
         function(request, accessToken, refreshToken, profile, done) {
             // asynchronous verification, for effect...
-            console.log('profile: ' + profile);
             process.nextTick(function () {
                 //Check whether the User exists or not using profile.id
                 //Further DB code.
-                return done(null, profile);
+                return User.findOne({ 'username': profile.email }, function (err, user) {
+                    if (err) {
+                        return done(err, null);
+                    }
+                    else if (user) { // Found user
+                        return done(null, user);
+                    } else { // Create
+                        var newUser = new User(
+                            {
+                                name: profile.displayName
+                                , username: profile.email
+                                , role: 'jobSeeker'
+                                , email: profile.email
+                            }
+                        );
+                        return newUser.save(function (err) {
+                            if (!err) {
+                                return done(null, user);
+                            } else {
+                                return done(err, user);
+                            }
+                        })
+                    }
+                });
             });
-            //User.findOrCreate({ googleId: profile.id }, function (err, user) {
-            //    return done(err, user);
-            //});
         }
     ));
 
@@ -170,7 +189,18 @@ module.exports = function (passport, app) {
     //   which, in this example, will redirect the user to the home page.
     app.get( '/auth/google/callback',
         passport.authenticate('google', {
-            successRedirect: '/api/register', // TODO chen Not fully understand this... but its a  good start
+            //successRedirect: '/',
             failureRedirect: '/auth/google/failure'
-        }));
+        }),
+        function(req, res) {
+            res.cookie('user', JSON.stringify(
+                {
+                    name: req.user.name
+                    , username: req.user.username
+                    , role: req.user.role
+                    , email: req.user.email
+                    , '_id': req.user._id // Helping us to find later the active user in DB
+                }));
+                return res.redirect('/'); // Need to do a full refresh - not sure why i cannot do it the Angular way...
+        });
 };
