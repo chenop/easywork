@@ -74,5 +74,6 @@ angular.module('easywork')
             , isLoggedIn: isLoggedIn
             , isAuthorize: isAuthorize
             , getActiveUser: getActiveUser
+            , setActiveUser: setActiveUser
         }
     });

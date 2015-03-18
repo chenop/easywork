@@ -119,6 +119,7 @@ angular.module('easywork')
         }
 
         var updateUser = function(entity) {
+            appManager.setActiveUser(entity);
             return updateEntity(common.CONTENT_TYPE.USER, entity)
         }
 

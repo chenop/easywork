@@ -43,6 +43,10 @@ angular.module('easywork')
             return authService.getActiveUser();
         }
 
+        var setActiveUser = function(user) {
+            return authService.setActiveUser(user);
+        }
+
         var getActiveCompanyId = function() {
             var activeUser = authService.getActiveUser();
             if (activeUser == undefined)
@@ -88,6 +92,7 @@ angular.module('easywork')
             , getActiveCompanyId: getActiveCompanyId
             , getActiveUserId: getActiveUserId
             , getActiveUser: getActiveUser
+            , setActiveUser: setActiveUser
             , setSelectedEntity: setSelectedEntity
             , selectedEntity: _selectedEntity
             , getSelectedEntity: getSelectedEntity
