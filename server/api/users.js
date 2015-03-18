@@ -194,7 +194,7 @@ function prepareCookie(res, user) {
             , role: user.role
             , email: user.email
             //, experience: user.experience
-            //, company: user.company
+            , company: user.company
             //, fileName: user.fileName
             , '_id': user._id // Helping us to find later the active user in DB
         }));

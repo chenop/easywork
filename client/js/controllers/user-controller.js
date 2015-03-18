@@ -46,13 +46,7 @@ angular.module('easywork')
         $scope.userRoles = routingConfig.rolesArray;
 
         dataManager.getCompanies().then(function(result) {
-            $scope.companies = result.data;
-
-            //angular.forEach($scope.companies, function(company) {
-            //    if ($scope.user.company === company._id) {
-            //        $scope.userCompany = company;
-            //    }
-            //});
+            $scope.companies = result;
         });
 
         $scope.$watch('user.name', function (value) {

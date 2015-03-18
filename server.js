@@ -52,8 +52,8 @@ log("Begin server.js");
 var clientDir = path.join(__dirname, 'client')
 app.set('port', process.env.PORT || 3000)
 
-app.use(bodyParser.json()); // get information from html forms
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(multer());
 app.use(cookieParser());
 app.use(methodOverride());

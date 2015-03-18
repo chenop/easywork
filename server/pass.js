@@ -199,6 +199,7 @@ module.exports = function (passport, app) {
                     , username: req.user.username
                     , role: req.user.role
                     , email: req.user.email
+                    , company: req.user.company
                     , '_id': req.user._id // Helping us to find later the active user in DB
                 }));
                 return res.redirect('/'); // Need to do a full refresh - not sure why i cannot do it the Angular way...
