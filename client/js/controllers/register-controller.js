@@ -6,10 +6,9 @@ angular.module('easywork')
 
         var modIns = $scope.modIns;
         $scope.user = {};
-        $scope.user.name = null;
-        $scope.user.username = null;
-        $scope.user.password = null;
         $scope.user.email = null;
+        $scope.user.password = null;
+        $scope.user.verifyPassword = null;
         $scope.user.message = defaultMessage;
         $scope.err = undefined;
 
@@ -19,7 +18,7 @@ angular.module('easywork')
         };
 
         $scope.isPasswordsEqual = function() {
-            return $scope.user.password == $scope.user.retypePassword;
+            return $scope.user.password == $scope.user.verifyPassword;
         }
 
         $scope.$watch('user.name', function (value) {

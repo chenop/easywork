@@ -50,7 +50,7 @@ exports.createUser = function (req, res) {
             console.log("Error while saving company");
         }
         else {
-            console.log("user " + newUser.name + " created in server");
+            console.log("user " + newUser.email + " created in server");
             newUser.company = company; // Saving the id itself
             saveUser(newUser, res);
         }
@@ -189,31 +189,31 @@ exports.updateUser = function (req, res) {
 function prepareCookie(res, user) {
     res.cookie('user', JSON.stringify(
         {
-            name: user.name
-            , username: user.username
+            name: user.name || ""
+            //, username: user.username
             , role: user.role
             , email: user.email
-            , experience: user.experience
-            , company: user.company
-            , fileName: user.fileName
+            //, experience: user.experience
+            //, company: user.company
+            //, fileName: user.fileName
             , '_id': user._id // Helping us to find later the active user in DB
         }));
 }
 exports.register = function (req, res) {
     var user = new User(
         {
-            name: req.body.name,
-            username: req.body.username,
+            //name: req.body.name,
+            //username: req.body.username,
             role: 'jobSeeker',
             password: req.body.password,
-            experience: req.body.experience,
+            //experience: req.body.experience,
             email: req.body.email,
-            message: req.body.message,
-            fileName: req.body.fileName,
-            cv: req.body.cv
+            message: req.body.message
+            //fileName: req.body.fileName,
+            //cv: req.body.cv
         }
     );
-    console.log("registered user: " + user.username);
+    console.log("registered user: " + user.email);
     return user.save(function (err) {
         if (err) // ...
             console.log('meow');

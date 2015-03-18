@@ -17,10 +17,10 @@ angular.module('easywork')
 
         var SOMETHING_WENT_WRONG_MSG = "Oops, Something went wrong!";
         var modIns = $scope.modIns;
-        $scope.input = {};
-        $scope.input.username = null;
-        $scope.input.password = null;
-        $scope.input.rememeberMe = null;
+        $scope.user = {};
+        $scope.user.email = null;
+        $scope.user.password = null;
+        $scope.user.rememeberMe = null;
         $scope.errorMessage = null;
 
         $scope.hasError = function() {
@@ -35,20 +35,20 @@ angular.module('easywork')
         }; // end cancel
 
         $scope.hitEnter = function ($event) {
-            if (angular.equals($event.keyCode, 13) && !(angular.equals($scope.input.username, null) || angular.equals($scope.input.username, '')))
+            if (angular.equals($event.keyCode, 13) && !(angular.equals($scope.user.username, null) || angular.equals($scope.input.username, '')))
                 $scope.submit();
         };
 
         $scope.submit = function () {
             var user = {
-                username: $scope.input.username,
-                password: $scope.input.password
+                username: $scope.user.email,
+                password: $scope.user.password
             }
 
             authService.logIn(user)
                 .success(function () {
                     if (modIns) {
-                        modIns.close(user.username);
+                        modIns.close(user.email);
 //                        console.log("login - modIns.close");
                     }
                     modIns = undefined; // Bug Fix - prevent from closing again the modal

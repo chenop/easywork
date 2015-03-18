@@ -16,6 +16,11 @@ angular.module('easywork')
                 $scope.technologies = result.data.technologies;
             });
 
+        $scope.getDisplayName = function() {
+            var activeUser = authService.getActiveUser();
+            return activeUser.name ? activeUser.name : activeUser.email;
+        }
+
         $scope.send = function () {
             if (!authService.isLoggedIn()) {
                 $scope.openLoginDialog(function () {

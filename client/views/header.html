@@ -70,7 +70,7 @@
                             <div ng-if="authService.isLoggedIn()">
                                 <div class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                        {{authService.getActiveUser().username}}
+                                        {{getDisplayName()}}
                                         <b class="caret"></b>
                                     </a>
                                     <ul class="dropdown-menu">
