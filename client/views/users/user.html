@@ -1,24 +1,18 @@
 <div class="jumbotron" ng-controller="userDetailsCtrl">
     <form name="form" class="form-horizontal align-center" ng-keyup="updateUser($event)" novalidate>
         <div class="form-group">
-            <label class="col-sm-2 control-label">Name</label>
-            <input id="userName" class="col-sm-10 form-control" type="text" ng-model="user.name" name="uName"
+            <label class="col-sm-3 control-label">Name</label>
+            <input id="userName" class="col-sm-9 form-control" type="text" ng-model="user.name" name="uName"
                    placeholder="Your name"/>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">Username</label>
-            <input class="col-sm-10 form-control" type="text" ng-model="user.username" name="uName"
-                   placeholder="Your name"/>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-2 control-label">E-mail</label>
-            <input class="col-sm-10 form-control" type="email" ng-model="user.email" name="uEmail" required
+            <label class="col-sm-3 control-label">Email</label>
+            <input class="col-sm-9 form-control" type="email" ng-model="user.email" name="uEmail" required
                    placeholder="Your E-mail"/>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">Experience</label>
+            <label class="col-sm-3 control-label">Experience</label>
 
             <div class="experience">
                 <select ui-select2="select2Options" ng-model="user.experience" ng-click="updateUser()"
@@ -32,13 +26,13 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">Message</label>
-            <textarea class="col-sm-10 form-control cv-message" ng-model="user.message"/>
+            <label class="col-sm-3 control-label">Message</label>
+            <textarea class="col-sm-9 form-control cv-message" ng-model="user.message"/>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label">CV</label>
+            <label class="col-sm-3 control-label">CV</label>
 
-            <div class="col-sm-10 file-upload-container">
+            <div class="col-sm-9 file-upload-container">
                 <div class="fileUpload btn btn-default">
                     <span>Upload</span>
                     <input style="width: 100px" type="file" class="upload" ng-file-select="onFileSelect($files)"/>
@@ -59,8 +53,8 @@
 
         </div>
         <div class="form-group" access-level="admin">
-            <label class="col-sm-2 control-label">Role</label>
-            <!--<label class="col-sm-10">{{user.role}}</label>-->
+            <label class="col-sm-3 control-label">Role</label>
+            <!--<label class="col-sm-9">{{user.role}}</label>-->
             <div class="experience">
                 <select ui-select2="select2Options" ng-model="user.role" ng-click="updateUser()">
                     <option value=""></option>
@@ -69,7 +63,7 @@
             </div>
         </div>
         <div class="form-group" access-level="admin">
-            <label class="col-sm-2 control-label">Company</label>
+            <label class="col-sm-3 control-label">Company</label>
 
             <div class="experience">
                 <select ui-select2="select2Options" ng-model="user.company" ng-click="updateUser()">
