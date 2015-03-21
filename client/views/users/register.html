@@ -1,39 +1,56 @@
 <div class="row" ng-controller="registerCtrl">
-        <!--<div class="container">-->
+    <!--<div class="container">-->
 
-        <script type="text/x-placeholder"></script><script type="text/x-placeholder"></script>
+    <script type="text/x-placeholder"></script>
+    <script type="text/x-placeholder"></script>
 
-        <div class="text-center">
-            <form class="form-signin" data-ember-action="2">
-                <h2 class="form-signin-heading">הרשמה</h2>
+    <div class="text-center">
+        <form name="formRegister" class="form-signin" data-ember-action="2" novalidate>
+            <h2 class="form-signin-heading">הרשמה</h2>
 
-                <small class="text-muted">הירשם עם...</small>
-                <br><br>
-
-
-                <p>
-                    <a class="btn btn-primary social-login-btn social-google" href="/auth/google"><i class="fa fa-google-plus"></i></a>
-                    <a ng-disabled="true" class="btn btn-primary social-login-btn social-facebook" href="/auth/facebook"><i class="fa fa-facebook"></i></a>
-                </p>
-                <!--<p>-->
-                <!--<a class="btn btn-primary social-login-btn social-twitter" href="/auth/twitter"><i class="fa fa-twitter"></i></a>-->
-                <!--<a class="btn btn-primary social-login-btn social-linkedin" href="/auth/linkedin"><i class="fa fa-linkedin"></i></a>-->
-                <!--</p>-->
-
-                <!--<br><br>-->
+            <small class="text-muted">הירשם עם...</small>
+            <br><br>
 
 
-                <small class="text-muted">או</small>
-                <br><br>
+            <p>
+                <a class="btn btn-primary social-login-btn social-google" href="/auth/google"><i
+                        class="fa fa-google-plus"></i></a>
+                <!--<a class="btn btn-primary social-login-btn social-facebook" href="/auth/facebook"><i-->
+                        <!--class="fa fa-facebook"></i></a>-->
+            </p>
+            <!--<p>-->
+            <!--<a class="btn btn-primary social-login-btn social-twitter" href="/auth/twitter"><i class="fa fa-twitter"></i></a>-->
+            <!--<a class="btn btn-primary social-login-btn social-linkedin" href="/auth/linkedin"><i class="fa fa-linkedin"></i></a>-->
+            <!--</p>-->
 
-                <input class="ember-view ember-text-field form-control login-input" ng-model="user.email" placeholder="דואר אלקטרוני" type="text">
-                <input class="ember-view ember-text-field form-control login-input-middle-pass" ng-model="user.password" placeholder="סיסמא" type="password">
-                <input class="ember-view ember-text-field form-control login-input-pass" ng-model="user.verifyPassword" placeholder="אימות סיסמא" type="password">
+            <!--<br><br>-->
 
-                <script type="text/x-placeholder"></script>
-                <script type="text/x-placeholder"></script>
 
-                <button class="btn btn-lg btn-primary btn-block btn-center" ng-click="register()" data-bindattr-3="3">הירשם</button>
-            </form>
-        </div>
+            <small class="text-muted">או</small>
+            <br><br>
+
+
+            <div ng-class="{ 'has-error' : formRegister.email.$error.email }">
+                <input class="form-control login-input" name="email" ng-model="user.email" type="email"
+                       placeholder="דואר אלקטרוני" required>
+            </div>
+            <div ng-class="{ 'has-error' : formRegister.verifyPassword.$error.match}">
+                <input class="form-control login-input-middle-pass" name="password"
+                       ng-model="user.password" placeholder="סיסמא" type="password">
+                <input class="form-control login-input-pass" name="verifyPassword" ng-match="user.password"
+                       ng-model="user.verifyPassword" placeholder="אימות סיסמא" type="password">
+            </div>
+
+            <div ng-messages="formRegister.email.$error" class="has-error">
+                <div class="help-block" ng-message="email">כתובת דואר אלקטרוני שגויה</div>
+            </div>
+            <div ng-messages="formRegister.verifyPassword.$error" class="has-error">
+                <div class="help-block" ng-message="match">הסיסמאות אינן זהות</div>
+            </div>
+
+            <button ng-disabled="shouldDisable()" class="btn btn-lg btn-primary btn-block btn-center" ng-click="register()" data-bindattr-3="3">
+                הירשם
+            </button>
+        </form>
     </div>
+</div>

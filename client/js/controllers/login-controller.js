@@ -64,5 +64,9 @@ angular.module('easywork')
                 }
             );
         }
+
+        $scope.shouldDisable = function() {
+            return $scope.isEmpty($scope.user.email) || $scope.isEmpty($scope.user.password)
+        }
     }
 );

@@ -5,7 +5,7 @@ var app = angular.module('easywork',
     [
         , 'ui.bootstrap'
         , 'angular-growl'
-//        , 'ngRoute'
+        , 'ngMessages'
         , 'ui.router'
         , 'ngCookies'
         , 'angularFileUpload'
@@ -14,7 +14,7 @@ var app = angular.module('easywork',
 );
 
 app.config(
-    function($stateProvider, $urlRouterProvider) {
+    function($locationProvider, $stateProvider, $urlRouterProvider) {
         //
         // For any unmatched url, redirect to /state1
         $urlRouterProvider.otherwise("/home");
@@ -22,7 +22,7 @@ app.config(
         // Now set up the states
         $stateProvider
             .state('home', {
-                url: "",
+                url: "/home",
                 templateUrl: "/views/home.html"
             })
             .state('login', {
@@ -78,24 +78,20 @@ app.config(
                 templateUrl: "/views/users/user.html",
                 isDashboard: false
             })
+            .state('register', {             // DEBUG ONLY
+                url: "/register",
+                templateUrl: "/views/users/register.html",
+                isDashboard: false
+            })
+            .state('login1', {             // DEBUG ONLY
+                url: "/login",
+                templateUrl: "/views/users/login.html",
+                isDashboard: false
+            })
+
+        $locationProvider.html5Mode(true).hashPrefix('!')
     }
 
-//    ['$routeProvider', '$locationProvider', '$httpProvider',
-//    function ($routeProvider, $locationProvider, $httpProvider) {
-//
-//        $routeProvider
-//            .when('/', { templateUrl: '/views/home.html', access: 'public'})
-//            .when('/test', {redirectTo: '/user_details'})
-//            .when('/login', { templateUrl: '/views/users/login.html', access: 'public' })
-//            .when("/my_company", {templateUrl: '/views/companies/company.html', access: 'jobProvider', isDashboard:false})
-//            .when("/job_full", {templateUrl: '/views/jobs/job-full.html', access: 'public'})
-//            .when("/content_manager/:contentTypeValue?", { templateUrl: '/views/admin/dashboard.html', access: 'jobProvider', isDashboard:true })
-//            .when("/job-board", { templateUrl: '/views/jobs/job-board.html', access: 'jobSeeker' })
-//            .when('/user_details', { templateUrl: '/views/users/user.html', access: 'jobSeeker', isDashboard:false })
-//            .otherwise({ redirectTo: '/' });
-//
-//        $locationProvider.html5Mode(true);
-//
 //        //================================================
 //        // Add an interceptor for AJAX errors
 //        //================================================
@@ -155,14 +151,11 @@ app.config(
                     $location.path("/");//go('user.home');
             }
         });
-    });
+        $rootScope.isUndefined = function(value){return typeof value === 'undefined';}
+        $rootScope.isDefined = function(value){return typeof value !== 'undefined';}
+        $rootScope.isEmpty = function(value) {
+            return $rootScope.isUndefined(value) || value === '' || value === null || value !== value;
+        };
 
-// a Fix for holder
-//app.directive('bsHolder', [function () {
-//    return {
-//        link: function (scope, element, attrs) {
-//            Holder.run(element);
-//        }
-//    };
-//}]);
+    });
 

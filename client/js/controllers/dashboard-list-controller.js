@@ -148,4 +148,7 @@ angular.module('easywork')
             refreshEntities(contentTypeName, entity._id);
         })
 
-    });
+        $scope.getDisplayName = function(entity) {
+            return entity.name ? entity.name : entity.email;
+        }
+   });

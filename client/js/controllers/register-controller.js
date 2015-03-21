@@ -1,6 +1,38 @@
 'use strict';
 
 angular.module('easywork')
+    // TOOD chen add async check to see thay email is available
+    .directive('ngMatch', ['$parse', function ($parse) {
+
+        var directive = {
+            link: link,
+            restrict: 'A',
+            require: '?ngModel'
+        };
+        return directive;
+
+        function link(scope, elem, attrs, ctrl) {
+            // if ngModel is not defined, we don't need to do anything
+            if (!ctrl) return;
+            if (!attrs['ngMatch']) return;
+
+            var firstPassword = $parse(attrs['ngMatch']);
+
+            var validator = function (value) {
+                var temp = firstPassword(scope),
+                    v    = value === temp;
+                ctrl.$setValidity('match', v);
+                return value;
+            }
+
+            ctrl.$parsers.unshift(validator);
+            ctrl.$formatters.push(validator);
+            attrs.$observe('ngMatch', function () {
+                validator(ctrl.$viewValue);
+            });
+
+        }
+    }])
     .controller('registerCtrl', function ($scope, authService, appManager) {
         var defaultMessage = appManager.defaultMessage;
 
@@ -17,7 +49,7 @@ angular.module('easywork')
             minimumResultsForSearch: -1 // Disable the search field in the combo box
         };
 
-        $scope.isPasswordsEqual = function() {
+        $scope.isPasswordsEqual = function () {
             return $scope.user.password == $scope.user.verifyPassword;
         }
 
@@ -61,7 +93,7 @@ angular.module('easywork')
             );
         }
 
-        $scope.onFileSelect = function($files) {
+        $scope.onFileSelect = function ($files) {
             var file = $files[0];
             $scope.user.fileName = file.name;
             var fileReader = new FileReader();
@@ -69,6 +101,11 @@ angular.module('easywork')
             fileReader.onload = function (e) {
                 $scope.user.cv = e.target.result;
             }
+        }
+
+        $scope.shouldDisable = function() {
+            return $scope.isEmpty($scope.user.email) || $scope.isEmpty($scope.user.password) || $scope.isEmpty($scope.user.verifyPassword) ||
+            !$scope.isEmpty($scope.user.password) && !$scope.isEmpty($scope.user.verifyPassword) && $scope.user.password !== $scope.user.verifyPassword;
         }
     }
 );
