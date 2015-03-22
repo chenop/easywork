@@ -9,6 +9,7 @@
                     ng-click="setSelected(entity, $index)">
                     <a>
                         {{getDisplayName(entity)}}
+                        <img class="small-logo" ng-if="entity.logo" ng-src="{{entity.logo.url}}"/>
 <span class="glyphicon glyphicon-remove btn btn-sm" ng-click="deleteEntity(entity, $index)" style="float: left"></span>
                     </a>
                 </li>
