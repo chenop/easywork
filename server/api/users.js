@@ -235,9 +235,10 @@ exports.upload = function (req, res) {
             return;
 
         // get the logo data
-        var fileData = req.body.data;
-        var fileName = req.body.fileName;
-        var skills = JSON.parse(req.body.skills);
+        var data = JSON.parse(req.body.data);
+        var fileData = data.data;
+        var fileName = data.fileName;
+        var skills = data.skills;
 
         user.cv = fileData;
         user.fileName = fileName;

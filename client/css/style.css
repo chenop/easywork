@@ -82,9 +82,9 @@ footer {
   max-width: 100px;
   max-height: 60px; }
 
-.small-logo {
+.nav > li > a > img.small-logo {
   max-width: 30px;
-  max-height: 10px; }
+  max-height: 60px; }
 
 .round-logo {
   border-radius: 50%; }
@@ -229,20 +229,17 @@ tr:hover button.action-button {
   max-height: 150px;
   max-width: 200px; }
 
-.fileUpload {
-  float: right;
-  overflow: hidden;
-  width: 100px; }
-  .fileUpload input.upload {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    padding: 0;
-    font-size: 20px;
-    cursor: pointer;
-    opacity: 0;
-    filter: alpha(opacity=0); }
+.fileUpload input.upload {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  cursor: pointer;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  float: right; }
 
 .upload-file-name {
   padding-top: 10px;
@@ -432,5 +429,12 @@ header a {
 .social-linkedin:hover {
   background-color: #466b99;
   border-color: #3b5a7c; }
+
+.emphasize-border {
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
+  padding: 10px; }
+
+.import-cv-box {
+  float: right; }
 
 /*# sourceMappingURL=style.css.map */
