@@ -1,34 +1,30 @@
 <div class="jumbotron" ng-controller="userDetailsCtrl">
     <form name="form" class="form-horizontal align-center" ng-keyup="updateUser($event)" novalidate>
         <div class="form-group">
-            <label class="col-sm-3 control-label">Name</label>
+            <label class="col-sm-3 control-label">שם</label>
             <input id="userName" class="col-sm-9 form-control" type="text" ng-model="user.name" name="uName"
                    placeholder="Your name"/>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-3 control-label">Email</label>
+            <label class="col-sm-3 control-label">דואר אלקטרוני</label>
             <input class="col-sm-9 form-control" type="email" ng-model="user.email" name="uEmail" required
                    placeholder="Your E-mail"/>
         </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Experience</label>
+        <!--<div class="form-group">-->
+            <!--<label class="col-sm-3 control-label">Experience</label>-->
 
-            <div class="experience">
-                <select ui-select2="select2Options" ng-model="user.experience" ng-click="updateUser()"
-                        data-placeholder="Pick a range">
-                    <option value=""></option>
-                    <option value="student">Student</option>
-                    <option value="graduate">Graduate (0 - 1)</option>
-                    <option value="junior">Junior (2 - 4)</option>
-                    <option value="senior">Senior (5 +)</option>
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Message</label>
-            <textarea class="col-sm-9 form-control cv-message" ng-model="user.message"/>
-        </div>
+            <!--<div class="experience">-->
+                <!--<select ui-select2="select2Options" ng-model="user.experience" ng-click="updateUser()"-->
+                        <!--data-placeholder="Pick a range">-->
+                    <!--<option value=""></option>-->
+                    <!--<option value="student">Student</option>-->
+                    <!--<option value="graduate">Graduate (0 - 1)</option>-->
+                    <!--<option value="junior">Junior (2 - 4)</option>-->
+                    <!--<option value="senior">Senior (5 +)</option>-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</div>-->
 
         <div class="row">
             <label class="col-sm-3 control-label">קורות חיים</label>
@@ -61,6 +57,11 @@
             </div>
         </div>
 
+        <div class="form-group">
+            <label class="col-sm-3 control-label">כמה מילים על עצמך...</label>
+            <textarea class="col-sm-9 form-control cv-message" ng-model="user.message"/>
+        </div>
+
         <div class="form-group" access-level="admin">
             <label class="col-sm-3 control-label">Role</label>
             <!--<label class="col-sm-9">{{user.role}}</label>-->
@@ -72,7 +73,7 @@
             </div>
         </div>
         <div class="form-group" access-level="admin">
-            <label class="col-sm-3 control-label">Company</label>
+            <label class="col-sm-3 control-label">בעל חברה</label>
 
             <div class="experience">
                 <select ui-select2="select2Options" ng-model="user.company" ng-click="updateUser()">

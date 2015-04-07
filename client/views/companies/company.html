@@ -2,7 +2,7 @@
     <div class="row">
         <form name="form" class="form-horizontal" novalidate>
             <div class="form-group">
-                <label class="col-sm-2 control-label" for="cName">Name</label>
+                <label class="col-sm-2 control-label" for="cName">שם</label>
                 <input id="companyName" type="text" class="col-sm-10 form-control" ng-model="company.name" name="cName"
                        placeholder="Company name" ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
             </div>
@@ -31,32 +31,32 @@
                 <button class="btn btn-xs col-sm-offset-2" ng-click="addLocation()">Add Location</button>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label" for="cTechnologies">Technologies</label>
+                <label class="col-sm-2 control-label" for="cTechnologies">כישורים דרושים</label>
                 <select class="col-sm-10 select2" id="cTechnologies"
                         ui-select2="technologies_select2Options"
                         multiple
                         ng-model="company.technologies"
                         ng-click="updateCompany()"
-                        data-placeholder="Java, Web, C#, C++">
+                        data-placeholder="מזכירה, שליח, חשמלאי...">
                     <option ng-repeat="technology in technologies" value="{{technology}}">
                         {{technology}}
                     </option>
                 </select>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label" for="cMail">Mail</label>
+                <label class="col-sm-2 control-label" for="cMail">מייל לשליחת קו"ח</label>
                 <input class="col-sm-10 form-control" type="email" class="form-control" ng-model="company.email"
                        id="cMail" name="cMail" placeholder="Job's Mail"
                        ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label" for="cMail">WebSite</label>
+                <label class="col-sm-2 control-label" for="cMail">אתר</label>
                 <input class="col-sm-10 form-control" type="text" class="form-control" ng-model="company.site"
                        id="cSite" name="cSite" placeholder="Web Site"
                        ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label" for="cMail">Description</label>
+                <label class="col-sm-2 control-label" for="cMail">על החברה</label>
                 <textarea rows="5" class="col-sm-10 form-control" type="text" class="form-control" ng-model="company.description"
                        id="cDescription" name="cDescription" placeholder="Few words about the company..."
                        ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
