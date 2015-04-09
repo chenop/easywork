@@ -134,9 +134,10 @@ textarea.cv-message {
   border-top-right-radius: 40px;
   border-bottom-right-radius: 40px; }
 
-.col-centered {
+.center-element {
   float: none;
-  margin: 0 auto; }
+  margin: 0 auto;
+  display: block; }
 
 #search-button {
   margin: 58px 0px 0px 0px;
@@ -150,7 +151,8 @@ textarea.cv-message {
   height: 39px; }
 
 .align-center {
-  text-align: center; }
+  text-align: center;
+  display: block; }
 
 .align-right {
   text-align: right; }
@@ -175,7 +177,6 @@ textarea.cv-message {
   /* optional */ }
 
 ul li {
-  display: inline;
   /*width: auto;*/
   /*text-align: center;*/ }
 
@@ -431,7 +432,6 @@ header a {
   border-color: #3b5a7c; }
 
 .emphasize-border {
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
   padding: 10px; }
 
 .import-cv-box {

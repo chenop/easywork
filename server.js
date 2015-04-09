@@ -81,6 +81,7 @@ app.post('/api/user', users.createUser)
 app.put('/api/user/:id', users.updateUser)
 app.delete('/api/user/:id', users.deleteUser)
 app.post('/api/user/cv-upload/:id', users.upload)
+app.post('/api/user/cv-delete/:id', users.deleteCV)
 
 // Companies
 app.get('/api/company/list', companies.getCompanies)

@@ -270,3 +270,21 @@ exports.deleteUser = function (req, res) {
         });
     });
 }
+
+exports.deleteCV = function(req, res) {
+    return User.findById(req.params.id, function (err, user) {
+        if (user === undefined || user == null)
+            return;
+
+        user.cv = null;
+        user.fileName = null;
+        user.skills = null;
+
+        user.save(function (err, user) {
+            if (err)
+                throw err;
+            return res.send(user);
+        })
+    });
+
+}

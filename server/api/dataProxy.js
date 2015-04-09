@@ -42,7 +42,7 @@ exports.getFiltersData = function (req, res) {
             , 'חדרה'
             , 'נתניה'
         ],
-        technologies: ['Java', 'C#', 'Web', 'UI', 'GUI', 'AngularJS', 'HTML', 'CSS', 'C++']
+        technologies: ['Java', 'C#', 'Web', 'UI', 'GUI', 'AngularJS', 'HTML', 'CSS', 'C++', 'JavaScript']
     }
     return res.send(data);
 };

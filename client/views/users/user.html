@@ -34,19 +34,22 @@
             <label class="col-sm-3 control-label">קורות חיים</label>
 
             <div class="emphasize-border col-sm-9 btn btn-default" ng-file-select="onFileSelect($files)">
-                <div ng-if="user.skills" class="upload-file-skills align-left">
+                <div ng-show="user.skills" class="upload-file-skills align-left">
                     <div class="col-sm-3">
-                        <img style="max-height: 150px ; max-width: 150px"
+                        <img class="center-element" style="max-height: 150px ; max-width: 150px;"
                              src="https://cdn0.iconfinder.com/data/icons/files-documents-outline/512/oYPS__file_document_CV_resume_resume_curriculum_vitae_sheet_paper_page-64.png"/>
-                    </div>
-                    <div class="col-sm-9 ">
-                        <span ng-repeat="skill in user.skills">{{skill}} </span>
-                        <a href="#" class="btn btn-default btn-md" tooltip="Interesting keywords: {{user.skills}}">
-                            <i class="glyphicon glyphicon-star"></i>
+                        <a class="align-center" ng-click="deleteCV($event)">
+                          מחק קוח
                         </a>
                     </div>
+                    <div class="col-sm-9 ">
+                        Skills found:
+                        <ul>
+                            <li style="display: block" class="glyphicon glyphicon-star" ng-repeat="skill in user.skills">{{skill}}</li>
+                        </ul>
+                    </div>
                 </div>
-                <div ng-if="!user.skills">
+                <div ng-show="!user.skills">
                     <div class="col-sm-3">
                         <img style="max-height: 150px ; max-width: 150px"
                              src="https://cdn2.iconfinder.com/data/icons/picons-basic-2/57/basic2-036_cloud_upload-64.png"/>

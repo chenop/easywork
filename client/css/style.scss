@@ -178,9 +178,10 @@ textarea.cv-message {
   border-bottom-right-radius: 40px;
 }
 
-.col-centered {
+.center-element {
   float: none;
   margin: 0 auto;
+  display: block;
 }
 
 #search-button {
@@ -198,6 +199,7 @@ textarea.cv-message {
 
 .align-center {
   text-align: center;
+  display: block;
 }
 
 .align-right {
@@ -229,7 +231,7 @@ textarea.cv-message {
 }
 
 ul li {
-  display: inline;
+//  display: inline;
   /*width: auto;*/
   /*text-align: center;*/
 }
@@ -548,7 +550,6 @@ header a {
 }
 
 .emphasize-border {
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
   padding: 10px;
 }
 

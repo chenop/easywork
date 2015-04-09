@@ -2,20 +2,23 @@
  * Created by Chen on 16/05/14.
  */
 
-var dict = {
-    "java": false
-    , "javascript": false
-    , "c#": false
-    , "C#" : false
-    , "perl": false
-    , "web": false
-    , "angularjs": false
-    , "oop": false
-    , "gwt" :false
-}
 
 angular.module('easywork')
-    .factory('cvParser', function ($q) {
+    .factory('cvParser', function ($q, dataManager) {
+        var dict = {};
+
+        dataManager.getFiltersData()
+            .then(function(result) {
+                var skills = result.data.technologies
+
+                initSkillsDict(skills);
+            });
+
+        function initSkillsDict(skills) {
+            skills.forEach(function (skill) {
+                dict[skill.toLowerCase()] = false;
+            })
+        }
 
         function parseDocx(event) {
             var htmlContent = docx(btoa(event.target.result));
