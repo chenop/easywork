@@ -147,13 +147,15 @@ Company.find({}, function(err, companies) {
 
     companies.forEach(function (company) {
         // Setting locations
-        var locations = reformatAddresses(company);
-        company.locations = locations;
+        for (var i = 0; i < company.technologies.length; i++) {
+            var tech = company.technologies[i];
 
-        // Remove addrsses
-        company.addresses = undefined;
+            if (!tech || tech.length == 0) {
+                company.technologies.splice(i, 1);
+            }
+        }
 
-        // Save the updated document
+         //Save the updated document
         company.save(function (err, savedCompany) {
             if (!err) {
                 console.log("company " + savedCompany.name + " was saved")

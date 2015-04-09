@@ -162,12 +162,15 @@ exports.deleteJob = function (req, res) {
             return Company.findById(company, function (err, company) {
                 if (company === null || company === undefined)
                     return;
+
                 company.jobs.remove(jobId);
+
                 return company.save(function(err, savedCompany) {
 
                     // Remove job from collection jobs
                     return job.remove(function (err) {
                         if (!err) {
+                            updateCompanyTechnologies(company);
                             return res.send(job);
                         } else {
                             console.log(err);

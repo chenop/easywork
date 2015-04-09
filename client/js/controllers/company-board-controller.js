@@ -38,11 +38,11 @@ angular.module('easywork')
                 return (location.street + ", " + location.city);
             }
 
-            if (isDefined(location.city)) {
+            if (!isEmpty(location.city)) {
                 return location.city;
             }
 
-            if (isDefined(location.street)) {
+            if (!isEmpty(location.street)) {
                 return location.street;
             }
         };
@@ -56,6 +56,8 @@ angular.module('easywork')
                 })
             });
         });
+
+        $scope.isEmpty = isEmpty;
 
         appManager.setDisplaySearchBarInHeader(true);
 

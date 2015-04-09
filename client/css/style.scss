@@ -124,7 +124,7 @@ footer {
   border-radius: 50%;
 }
 
-.address, .technology {
+.address, .technology, .skill {
   max-height: 10px;
 }
 
@@ -556,4 +556,9 @@ header a {
 .import-cv-box {
   float: right;
   //padding: 10px;
+}
+
+.street {
+  color: darkgray;
+  display: inline
 }
