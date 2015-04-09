@@ -32,10 +32,10 @@ angular.module('easywork')
         var getCompanies = function() {
             var deferred = $q.defer();
             // Check if logo is cached
-            if (companies !== null) {
-                deferred.resolve(companies);
-                return deferred.promise;
-            }
+            //if (companies !== null) {
+            //    deferred.resolve(companies);
+            //    return deferred.promise;
+            //}
 
             return getEntities(common.CONTENT_TYPE.COMPANY)
                 .then(function(result) {
@@ -215,10 +215,10 @@ angular.module('easywork')
         var getAllJobs = function() {
             var deferred = $q.defer();
             // Check if logo is cached
-            if (jobs !== null) {
-                deferred.resolve(jobs);
-                return deferred.promise;
-            }
+            //if (jobs !== null) {
+            //    deferred.resolve(jobs);
+            //    return deferred.promise;
+            //}
 
             return $http.get('/api/allJobs')
                 .then(function(result) {
