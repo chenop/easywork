@@ -73,7 +73,7 @@ exports.updateCompany = function (req, res) {
             company.addresses = req.body.addresses; // Deprecated
             company.locations = req.body.locations;
             company.email = req.body.email;
-            company.logo = req.body.logo;
+            //company.logo = req.body.logo; // This done separately
             company.technologies = req.body.technologies;
             company.site = req.body.site;
             company.description = req.body.description;
@@ -124,13 +124,15 @@ exports.upload = function (req, res) {
 }
 
 exports.getCompanyLogo = function(req, res, next) {
+    var force = req.params.force;
+
     return Company.findById(req.params.id, function (err, company) {
         if (err)
             throw err;
 
         if (company === undefined || company == null) {
             return res.send(false);
-        } else if (company.logo === undefined || company.logo.url === undefined || company.logo.url.length === 0) {
+        } else if (force || company.logo === undefined || company.logo.url === undefined || company.logo.url.length === 0) {
 
             return googleApis.fetchFirstImage(company.name + ' logo image', function(firstImageUrl) {
                 if (firstImageUrl instanceof Error)

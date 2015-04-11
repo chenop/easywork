@@ -152,14 +152,15 @@ angular.module('easywork')
             return $http.put('/api/' + entityType.name + '/' + entity._id, entity);
         }
 
-        var getCompanyLogo = function (id, company) {
+        var getCompanyLogo = function (id, company, force) {
             var deferred = $q.defer();
+            force = isDefined(force) ? force : false;
             // Check if logo is cached
-            if (!isEmpty(company) && !isEmpty(company.logo) && !isEmpty(company.logo.url)) {
+            if (!force && !isEmpty(company) && !isEmpty(company.logo) && !isEmpty(company.logo.url)) {
                 deferred.resolve(company.logo.url);
                 return deferred.promise;
             }
-            return $http.get('/api/company/logo/' + id)
+            return $http.get('/api/company/logo/' + id + '/' + force)
                 .then(function (result) {
                     if (result.data) {
                         setLogo(company, result.data);

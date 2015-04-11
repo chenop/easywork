@@ -90,7 +90,7 @@ app.post('/api/company', companies.createCompany)
 app.put('/api/company/:id', companies.updateCompany)
 app.delete('/api/company/:id', companies.deleteCompany)
 app.post('/api/company/logo-upload/:id', companies.upload)
-app.get('/api/company/logo/:id', companies.getCompanyLogo)
+app.get('/api/company/logo/:id/:force', companies.getCompanyLogo)
 app.get('/api/allCompanies', companies.getAllCompanies)
 
 // Jobs

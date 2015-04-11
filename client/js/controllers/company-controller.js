@@ -83,9 +83,16 @@ angular.module('easywork')
 
         $scope.updateCompany = function () {
             dataManager.updateCompany($scope.company)
-                .success(function (entity) {
+                .then(function (entity) {
                     $scope.$emit('dataChanged', entity);
-                });
+                    return entity.data;
+                })
+                .then(function(company) {
+                    dataManager.getCompanyLogo(company._id, company, true)
+                        .then(function(url) {
+                            $scope.company.logo.url = url;
+                        })
+                })
         }
 
         $scope.deleteCompany = function () {
