@@ -18,7 +18,6 @@ angular.module('easywork')
             dataManager.getCompany(activeCompanyId)
                 .then(function(company){
                     $scope.company = company;
-                    dataManager.getCompanyLogo(company._id, company);
                 })
         }
 

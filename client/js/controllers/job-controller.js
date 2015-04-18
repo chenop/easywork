@@ -5,9 +5,25 @@
 angular.module('easywork')
     .controller('JobCtrl', function ($scope, dataManager, common, appManager, $timeout, $stateParams) {
 
-        var entityId = $stateParams.entityId;
-        var selectedEntity = appManager.getSelectedEntity();
-        refreshJob(selectedEntity);
+        init();
+
+        function init() {
+            var entityId = $stateParams.entityId;
+            $scope.job = appManager.getSelectedEntity();
+            refreshJob($scope.job);
+            dataManager.getFiltersData()
+                .then(function (result) {
+                    $scope.technologies = result.data.technologies
+                });
+
+            dataManager.getCompanies().then(function(result) {
+                $scope.companies = result;
+            });
+
+            if ($scope.job) {
+                $scope.jobCompanyId = $scope.job.company._id;
+            }
+        }
 
         function refreshJob(selectedEntity) {
             if (selectedEntity == null)
@@ -19,17 +35,19 @@ angular.module('easywork')
             }, 100);
         }
 
-        dataManager.getFiltersData()
-            .then(function(result) {
-                $scope.technologies = result.data.technologies
-            });
-
         $scope.technologies_select2Options = {
             'multiple': true,
             'width': '83.33333%'
         };
 
-        $scope.updateJob = function (event) {
+        $scope.select2Options = {
+            width: '83.33333%',
+            minimumResultsForSearch: -1 // Disable the search field in the combo box
+        };
+
+
+        $scope.updateJob = function () {
+            $scope.job.company = $scope.jobCompanyId; // Update the selected company;
             dataManager.updateJob($scope.job)
                 .success(function (entity) {
                     $scope.$emit('dataChanged', entity);

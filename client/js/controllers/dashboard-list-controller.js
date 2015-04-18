@@ -90,7 +90,7 @@ angular.module('easywork')
             }
             else {
                 var companyId = appManager.getActiveCompanyId();
-                return dataManager.getJobs(companyId);
+                return dataManager.getAllJobs(companyId);
             }
         };
 

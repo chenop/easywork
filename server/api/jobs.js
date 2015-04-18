@@ -69,7 +69,7 @@ exports.createJob = function (req, res) {
 
             return newJob.save(function (err) {
                 if (!err) {
-                    console.log("job " + newJob.name + " create in server")
+                    console.log("job " + newJob["name"] + " create in server")
                     return res.send(newJob);
                 } else {
                     console.log(err);
@@ -80,7 +80,7 @@ exports.createJob = function (req, res) {
     })
 }
 
-function updateCompanyTechnologies(company) {
+function updateCompanyAfterJobChange(company, jobId) {
     Company.findById(company, function (err, company) {
         if (company === undefined || company == null)
             return;
@@ -89,6 +89,9 @@ function updateCompanyTechnologies(company) {
             return console.log(err);
 
         Job.find({company: company}, function (err, companyJobs) {
+
+            var jobIndex = company.jobs.indexOf(jobId);
+            company.jobs.splice(jobIndex, 1);
 
             var mergedTechnologies = [];
             for (var i = 0; i < companyJobs.length; i++) {
@@ -102,6 +105,10 @@ function updateCompanyTechnologies(company) {
         });
     });
 }
+function companyUpdateIsNeeded(job, newTechnologies, newCompany) {
+    return !job.technologies.equals(newTechnologies) || job.company !== newCompany;
+}
+
 exports.updateJob = function (req, res) {
     return Job.findById(req.params.id, function (err, job) {
         if (job === undefined || job == null)
@@ -112,21 +119,54 @@ exports.updateJob = function (req, res) {
         job.city = req.body.city;
         job.description = req.body.description;
 
-        if (!job.technologies.equals(req.body.technologies)) {
+        if (companyUpdateIsNeeded(job, req.body.technologies, req.body.company)) {
             job.technologies = req.body.technologies;
+            var newCompany = req.body.company;
+            var oldCompany = job.company;
 
-            updateCompanyTechnologies(job.company);
+            // TODO chen the following update of companies need to be done in Company - only event should be fired from here
+            Company.findById(oldCompany, function (err, company) {
+                if (company === undefined || company == null)
+                    return;
+
+                if (err)
+                    return console.log(err);
+
+                company.removeJob(job._id);
+
+                Job.find({'_id':{ $in: company.jobs}}, function(err, jobs) {
+                    company.mergeTechnologies(jobs);
+                    company.save();
+                })
+            });
+
+            Company.findById(newCompany, function (err, company) {
+                if (company === undefined || company == null)
+                    return;
+
+                if (err)
+                    return console.log(err);
+
+                company.addJob(job._id);
+                Job.find({'_id':{ $in: company.jobs}}, function(err, jobs) {
+                    company.mergeTechnologies(jobs);
+                    company.save();
+                })
+
+            });
+
+            job.company = newCompany;
+
+            return job.save(function (err) {
+                if (!err) {
+                    console.log("updated");
+                } else {
+                    console.log(err);
+                    return res.json(401, err);
+                }
+                return res.send(job);
+            });
         }
-
-        return job.save(function (err) {
-            if (!err) {
-                console.log("updated");
-            } else {
-                console.log(err);
-                return res.json(401, err);
-            }
-            return res.send(job);
-        });
     });
 };
 
@@ -145,10 +185,15 @@ function updateJob(id, newJob, callBack) {
             job.code = newJob.code;
         if ('undefined' !== typeof newJob.description)
             job.description = newJob.description;
+        if ('undefined' !== typeof newJob.company)
+            job.company = newJob.company;
+        if ('undefined' !== typeof newJob.city)
+            job.city = newJob.city;
         return job.save(callBack);
     });
 }
 
+// Delete job shold update company the same way (observer) should be impleneted in updateJob
 exports.deleteJob = function (req, res) {
     var jobId = req.params.id;
     return Job.findById(jobId, function (err, job) {
@@ -170,7 +215,7 @@ exports.deleteJob = function (req, res) {
                     // Remove job from collection jobs
                     return job.remove(function (err) {
                         if (!err) {
-                            updateCompanyTechnologies(company);
+                            updateCompanyAfterJobChange(company, job._id);
                             return res.send(job);
                         } else {
                             console.log(err);
@@ -213,7 +258,11 @@ var getJobsByCompanyId = function(companyId, callback) {
 }
 
 exports.getAllJobs = function(req, res) {
-    Job.find().select('company name description city technologies').populate('company').lean()
+    var conditions = {};
+    if (req.params.id) {
+        conditions.company = req.params.id;
+    }
+    Job.find(conditions).select('company name description city technologies').populate('company').lean()
         .exec(function (err, jobs) {
             if (err) {
                 console.log("error while trying to populate jobs:" + err);

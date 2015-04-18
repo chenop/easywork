@@ -36,4 +36,24 @@ var companySchema = new Schema({
     , jobs: [{ type: Schema.Types.ObjectId, ref: 'Job'}]
 });
 
-module.exports = mongoose.model('Company', companySchema);
+companySchema.methods.mergeTechnologies = function(jobs) {
+
+    var mergedTechnologies = [];
+    for (var i = 0; i < jobs.length; i++) {
+        mergedTechnologies = mergedTechnologies.merge(jobs[i].technologies);
+    }
+
+    this.technologies = mergedTechnologies;
+}
+
+companySchema.methods.removeJob = function(jobIdToRemove) {
+    var jobIndex = this.jobs.indexOf(jobIdToRemove);
+    this.jobs.splice(jobIndex, 1);
+}
+
+companySchema.methods.addJob = function(jobId) {
+    this.jobs.push(jobId)
+}
+
+var Company = mongoose.model('Company', companySchema);
+module.exports = Company;
