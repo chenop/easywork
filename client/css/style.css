@@ -441,4 +441,7 @@ header a {
   color: darkgray;
   display: inline; }
 
+.company-card-header {
+  font-size: 24px; }
+
 /*# sourceMappingURL=style.css.map */
