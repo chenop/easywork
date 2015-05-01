@@ -1,65 +1,68 @@
-<span data-ng-controller="CompaniesBoardCtrl">
+<div data-ng-controller="CompaniesBoardCtrl">
 
     <h3 class="big-title">חברות</h3>
     <!--<div class="nav-header">חברות</div>-->
-    <table class="table table-hover">
-        <colgroup>
-            <col span="1" style="width: 5%;">
-            <col span="1" style="width: 15%;">
-            <col span="1" style="width: 30%;">
-            <col span="1" style="width: 40%;">
-            <col span="1" style="width: 10%;">
-        </colgroup>
-        <thead>
-        <tr>
-            <th><input type="checkbox" ng-model="shouldSelectAll" ng-click="selectAll($event)"></th>
-            <th class="logo">לוגו</th>
-            <th>שם</th>
-            <th>משרדים</th>
-            <th>מחפשים</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr ng-repeat="company in companies | filter:isRelevant"
-            ng-class="(company.selected) ? 'selected' : ''" ng-click="toggleSelected(company)">
-            <td>
-                <input type="checkbox" ng-model="company.selected">
-            </td>
-            <td>
-                <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank"><img
-                        ng-src="{{company.logo.url}}" class="logo"
-                        ng-class="{'round-logo' : company.logo.shape === 'round'}"></a>
-            </td>
-            <td>
-                <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank">{{::company.name}}</a>
-            </td>
-            <td>
-                <ul ng-repeat="location in company.locations" class="technology">
-                    <li>
-                        <div ng-show="!isEmpty(location.street)" class="street">
-                            {{location.street}}
-                        </div>
-                        <div ng-show="!isEmpty(location.street) && !isEmpty(location.city)" class="street">,
-                        </div>
-                        <span ng-show="!isEmpty(location.city)">
-                            {{location.city}}
-                        </span>
-                    </li>
-                </ul>
-            </td>
-            <td>
-                <ul ng-repeat="requiredSkill in company.technologies" class="skill">
-                    <li>{{::requiredSkill}}</li>
-                </ul>
-            </td>
-            <td>
-                <button tooltip="More Details"
-                        ng-click="showDetails(company, $event)" class="btn btn-sm action-button">
-                    Details <i class="glyphicon glyphicon-info-sign"></i>
-                </button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div ng-repeat="com in companies">
+        <company-card company="com"/>
+    </div>
+    <!--<table class="table table-hover">-->
+        <!--<colgroup>-->
+            <!--<col span="1" style="width: 5%;">-->
+            <!--<col span="1" style="width: 15%;">-->
+            <!--<col span="1" style="width: 30%;">-->
+            <!--<col span="1" style="width: 40%;">-->
+            <!--<col span="1" style="width: 10%;">-->
+        <!--</colgroup>-->
+        <!--<thead>-->
+        <!--<tr>-->
+            <!--<th><input type="checkbox" ng-model="shouldSelectAll" ng-click="selectAll($event)"></th>-->
+            <!--<th class="logo">לוגו</th>-->
+            <!--<th>שם</th>-->
+            <!--<th>משרדים</th>-->
+            <!--<th>מחפשים</th>-->
+            <!--<th></th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--<tr ng-repeat="company in companies | filter:isRelevant"-->
+            <!--ng-class="(company.selected) ? 'selected' : ''" ng-click="toggleSelected(company)">-->
+            <!--<td>-->
+                <!--<input type="checkbox" ng-model="company.selected">-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--<a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank"><img-->
+                        <!--ng-src="{{company.logo.url}}" class="logo"-->
+                        <!--ng-class="{'round-logo' : company.logo.shape === 'round'}"></a>-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--<a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank">{{::company.name}}</a>-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--<ul ng-repeat="location in company.locations" class="technology">-->
+                    <!--<li>-->
+                        <!--<div ng-show="!isEmpty(location.street)" class="street">-->
+                            <!--{{location.street}}-->
+                        <!--</div>-->
+                        <!--<div ng-show="!isEmpty(location.street) && !isEmpty(location.city)" class="street">,-->
+                        <!--</div>-->
+                        <!--<span ng-show="!isEmpty(location.city)">-->
+                            <!--{{location.city}}-->
+                        <!--</span>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--<ul ng-repeat="requiredSkill in company.technologies" class="skill">-->
+                    <!--<li>{{::requiredSkill}}</li>-->
+                <!--</ul>-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--<button tooltip="More Details"-->
+                        <!--ng-click="showDetails(company, $event)" class="btn btn-sm action-button">-->
+                    <!--Details <i class="glyphicon glyphicon-info-sign"></i>-->
+                <!--</button>-->
+            <!--</td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+    <!--</table>-->
 </div>
