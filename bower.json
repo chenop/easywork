@@ -16,7 +16,6 @@
     "tests"
   ],
   "dependencies": {
-    "angular-resource": "latest",
     "angular-ui-select2": "~0.0.4",
     "angular-scenario": "latest",
     "bootstrap-rtl": "latest",
