@@ -2,7 +2,7 @@
 
     <h3 class="big-title">חברות</h3>
     <!--<div class="nav-header">חברות</div>-->
-    <div ng-repeat="com in companies">
+    <div ng-repeat="com in companies  | filter:isRelevant">
         <company-card company="com"/>
     </div>
     <!--<table class="table table-hover">-->

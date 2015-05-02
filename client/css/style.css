@@ -445,3 +445,8 @@ header a {
   font-size: 24px; }
 
 /*# sourceMappingURL=style.css.map */
+.company-card-container {
+  background: #f7eecd;
+  box-shadow: 5px 5px 1px #e8d9a7;
+  padding: 10px 0 10px 0;
+}

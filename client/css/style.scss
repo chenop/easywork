@@ -562,7 +562,12 @@ header a {
   color: darkgray;
   display: inline
 }
-
 .company-card-header {
   font-size: 24px;
+}
+
+.company-card-container {
+  background: lighten($base60-lighter, 20%);
+  box-shadow: 5px 5px 1px lighten($base60-lighter);
+  padding: 10px 0 10px 0;
 }
