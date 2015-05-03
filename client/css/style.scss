@@ -8,6 +8,7 @@ $font-color-on-light-background: $base30-2;
 $header-background-color: $base10;
 $font-color-on-dark-background: $base60-lighter;
 $link-color: darken( $base-60-light, 50%);
+$base60-darker: darken($base60-lighter, 20%);
 
 .header {
   background: $header-background-color;
@@ -126,8 +127,12 @@ footer {
 
 .address, .technology, .skill {
   max-height: 10px;
+  padding-right: 15px;
 }
 
+.skill-tag {
+  color: orange;
+}
 .my-drop-zone {
   border: dashed 3px lightgray;
   margin-top: 25px;
@@ -568,6 +573,10 @@ header a {
 
 .company-card-container {
   background: lighten($base60-lighter, 20%);
-  box-shadow: 5px 5px 1px lighten($base60-lighter);
+  box-shadow: 5px 5px 1px $base60-darker;
   padding: 10px 0 10px 0;
+}
+
+.skill-icon {
+  margin-right: 7px;
 }

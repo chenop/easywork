@@ -8,10 +8,15 @@ angular.module('easywork')
             scope: {
                 company: '='
             },
-            //template: '<h3>Company: {{company.name}}</h3>'
             templateUrl: '/views/companies/company-card.html'
-            //link: function (scope, element, attrs) {
-            //
-            //}
         }
-    });
+    })
+    .directive('skillTag', function() {
+        return {
+            restrict: 'E',
+            scope: {
+                requiredSkill: '='
+            },
+            template: '<span class="skill-tag"><i class="glyphicon glyphicon-tag skill-icon"></i>{{::requiredSkill}}</span>'
+        }
+    })
