@@ -219,6 +219,10 @@ textarea.cv-message {
   vertical-align: middle;
 }
 
+.row-vertical-align {
+  display: flex;
+  align-items: center;
+}
 .no-padding {
   padding: 0 !important;
   margin: 0 !important;
@@ -372,7 +376,6 @@ tr:hover button.action-button {
   border: 1px solid #ccc;
   border-radius: 4px;
   background: lighten($base60-lighter, 20%);
-  direction: rtl;
 }
 
 .dropdown {
@@ -582,4 +585,14 @@ header a {
 }
 .skill-icon {
   margin-right: 7px;
+}
+
+.glyphicon-unchecked {
+  font-size: 27px;
+  color: lightgray;
+}
+
+.glyphicon-check {
+  font-size: 27px;
+  color: $base30-1;
 }

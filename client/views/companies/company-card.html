@@ -1,4 +1,7 @@
-<div class="row company-card-container">
+<div class="row company-card-container row-vertical-align">
+    <div class="col-sm-1">
+        <i ng-class="{'glyphicon glyphicon-unchecked': !company.selected, 'glyphicon glyphicon-check' : company.selected}"></i>
+    </div>
     <div class="col-sm-2">
         <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank"><img
                 ng-src="{{company.logo.url}}" class="logo"
@@ -18,7 +21,7 @@
             <!--</li>-->
         </div>
     </div>
-    <div class="col-sm-6" style="direction: ltr">
+    <div class="col-sm-5" style="direction: ltr">
         <span ng-repeat="requiredSkill in company.technologies" class="skill">
             <skill-tag required-skill="requiredSkill"/>
         </span>

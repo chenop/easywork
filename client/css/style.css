@@ -167,6 +167,10 @@ textarea.cv-message {
 .vertical-align {
   vertical-align: middle; }
 
+.row-vertical-align {
+  display: flex;
+  align-items: center; }
+
 .no-padding {
   padding: 0 !important;
   margin: 0 !important; }
@@ -287,8 +291,7 @@ tr:hover button.action-button {
 .select2-container-multi .select2-choices {
   border: 1px solid #ccc;
   border-radius: 4px;
-  background: white;
-  direction: rtl; }
+  background: white; }
 
 .dropdown {
   padding-top: 15px;
@@ -458,5 +461,13 @@ header a {
 
 .skill-icon {
   margin-right: 7px; }
+
+.glyphicon-unchecked {
+  font-size: 27px;
+  color: lightgray; }
+
+.glyphicon-check {
+  font-size: 27px;
+  color: #8FB98B; }
 
 /*# sourceMappingURL=style.css.map */
