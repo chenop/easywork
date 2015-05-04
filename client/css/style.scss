@@ -572,11 +572,14 @@ header a {
 }
 
 .company-card-container {
-  background: lighten($base60-lighter, 20%);
+  background-color: lighten($base60-lighter, 20%);
   box-shadow: 5px 5px 1px $base60-darker;
   padding: 10px 0 10px 0;
 }
 
+.company-card-container:hover {
+  background-color: $base60-lighter;
+}
 .skill-icon {
   margin-right: 7px;
 }

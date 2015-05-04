@@ -27,22 +27,16 @@ angular.module('easywork')
         }
     })
     .controller('CompaniesBoardCtrl', function ($scope, $http, mailService, dataManager, appManager, $modal) {
-        function isUndefined(value){return typeof value === 'undefined';}
-        function isDefined(value){return typeof value !== 'undefined';}
-        function isEmpty(value) {
-            return isUndefined(value) || value === '' || value === null || value !== value;
-        };
-
         var prepareFormattedLocation = function (location) {
-            if (!isEmpty(location.street) && !isEmpty(location.city)) {
+            if (!$scope.isEmpty(location.street) && !$scope.isEmpty(location.city)) {
                 return (location.street + ", " + location.city);
             }
 
-            if (!isEmpty(location.city)) {
+            if (!$scope.isEmpty(location.city)) {
                 return location.city;
             }
 
-            if (!isEmpty(location.street)) {
+            if (!$scope.isEmpty(location.street)) {
                 return location.street;
             }
         };
@@ -56,8 +50,6 @@ angular.module('easywork')
                 })
             });
         });
-
-        $scope.isEmpty = isEmpty;
 
         appManager.setDisplaySearchBarInHeader(true);
 

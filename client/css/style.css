@@ -449,9 +449,12 @@ header a {
   font-size: 24px; }
 
 .company-card-container {
-  background: white;
+  background-color: white;
   box-shadow: 5px 5px 1px #dfc88b;
   padding: 10px 0 10px 0; }
+
+.company-card-container:hover {
+  background-color: #F5EEDB; }
 
 .skill-icon {
   margin-right: 7px; }
