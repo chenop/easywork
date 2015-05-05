@@ -16,6 +16,7 @@ var express = require('express')
     , methodOverride = require('method-override')
     , session = require('express-session')
 	, mongoose = require('mongoose')
+    , url = require('url')
 
 var app = express(); // comment
 var start = Date.now();
@@ -29,7 +30,8 @@ var dbUrl;
 var baseUrl;
 if ('development' == app.get('env')) {
     console.log("Development Mode!");
-    dbUrl = "mongodb://localhost/db";
+    //dbUrl = "mongodb://localhost/db";
+    dbUrl = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
     app.use(morgan('dev'));
     app.use(errorhandler())
     baseUrl = 'http://localhost:3000';
