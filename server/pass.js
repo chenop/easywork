@@ -8,11 +8,10 @@ var User = require('./model/user')
     , LinkedInStrategy = require('passport-linkedin').Strategy
     , GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 
-module.exports = function (passport, app) {
+module.exports = function (passport, app, baseUrl) {
 
     var LINKEDIN_API_KEY = '773ypiul1vn3og';
     var LINKEDIN_SECRET_KEY = '5IxzyfsRcBh7tQqA';
-
     // API Access link for creating client ID and secret:
     // https://code.google.com/apis/console/
     var GOOGLE_CLIENT_ID      = "359347801376-rjbie888j10dfgjfq95i4gjo9ckdi4nn.apps.googleusercontent.com"
@@ -41,7 +40,7 @@ module.exports = function (passport, app) {
     passport.use(new LinkedInStrategy({
             consumerKey: LINKEDIN_API_KEY,
             consumerSecret: LINKEDIN_SECRET_KEY,
-            callbackURL: "http://localhost:3000/auth/linkedin/callback"
+            callbackURL: baseUrl + "/auth/linkedin/callback"
         },
         function(token, tokenSecret, profile, done) {
             // asynchronous verification, for effect...
@@ -136,7 +135,7 @@ module.exports = function (passport, app) {
             //then edit your /etc/hosts local file to point on your private IP.
             //Also both sign-in button + callbackURL has to be share the same url, otherwise two cookies will be created and lead to lost your session
             //if you use it.
-            callbackURL: "http://localhost:3000/auth/google/callback",
+            callbackURL: baseUrl + "/auth/google/callback",
             passReqToCallback   : true
         },
         function(request, accessToken, refreshToken, profile, done) {
