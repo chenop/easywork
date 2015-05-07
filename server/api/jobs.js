@@ -257,6 +257,8 @@ var getJobsByCompanyId = function(companyId, callback) {
     });
 }
 
+exports.getJobsByCompanyId = getJobsByCompanyId;
+
 exports.getAllJobs = function(req, res) {
     var conditions = {};
     if (req.params.id) {

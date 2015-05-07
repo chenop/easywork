@@ -9,17 +9,26 @@ angular.module('easywork')
                 company: '='
             },
             templateUrl: '/views/companies/company-card.html',
-            link: function(scope, element, attrs) {
-                    scope.isEmpty = $rootScope.isEmpty;
+            link: function (scope, element, attrs) {
+                scope.isEmpty = $rootScope.isEmpty;
             }
         }
     })
-    .directive('skillTag', function() {
+    .directive('skillTag', function (dataManager) {
         return {
             restrict: 'E',
             scope: {
-                requiredSkill: '='
+                requiredSkill: '=',
+                company: '='
             },
-            template: '<span class="skill-tag"><i class="glyphicon glyphicon-tag skill-icon"></i>{{::requiredSkill}}</span>'
+            template: '<span><a class="skill-tag" ng-click="showJobDetails(requiredSkill, company)"><i class="glyphicon glyphicon-tag skill-icon"></i>{{::requiredSkill}}</a></span>',
+            link: function (scope, element, attrs) {
+                scope.showJobDetails = function () {
+                    dataManager.getJobsBySkill(scope.requiredSkill,scope.company._id).
+                        then(function (data) {
+                            console.log(scope.requiredSkill, data.data[0].name);
+                        })
+                }
+            }
         }
     })

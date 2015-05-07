@@ -6,24 +6,21 @@
         <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank"><img
                 ng-src="{{company.logo.url}}" class="logo"
                 ng-class="{'round-logo' : company.logo.shape === 'round'}"></a>
-        <!--Company:  {{company.name}}-->
     </div>
     <div class="col-sm-4">
         <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank" class="company-card-header">{{::company.name}}</a>
 
         <div ng-repeat="location in company.locations">
-            <!--<li>-->
             <div ng-show="!isEmpty(location.street)" class="street">
                 {{location.street}}
             </div>
             <div ng-show="!isEmpty(location.street) && !isEmpty(location.city)" class="street">,</div>
             <span class="street" ng-show="!isEmpty(location.city)">{{location.city}}</span>
-            <!--</li>-->
         </div>
     </div>
     <div class="col-sm-5" style="direction: ltr">
         <span ng-repeat="requiredSkill in company.technologies" class="skill">
-            <skill-tag required-skill="requiredSkill"/>
+            <skill-tag required-skill="requiredSkill" company="company"/>
         </span>
     </div>
 </div>
