@@ -21,14 +21,39 @@ angular.module('easywork')
                 requiredSkill: '=',
                 company: '='
             },
-            template: '<span><a class="skill-tag" ng-click="showJobDetails(requiredSkill, company)"><i class="glyphicon glyphicon-tag skill-icon"></i>{{::requiredSkill}}</a></span>',
-            link: function (scope, element, attrs) {
+            controller: function($scope, $modal) {
                 scope.showJobDetails = function () {
                     dataManager.getJobsBySkill(scope.requiredSkill,scope.company._id).
                         then(function (data) {
                             console.log(scope.requiredSkill, data.data[0].name);
                         })
                 }
-            }
+                
+                $scope.showJobDetails = function (company, event) {
+                    // Do not propagate the event to the table
+                    if(event){
+                        event.stopPropagation();
+                        event.preventDefault();
+                    }
+                    var modalInstance = $modal.open({
+                        templateUrl: '/views/companies/company-details.html',
+                        controller: 'CompanyDetailsCtrl',
+                        windowClass: 'company-details-dialog',
+                        resolve: {
+                            company: function() {
+                                return company;
+                            }
+                        }
+
+                    });
+
+                    modalInstance.result.then(function (username) {
+                        if (username != undefined)
+                            console.log('User: ' + username + ' has logged in');
+                    });
+                }
+
+            },
+            template: '<span class="skill-tag"><a ng-click="showJobDetails(company, $event)"><i class="glyphicon glyphicon-tag skill-icon"></i>{{::requiredSkill}}</a></span>'
         }
     })

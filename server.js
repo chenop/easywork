@@ -16,6 +16,7 @@ var express = require('express')
     , methodOverride = require('method-override')
     , session = require('express-session')
 	, mongoose = require('mongoose')
+    , url = require('url')
 
 var app = express(); // comment
 var start = Date.now();
@@ -26,16 +27,20 @@ var log = function (message) {
 log("Trying to connect to db...");
 
 var dbUrl;
+var baseUrl;
 if ('development' == app.get('env')) {
     console.log("Development Mode!");
-    dbUrl = "mongodb://localhost/db";
+    //dbUrl = "mongodb://localhost/db";
+    dbUrl = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
     app.use(morgan('dev'));
     app.use(errorhandler())
+    baseUrl = 'http://localhost:3000';
 };
 
 if ('production' == app.get('env')) {
     console.log("Production Mode!")
     dbUrl = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
+    baseUrl = 'http://easywork.herokuapp.com';
 };
 
 console.log("DB URL: " + dbUrl);
@@ -66,7 +71,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(clientDir));
 
-require('./server/pass.js')(passport, app);
+require('./server/pass.js')(passport, app, baseUrl);
 
 app.post('/api/login', users.login)
 app.post('/api/logout', users.logout)
