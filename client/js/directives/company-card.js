@@ -31,7 +31,7 @@ angular.module('easywork')
                     dataManager.getJobsBySkill(scope.requiredSkill,scope.company._id).
                         then(function (data) {
                             console.log(scope.requiredSkill, data.data[0].name);
-                        })ף
+                        })
                     var modalInstance = $modal.open({
                         templateUrl: '/views/companies/company-details.html',
                         controller: 'CompanyDetailsCtrl',
