@@ -22,19 +22,16 @@ angular.module('easywork')
                 company: '='
             },
             controller: function($scope, $modal) {
-                scope.showJobDetails = function () {
-                    dataManager.getJobsBySkill(scope.requiredSkill,scope.company._id).
-                        then(function (data) {
-                            console.log(scope.requiredSkill, data.data[0].name);
-                        })
-                }
-                
                 $scope.showJobDetails = function (company, event) {
                     // Do not propagate the event to the table
                     if(event){
                         event.stopPropagation();
                         event.preventDefault();
                     }
+                    dataManager.getJobsBySkill(scope.requiredSkill,scope.company._id).
+                        then(function (data) {
+                            console.log(scope.requiredSkill, data.data[0].name);
+                        })ף
                     var modalInstance = $modal.open({
                         templateUrl: '/views/companies/company-details.html',
                         controller: 'CompanyDetailsCtrl',
