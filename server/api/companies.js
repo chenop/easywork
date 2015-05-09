@@ -170,17 +170,14 @@ exports.getJobsBySkill = function(req, res) {
     var companyId = req.params.id;
     var skill = req.params.skill;
 
-    Company.findById(companyId, function (err, company) {
-
-        return Jobs.getJobsByCompanyId(companyId)
-            .then(function (jobs) {
-                var relevantJobs = [];
-                jobs.forEach(function (job) {
-                    if (job.technologies.indexOf(skill) > 0) {
-                        relevantJobs.push(job);
-                    }
-                });
-                return res.send(relevantJobs);
+    return Jobs.getJobsByCompanyId(companyId)
+        .then(function (jobs) {
+            var relevantJobs = [];
+            jobs.forEach(function (job) {
+                if (job.technologies.indexOf(skill) >= 0) {
+                    relevantJobs.push(job);
+                }
             });
-    });
+            return res.send(relevantJobs);
+        });
 }
