@@ -20,7 +20,7 @@ angular.module('easywork')
                 $scope.companies = result;
             });
 
-            if ($scope.job) {
+            if ($scope.job && $scope.job.company) {
                 $scope.jobCompanyId = $scope.job.company._id;
             }
         }

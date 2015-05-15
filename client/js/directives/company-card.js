@@ -28,26 +28,19 @@ angular.module('easywork')
                         event.stopPropagation();
                         event.preventDefault();
                     }
-                    dataManager.getJobsBySkill($scope.requiredSkill,$scope.company._id).
-                        then(function (data) {
-                            console.log($scope.requiredSkill);
-                            if (data && data.data && data.data.length > 0 && data.data[0].name) {
-                                console.log(data.data[0].name);
-                            }
-                            else {
-                                console.log('company was not found');
-                            }
-                        });
+
                     var modalInstance = $modal.open({
-                        templateUrl: '/views/companies/company-details.html',
-                        controller: 'CompanyDetailsCtrl',
+                        templateUrl: '/views/jobs/job-details.html',
+                        controller: 'JobDetailsCtrl',
                         windowClass: 'company-details-dialog',
                         resolve: {
-                            company: function() {
-                                return company;
+                            data: function() {
+                                return {
+                                    company: company
+                                    , requiredSkill: $scope.requiredSkill
+                                }
                             }
                         }
-
                     });
 
                     modalInstance.result.then(function (username) {
