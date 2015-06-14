@@ -470,4 +470,7 @@ header a {
   font-size: 27px;
   color: #8FB98B; }
 
+skill-tag a:hover {
+  cursor: pointer; }
+
 /*# sourceMappingURL=style.css.map */

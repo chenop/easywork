@@ -55,10 +55,10 @@ angular.module('easywork')
         var getUsers = function() {
             var deferred = $q.defer();
             // Check if logo is cached
-            if (users !== null) {
-                deferred.resolve(users);
-                return deferred.promise;
-            }
+            //if (users !== null) {
+            //    deferred.resolve(users);
+            //    return deferred.promise;
+            //}
 
             return getEntities(common.CONTENT_TYPE.USER)
                 .then(function(result) {

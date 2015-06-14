@@ -596,3 +596,9 @@ header a {
   font-size: 27px;
   color: $base30-1;
 }
+
+skill-tag {
+  a:hover {
+    cursor:pointer;
+  }
+}
