@@ -8,6 +8,7 @@ var fs = require('fs')
     , passport = require('passport')
     , Job = require('../model/job')
     , Company = require('../model/company')
+    , mongoose = require('mongoose');
 
 Array.prototype.equals = function (array, strict) {
     if (!array)
@@ -155,7 +156,7 @@ exports.updateJob = function (req, res) {
 
             });
 
-            job.company = newCompany;
+            job.company = mongoose.Schema.Types.ObjectId(newCompany);
 
             return job.save(function (err) {
                 if (!err) {
@@ -256,6 +257,8 @@ var getJobsByCompanyId = function(companyId, callback) {
         }
     });
 }
+
+exports.getJobsByCompanyId = getJobsByCompanyId;
 
 exports.getAllJobs = function(req, res) {
     var conditions = {};

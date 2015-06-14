@@ -26,7 +26,10 @@ var companySchema = new Schema({
     , city: String
     , email: String
     , technologies: [
-        {type: String}
+        {
+            type: String,
+            jobs: [{ type: Schema.Types.ObjectId, ref: 'Job'}] // TODO this is the solution... now maintain that...
+        }
     ]
     , logo: {
         data: Buffer,

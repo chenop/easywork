@@ -9,12 +9,12 @@ angular.module('easywork')
                 company: '='
             },
             templateUrl: '/views/companies/company-card.html',
-            link: function(scope, element, attrs) {
-                    scope.isEmpty = $rootScope.isEmpty;
+            link: function (scope, element, attrs) {
+                scope.isEmpty = $rootScope.isEmpty;
             }
         }
     })
-    .directive('skillTag', function() {
+    .directive('skillTag', function (dataManager) {
         return {
             restrict: 'E',
             scope: {
@@ -28,16 +28,19 @@ angular.module('easywork')
                         event.stopPropagation();
                         event.preventDefault();
                     }
+
                     var modalInstance = $modal.open({
-                        templateUrl: '/views/companies/company-details.html',
-                        controller: 'CompanyDetailsCtrl',
+                        templateUrl: '/views/jobs/job-details.html',
+                        controller: 'JobDetailsCtrl',
                         windowClass: 'company-details-dialog',
                         resolve: {
-                            company: function() {
-                                return company;
+                            data: function() {
+                                return {
+                                    company: company
+                                    , requiredSkill: $scope.requiredSkill
+                                }
                             }
                         }
-
                     });
 
                     modalInstance.result.then(function (username) {

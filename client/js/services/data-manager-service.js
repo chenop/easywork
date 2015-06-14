@@ -13,7 +13,7 @@ angular.module('easywork')
         var jobs = null;
         var companies = null;
         var users = null;
-
+        var skillsToJobs = null;
         var filterData = null;
 
         // Optimizing filterData call
@@ -215,11 +215,10 @@ angular.module('easywork')
 
         var getAllJobs = function() {
             var deferred = $q.defer();
-            // Check if logo is cached
-            //if (jobs !== null) {
-            //    deferred.resolve(jobs);
-            //    return deferred.promise;
-            //}
+            if (jobs !== null) {
+                deferred.resolve(jobs);
+                return deferred.promise;
+            }
 
             return $http.get('/api/allJobs')
                 .then(function(result) {
@@ -252,6 +251,10 @@ angular.module('easywork')
                     return createEntity(common.CONTENT_TYPE.USER, entity);
             }
 
+        }
+
+        function getJobsBySkill(skill, companyId) {
+            return $http.get('/api/company/jobsBySkill/' + companyId + '/' + skill);
         }
 
         function createEmptyJob() {
@@ -334,6 +337,7 @@ angular.module('easywork')
             , getAllCompanies: getAllCompanies
             , prepareBase64ImgSrc: prepareBase64ImgSrc
             , createEmptyEntity: createEmptyEntity
+            , getJobsBySkill: getJobsBySkill
         }
     }
 );

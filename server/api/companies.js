@@ -8,6 +8,7 @@
 
 var Company = require('../model/company')
     , User = require('../model/user')
+    , Jobs = require('./jobs.js')
     , utils = require('../utils')
     , fs = require('fs')
     , googleApis = require('../googleApis')
@@ -163,4 +164,20 @@ exports.getAllCompanies = function(req, res) {
 var isLogoExists = function(company) {
     //return false;
     return company.logo && company.logo.url;
+}
+
+exports.getJobsBySkill = function(req, res) {
+    var companyId = req.params.id;
+    var skill = req.params.skill;
+
+    return Jobs.getJobsByCompanyId(companyId)
+        .then(function (jobs) {
+            var relevantJobs = [];
+            jobs.forEach(function (job) {
+                if (job.technologies.indexOf(skill) >= 0) {
+                    relevantJobs.push(job);
+                }
+            });
+            return res.send(relevantJobs);
+        });
 }

@@ -130,6 +130,32 @@ angular.module('easywork')
             }
         }
 
+        $scope.showJobDetails = function (job, event) {
+            // Do not propagate the event to the table
+            if(event){
+                event.stopPropagation();
+                event.preventDefault();
+            }
+            var modalInstance = $modal.open({
+                templateUrl: '/views/companies/company-details.html',
+                controller: 'CompanyDetailsCtrl',
+                windowClass: 'company-details-dialog',
+                resolve: {
+                    company: function() {
+                        return company;
+                    }
+                }
+
+            });
+
+            modalInstance.result.then(function (username) {
+                if (username != undefined)
+                    console.log('User: ' + username + ' has logged in');
+            }, function () {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+        }
+
         $scope.showDetails = function (company, event) {
             // Do not propagate the event to the table
             if(event){

@@ -97,6 +97,7 @@ app.delete('/api/company/:id', companies.deleteCompany)
 app.post('/api/company/logo-upload/:id', companies.upload)
 app.get('/api/company/logo/:id/:force', companies.getCompanyLogo)
 app.get('/api/allCompanies', companies.getAllCompanies)
+app.get('/api/company/jobsBySkill/:id/:skill', companies.getJobsBySkill);
 
 // Jobs
 app.get('/api/job/list/:id', jobs.getJobs)
@@ -105,7 +106,6 @@ app.get('/api/job/:id', jobs.getJob)
 app.post('/api/job', jobs.createJob)
 app.put('/api/job/:id', jobs.updateJob)
 app.delete('/api/job/:id', jobs.deleteJob)
-
 app.get('*', function (req, res) {
 	res.sendFile(path.join(clientDir, 'index.html'))
 })
