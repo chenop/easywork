@@ -195,6 +195,19 @@ function updateJob(id, newJob, callBack) {
 }
 
 // Delete job shold update company the same way (observer) should be impleneted in updateJob
+function deleteJob0(job, company, res) {
+    return job.remove(function (err) {
+        if (!err) {
+            if (company) {
+                updateCompanyAfterJobChange(company, job._id);
+            }
+            return res.send(job);
+        } else {
+            console.log(err);
+            return res.json(401, err);
+        }
+    });
+}
 exports.deleteJob = function (req, res) {
     var jobId = req.params.id;
     return Job.findById(jobId, function (err, job) {
@@ -204,7 +217,7 @@ exports.deleteJob = function (req, res) {
         }
 
         var company = job.company;
-        if (company !== null || company !== undefined) {
+        if (company !== null && company !== undefined) {
             return Company.findById(company, function (err, company) {
                 if (company === null || company === undefined)
                     return;
@@ -214,17 +227,13 @@ exports.deleteJob = function (req, res) {
                 return company.save(function(err, savedCompany) {
 
                     // Remove job from collection jobs
-                    return job.remove(function (err) {
-                        if (!err) {
-                            updateCompanyAfterJobChange(company, job._id);
-                            return res.send(job);
-                        } else {
-                            console.log(err);
-                            return res.json(401, err);
-                        }
-                    });
+                    return deleteJob0(job, company, res);
                 });
             })
+        }
+        else {
+            // In case its a job that no company were set to
+            deleteJob0(job, null, res);
         }
     });
 }

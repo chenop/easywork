@@ -214,11 +214,11 @@ angular.module('easywork')
         };
 
         var getAllJobs = function() {
-            var deferred = $q.defer();
-            if (jobs !== null) {
-                deferred.resolve(jobs);
-                return deferred.promise;
-            }
+            //var deferred = $q.defer();
+            //if (jobs !== null) {
+            //    deferred.resolve(jobs);
+            //    return deferred.promise;
+            //}
 
             return $http.get('/api/allJobs')
                 .then(function(result) {
