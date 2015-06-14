@@ -175,6 +175,8 @@ var isRoleChangedToJobProvider = function (orgRole, newRole) {
 
 exports.updateUser = function (req, res) {
     return User.findById(req.params.id, function (err, user) {
+        if (!user)
+            return;
         user.name = req.body.name;
         user.username = req.body.username;
         user.email = req.body.email;
