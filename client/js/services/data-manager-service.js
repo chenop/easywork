@@ -3,7 +3,7 @@
  */
 
 angular.module('easywork')
-    .factory('dataManager', function ($http, common, $q, appManager) {
+    .factory('dataManager', function ($http, common, $q, appManager, modelTransformer, Job) {
         function isUndefined(value){return typeof value === 'undefined';}
         function isDefined(value){return typeof value !== 'undefined';}
         function isEmpty(value) {
@@ -221,7 +221,8 @@ angular.module('easywork')
 
             return $http.get('/api/allJobs')
                 .then(function(result) {
-                    jobs = result.data;
+                    var jobs = modelTransformer.transform(result.data, Job);
+                    //jobs = result.data;
                     return jobs;
                 });
         }
