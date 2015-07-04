@@ -1,13 +1,13 @@
 <div class="row company-card-container row-vertical-align">
-    <div class="col-sm-1">
+    <div class="col-xs-1">
         <i ng-class="{'glyphicon glyphicon-unchecked': !company.selected, 'glyphicon glyphicon-check' : company.selected}"></i>
     </div>
-    <div class="col-sm-2">
+    <div class="col-xs-2">
         <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank"><img
                 ng-src="{{company.logo.url}}" class="logo"
                 ng-class="{'round-logo' : company.logo.shape === 'round'}"></a>
     </div>
-    <div class="col-sm-4">
+    <div class="col-xs-4">
         <a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank" class="company-card-header">{{::company.name}}</a>
 
         <div ng-repeat="location in company.locations">
@@ -18,7 +18,7 @@
             <span class="street" ng-show="!isEmpty(location.city)">{{location.city}}</span>
         </div>
     </div>
-    <div class="col-sm-5" style="direction: ltr">
+    <div class="col-xs-5" style="direction: ltr">
         <span ng-repeat="requiredSkill in company.technologies" class="skill">
             <skill-tag required-skill="requiredSkill" company="company"/>
         </span>
