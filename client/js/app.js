@@ -154,7 +154,12 @@ app.config(
         $rootScope.isUndefined = function(value){return typeof value === 'undefined';}
         $rootScope.isDefined = function(value){return typeof value !== 'undefined';}
         $rootScope.isEmpty = function(value) {
-            return $rootScope.isUndefined(value) || value === '' || value === null || value !== value;
+            if (Array.isArray(value)) {
+                return (value.length == 0)
+            }
+            else { // primitive or single object
+                return $rootScope.isUndefined(value) || value === '' || value === null || value !== value;
+            }
         };
 
     });
