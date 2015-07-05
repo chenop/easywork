@@ -51,6 +51,10 @@
                     <img class="image-container" ng-src="{{logoUrl}}"></img>
                 </div>
             </div>
+            <div ng-repeat="user in users">
+                <!--<div>{{user.name}}</div>-->
+                <user-card user="user""/>
+            </div>
         </form>
     </div>
 </div>

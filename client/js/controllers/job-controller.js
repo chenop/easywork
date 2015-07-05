@@ -23,6 +23,11 @@ angular.module('easywork')
             if ($scope.job && $scope.job.company) {
                 $scope.jobCompanyId = $scope.job.company._id;
             }
+
+            dataManager.getUsers()
+                .then(function(users) {
+                   $scope.users = users;
+                });
         }
 
         function refreshJob(selectedEntity) {

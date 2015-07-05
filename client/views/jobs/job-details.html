@@ -1,9 +1,9 @@
 <div class="job-container">
-    <div class="row">
+    <div class="row job-header">
         <img class="col-sm-4 job-image-container" ng-src="{{company.logo.url}}"/>
-        <div class="col-sm-8 job-header">
+        <div class="col-sm-8 job-title-container">
             <h1 style="dir: auto"><bdi>{{job.name}}</bdi></h1>
-            <h2 style="dir: auto"><bdi>{{company.name}}</bdi></h2>
+            <h2 style="dir: auto"><bdi><a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank" class="company-card-header">{{::company.name}}</a></bdi></h2>
         </div>
     </div>
     <div class="row" style="dir: auto;">

@@ -91,7 +91,8 @@ footer {
 
 .address, .technology, .skill {
   max-height: 10px;
-  padding-right: 15px; }
+  padding-right: 15px;
+  float: left; }
 
 .skill-tag {
   color: orange; }
@@ -226,17 +227,30 @@ td button.action-button {
 tr:hover button.action-button {
   opacity: 1; }
 
-.company-details-dialog .job-full-dialog .modal-dialog {
+.modal-content {
   width: 90%;
-  min-width: 100px; }
+  min-width: 100px;
+  background-color: #EAE1C0; }
 
 .job-container {
   margin: 50px 50px 50px 50px; }
 
+.job-header {
+  border-bottom: 1px solid #ddd; }
+
 .job-image-container {
   float: right;
+  vertical-align: middle;
+  text-align: center;
+  display: table-cell;
   max-height: 150px;
   max-width: 200px; }
+
+.job-title-container {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border-right: 1px solid #ddd;
+  display: table-cell; }
 
 .fileUpload input.upload {
   position: absolute;
