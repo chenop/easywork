@@ -51,6 +51,10 @@
                     <img class="image-container" ng-src="{{logoUrl}}"></img>
                 </div>
             </div>
+            <h3>מועמדים</h3>
+            <div ng-repeat="user in users | filter:isRelevant">
+                <user-card user="user""/>
+            </div>
         </form>
     </div>
 </div>
