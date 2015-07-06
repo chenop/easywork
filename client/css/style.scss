@@ -305,7 +305,7 @@ tr:hover button.action-button {
 }
 
 .job-header {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 2px solid #999;
 }
 
 .job-image-container {
@@ -320,7 +320,7 @@ tr:hover button.action-button {
 .job-title-container {
   padding-top: 15px;
   padding-bottom: 15px;
-  border-right: 1px solid #ddd;
+  border-right: 2px solid #999;
   display: table-cell;
 }
 
@@ -616,4 +616,8 @@ skill-tag {
   a:hover {
     cursor:pointer;
   }
+}
+
+.cv-button {
+  margin-bottom: 15px;
 }

@@ -235,7 +235,7 @@ tr:hover button.action-button {
   margin: 50px 50px 50px 50px; }
 
 .job-header {
-  border-bottom: 1px solid #ddd; }
+  border-bottom: 2px solid #999; }
 
 .job-image-container {
   float: right;
@@ -248,7 +248,7 @@ tr:hover button.action-button {
 .job-title-container {
   padding-top: 15px;
   padding-bottom: 15px;
-  border-right: 1px solid #ddd;
+  border-right: 2px solid #999;
   display: table-cell; }
 
 .fileUpload input.upload {
@@ -485,5 +485,8 @@ header a {
 
 skill-tag a:hover {
   cursor: pointer; }
+
+.cv-button {
+  margin-bottom: 15px; }
 
 /*# sourceMappingURL=style.css.map */
