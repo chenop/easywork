@@ -2,8 +2,16 @@
  * Created by Chen on 17/03/14.
  */
 
+Array.prototype.contains = function(elm) {
+    for ( var i = 0, _len = this.length; i < _len; i++ ) {
+        if (this[i].toUpperCase() === elm.toUpperCase())
+            return true;
+    }
+    return false;
+}
+
 angular.module('easywork')
-    .controller('JobCtrl', function ($scope, dataManager, common, appManager, $timeout, $stateParams) {
+    .controller('JobCtrl', function ($scope, dataManager, common, appManager, $timeout, $stateParams, $rootScope) {
 
         init();
 
@@ -61,6 +69,21 @@ angular.module('easywork')
 
         $scope.deleteJob = function () {
             $scope.$emit('deleteEntityClicked', appManager.getSelectedEntity());
+        }
+
+        $scope.isRelevant = function(user) {
+            if ($rootScope.isEmpty($scope.job.technologies))
+                return true;
+
+            var matchesCounter = 0;
+
+            for (var i = 0; i < $scope.job.technologies.length; i++) {
+                var skill = $scope.job.technologies[i];
+
+                if (user.skills && user.skills.contains(skill))
+                    matchesCounter++;
+            }
+            return (matchesCounter === $scope.job.technologies.length )
         }
     }
 );
