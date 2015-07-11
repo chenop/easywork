@@ -156,7 +156,7 @@ exports.updateJob = function (req, res) {
 
             });
 
-            job.company = Schema.Types.ObjectId(newCompany);
+            job.company = mongoose.Schema.Types.ObjectId(newCompany);
 
             return job.save(function (err) {
                 if (!err) {
