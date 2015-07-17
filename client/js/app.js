@@ -10,7 +10,8 @@ var app = angular.module('easywork',
         , 'ngCookies'
         , 'angularFileUpload'
         , 'ui.select2'
-        , 'ngAnimate']
+        , 'ngAnimate'
+    ]
 );
 
 app.config(

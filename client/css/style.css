@@ -57,7 +57,7 @@ footer {
 
 .select2 {
   direction: ltr;
-  padding: 10px 5px 10px  5px; }
+  padding: 10px 5px 10px 5px; }
 
 /* Overriding select2 settings */
 .select2-container {
@@ -484,7 +484,12 @@ header a {
   font-size: 27px;
   color: #8FB98B; }
 
-skill-tag a:hover {
+.skill-tag a:hover {
   cursor: pointer; }
+
+.dashboard-entity-type {
+  display: inline-block;
+  padding-right: 10px;
+  margin-bottom: 5px; }
 
 /*# sourceMappingURL=style.css.map */

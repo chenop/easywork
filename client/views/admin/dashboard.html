@@ -7,21 +7,21 @@
                         access-level="jobProvider" type="button" class="btn btn-default"
                         data-toggle="tooltip" data-original-title="Jobs">
                     <!--Jobs-->
-                    <i class="glyphicon glyphicon-briefcase"></i>
+                    <i class="glyphicon glyphicon-briefcase"><div class="hidden-xs hidden-sm hidden-md dashboard-entity-type">משרות</div></i>
                 </button>
                 <button ng-class="{ 'active' : contentType.value == '1' }"
                         ng-click="contentTypeSelected('company')"
                         access-level="admin" type="button" class="btn btn-default"
                         data-toggle="tooltip" data-original-title="Companies">
                     <!--Companies-->
-                    <i class="glyphicon glyphicon-usd"></i>
+                    <i class="glyphicon glyphicon-usd"><div class="hidden-xs hidden-sm hidden-md dashboard-entity-type">חברות</div></i>
                 </button>
                 <button ng-class="{ 'active' : contentType.value == '2' }"
                         ng-click="contentTypeSelected('user')"
                         access-level="admin" type="button" class="btn btn-default"
                         data-toggle="tooltip" data-original-title="Users">
                     <!--Users-->
-                    <i class="glyphicon glyphicon-user"></i>
+                    <i class="glyphicon glyphicon-user"><div class="hidden-xs hidden-sm hidden-md dashboard-entity-type">משתמשים</div></i>
                 </button>
             </div>
             <div class="col-sm-6 btn-group">

@@ -10,7 +10,6 @@ angular.module('easywork')
             },
             templateUrl: '/views/users/user-card.html',
             link: function (scope, element, attrs) {
-                console.log(scope.user);
             }
         }
     })
