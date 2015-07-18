@@ -21,11 +21,31 @@ angular.module('easywork')
             return activeUser.name ? activeUser.name : activeUser.email;
         }
 
+        var openUserDetailsDialog = function (callBack) {
+            var modalInstance = $modal.open({
+                templateUrl: '/views/users/user.html'
+            });
+
+            modalInstance.result.then(function (username) {
+                if (callBack !== undefined)
+                    callBack();
+            }, function () {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+        };
+
         $scope.send = function () {
             if (!authService.isLoggedIn()) {
                 $scope.openLoginDialog(function () {
-                    console.log("Sending!");
-                    growl.addSuccessMessage("CVs were sent!", {ttl: 2000});
+                    if (appManager.isUserDetailsCompleted()) {
+                        console.log("Sending!");
+                        growl.addSuccessMessage("CVs were sent!", {ttl: 2000});
+                    }
+                    else {
+                        openUserDetailsDialog(function() {
+
+                        });
+                    }
                 });
             }
             else

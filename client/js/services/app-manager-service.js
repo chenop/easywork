@@ -80,7 +80,12 @@ angular.module('easywork')
             currentContentType = contentType;
         }
 
-		return {
+        function isUserDetailsCompleted() {
+            var user = getActiveUser();
+            return (user.name && user.email && user.fileName);
+        }
+
+        return {
 			shouldDisplaySearchBarInHeader: shouldDisplaySearchBarInHeader
 			, setDisplaySearchBarInHeader: setDisplaySearchBarInHeader
             , getSelectionCount: getSelectionCount
@@ -100,6 +105,7 @@ angular.module('easywork')
             , getIndexOf: getIndexOf
             , getCurrentContentType: getCurrentContentType
             , setCurrentContentType: setCurrentContentType
+            , isUserDetailsCompleted : isUserDetailsCompleted
         }
 	}
 );

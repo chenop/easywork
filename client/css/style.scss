@@ -597,6 +597,7 @@ header a {
   background-color: lighten($base60-lighter, 20%);
   box-shadow: 5px 5px 1px $base60-darker;
   padding: 10px 0 10px 0;
+
 }
 
 .company-card-container:hover {
@@ -627,4 +628,23 @@ header a {
   display: inline-block;
   padding-right: 10px;
   margin-bottom: 5px;
+}
+
+.transition-animation {
+  opacity: 1;
+}
+.transition-animation.ng-enter {
+  -webkit-transition: 1s;
+  transition: 1s;
+  opacity: 0;
+}
+.transition-animation.ng-enter-active {
+  opacity: 1;
+}
+
+.has-error {
+  .emphasize-border {
+    border-color: #a94442;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  }
 }

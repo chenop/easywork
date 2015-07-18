@@ -35,7 +35,7 @@ angular.module('easywork')
 
             getEntities(common.CONTENT_TYPE.COMPANY)
                 .success(function(result) {
-                    console.log('time taken for request: ' + (new Date().getTime() - start) + 'ms');
+//                     console.log('time taken for request: ' + (new Date().getTime() - start) + 'ms');
                     deferred.resolve(result);
 
                     companies = result.data;

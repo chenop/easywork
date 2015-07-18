@@ -45,14 +45,15 @@ angular.module('easywork')
                 password: $scope.user.password
             }
 
-            authService.logIn(user)
+            return authService.logIn(user)
                 .success(function () {
                     if (modIns) {
                         modIns.close(user.email);
 //                        console.log("login - modIns.close");
                     }
                     modIns = undefined; // Bug Fix - prevent from closing again the modal
-                    $location.path('/');
+                    //$location.path('/');
+                    return user;
                 })
                 .error(function (err) {
                     if ((err == undefined) || (err === "")) {
