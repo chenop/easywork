@@ -136,7 +136,7 @@ angular.module('easywork')
 
         // Entities
         var getEntities = function(entityType) {
-            return $http.get('/api/' + entityType.name + '/list', {cache: true});
+            return $http.get('/api/' + entityType.name + '/list');
         }
 
         var getEntity = function(entityType, id) {

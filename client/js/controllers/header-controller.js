@@ -3,7 +3,7 @@
 var SEND_BUTTON_STR = 'שלח';
 
 angular.module('easywork')
-    .controller('HeaderController', function ($scope, authService, appManager, dataManager, $modal, $location, growl, common) {
+    .controller('HeaderController', function ($scope, authService, appManager, dataManager, $modal, $location, common) {
         $scope.isError = false;
         $scope.user = authService.getActiveUser();
         $scope.authService = authService;
@@ -35,21 +35,7 @@ angular.module('easywork')
         };
 
         $scope.send = function () {
-            if (!authService.isLoggedIn()) {
-                $scope.openLoginDialog(function () {
-                    if (appManager.isUserDetailsCompleted()) {
-                        console.log("Sending!");
-                        growl.addSuccessMessage("CVs were sent!", {ttl: 2000});
-                    }
-                    else {
-                        openUserDetailsDialog(function() {
-
-                        });
-                    }
-                });
-            }
-            else
-                growl.addSuccessMessage("CVs were sent!", {ttl: 2000});
+            appManager.send();
         }
 
         $scope.publishJob = function () {
@@ -58,28 +44,6 @@ angular.module('easywork')
                     $location.path('/content_manager/' + common.CONTENT_TYPE.JOB.value)
                 });
             }
-        }
-
-        $scope.openLoginDialog = function (callBack) {
-
-            var modalInstance = $modal.open({
-                templateUrl: '/views/users/loginRegister.html',
-                controller: 'LoginRegisterCtrl',
-                resolve: {
-                    selectedTab: function () {
-                        return 0;
-                    }
-                }
-            });
-
-            modalInstance.result.then(function (username) {
-                if (username != undefined)
-                    console.log('User: ' + username + ' has logged in');
-                if (callBack !== undefined)
-                    callBack();
-            }, function () {
-                console.log('Modal dismissed at: ' + new Date());
-            });
         }
 
         $scope.openRegisterDialog = function () {
