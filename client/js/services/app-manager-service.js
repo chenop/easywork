@@ -87,8 +87,8 @@ angular.module('easywork')
 
         function uploadCVDialog(callBack) {
             var modalInstance = $modal.open({
-                templateUrl: '/views/users/uploadCV.html',
-                controller: 'UploadCVCtrl'
+                templateUrl: '/views/users/uploadCvDialog.html',
+                controller: 'UploadCvDialogCtrl'
             });
 
             modalInstance.result.then(function () {
