@@ -110,17 +110,6 @@ angular.module('easywork')
                                 });
                             }
                 })
-                //openLoginDialog(function () {
-                //    if (appManager.isUserDetailsCompleted()) {
-                //        console.log("Sending!");
-                //        growl.addSuccessMessage("CVs were sent!", {ttl: 2000});
-                //    }
-                //    else {
-                //        openUserDetailsDialog(function() {
-                //
-                //        });
-                //    }
-                //});
             }
             else
                 growl.addSuccessMessage("CVs were sent!", {ttl: 2000});
