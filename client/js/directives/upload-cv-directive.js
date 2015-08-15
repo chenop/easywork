@@ -3,15 +3,16 @@
  */
 
 angular.module('easywork')
-    .directive('uploadCv', function () {
+    .directive('uploadCv', function (cvParser, appManager, $upload) {
         return {
-            restrict: 'E',
+            restrict: 'EA',
             scope: {
-                file: '='
+                cvfile: "="
             },
-            controller: function($scope, cvParser, appManager, $upload) {
-                $scope.user = {};
-                $scope.user.skills = null;
+            templateUrl: '/views/users/uploadCv.html',
+            link: function (scope, element, attrs) {
+                scope.user = {};
+                scope.user.skills = null;
 
                 /**
                  * $files: an array of files selected, each file has name, size, and type.
@@ -21,7 +22,7 @@ angular.module('easywork')
                  */
                 function sendCVToServer(fileName, fileData, skills, activeUserId) {
                     // TODO chen No active user! where to upload?!? need localStorage (I guess...)
-                    $scope.upload = $upload.upload({
+                    scope.upload = $upload.upload({
                         url: '/api/user/cv-upload/' + activeUserId, //upload.php script, node.js route, or servlet url
                         method: 'POST',
                         data: {
@@ -36,16 +37,16 @@ angular.module('easywork')
 
                         // If file is undefined init it
                         if (skills !== undefined) {
-                            $scope.user.skills = skills;
+                            scope.user.skills = skills;
                         }
                         return skills;
                     }).error(function (err) {
                         console.log("upload finish with err" + err);
                     });
-                    return $scope.upload;
+                    return scope.upload;
                 }
 
-                $scope.onFileSelect = function ($files) {
+                scope.onFileSelect = function ($files) {
                     var activeUserId = appManager.getActiveUserId();
                     cvParser.parseCV($files[0]).
                         then(function (skills) {
@@ -53,19 +54,17 @@ angular.module('easywork')
                             var fileReader = new FileReader();
                             fileReader.readAsDataURL(file); // Reading the file as base64
                             fileReader.onload = function (e) {
-                                $scope.cvfile = file;
+                                scope.cvfile = file;
+                                scope.$apply();
                                 // TODO chen need to remove from directive the "user." - make it independant
                                 //sendCVToServer(file.name, e.target.result, skills, activeUserId)
                                 //    .then(function() {
-                                //        $scope.user.fileName = file.name;
+                                //        scope.user.fileName = file.name;
                                 //    });
                             }
 
                         })
                 }
-            },
-            templateUrl: '/views/users/uploadCv.html',
-            link: function (scope, element, attrs) {
             }
         }
     })
