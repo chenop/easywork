@@ -7,6 +7,7 @@ angular.module('easywork')
         return {
             restrict: 'E',
             scope: {
+                file: '='
             },
             controller: function($scope, cvParser, appManager, $upload) {
                 $scope.user = {};
@@ -52,10 +53,12 @@ angular.module('easywork')
                             var fileReader = new FileReader();
                             fileReader.readAsDataURL(file); // Reading the file as base64
                             fileReader.onload = function (e) {
-                                sendCVToServer(file.name, e.target.result, skills, activeUserId)
-                                    .then(function() {
-                                        $scope.user.fileName = file.name;
-                                    });
+                                $scope.cvfile = file;
+                                // TODO chen need to remove from directive the "user." - make it independant
+                                //sendCVToServer(file.name, e.target.result, skills, activeUserId)
+                                //    .then(function() {
+                                //        $scope.user.fileName = file.name;
+                                //    });
                             }
 
                         })

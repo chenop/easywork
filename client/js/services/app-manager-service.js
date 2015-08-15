@@ -103,11 +103,7 @@ angular.module('easywork')
                     if (appManager.isUserDetailsCompleted()) {
                                 console.log("Sending!");
                                 growl.addSuccessMessage("CVs were sent!", {ttl: 2000});
-                            }
-                            else {
-                                openUserDetailsDialog(function() {
-
-                                });
+                                //mailService.sendMail(appManager.selection);
                             }
                 })
             }
