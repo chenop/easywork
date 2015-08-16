@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-	.factory('appManager', function (authService, common) {
+	.factory('appManager', function (authService, common, growl, $modal) {
 
         var selection = [];
         var selectedTechnologies = [];
@@ -80,7 +80,60 @@ angular.module('easywork')
             currentContentType = contentType;
         }
 
-		return {
+        function isUserDetailsCompleted() {
+            var user = getActiveUser();
+            return (user.name && user.email && user.fileName);
+        }
+
+        function uploadCVDialog(callBack) {
+            var modalInstance = $modal.open({
+                templateUrl: '/views/users/uploadCvDialog.html',
+                controller: 'UploadCvDialogCtrl'
+            });
+
+            modalInstance.result.then(function () {
+                if (callBack !== undefined)
+                    callBack();
+            });
+        }
+
+        function send() {
+            if (!authService.isLoggedIn()) {
+                uploadCVDialog(function() {
+                    if (appManager.isUserDetailsCompleted()) {
+                                console.log("Sending!");
+                                growl.addSuccessMessage("CVs were sent!", {ttl: 2000});
+                                //mailService.sendMail(appManager.selection);
+                            }
+                })
+            }
+            else
+                growl.addSuccessMessage("CVs were sent!", {ttl: 2000});
+        }
+
+        function openLoginDialog (callBack) {
+
+            var modalInstance = $modal.open({
+                templateUrl: '/views/users/loginRegister.html',
+                controller: 'LoginRegisterCtrl',
+                resolve: {
+                    selectedTab: function () {
+                        return 0;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (username) {
+                if (username != undefined)
+                    console.log('User: ' + username + ' has logged in');
+                if (callBack !== undefined)
+                    callBack();
+            }, function () {
+                console.log('Modal dismissed at: ' + new Date());
+            });
+        }
+
+        return {
 			shouldDisplaySearchBarInHeader: shouldDisplaySearchBarInHeader
 			, setDisplaySearchBarInHeader: setDisplaySearchBarInHeader
             , getSelectionCount: getSelectionCount
@@ -100,6 +153,8 @@ angular.module('easywork')
             , getIndexOf: getIndexOf
             , getCurrentContentType: getCurrentContentType
             , setCurrentContentType: setCurrentContentType
+            , isUserDetailsCompleted : isUserDetailsCompleted
+            , send: send
         }
 	}
 );

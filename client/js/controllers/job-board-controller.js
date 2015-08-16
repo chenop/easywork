@@ -62,12 +62,6 @@ angular.module('easywork')
             return false;
         }
 
-        $scope.search = function () {
-            console.log("search, disable:" + appManager.disableSend);
-
-            mailService.sendMail(appManager.selection);
-        }
-
         $scope.toggleSelected = function (company) {
             var selected = company.selected;
             if (selected == undefined || selected == false) {

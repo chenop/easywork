@@ -1,6 +1,6 @@
 <div data-ng-controller="CompaniesBoardCtrl">
     <h3 class="big-title">חברות</h3>
-    <div ng-repeat="com in companies  | filter:isRelevant">
+    <div class="transition-animation" ng-repeat="com in companies  | filter:isRelevant">
         <company-card company="com" ng-click="toggleSelected(com)"/>
     </div>
 </div>

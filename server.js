@@ -28,7 +28,8 @@ log("Trying to connect to db...");
 
 var dbUrl;
 var baseUrl;
-if ('development' == app.get('env')) {
+var env = app.get('env');
+if (!env || 'development' == env) {
     console.log("Development Mode!");
     //dbUrl = "mongodb://localhost/db";
     dbUrl = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
@@ -37,7 +38,7 @@ if ('development' == app.get('env')) {
     baseUrl = 'http://localhost:3000';
 };
 
-if ('production' == app.get('env')) {
+if ('production' == env) {
     console.log("Production Mode!")
     dbUrl = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
     baseUrl = 'http://easywork.herokuapp.com';

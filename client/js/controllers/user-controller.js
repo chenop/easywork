@@ -71,9 +71,9 @@ angular.module('easywork')
                     fileName: fileName
                 }
             }).progress(function (evt) {
-                console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+//                 console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
             }).success(function (skills, status, headers, config) {
-                console.log("skills: " + skills);
+//                 console.log("skills: " + skills);
 
                 // If file is undefined init it
                 if (skills !== undefined) {

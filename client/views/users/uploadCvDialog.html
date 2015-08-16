@@ -1,0 +1,8 @@
+<div class="send-cv-container">
+    <upload-cv cvfile="cvfile"></upload-cv>
+    <pre>chen: {{cvfile.name}}</pre>
+    <button class="btn btn-lg btn-primary align-middle"
+            ng-class="{'btn-disabled':!isSendEnable(), 'btn-primary':isSendEnable()}"
+            ng-disabled="!isSendEnable()" ng-click="sendCV()">שלח קו"ח
+    </button>
+</div>

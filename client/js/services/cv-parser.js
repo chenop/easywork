@@ -87,14 +87,14 @@ angular.module('easywork')
                 }
             }
 
-            console.log("Found the following keywords:");
+//             console.log("Found the following keywords:");
 
             var result = [];
             for (i = 0, keys = Object.keys(dict), dictSize = keys.length; i < dictSize; i++) {
 //        console.log('key : ' + keys[i] + ' val : ' + dict[keys[i]]);
                 if (dict[keys[i]] == true) {
                     result.push(keys[i]);
-                    console.log("keword: " + keys[i]);
+//                     console.log("keword: " + keys[i]);
                 }
             }
 

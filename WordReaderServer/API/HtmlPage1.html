@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body ng-controller="mainController">
+    <input type="file"  ng-file-select="onFileSelect($files)">
+
+<div style="font-size: 20px" ng-repeat="item in found">
+    {{item}}
+</div>
+<script src="angular.min.js"></script>
+    <script src="angular-file-upload.min.js"></script>
+    <script src="angular-file-upload-html5-shim.min.js"></script>
+    <script src="app.js"></script>
+
+</body>
+
+</html>

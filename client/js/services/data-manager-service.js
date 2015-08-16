@@ -31,17 +31,25 @@ angular.module('easywork')
         // Companies
         var getCompanies = function() {
             var deferred = $q.defer();
-            // Check if logo is cached
-            //if (companies !== null) {
-            //    deferred.resolve(companies);
-            //    return deferred.promise;
-            //}
+            var start = new Date().getTime();
 
-            return getEntities(common.CONTENT_TYPE.COMPANY)
-                .then(function(result) {
+            getEntities(common.CONTENT_TYPE.COMPANY)
+                .success(function(result) {
+//                     console.log('time taken for request: ' + (new Date().getTime() - start) + 'ms');
+                    deferred.resolve(result);
+
                     companies = result.data;
-                    return companies;
+                    deferred.resolve(companies);
                 });
+
+            return deferred.promise;
+            //$http.get('api/data/' + id, {
+            //    cache: CacheFactory.get('dataCache')
+            //}).success(function (data) {
+            //    console.log('time taken for request: ' + (new Date().getTime() - start) + 'ms');
+            //    deferred.resolve(data);
+            //});
+
         }
 
         var getJobs = function(companyId) {

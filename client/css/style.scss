@@ -7,7 +7,7 @@ $base-60-light: #EAE1C0;
 $font-color-on-light-background: $base30-2;
 $header-background-color: $base10;
 $font-color-on-dark-background: $base60-lighter;
-$link-color: darken( $base-60-light, 50%);
+$link-color: darken($base-60-light, 50%);
 $base60-darker: darken($base60-lighter, 20%);
 
 .header {
@@ -81,7 +81,7 @@ footer {
 
 .select2 {
   direction: ltr;
-  padding: 10px 5px 10px  5px;
+  padding: 10px 5px 10px 5px;
 }
 
 /* Overriding select2 settings */
@@ -114,7 +114,7 @@ footer {
   max-height: 60px;
 }
 
-.nav>li>a>img {
+.nav > li > a > img {
   &.small-logo {
     max-width: 30px;
     max-height: 60px;
@@ -134,6 +134,7 @@ footer {
 .skill-tag {
   color: orange;
 }
+
 .my-drop-zone {
   border: dashed 3px lightgray;
   margin-top: 25px;
@@ -224,6 +225,7 @@ textarea.cv-message {
   display: flex;
   align-items: center;
 }
+
 .no-padding {
   padding: 0 !important;
   margin: 0 !important;
@@ -241,7 +243,7 @@ textarea.cv-message {
 }
 
 ul li {
-//  display: inline;
+  //  display: inline;
   /*width: auto;*/
   /*text-align: center;*/
 }
@@ -284,7 +286,7 @@ ul li {
 .table > tbody > tr > td {
   vertical-align: middle;
   border-top: 1px solid;
-  border-color: lighten( $header-background-color, 50% );
+  border-color: lighten($header-background-color, 50%);
 }
 
 td button.action-button {
@@ -335,7 +337,7 @@ tr:hover button.action-button {
     font-size: 20px;
     cursor: pointer;
     opacity: 0;
-    filter: alpha(opacity = 0);
+    filter: alpha(opacity=0);
     float: right;
   }
 }
@@ -418,7 +420,6 @@ tr:hover button.action-button {
   background-color: transparent;
 }
 
-
 a {
   color: $link-color;
 }
@@ -449,8 +450,7 @@ header a {
   border-color: darken($base30-1, 20%);
 }
 
-.btn-primary.disabled, .btn-primary[disabled], fieldset[disabled] .btn-primary, .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus, .btn-primary.disabled:active, .btn-primary[disabled]:active, fieldset[disabled] .btn-primary:active, .btn-primary.disabled.active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary.active
-{
+.btn-primary.disabled, .btn-primary[disabled], fieldset[disabled] .btn-primary, .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus, .btn-primary.disabled:active, .btn-primary[disabled]:active, fieldset[disabled] .btn-primary:active, .btn-primary.disabled.active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary.active {
   color: #fff;
   background-color: $base30-1;
   border-color: $base30-1;
@@ -471,24 +471,23 @@ header a {
   margin-top: 10px;
 }
 
-.form-signin{
+.form-signin {
   max-width: 330px;
   padding: 15px;
   margin: 0 auto;
 }
-
 
 .login-input, .login-input-middle-pass {
   margin-bottom: -1px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
+
 .login-input-pass {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-
 
 .signup-input {
   margin-bottom: -1px;
@@ -501,8 +500,6 @@ header a {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-
-
 
 .create-account {
   text-align: center;
@@ -520,7 +517,7 @@ header a {
   box-sizing: border-box;
 }
 
-.btn-center{
+.btn-center {
   width: 50%;
   text-align: center;
   margin: inherit;
@@ -541,7 +538,8 @@ header a {
   background-color: #da573b;
   border-color: #be5238;
 }
-.social-google:hover{
+
+.social-google:hover {
   background-color: #be5238;
   border-color: #9b4631;
 }
@@ -550,6 +548,7 @@ header a {
   background-color: #1daee3;
   border-color: #3997ba;
 }
+
 .social-twitter:hover {
   background-color: #3997ba;
   border-color: #347b95;
@@ -559,6 +558,7 @@ header a {
   background-color: #4c699e;
   border-color: #47618d;
 }
+
 .social-facebook:hover {
   background-color: #47618d;
   border-color: #3c5173;
@@ -568,6 +568,7 @@ header a {
   background-color: #4875B4;
   border-color: #466b99;
 }
+
 .social-linkedin:hover {
   background-color: #466b99;
   border-color: #3b5a7c;
@@ -575,6 +576,7 @@ header a {
 
 .emphasize-border {
   padding: 10px;
+
 }
 
 .import-cv-box {
@@ -586,6 +588,7 @@ header a {
   color: darkgray;
   display: inline
 }
+
 .company-card-header {
   font-size: 24px;
 }
@@ -594,11 +597,13 @@ header a {
   background-color: lighten($base60-lighter, 20%);
   box-shadow: 5px 5px 1px $base60-darker;
   padding: 10px 0 10px 0;
+
 }
 
 .company-card-container:hover {
   background-color: $base60-lighter;
 }
+
 .skill-icon {
   margin-right: 7px;
 }
@@ -613,10 +618,39 @@ header a {
   color: $base30-1;
 }
 
-skill-tag {
+.skill-tag {
   a:hover {
-    cursor:pointer;
+    cursor: pointer;
   }
+}
+
+.dashboard-entity-type {
+  display: inline-block;
+  padding-right: 10px;
+  margin-bottom: 5px;
+}
+
+.transition-animation {
+  opacity: 1;
+}
+.transition-animation.ng-enter {
+  -webkit-transition: 1s;
+  transition: 1s;
+  opacity: 0;
+}
+.transition-animation.ng-enter-active {
+  opacity: 1;
+}
+
+.has-error {
+  .emphasize-border {
+    border-color: #a94442;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  }
+}
+
+.send-cv-container {
+  margin: 10px;
 }
 
 .cv-button {

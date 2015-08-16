@@ -15,15 +15,6 @@
     };
 
     Job.prototype = {
-
-        setRating: function(newRating) {
-            if (newRating <= Movie.maxRating &&
-                newRating >= Movie.minRating) {
-                this.rating = newRating;
-            } else {
-                throw "Invalid rating value: " + newRating;
-            }
-        }
     };
 
     var module = angular.module("easywork");
