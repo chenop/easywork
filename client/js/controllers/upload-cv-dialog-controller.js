@@ -5,13 +5,14 @@
 angular.module('easywork')
     .controller('UploadCvDialogCtrl', function ($scope, $modalInstance, mailService, appManager) {
         $scope.modIns = $modalInstance;
-        $scope.cvfile = null;
+        $scope.uploadCvData = {};
 
         $scope.isSendEnable = function() {
-            return $scope.cvfile != null;
+            return $scope.uploadCvData != null && $scope.uploadCvData.file != null;
         }
 
         $scope.sendCV = function() {
-            mailService.sendMail(appManager.selection);
+            //mailService.sendMail(appManager.selection);
+            $modalInstance.close();
         }
     });
