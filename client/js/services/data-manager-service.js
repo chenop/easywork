@@ -46,7 +46,7 @@ angular.module('easywork')
 
         var getJobs = function(companyId) {
             return $http.get('/api/job/list/' + companyId)
-                .then(function(result) {
+                .success(function(result) {
                     jobs = result.data;
                     return jobs;
                 });
