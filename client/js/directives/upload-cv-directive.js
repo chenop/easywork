@@ -3,7 +3,7 @@
  */
 
 angular.module('easywork')
-    .directive('uploadCv', function (cvParser, appManager, $upload) {
+    .directive('uploadCv', function (cvParser, appManager, $upload, $localForage) {
         return {
             restrict: 'EA',
             scope: {
@@ -38,29 +38,48 @@ angular.module('easywork')
                     return scope.upload;
                 }
 
+                var saveCvData = function (file, fileData, skills) {
+                    var cvData = {
+                        file: file,
+                        fileData: fileData,
+                        skills: skills
+                    };
+                    $localForage.setItem('cvData', cvData);
+                };
+
+                function OnCvDataChanged(file, skills) {
+                    scope.data = {
+                            file: file,
+                            skills: skills
+                        };
+                }
+
                 scope.onFileSelect = function ($files) {
-                    scope.$apply(function() {
-                        var file = scope.data.file = $files[0];
+                    var file = $files[0];
                         cvParser.parseCV(file).
                             then(function (skills) {
                                 var fileReader = new FileReader();
                                 fileReader.readAsDataURL(file); // Reading the file as base64
-                                scope.data.skills = skills;
-                                //fileReader.onload = function (e) {
+                                fileReader.onload = function (e) {
+                                scope.$apply(function () {
+                                    OnCvDataChanged(file, skills);
+                                });
+                                    saveCvData(file, e.target.result, skills);
                                     //sendCVToServer(file.name, e.target.result, skills, activeUserId)
                                     //    .then(function(skills) {
                                     //        scope.skills = skills;
                                     //    });
-                                //}
+                                }
                             })
-                    });
+
                 }
 
-                scope.deleteCV = function(event) {
+                scope.deleteCV = function (event) {
                     scope.data.skills = null;
                     scope.data.file = null;
+                    $localForage.setItem('cvData', null);
 
-                    if(event){
+                    if (event) {
                         event.stopPropagation();
                         event.preventDefault();
                     }
