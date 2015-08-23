@@ -100,8 +100,9 @@ angular.module('easywork')
         function send() {
             if (!authService.isLoggedIn()) {
                 uploadCVDialog(function() {
-                    if (appManager.isUserDetailsCompleted()) {
+                    if (isUserDetailsCompleted()) {
                                 console.log("Sending!");
+                                // TODO chen make growl work
                                 growl.addSuccessMessage("CVs were sent!", {ttl: 2000});
                                 //mailService.sendMail(appManager.selection);
                             }

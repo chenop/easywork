@@ -3,15 +3,29 @@
  */
 
 angular.module('easywork')
-    .controller('UploadCvDialogCtrl', function ($scope, $modalInstance, mailService, appManager) {
+    .controller('UploadCvDialogCtrl', function ($scope, $modalInstance, $localForage) {
         $scope.modIns = $modalInstance;
-        $scope.cvfile = null;
-
-        $scope.isSendEnable = function() {
-            return $scope.cvfile != null;
+        initCvData();
+        
+        $scope.isSendEnable = function () {
+            return $scope.cvData != null && $scope.cvData.file != null;
         }
 
-        $scope.sendCV = function() {
-            mailService.sendMail(appManager.selection);
+        $scope.sendCV = function () {
+            //mailService.sendMail(appManager.selection);
+            $modalInstance.close();
+        }
+
+        function initCvData() {
+            $localForage.getItem('cvData')
+                .then(function (cvData) {
+                    if (!cvData)
+                        return {};
+                    $scope.cvData = {
+                        file: cvData.file,
+                        fileData: cvData.fileData,
+                        skills: cvData.skills
+                    };
+                });
         }
     });

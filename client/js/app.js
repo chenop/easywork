@@ -11,6 +11,7 @@ var app = angular.module('easywork',
         , 'angularFileUpload'
         , 'ui.select2'
         , 'ngAnimate'
+        , 'LocalForageModule'
     ]
 );
 

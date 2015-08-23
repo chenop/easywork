@@ -3,17 +3,14 @@
  */
 
 angular.module('easywork')
-    .directive('uploadCv', function (cvParser, appManager, $upload) {
+    .directive('uploadCv', function (cvParser, appManager, $upload, $localForage) {
         return {
             restrict: 'EA',
             scope: {
-                cvfile: "="
+                data: "="
             },
             templateUrl: '/views/users/uploadCv.html',
             link: function (scope, element, attrs) {
-                scope.user = {};
-                scope.user.skills = null;
-
                 /**
                  * $files: an array of files selected, each file has name, size, and type.
                  * @param fileData
@@ -34,11 +31,6 @@ angular.module('easywork')
 //                 console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
                     }).success(function (skills, status, headers, config) {
 //                 console.log("skills: " + skills);
-
-                        // If file is undefined init it
-                        if (skills !== undefined) {
-                            scope.user.skills = skills;
-                        }
                         return skills;
                     }).error(function (err) {
                         console.log("upload finish with err" + err);
@@ -46,25 +38,61 @@ angular.module('easywork')
                     return scope.upload;
                 }
 
-                scope.onFileSelect = function ($files) {
-                    var activeUserId = appManager.getActiveUserId();
-                    cvParser.parseCV($files[0]).
-                        then(function (skills) {
-                            var file = $files[0];
-                            var fileReader = new FileReader();
-                            fileReader.readAsDataURL(file); // Reading the file as base64
-                            fileReader.onload = function (e) {
-                                scope.cvfile = file;
-                                scope.$apply();
-                                // TODO chen need to remove from directive the "user." - make it independant
-                                //sendCVToServer(file.name, e.target.result, skills, activeUserId)
-                                //    .then(function() {
-                                //        scope.user.fileName = file.name;
-                                //    });
-                            }
+                var saveCvData = function (file, fileData, skills) {
+                    var cvData = {
+                        file: file,
+                        fileData: fileData,
+                        skills: skills
+                    };
+                    $localForage.setItem('cvData', cvData);
+                };
 
-                        })
+                function OnCvDataChanged(file, skills) {
+                    scope.data = {
+                            file: file,
+                            skills: skills
+                        };
                 }
+
+                scope.onFileSelect = function ($files) {
+                    var file = $files[0];
+                        cvParser.parseCV(file).
+                            then(function (skills) {
+                                var fileReader = new FileReader();
+                                fileReader.readAsDataURL(file); // Reading the file as base64
+                                fileReader.onload = function (e) {
+                                scope.$apply(function () {
+                                    OnCvDataChanged(file, skills);
+                                });
+                                    saveCvData(file, e.target.result, skills);
+                                    //sendCVToServer(file.name, e.target.result, skills, activeUserId)
+                                    //    .then(function(skills) {
+                                    //        scope.skills = skills;
+                                    //    });
+                                }
+                            })
+
+                }
+
+                scope.deleteCV = function (event) {
+                    scope.data.skills = null;
+                    scope.data.file = null;
+                    $localForage.setItem('cvData', null);
+
+                    if (event) {
+                        event.stopPropagation();
+                        event.preventDefault();
+                    }
+
+                    var activeUserId = appManager.getActiveUserId();
+                    if (!activeUserId)
+                        return;
+                    //$http.post('/api/user/cv-delete/' + activeUserId)
+                    //    .success(function(user) {
+                    //        $scope.user = user;
+                    //    });
+                }
+
             }
         }
     })
