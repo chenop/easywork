@@ -46,14 +46,13 @@ angular.module('easywork')
             }
         }
 
-        $scope.openRegisterDialog = function () {
-
+        function openDialog(selectedTab) {
             var modalInstance = $modal.open({
                 templateUrl: '/views/users/loginRegister.html',
                 controller: 'LoginRegisterCtrl',
                 resolve: {
                     selectedTab: function () {
-                        return 1;
+                        return selectedTab;
                     }
                 }
             });
@@ -64,6 +63,15 @@ angular.module('easywork')
                 console.log('Modal dismissed at: ' + new Date());
             });
         }
+
+        $scope.openRegisterDialog = function () {
+            openDialog(1);
+        }
+
+        $scope.openLoginDialog = function () {
+            openDialog(0);
+        }
+
 
         $scope.shouldDisableSend = function () {
             return appManager.getSelectionCount() == 0;

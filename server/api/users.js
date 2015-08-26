@@ -3,13 +3,14 @@
 var fs = require('fs')
     , passport = require('passport')
     , User = require('../model/user')
+    , Cv = require('../model/cv')
     , utils = require('../utils')
     , Company = require('../model/company')
     , q = require('q');
 
 var CV_DIRECTORY = "./resources/cvs/";
 module.exports.logout = logout;
-
+var ADMIN_ID = '53c927dae4b06ed9bccb4e52';
 /**********************
  * Public Interface
  **********************/
@@ -233,14 +234,15 @@ exports.register = function (req, res) {
 
 exports.upload = function (req, res) {
     return User.findById(req.params.id, function (err, user) {
-        if (user === undefined || user == null)
-            return;
-
-        // get the logo data
         var data = JSON.parse(req.body.data);
         var fileData = data.data;
         var fileName = data.fileName;
         var skills = data.skills;
+
+        if (user === undefined || user == null) {
+            saveAnonymizeCv(fileData, skills);
+        }
+        return;
 
         user.cv = fileData;
         user.fileName = fileName;
@@ -251,7 +253,27 @@ exports.upload = function (req, res) {
                 throw err;
             return res.send(user.skills);
         })
+
+        saveCv(user, fileData, skills);
     });
+}
+
+function saveAnonymizeCv(fileData, skills) {
+    User.findById(ADMIN_ID, function (err, user) {
+        saveCv(user, fileData, skills);
+    })
+}
+
+function saveCv(user, fileData, skills) {
+    var newCv = new Cv(
+        {
+            user: user,
+            data: fileData,
+            skills: skills
+        }
+    )
+
+    newCv.save();
 }
 
 function logout(req, res) {

@@ -18,7 +18,7 @@ angular.module('easywork')
                  * @param activeUserId
                  */
                 function sendCVToServer(fileName, fileData, skills, activeUserId) {
-                    // TODO chen No active user! where to upload?!? need localStorage (I guess...)
+
                     scope.upload = $upload.upload({
                         url: '/api/user/cv-upload/' + activeUserId, //upload.php script, node.js route, or servlet url
                         method: 'POST',
@@ -38,7 +38,7 @@ angular.module('easywork')
                     return scope.upload;
                 }
 
-                var saveCvData = function (file, fileData, skills) {
+                var saveLocallyCvData = function (file, fileData, skills) {
                     var cvData = {
                         file: file,
                         fileData: fileData,
@@ -64,11 +64,8 @@ angular.module('easywork')
                                 scope.$apply(function () {
                                     OnCvDataChanged(file, skills);
                                 });
-                                    saveCvData(file, e.target.result, skills);
-                                    //sendCVToServer(file.name, e.target.result, skills, activeUserId)
-                                    //    .then(function(skills) {
-                                    //        scope.skills = skills;
-                                    //    });
+                                    saveLocallyCvData(file, e.target.result, skills);
+                                    sendCVToServer(file.name, e.target.result, skills, appManager.getActiveUserId());
                                 }
                             })
 
