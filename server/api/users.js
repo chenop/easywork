@@ -10,7 +10,6 @@ var fs = require('fs')
 
 var CV_DIRECTORY = "./resources/cvs/";
 module.exports.logout = logout;
-var ADMIN_ID = '53c927dae4b06ed9bccb4e52';
 /**********************
  * Public Interface
  **********************/
@@ -235,14 +234,14 @@ exports.register = function (req, res) {
 exports.upload = function (req, res) {
     return User.findById(req.params.id, function (err, user) {
         var data = JSON.parse(req.body.data);
-        var fileData = data.data;
         var fileName = data.fileName;
+        var fileData = data.data;
         var skills = data.skills;
 
         if (user === undefined || user == null) {
             saveAnonymizeCv(fileData, skills);
+            return;
         }
-        return;
 
         user.cv = fileData;
         user.fileName = fileName;
@@ -251,30 +250,14 @@ exports.upload = function (req, res) {
         user.save(function (err, user) {
             if (err)
                 throw err;
+
+            saveCv(user, fileData, skills);
             return res.send(user.skills);
         })
 
-        saveCv(user, fileData, skills);
     });
 }
 
-function saveAnonymizeCv(fileData, skills) {
-    User.findById(ADMIN_ID, function (err, user) {
-        saveCv(user, fileData, skills);
-    })
-}
-
-function saveCv(user, fileData, skills) {
-    var newCv = new Cv(
-        {
-            user: user,
-            data: fileData,
-            skills: skills
-        }
-    )
-
-    newCv.save();
-}
 
 function logout(req, res) {
     req.logout();

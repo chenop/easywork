@@ -55,13 +55,20 @@ footer {
   padding: 40px 15px;
   /*text-align: center;*/ }
 
-.select2 {
-  direction: ltr;
-  padding: 10px 5px 10px 5px; }
-
 /* Overriding select2 settings */
-.select2-container {
-  width: 100%; }
+.select2 {
+  direction: rtl;
+  padding: 10px 5px 10px 5px; }
+  .select2 .select2-container {
+    width: 100%; }
+    .select2 .select2-container .select2-container-multi .select2-choices {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: white; }
+    .select2 .select2-container .select2-search-choice {
+      float: right;
+      direction: ltr;
+      margin: 3px 5px 3px 5px; }
 
 .selected {
   background-color: rgba(151, 173, 254, 0.44); }
@@ -301,11 +308,6 @@ tr:hover button.action-button {
   color: #808080;
   padding-top: 7px;
   padding-right: 5px; }
-
-.select2-container-multi .select2-choices {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background: white; }
 
 .dropdown {
   padding-top: 15px;

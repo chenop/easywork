@@ -3,7 +3,7 @@
  */
 
 angular.module('easywork')
-    .controller('UploadCvDialogCtrl', function ($scope, $modalInstance, $localForage) {
+    .controller('UploadCvDialogCtrl', function ($scope, $modalInstance, $localForage, mailService, appManager) {
         $scope.modIns = $modalInstance;
         initCvData();
         
@@ -12,7 +12,8 @@ angular.module('easywork')
         }
 
         $scope.sendCV = function () {
-            //mailService.sendMail(appManager.selection);
+            // TODO chen getSelectedCompanies... how do I get this list (from the companyBoard)
+            mailService.sendMail(appManager.selection, $scope.cvData);
             $modalInstance.close();
         }
 
