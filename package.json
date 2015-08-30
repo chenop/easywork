@@ -18,8 +18,7 @@
     "mongoose": "^4",
     "morgan": "^1.4.1",
     "multer": "^0.1.7",
-    // todo Chen got old nodemailer --> move to the new one and try again
-    "nodemailer": "^0.6.1",
+    "nodemailer": "^1",
     "passport": "~0.1.17",
     "passport-google-oauth2": "^0.1.6",
     "passport-linkedin": "^0.1.3",

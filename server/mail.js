@@ -102,19 +102,19 @@ function sendMail(user, companies, cvData) {
     console.log("server is sending!");
     var appDir = path.dirname(require.main.filename) + '\\images\\';
 
-    var smtpTransport = nodemailer.createTransport("SMTP", {
-			service: "Gmail",
-			auth: {
-				user: "chenop@gmail.com",
-				pass: "oriki15a"
-			}
-        //host: "mail.easywork.co.il", // hostname
-        //secureConnection: false, // use SSL
-        //port: 25, // port for secure SMTP
-        //auth: {
-        //    user: "webmaster@easywork.co.il",
-        //    pass: "dontjudge"
-        //}
+    var smtpTransport = nodemailer.createTransport({
+			//service: "Gmail",
+			//auth: {
+			//	user: "chenop@gmail.com",
+			//	pass: "oriki15a"
+			//}
+        host: "mail.easywork.co.il", // hostname
+        //secure: false, // use SSL
+        port: 25, // port for secure SMTP
+        auth: {
+            user: "webmaster@easywork.co.il",
+            pass: "dontjudge"
+        }
     });
 
     var to_addresses = calcToField(companies);
@@ -129,9 +129,8 @@ function sendMail(user, companies, cvData) {
         attachments: [
             {
                 filename: "test.docx",
-                //encoding: 'base64',
-                //path: fileData,
-                content: new Buffer(fileData, "base64")
+                encoding: 'base64',
+                content: fileData
             }
         ]
     }
