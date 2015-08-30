@@ -3,7 +3,7 @@
 angular.module('easywork')
 	.factory('appManager', function (authService, common, growl, $modal) {
 
-        var selection = [];
+        var selectedCompanies = [];
         var selectedTechnologies = [];
         var selectedAreas = [];
         var disableSend = false;
@@ -12,16 +12,16 @@ angular.module('easywork')
         var currentContentType = common.CONTENT_TYPE.COMPANY;
         var default_message = 'Hi,\nI am interested in open positions in your company.\nContact information can be found in my CV which is attached.\n\nBest Regards,\n';
 
-        var getSelectionCount = function() {
-            return selection.length;
+        var getSelectedCompaniesCount = function() {
+            return selectedCompanies.length;
         }
 
-        var getSelection = function() {
-            return selection;
+        var getSelectedCompanies = function() {
+            return selectedCompanies;
         }
 
-        var setSelection = function(newSelection) {
-            selection = newSelection;
+        var setSelectedCompanies = function(pSelectedCompanies) {
+            selectedCompanies = pSelectedCompanies;
         }
 
 		var setDisplaySearchBarInHeader = function(disp1) {
@@ -88,7 +88,13 @@ angular.module('easywork')
         function uploadCVDialog(callBack) {
             var modalInstance = $modal.open({
                 templateUrl: '/views/users/uploadCvDialog.html',
-                controller: 'UploadCvDialogCtrl'
+                controller: 'UploadCvDialogCtrl',
+                resolve: {
+                    selectedCompanies: function () {
+                        return getSelectedCompanies();
+                    }
+                }
+
             });
 
             modalInstance.result.then(function () {
@@ -104,7 +110,7 @@ angular.module('easywork')
                                 console.log("Sending!");
                                 // TODO chen make growl work
                                 growl.addSuccessMessage("CVs were sent!", {ttl: 2000});
-                                //mailService.sendMail(appManager.selection);
+                                //mailService.sendMail(appManager.selectedCompanies);
                             }
                 })
             }
@@ -137,11 +143,11 @@ angular.module('easywork')
         return {
 			shouldDisplaySearchBarInHeader: shouldDisplaySearchBarInHeader
 			, setDisplaySearchBarInHeader: setDisplaySearchBarInHeader
-            , getSelectionCount: getSelectionCount
+            , getSelectedCompaniesCount: getSelectedCompaniesCount
             , selectedTechnologies: selectedTechnologies
             , selectedAreas: selectedAreas
-            , getSelection: getSelection
-            , setSelection: setSelection
+            , getSelectedCompanies: getSelectedCompanies
+            , setSelectedCompanies: setSelectedCompanies
             , disableSend: disableSend
             , getActiveCompanyId: getActiveCompanyId
             , getActiveUserId: getActiveUserId

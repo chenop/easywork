@@ -38,7 +38,6 @@ angular.module('easywork')
                                     OnCvDataChanged(file, skills);
                                 });
                                     saveLocallyCvData(file, e.target.result, skills);
-                                    sendCVToServer(file.name, e.target.result, skills, appManager.getActiveUserId());
                                 }
                             })
 

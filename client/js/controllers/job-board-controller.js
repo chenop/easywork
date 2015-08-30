@@ -21,7 +21,7 @@ angular.module('easywork')
             var selection = nv.map(function (job) {
                 return job;
             });
-            appManager.setSelection(selection);
+            appManager.setSelectedCompanies(selection);
         }, true);
 
         // watch the selectAll checkBox for changes

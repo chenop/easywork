@@ -74,7 +74,7 @@ angular.module('easywork')
 
 
         $scope.shouldDisableSend = function () {
-            return appManager.getSelectionCount() == 0;
+            return appManager.getSelectedCompaniesCount() == 0;
         }
 
         $scope.technologies_select2Options = dataManager.getTechnologiesSelect2Options();
@@ -87,12 +87,12 @@ angular.module('easywork')
                 });
         }
 
-        $scope.$watch('appManager.getSelection()', function () {
+        $scope.$watch('appManager.getSelectedCompanies()', function () {
 
             // Update send button label
             $scope.sendButtonLabel = SEND_BUTTON_STR;
-            if (appManager.getSelectionCount() > 0) {
-                $scope.sendButtonLabel += ' (' + appManager.getSelectionCount() + ' משרות)';
+            if (appManager.getSelectedCompaniesCount() > 0) {
+                $scope.sendButtonLabel += ' (' + appManager.getSelectedCompaniesCount() + ' משרות)';
             }
         }, true);
 

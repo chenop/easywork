@@ -99,26 +99,26 @@ function sendAnonymizeMail(companies, cvData) {
 }
 
 function sendMail(user, companies, cvData) {
-    console.log("server sent!");
-    return;
+    console.log("server is sending!");
     var appDir = path.dirname(require.main.filename) + '\\images\\';
 
     var smtpTransport = nodemailer.createTransport("SMTP", {
-//			service: "Gmail",
-//			auth: {
-//				user: "chenop@gmail.com",
-//				pass: "dontjudge"
-//			}
-        host: "mail.easywork.co.il", // hostname
-        secureConnection: false, // use SSL
-        port: 25, // port for secure SMTP
-        auth: {
-            user: "webmaster@easywork.co.il",
-            pass: "dontjudge"
-        }
+			service: "Gmail",
+			auth: {
+				user: "chenop@gmail.com",
+				pass: "oriki15a"
+			}
+        //host: "mail.easywork.co.il", // hostname
+        //secureConnection: false, // use SSL
+        //port: 25, // port for secure SMTP
+        //auth: {
+        //    user: "webmaster@easywork.co.il",
+        //    pass: "dontjudge"
+        //}
     });
 
     var to_addresses = calcToField(companies);
+    var fileData = cvData.fileData.split("base64,")[1];
     // setup e-mail data with unicode symbols
     var mailOptions = {
         from: "Easy-Work <webmaster@easywork.co.il>", // sender address
@@ -128,7 +128,10 @@ function sendMail(user, companies, cvData) {
         html: "<b>Companies you sent mail to:</b>", // html body
         attachments: [
             {
-                filePath: appDir + cvData.file.fileName
+                filename: "test.docx",
+                //encoding: 'base64',
+                //path: fileData,
+                content: new Buffer(fileData, "base64")
             }
         ]
     }
