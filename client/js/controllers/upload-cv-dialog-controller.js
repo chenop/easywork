@@ -8,7 +8,8 @@ angular.module('easywork')
         initCvData();
         
         $scope.isSendEnable = function () {
-            return $scope.cvData != null && $scope.cvData.file != null;
+            console.log("isSendEnable: " + $scope.cvData.fileName);
+            return $scope.cvData != null && $scope.cvData.fileName != null;
         }
 
         $scope.sendCV = function () {
@@ -22,7 +23,7 @@ angular.module('easywork')
                     if (!cvData)
                         return {};
                     $scope.cvData = {
-                        file: cvData.file,
+                        fileName: cvData.fileName,
                         fileData: cvData.fileData,
                         skills: cvData.skills
                     };

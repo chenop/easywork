@@ -13,6 +13,7 @@ var cvSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User'}
     , data: Buffer
     , skills: [String]
+    , fileName: String
 });
 
 module.exports = mongoose.model('Cv', cvSchema);

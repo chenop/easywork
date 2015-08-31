@@ -1,5 +1,9 @@
 if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development'
 
+// To enable sending mail
+// https://stackoverflow.com/questions/20433287/node-js-request-cert-has-expired/20497028#20497028
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 var express = require('express')
 	, path = require('path')
 	, passport = require('passport')

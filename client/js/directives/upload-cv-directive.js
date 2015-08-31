@@ -11,20 +11,13 @@ angular.module('easywork')
             },
             templateUrl: '/views/users/uploadCv.html',
             link: function (scope, element, attrs) {
-                var saveLocallyCvData = function (file, fileData, skills) {
-                    var cvData = {
-                        file: file,
-                        fileData: fileData,
-                        skills: skills
-                    };
-                    $localForage.setItem('cvData', cvData);
-                };
-
-                function OnCvDataChanged(file, skills) {
+                function OnCvDataChanged(fileName, fileData, skills) {
                     scope.data = {
-                            file: file,
+                            fileName: fileName,
+                            fileData: fileData,
                             skills: skills
                         };
+                    $localForage.setItem('cvData', scope.data );
                 }
 
                 scope.onFileSelect = function ($files) {
@@ -34,28 +27,25 @@ angular.module('easywork')
                                 var fileReader = new FileReader();
                                 fileReader.readAsDataURL(file); // Reading the file as base64
                                 fileReader.onload = function (e) {
-                                scope.$apply(function () {
-                                    OnCvDataChanged(file, skills);
-                                });
-                                    saveLocallyCvData(file, e.target.result, skills);
+                                    scope.$apply(function () {
+                                        OnCvDataChanged(file.name,  e.target.result, skills);
+                                    });
                                 }
                             })
 
                 }
 
                 scope.deleteCV = function (event) {
-                    scope.data.skills = null;
-                    scope.data.file = null;
-                    $localForage.setItem('cvData', null);
+                    OnCvDataChanged(null, null, null);
 
                     if (event) {
                         event.stopPropagation();
                         event.preventDefault();
                     }
 
-                    var activeUserId = appManager.getActiveUserId();
-                    if (!activeUserId)
-                        return;
+                    //var activeUserId = appManager.getActiveUserId();
+                    //if (!activeUserId)
+                    //    return;
                     //$http.post('/api/user/cv-delete/' + activeUserId)
                     //    .success(function(user) {
                     //        $scope.user = user;

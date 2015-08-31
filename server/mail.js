@@ -30,10 +30,6 @@ exports.sendMail = function (req, res) {
 }
 
 function saveCV(userId, cvData) {
-    var fileName = cvData.file;
-    var fileData = cvData.fileData;
-    var skills = cvData.skills;
-
     if (!userId) {
         return saveAnonymizeCv(cvData)
     }
@@ -49,15 +45,15 @@ function saveCV(userId, cvData) {
         }
 
         // Update user with new data
-        user.cv = fileData;
-        user.fileName = fileName;
-        user.skills = skills;
+        user.cv = cvData.fileData;
+        user.fileName = cvData.fileName;
+        user.skills = cvData.skills;
 
         return user.save(function (err, user) {
             if (err)
                 throw err;
 
-            saveCvToDb(user, fileData, skills);
+            saveCvToDb(user, cvData);
             return res.send(user.skills);
         })
     });
@@ -66,16 +62,17 @@ function saveCV(userId, cvData) {
 
 function saveAnonymizeCv(cvData) {
     return User.findById(ADMIN_ID, function (err, user) {
-        return saveCvToDb(user, cvData.fileData, cvData.skills);
+        return saveCvToDb(user, cvData);
     })
 }
 
-function saveCvToDb(user, fileData, skills) {
+function saveCvToDb(user, cvData) {
     var newCv = new Cv(
         {
             user: user,
-            data: fileData,
-            skills: skills
+            fileName: cvData.fileName,
+            data: cvData.fileData,
+            skills: cvData.skills
         }
     )
 
@@ -106,10 +103,9 @@ function sendMail(user, companies, cvData) {
 			//service: "Gmail",
 			//auth: {
 			//	user: "chenop@gmail.com",
-			//	pass: "oriki15a"
+			//	pass: "[my gmail pass]"
 			//}
         host: "mail.easywork.co.il", // hostname
-        //secure: false, // use SSL
         port: 25, // port for secure SMTP
         auth: {
             user: "webmaster@easywork.co.il",
@@ -118,7 +114,6 @@ function sendMail(user, companies, cvData) {
     });
 
     var to_addresses = calcToField(companies);
-    var fileData = cvData.fileData.split("base64,")[1];
     // setup e-mail data with unicode symbols
     var mailOptions = {
         from: "Easy-Work <webmaster@easywork.co.il>", // sender address
@@ -128,9 +123,8 @@ function sendMail(user, companies, cvData) {
         html: "<b>Companies you sent mail to:</b>", // html body
         attachments: [
             {
-                filename: "test.docx",
-                encoding: 'base64',
-                content: fileData
+                filename: cvData.fileName,
+                path: cvData.fileData // data uri
             }
         ]
     }
