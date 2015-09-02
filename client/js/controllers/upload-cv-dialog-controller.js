@@ -8,7 +8,6 @@ angular.module('easywork')
         initCvData();
         
         $scope.isSendEnable = function () {
-            console.log("isSendEnable: " + $scope.cvData.fileName);
             return $scope.cvData != null && $scope.cvData.fileName != null;
         }
 
