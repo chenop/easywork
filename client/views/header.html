@@ -68,12 +68,12 @@
                                 </div>
                             </div>
                             <div ng-if="authService.isLoggedIn()">
-                                <div class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <div dropdown>
+                                    <a href dropdown-toggle>
                                         {{getDisplayName()}}
                                         <b class="caret"></b>
                                     </a>
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu" aria-labelledby="simple-dropdown">
                                         <li access-level="jobSeeker">
                                             <a ui-sref="user_details">My User Profile</a>
                                         </li>
