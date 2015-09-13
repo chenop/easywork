@@ -159,7 +159,6 @@ textarea.cv-message {
 #small-search-button {
   padding: 0px 0px 0px 0px;
   margin: 7px 0px 0px 0px;
-  width: 120px;
   height: 39px; }
 
 .align-center {
@@ -183,9 +182,12 @@ textarea.cv-message {
   padding: 0 !important;
   margin: 0 !important; }
 
-.header-actions {
-  padding: 15px 5px 5px 5px; }
-
+@media (min-width: 768px) {
+  .header-actions {
+    padding: 5px 5px 5px 5px; } }
+@media (min-width: 992px) {
+  .header-actions {
+    padding: 15px 5px 5px 5px; } }
 .ul {
   /*width: 100%;*/
   display: table;
@@ -316,6 +318,8 @@ tr:hover button.action-button {
 .register-login {
   width: inherit;
   float: left; }
+  .register-login a {
+    float: left; }
 
 .big-title {
   color: #DE564B; }
@@ -471,9 +475,12 @@ header a {
   background-color: white;
   box-shadow: 5px 5px 1px #dfc88b;
   padding: 10px 0 10px 0; }
-
-.company-card-container:hover {
-  background-color: #F5EEDB; }
+  .company-card-container:hover {
+    background-color: #F5EEDB; }
+  .company-card-container.selected {
+    background-color: #C7E5AF; }
+    .company-card-container.selected :hover {
+      background-color: #91cc62; }
 
 .skill-icon {
   margin-right: 7px; }

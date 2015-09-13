@@ -85,10 +85,10 @@ angular.module('easywork')
             return (user.name && user.email && user.fileName);
         }
 
-        function uploadCVDialog(callBack) {
+        function sendCVDialog(callBack) {
             var modalInstance = $modal.open({
                 templateUrl: '/views/users/uploadCvDialog.html',
-                controller: 'UploadCvDialogCtrl',
+                controller: 'SendCvDialogCtrl',
                 resolve: {
                     selectedCompanies: function () {
                         return getSelectedCompanies();
@@ -105,7 +105,7 @@ angular.module('easywork')
 
         function send() {
             if (!authService.isLoggedIn()) {
-                uploadCVDialog(function() {
+                sendCVDialog(function() {
                     if (isUserDetailsCompleted()) {
                                 console.log("Sending!");
                                 // TODO chen make growl work

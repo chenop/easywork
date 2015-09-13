@@ -18,7 +18,7 @@
                 <div class="navbar-collapse collapse">
                     <div class="row-fluid">
                         <div ng-if="appManager.shouldDisplaySearchBarInHeader()">
-                            <div class="col-xs-4 col-sm-4 col-md-4 no-padding">
+                            <div class="col-sm-4 col-md-4 no-padding">
                                 <div class="select2">
                                     <select ui-select2="areas_select2Options" multiple
                                             ng-model="appManager.selectedAreas"
@@ -29,7 +29,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-xs-4 col-sm-4 col-md-4 no-padding">
+                            <div class="col-sm-4 col-md-4 no-padding">
                                 <div class="select2">
                                     <select ui-select2="technologies_select2Options" multiple
                                             ng-model="appManager.selectedTechnologies"
@@ -41,8 +41,8 @@
                                 </div>
                             </div>
 
-                            <div class="col-xs-1 col-sm-1 col-md-1">
-                                <button class="btn btn-lg"
+                            <div class="col-sm-2 col-md-2 no-padding">
+                                <button class="btn btn-lg btn-block"
                                         id="small-search-button"
                                         ng-click="send()"
                                         ng-class="{'btn-disabled':shouldDisableSend(), 'btn-primary':!shouldDisableSend()}"
@@ -52,15 +52,15 @@
                         </div>
 
                         <!-- Login or User menu -->
-                        <div class="nav navbar-nav navbar-left">
+                        <div class="nav navbar-nav navbar-left no-padding col-sm-2 col-md-2">
                             <div ng-if="!authService.isLoggedIn()">
-                                <div class="register-login row-fluid">
-                                    <div class="navbar-left header-actions">
+                                <div class="register-login row header-actions">
+                                    <div class="navbar-left col-sm-12 col-md-6">
                                         <a href="#" ng-click="openRegisterDialog()">
                                                 Register
                                         </a>
                                     </div>
-                                    <div class="navbar-left header-actions">
+                                    <div class="navbar-left col-sm-12 col-md-6">
                                         <a href="#" ng-click="openLoginDialog()">
                                                 LogIn
                                         </a>

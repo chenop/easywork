@@ -212,7 +212,6 @@ textarea.cv-message {
 #small-search-button {
   padding: 0px 0px 0px 0px;
   margin: 7px 0px 0px 0px;
-  width: 120px;
   height: 39px;
 }
 
@@ -243,10 +242,17 @@ textarea.cv-message {
   margin: 0 !important;
 }
 
-.header-actions {
-  padding: 15px 5px 5px 5px;
+@media (min-width: 768px) {
+  .header-actions {
+    padding: 5px 5px 5px 5px;
+  }
 }
 
+@media (min-width: 992px) {
+  .header-actions {
+    padding: 15px 5px 5px 5px;
+  }
+}
 .ul {
   /*width: 100%;*/
   display: table;
@@ -410,6 +416,10 @@ tr:hover button.action-button {
 .register-login {
   width: inherit;
   float: left;
+
+  a {
+    float: left;
+  }
 }
 
 .big-title {
@@ -604,10 +614,16 @@ header a {
   box-shadow: 5px 5px 1px $base60-darker;
   padding: 10px 0 10px 0;
 
-}
+  &:hover {
+    background-color: $base60-lighter;
+  }
 
-.company-card-container:hover {
-  background-color: $base60-lighter;
+  &.selected {
+    background-color: #C7E5AF;
+    :hover {
+      background-color: darken(#C7E5AF, 20%);
+    }
+  }
 }
 
 .skill-icon {
