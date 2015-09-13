@@ -211,7 +211,7 @@ textarea.cv-message {
 
 #small-search-button {
   padding: 0px 0px 0px 0px;
-  margin: 7px 0px 0px 0px;
+  margin: 7px 5px 0px 0px;
   height: 39px;
 }
 
@@ -248,11 +248,22 @@ textarea.cv-message {
     .header-actions {
       padding: 5px 5px 5px 5px;
     }
+
+    #small-search-button {
+      &.btn-disabled {
+        font-size: medium;
+      }
+      font-size: small;
+    }
+
   }
 
   @media (min-width: 992px) {
     .header-actions {
       padding: 15px 5px 5px 5px;
+    }
+    #small-search-button {
+      font-size: medium;
     }
   }
   .dropdown {
@@ -628,15 +639,15 @@ header a, .caret {
   box-shadow: 5px 5px 1px $base60-darker;
   padding: 10px 0 10px 0;
 
-  &:hover {
-    background-color: $base60-lighter;
-  }
 
   &.selected {
     background-color: #C7E5AF;
-    :hover {
-      background-color: darken(#C7E5AF, 20%);
+    &:hover {
+      background-color: darken(#C7E5AF, 5%);
     }
+  }
+  &:hover {
+    background-color: $base60-lighter;
   }
 }
 

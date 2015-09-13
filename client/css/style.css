@@ -158,7 +158,7 @@ textarea.cv-message {
 
 #small-search-button {
   padding: 0px 0px 0px 0px;
-  margin: 7px 0px 0px 0px;
+  margin: 7px 5px 0px 0px;
   height: 39px; }
 
 .align-center {
@@ -184,10 +184,16 @@ textarea.cv-message {
 
 @media (min-width: 768px) {
   .navbar .header-actions {
-    padding: 5px 5px 5px 5px; } }
+    padding: 5px 5px 5px 5px; }
+  .navbar #small-search-button {
+    font-size: small; }
+    .navbar #small-search-button.btn-disabled {
+      font-size: medium; } }
 @media (min-width: 992px) {
   .navbar .header-actions {
-    padding: 15px 5px 5px 5px; } }
+    padding: 15px 5px 5px 5px; }
+  .navbar #small-search-button {
+    font-size: medium; } }
 .navbar .dropdown {
   float: left;
   direction: ltr;
@@ -481,12 +487,12 @@ header a, .caret {
   background-color: white;
   box-shadow: 5px 5px 1px #dfc88b;
   padding: 10px 0 10px 0; }
-  .company-card-container:hover {
-    background-color: #F5EEDB; }
   .company-card-container.selected {
     background-color: #C7E5AF; }
-    .company-card-container.selected :hover {
-      background-color: #91cc62; }
+    .company-card-container.selected:hover {
+      background-color: #badf9c; }
+  .company-card-container:hover {
+    background-color: #F5EEDB; }
 
 .skill-icon {
   margin-right: 7px; }
