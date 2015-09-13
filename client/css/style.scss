@@ -242,15 +242,34 @@ textarea.cv-message {
   margin: 0 !important;
 }
 
-@media (min-width: 768px) {
-  .header-actions {
-    padding: 5px 5px 5px 5px;
-  }
-}
 
-@media (min-width: 992px) {
-  .header-actions {
-    padding: 15px 5px 5px 5px;
+.navbar {
+  @media (min-width: 768px) {
+    .header-actions {
+      padding: 5px 5px 5px 5px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .header-actions {
+      padding: 15px 5px 5px 5px;
+    }
+  }
+  .dropdown {
+    float: left;
+    direction: ltr;
+    padding-top: 15px;
+    padding-left: 0;
+
+    a {
+      padding-right: 5px;
+    }
+
+    &.open {
+      a {
+        background-color: inherit;
+      }
+    }
   }
 }
 .ul {
@@ -408,11 +427,6 @@ tr:hover button.action-button {
   padding-right: 5px;
 }
 
-.dropdown {
-  padding-top: 15px;
-  padding-left: 15px;
-}
-
 .register-login {
   width: inherit;
   float: left;
@@ -445,7 +459,7 @@ a:focus {
   color: darken($link-color, 10%);
 }
 
-header a {
+header a, .caret {
   color: $font-color-on-dark-background;
 }
 
