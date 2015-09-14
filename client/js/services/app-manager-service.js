@@ -98,7 +98,7 @@ angular.module('easywork')
 
         function sendCVDialog(callBack) {
             var modalInstance = $modal.open({
-                templateUrl: '/views/users/uploadCvDialog.html',
+                templateUrl: '/views/users/sendCvDialog.html',
                 controller: 'SendCvDialogCtrl',
                 resolve: {
                     selectedCompanies: function () {
@@ -115,18 +115,13 @@ angular.module('easywork')
         }
 
         function send() {
-            if (!authService.isLoggedIn()) {
-                sendCVDialog(function() {
-                    if (isUserDetailsCompleted()) {
-                                console.log("Sending!");
-                                // TODO chen make growl work
-                                growl.addSuccessMessage("CVs were sent!", {ttl: 2000});
-                                //mailService.sendMail(appManager.selectedCompanies);
-                            }
-                })
-            }
-            else
+            sendCVDialog(function () {
+                //if (isUserDetailsCompleted()) {
+                // TODO chen make growl work
                 growl.addSuccessMessage("CVs were sent!", {ttl: 2000});
+                //mailService.sendMail(appManager.selectedCompanies);
+                //}
+            })
         }
 
         function openLoginDialog (callBack) {

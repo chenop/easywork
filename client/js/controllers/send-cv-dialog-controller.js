@@ -3,7 +3,7 @@
  */
 
 angular.module('easywork')
-    .controller('UploadCvDialogCtrl', function ($scope, $modalInstance, $localForage, mailService, selectedCompanies) {
+    .controller('SendCvDialogCtrl', function ($scope, $modalInstance, $localForage, mailService, selectedCompanies) {
         $scope.modIns = $modalInstance;
         initCvData();
         
@@ -17,6 +17,7 @@ angular.module('easywork')
         }
 
         function initCvData() {
+            // todo if (isLoggedIn) {  $scope.cvData = user.cvData; return; };
             $localForage.getItem('cvData')
                 .then(function (cvData) {
                     if (!cvData)
