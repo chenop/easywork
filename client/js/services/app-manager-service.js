@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-	.factory('appManager', function (authService, common, growl, $modal) {
+	.factory('appManager', function (authService, common, growl, $modal, $rootScope) {
 
         var selectedCompanies = [];
         var selectedTechnologies = [];
@@ -11,6 +11,17 @@ angular.module('easywork')
         var _selectedEntity;
         var currentContentType = common.CONTENT_TYPE.COMPANY;
         var default_message = 'Hi,\nI am interested in open positions in your company.\nContact information can be found in my CV which is attached.\n\nBest Regards,\n';
+
+        $rootScope.$on('dataChanged', function (event, entity) {
+            handleActiveUser(entity);
+        })
+
+        var handleActiveUser = function(entity) {
+            var activeUser = getActiveUser();
+            if (activeUser._id === entity._id) {
+                setActiveUser(entity);
+            }
+        }
 
         var getSelectedCompaniesCount = function() {
             return selectedCompanies.length;

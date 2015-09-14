@@ -2,7 +2,7 @@
 
 angular.module('easywork')
     .controller('userDetailsCtrl'
-    , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager, $timeout, $state, $stateParams) {
+    , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager, $timeout, $state, $stateParams, debounce) {
 
         appManager.setDisplaySearchBarInHeader(false);
         $scope.user = {};
@@ -103,11 +103,15 @@ angular.module('easywork')
                 })
         }
 
+        var updateUser0 = function () {
+            return dataManager.updateUser($scope.user)
+        }
+
         $scope.updateUser = function (event) {
-            dataManager.updateUser($scope.user)
-                .success(function (entity) {
-                    $scope.$emit('dataChanged', entity);
-                });
+            debounce(updateUser0, 500)()
+            .then(function (entity) {
+                $scope.$emit('dataChanged', entity.data);
+            });
         }
 
         $scope.deleteUser = function () {

@@ -71,22 +71,12 @@ angular.module('easywork')
                     break;
 
                 case common.CONTENT_TYPE.USER.name:
-                    handleActiveUser(nextEntityIdToSelect);
                     getUsers().then(function(entites) {
                         $scope.entities = entites;
                         appManager.setCurrentContentType(common.CONTENT_TYPE.USER);
                         handleSelection(nextEntityIdToSelect);
                     });
                     break;
-            }
-        }
-
-        function handleActiveUser(entityId) {
-            var activeUser = appManager.getActiveUser();
-            if (activeUser._id === entityId) {
-                var entity = getEntity($scope.entities, entityId);
-                appManager.setActiveUser(entity);
-                $scope.apply();
             }
         }
 
