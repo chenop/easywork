@@ -534,4 +534,8 @@ header a, .caret {
 .cv-button {
   margin-bottom: 15px; }
 
+.toast-top-center {
+  top: 80px;
+  }
+
 /*# sourceMappingURL=style.css.map */

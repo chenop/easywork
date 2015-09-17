@@ -26,7 +26,8 @@
     "bootstrap-sass": "~3.3.3",
     "localforage": "~1",
     "angular-localforage": "~1.2.3",
-    "angular-bootstrap": "~0.13.3"
+    "angular-bootstrap": "~0.13.3",
+    "angularjs-toaster": "~0.4.15"
   },
   "resolutions": {
     "angular": ">=1"
