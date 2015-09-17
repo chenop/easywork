@@ -12,6 +12,7 @@ var app = angular.module('easywork',
         , 'ui.select2'
         , 'ngAnimate'
         , 'LocalForageModule'
+        , 'toaster'
     ]
 );
 

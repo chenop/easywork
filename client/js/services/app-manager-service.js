@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-	.factory('appManager', function (authService, common, growl, $modal, $rootScope) {
+	.factory('appManager', function (authService, common, growl, $modal, $rootScope, toaster) {
 
         var selectedCompanies = [];
         var selectedTechnologies = [];
@@ -116,11 +116,7 @@ angular.module('easywork')
 
         function send() {
             sendCVDialog(function () {
-                //if (isUserDetailsCompleted()) {
-                // TODO chen make growl work
-                growl.addSuccessMessage("CVs were sent!", {ttl: 2000});
-                //mailService.sendMail(appManager.selectedCompanies);
-                //}
+                toaster.pop('success', "קו\"ח נשלחו בהצלחה!");
             })
         }
 
