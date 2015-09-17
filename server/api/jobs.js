@@ -115,6 +115,7 @@ exports.updateJob = function (req, res) {
         if (job === undefined || job == null)
             return;
 
+        // Update job with new data
         job.name = req.body.name;
         job.code = req.body.code;
         job.city = req.body.city;

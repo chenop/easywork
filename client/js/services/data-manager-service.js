@@ -220,14 +220,20 @@ angular.module('easywork')
             })
         };
 
-        var getAllJobs = function() {
+        var getAllJobs = function(companyId) {
             //var deferred = $q.defer();
             //if (jobs !== null) {
             //    deferred.resolve(jobs);
             //    return deferred.promise;
             //}
 
-            return $http.get('/api/allJobs')
+
+            var allJobsUrl = '/api/allJobs';
+            if (companyId) {
+                allJobsUrl += '/' +companyId;
+            }
+
+            return $http.get(allJobsUrl)
                 .then(function(result) {
                     var jobs = modelTransformer.transform(result.data, Job);
                     //jobs = result.data;

@@ -1,49 +1,49 @@
-<div data-ng-controller="JobsBoardCtrl">
-    <div class="row">
+<!--<div data-ng-controller="JobsBoardCtrl">-->
+    <!--<div class="row">-->
 
-        <div class="col-md-12">
-                <div class="nav-header">משרות</div>
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th><input type="checkbox" ng-model='shouldSelectAll' ng-click="selectAll($event)"></th>
-                        <th class="logo">Logo</th>
-                        <th>Name</th>
-                        <th>City</th>
-                        <th>Technologies</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat="job in jobs | filter:isRelevant"
-                        ng-class="(job.selected) ? 'selected' : ''" ng-click="toggleSelected(job)">
-                        <td>
-                            <input type="checkbox" ng-model="job.selected">
-                        </td>
-                        <td>
-                            <img ng-src="{{job.company.logo.url}}" class="logo"/>
-                        </td>
-                        <td>
-                            <a href="#/phones/{{company.id}}/{{company.details}}">{{job.company.name}}</a>
-                        </td>
-                        <td>
-                            {{job.city}}
-                        </td>
-                        <td>
-                            <ul ng-repeat="technology in job.technologies" class="technology">
-                                <li>{{technology}}</li>
-                            </ul>
-                        </td>
-                        <td>
-                            <button tooltip="More Details"
-                                    ng-click="showDetails(job, $event)" class="btn btn-sm action-button">
-                                More Details <i class="glyphicon glyphicon-info-sign"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-        </div>
+        <!--<div class="col-md-12">-->
+                <!--<div class="nav-header">משרות</div>-->
+                <!--<table class="table table-hover">-->
+                    <!--<thead>-->
+                    <!--<tr>-->
+                        <!--<th><input type="checkbox" ng-model='shouldSelectAll' ng-click="selectAll($event)"></th>-->
+                        <!--<th class="logo">Logo</th>-->
+                        <!--<th>Name</th>-->
+                        <!--<th>City</th>-->
+                        <!--<th>Technologies</th>-->
+                        <!--<th></th>-->
+                    <!--</tr>-->
+                    <!--</thead>-->
+                    <!--<tbody>-->
+                    <!--<tr ng-repeat="job in jobs | filter:isRelevant"-->
+                        <!--ng-class="(job.selected) ? 'selected' : ''" ng-click="toggleSelected(job)">-->
+                        <!--<td>-->
+                            <!--<input type="checkbox" ng-model="job.selected">-->
+                        <!--</td>-->
+                        <!--<td>-->
+                            <!--<img ng-src="{{job.company.logo.url}}" class="logo"/>-->
+                        <!--</td>-->
+                        <!--<td>-->
+                            <!--<a href="#/phones/{{company.id}}/{{company.details}}">{{job.company.name}}</a>-->
+                        <!--</td>-->
+                        <!--<td>-->
+                            <!--{{job.city}}-->
+                        <!--</td>-->
+                        <!--<td>-->
+                            <!--<ul ng-repeat="technology in job.technologies" class="technology">-->
+                                <!--<li>{{technology}}</li>-->
+                            <!--</ul>-->
+                        <!--</td>-->
+                        <!--<td>-->
+                            <!--<button tooltip="More Details"-->
+                                    <!--ng-click="showDetails(job, $event)" class="btn btn-sm action-button">-->
+                                <!--More Details <i class="glyphicon glyphicon-info-sign"></i>-->
+                            <!--</button>-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <!--</tbody>-->
+                <!--</table>-->
+        <!--</div>-->
 
-    </div>
-</div>
+    <!--</div>-->
+<!--</div>-->
