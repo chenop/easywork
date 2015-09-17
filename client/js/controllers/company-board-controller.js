@@ -40,6 +40,7 @@ angular.module('easywork')
                 return location.street;
             }
         };
+
         dataManager.getCompanies().then(function (companies) {
             $scope.companies = companies;
             angular.forEach($scope.companies, function (company, key) {
@@ -52,7 +53,6 @@ angular.module('easywork')
         });
 
         appManager.setDisplaySearchBarInHeader(true);
-
         appManager.disableSend = false;
 
         $scope.$watch('companies|filter:{selected:true}', function (nv) {
@@ -66,13 +66,13 @@ angular.module('easywork')
         }, true);
 
         // watch the selectAll checkBox for changes
-        $scope.shouldSelectAll = null;
-        $scope.$watch('shouldSelectAll', function () {
+        $scope.isSelectAll = false;
+        $scope.$watch('isSelectAll', function () {
             if ($scope.companies === undefined) {
                 return;
             }
             for (var i = 0; i < $scope.companies.length; i++) {
-                $scope.companies[i].selected = $scope.shouldSelectAll;
+                $scope.companies[i].selected = $scope.isSelectAll;
             }
         }, true);
 
@@ -122,6 +122,10 @@ angular.module('easywork')
             else {
                 company.selected = false;
             }
+        }
+
+        $scope.toggleSelectAll = function () {
+            $scope.isSelectAll = !($scope.isSelectAll)
         }
 
         $scope.showJobDetails = function (job, event) {

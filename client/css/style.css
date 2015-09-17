@@ -541,4 +541,14 @@ header a, .caret {
   right: 0;
   left: 0; }
 
+.select-all {
+  display: inline-block; }
+  .select-all i {
+    float: right;
+    padding-top: 5px; }
+  .select-all h4 {
+    float: right;
+    padding: 0px 20px 0px;
+    color: rgba(0, 0, 0, 0.54); }
+
 /*# sourceMappingURL=style.css.map */

@@ -711,3 +711,16 @@ header a, .caret {
   right: 0;
   left: 0;
 }
+
+.select-all {
+  display: inline-block;
+  i {
+    float: right;
+    padding-top: 5px;
+  }
+  h4 {
+    float: right;
+    padding: 0px 20px 0px;
+    color: rgba(0, 0, 0, 0.54);
+  }
+}

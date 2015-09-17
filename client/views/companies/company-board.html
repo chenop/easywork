@@ -1,6 +1,9 @@
 <div data-ng-controller="CompaniesBoardCtrl">
     <h3 class="big-title">חברות</h3>
     <toaster-container toaster-options="{'time-out': 3000, 'position-class': 'toast-top-center', 'animation-class': 'toast-top-center'}"></toaster-container>
+
+    <div class="select-all" ng-click="toggleSelectAll()"><i ng-class="{'glyphicon glyphicon-unchecked': !isSelectAll, 'glyphicon glyphicon-check' : isSelectAll}"></i><h4>בחר הכל</h4></div>
+
     <div class="transition-animation" ng-repeat="com in companies  | filter:isRelevant">
         <company-card company="com" ng-click="toggleSelected(com)"/>
     </div>
