@@ -116,11 +116,7 @@ angular.module('easywork')
 
         function send() {
             sendCVDialog(function () {
-                //if (isUserDetailsCompleted()) {
-                // TODO chen make growl work
-                toaster.pop('success', "CV was sent!");
-                //mailService.sendMail(appManager.selectedCompanies);
-                //}
+                toaster.pop('success', "קו\"ח נשלחו בהצלחה!");
             })
         }
 
