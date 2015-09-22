@@ -7,17 +7,20 @@ angular.module('easywork')
         return {
             restrict: 'EA',
             scope: {
-                data: "="
+                data: "=",
+                userId: "&"
             },
             templateUrl: '/views/users/uploadCv.html',
             link: function (scope, element, attrs) {
+                var userId = scope.userId;
+
                 function OnCvDataChanged(fileName, fileData, skills) {
                     scope.data = {
                             fileName: fileName,
                             fileData: fileData,
                             skills: skills
                         };
-                    $localForage.setItem('cvData', scope.data );
+                    $localForage.setItem(userId, scope.data );
                 }
 
                 scope.onFileSelect = function ($files) {

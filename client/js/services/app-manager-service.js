@@ -103,6 +103,9 @@ angular.module('easywork')
                 resolve: {
                     selectedCompanies: function () {
                         return getSelectedCompanies();
+                    },
+                    userId: function() {
+                        return getActiveUserId()
                     }
                 }
 
