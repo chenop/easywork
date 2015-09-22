@@ -106,7 +106,7 @@ app.get('/api/company/jobsBySkill/:id/:skill', companies.getJobsBySkill);
 
 // Jobs
 app.get('/api/job/list/:id', jobs.getJobs)
-app.get('/api/allJobs', jobs.getAllJobs)
+app.get('/api/allJobs/:id', jobs.getAllJobs)
 app.get('/api/job/:id', jobs.getJob)
 app.post('/api/job', jobs.createJob)
 app.put('/api/job/:id', jobs.updateJob)
