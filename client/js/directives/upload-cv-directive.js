@@ -12,7 +12,7 @@ angular.module('easywork')
             },
             templateUrl: '/views/users/uploadCv.html',
             link: function (scope, element, attrs) {
-                var userId = scope.userId;
+                var userId = scope.userId();
 
                 function OnCvDataChanged(fileName, fileData, skills) {
                     scope.data = {
