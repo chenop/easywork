@@ -43,7 +43,7 @@
             <div class="form-group" access-level="admin">
                 <label class="col-sm-2 control-label">חברה</label>
                 <select ui-select2="select2Options" ng-model="jobCompanyId" ng-click="updateJob()">
-                    <option ng-selected="{{jobCompanyId == company._id}}" ng-repeat="company in companies"
+                    <option ng-selected="{{jobCompanyId === company._id}}" ng-repeat="company in companies"
                             value="{{company._id}}">{{company.name}}
                     </option>
                 </select>

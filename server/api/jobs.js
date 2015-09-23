@@ -106,11 +106,22 @@ function updateCompanyAfterJobChange(company, jobId) {
     });
 }
 
-// todo rename /refactor
-function companyUpdateIsNeeded(oldCompany, oldTechnologies, newCompany, newTechnologies) {
+function isCompanyChanged(oldCompany, newCompany) {
+    if (!oldCompany && !newCompany)
+        return false;
+
+    if (!oldCompany && newCompany)
+        return true;
+
+    if (oldCompany && !newCompany)
+        return true;
+
     return oldCompany !== newCompany;
 }
 
+function isTechnologiesEquals(oldTechnologies, newTechnologies) {
+    return oldTechnologies.equals(newTechnologies);
+}
 exports.updateJob = function (req, res) {
     return Job.findById(req.params.id, function (err, job) {
         if (job === undefined || job == null)
@@ -124,18 +135,14 @@ exports.updateJob = function (req, res) {
 
         var newCompany = req.body.company;
         var newTechnologies = req.body.technologies;
-        var oldCompany = job.company.toString();
+        var oldCompany = (job.company) ? job.company.toString() : null;
         var oldTechnologies = job.technologies;
 
-        // todo 1. if company changed --> update old companies job, update new company jobs
-        // todo 2. if (same company & technology changed) --> updatead technologies
-        // todo 3. if (company changed & technology changed) --> update old company jobs, update new company jobs, update new & old companies technologies
-        // todo 4. getalljobs witout company id not working
-        if (!oldTechnologies.equals(newTechnologies) ) {
+        if (!isTechnologiesEquals(oldTechnologies, newTechnologies)) {
             job.technologies = newTechnologies;
         }
 
-        if (companyUpdateIsNeeded(oldCompany, oldTechnologies, newCompany, newTechnologies)) {
+        if (isCompanyChanged(oldCompany, newCompany)) {
             // TODO chen the following update of companies need to be done in Company - only event should be fired from here
             Company.findById(oldCompany, function (err, company) {
                 if (company === undefined || company == null)
@@ -152,9 +159,11 @@ exports.updateJob = function (req, res) {
                 })
             });
 
-            Company.findById(newCompany, function (err, company) {
-                if (company === undefined || company == null)
-                    return;
+            return Company.findById(newCompany, function (err, company) {
+                if (company === undefined || company == null) {
+                    job.company = null;
+                    return job.save();
+                }
 
                 if (err)
                     return console.log(err);
@@ -165,23 +174,29 @@ exports.updateJob = function (req, res) {
                     company.save();
                 })
 
+                // Saving the new company
+                job.company = company;
+
+                // New company we need to job.save() it
+                return saveJob(job);
+
             });
-
-            job.company = mongoose.Schema.Types.ObjectId(newCompany);
         }
-
-        return job.save(function (err) {
-            if (!err) {
-                console.log("updated");
-            } else {
-                console.log(err);
-                return res.json(401, err);
-            }
-            return res.send(job);
-        });
+        else {
+            return saveJob(job);
+        }
     });
 };
 
+function saveJob(job) {
+    return job.save(function (err) {
+        if (err) {
+            console.log(err);
+            return res.json(401, err);
+        }
+        return res.send(job);
+    });
+}
 /**
  * Update user details (except file)
  * @param id
