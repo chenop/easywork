@@ -53,10 +53,9 @@ exports.createJob = function (req, res) {
         var newJob = new Job(
             {
                 name: req.body.name
-                , code: req.body.code
-                , description: req.body.description
-                , city: req.body.city
-                , technologies: req.body.technologies
+                //, code: req.body.code
+                //, description: req.body.description
+                //, city: req.body.city
                 , company: company
             }
         );
@@ -68,7 +67,7 @@ exports.createJob = function (req, res) {
                 console.log("Error saving job in company " + company.name);
             }
 
-            return newJob.save(function (err) {
+            return newJob.save(function (err, newJob) {
                 if (!err) {
                     console.log("job " + newJob["name"] + " create in server")
                     return res.send(newJob);
@@ -106,8 +105,10 @@ function updateCompanyAfterJobChange(company, jobId) {
         });
     });
 }
-function companyUpdateIsNeeded(job, newTechnologies, newCompany) {
-    return !job.technologies.equals(newTechnologies) || job.company !== newCompany;
+
+// todo rename /refactor
+function companyUpdateIsNeeded(oldCompany, oldTechnologies, newCompany, newTechnologies) {
+    return oldCompany !== newCompany;
 }
 
 exports.updateJob = function (req, res) {
@@ -121,11 +122,20 @@ exports.updateJob = function (req, res) {
         job.city = req.body.city;
         job.description = req.body.description;
 
-        if (companyUpdateIsNeeded(job, req.body.technologies, req.body.company)) {
-            job.technologies = req.body.technologies;
-            var newCompany = req.body.company;
-            var oldCompany = job.company;
+        var newCompany = req.body.company;
+        var newTechnologies = req.body.technologies;
+        var oldCompany = job.company.toString();
+        var oldTechnologies = job.technologies;
 
+        // todo 1. if company changed --> update old companies job, update new company jobs
+        // todo 2. if (same company & technology changed) --> updatead technologies
+        // todo 3. if (company changed & technology changed) --> update old company jobs, update new company jobs, update new & old companies technologies
+        // todo 4. getalljobs witout company id not working
+        if (!oldTechnologies.equals(newTechnologies) ) {
+            job.technologies = newTechnologies;
+        }
+
+        if (companyUpdateIsNeeded(oldCompany, oldTechnologies, newCompany, newTechnologies)) {
             // TODO chen the following update of companies need to be done in Company - only event should be fired from here
             Company.findById(oldCompany, function (err, company) {
                 if (company === undefined || company == null)
@@ -158,17 +168,17 @@ exports.updateJob = function (req, res) {
             });
 
             job.company = mongoose.Schema.Types.ObjectId(newCompany);
-
-            return job.save(function (err) {
-                if (!err) {
-                    console.log("updated");
-                } else {
-                    console.log(err);
-                    return res.json(401, err);
-                }
-                return res.send(job);
-            });
         }
+
+        return job.save(function (err) {
+            if (!err) {
+                console.log("updated");
+            } else {
+                console.log(err);
+                return res.json(401, err);
+            }
+            return res.send(job);
+        });
     });
 };
 
