@@ -17,7 +17,7 @@ angular.module('easywork')
             var activeUserId = appManager.getActiveUserId();
             dataManager.getUser(activeUserId)
                 .then(function(result) {
-                    refreshUser(result.data);
+                    refreshUser(result.data); 
                 })
         }
 
@@ -131,6 +131,16 @@ angular.module('easywork')
                 .success(function(user) {
                     $scope.user = user;
                 })
+        }
+
+        $scope.updateRole = function(newRole) {
+            if (!$scope.user) {
+                return;
+            }
+
+            $scope.user.role = newRole;
+            appManager.setActiveUser($scope.user);
+            updateUser0();
         }
     }
 );

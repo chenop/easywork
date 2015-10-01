@@ -42,6 +42,7 @@ angular.module('easywork')
         $scope.user.password = null;
         $scope.user.verifyPassword = null;
         $scope.user.message = defaultMessage;
+        $scope.user.role = 'jobSeeker';
         $scope.err = undefined;
 
         $scope.select2Options = {

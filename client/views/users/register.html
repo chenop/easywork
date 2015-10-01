@@ -1,4 +1,4 @@
-<div class="row" ng-controller="registerCtrl">
+<div class="row form-register" ng-controller="registerCtrl">
     <!--<div class="container">-->
 
     <div class="text-center">
@@ -15,13 +15,6 @@
                 <!--<a class="btn btn-primary social-login-btn social-facebook" href="/auth/facebook"><i-->
                         <!--class="fa fa-facebook"></i></a>-->
             </p>
-            <!--<p>-->
-            <!--<a class="btn btn-primary social-login-btn social-twitter" href="/auth/twitter"><i class="fa fa-twitter"></i></a>-->
-            <!--<a class="btn btn-primary social-login-btn social-linkedin" href="/auth/linkedin"><i class="fa fa-linkedin"></i></a>-->
-            <!--</p>-->
-
-            <!--<br><br>-->
-
 
             <small class="text-muted">או</small>
             <br><br>
@@ -43,6 +36,17 @@
             </div>
             <div ng-messages="formRegister.verifyPassword.$error" class="has-error">
                 <div class="help-block" ng-message="match">הסיסמאות אינן זהות</div>
+            </div>
+
+            <div class="form-group role">
+                <label class="col-sm-3">מי אני?</label>
+
+                <div class="no-padding col-sm-9">
+                    <div class="btn-group account-type" data-toggle="buttons-checkbox">
+                        <button ng-click="updateRole('jobSeeker')" type="button" class="btn btn-default" ng-model="user.role" btn-radio="'jobSeeker'">מועמד</button>
+                        <button ng-click="updateRole('jobProvider')"type="button" class="btn btn-default" ng-model="user.role" btn-radio="'jobProvider'">מעסיק</button>
+                    </div>
+                </div>
             </div>
 
             <button ng-disabled="shouldDisable()" class="btn btn-lg btn-primary btn-block btn-center" ng-click="register()" data-bindattr-3="3">

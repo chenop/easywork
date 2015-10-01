@@ -189,7 +189,7 @@ exports.updateUser = function (req, res) {
 };
 
 function prepareCookie(res, user) {
-    res.cookie('user', JSON.stringify(
+    res.cookie('activeUser', JSON.stringify(
         {
             name: user.name || ""
             //, username: user.username
@@ -202,11 +202,12 @@ function prepareCookie(res, user) {
         }));
 }
 exports.register = function (req, res) {
+    var role = (typeof req.body.role === 'undefined') ? 'jobSeeker' : req.body.role;
     var user = new User(
         {
             //name: req.body.name,
             //username: req.body.username,
-            role: 'jobSeeker',
+            role: role,
             password: req.body.password,
             //experience: req.body.experience,
             email: req.body.email,
@@ -260,6 +261,7 @@ exports.upload = function (req, res) {
 
 
 function logout(req, res) {
+    res.clearCookie('activeUser');
     req.logout();
     res.json("logout");
 };

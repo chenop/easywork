@@ -16,7 +16,7 @@ angular.module('easywork')
                     , userRole
                     , accessLevel;
 
-                scope.$watch('authService.getActiveUser()', function () {
+                scope.$watch('authService.getActiveUser().role', function () {
                     var activeUser = authService.getActiveUser();
                     if (activeUser === undefined) {
                         console.log("activeUser not defined")

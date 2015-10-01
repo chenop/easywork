@@ -192,7 +192,7 @@ module.exports = function (passport, app, baseUrl) {
             failureRedirect: '/auth/google/failure'
         }),
         function(req, res) {
-            res.cookie('user', JSON.stringify(
+            res.cookie('activeUser', JSON.stringify(
                 {
                     name: req.user.name
                     , username: req.user.username

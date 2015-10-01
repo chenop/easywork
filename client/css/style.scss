@@ -724,3 +724,22 @@ header a, .caret {
     color: rgba(0, 0, 0, 0.54);
   }
 }
+
+.account-type {
+  display: inline-block;
+  float: right;
+
+  .radio-inline {
+    float: right;
+  }
+}
+
+.form-register {
+  .role {
+    margin-bottom: 54px;
+    label {
+      color: #555;
+      margin-top: 6px;
+    }
+  }
+}
