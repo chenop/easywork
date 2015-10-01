@@ -551,4 +551,16 @@ header a, .caret {
     padding: 0px 20px 0px;
     color: rgba(0, 0, 0, 0.54); }
 
+.account-type {
+  display: inline-block;
+  float: right; }
+  .account-type .radio-inline {
+    float: right; }
+
+.form-register .role {
+  margin-bottom: 54px; }
+  .form-register .role label {
+    color: #555;
+    margin-top: 6px; }
+
 /*# sourceMappingURL=style.css.map */

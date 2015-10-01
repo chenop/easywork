@@ -3,15 +3,30 @@
 /* Services */
 
 angular.module('easywork')
-    .factory('authService', function ($http, $cookieStore) {
+    .factory('authService', function ($http, $cookies, $rootScope, $localForage) {
 
         var accessLevels = routingConfig.accessLevels
             , userRoles = routingConfig.userRoles
-            , ANONYMOUS = {username: '', role: "public"}
-            , activeUser = $cookieStore.get('user') || angular.copy(ANONYMOUS);
+            , ANONYMOUS = {username: '', role: "public"};
+            //, activeUser = $cookieStore.get('user') || angular.copy(ANONYMOUS);
+
+        var activeUser = $localForage.getItem('activeUser').then(function(actUser) {
+             activeUser = (!actUser) ? ANONYMOUS : actUser;
+        }) 
+
+        $rootScope.$watch(function() { return $cookies.activeUser; }, function(newValue) {
+            if (!$cookies.activeUser)
+                return;
+
+            setActiveUser(JSON.parse($cookies.activeUser));
+        });
 
         function setActiveUser(user) {
+            if (!user)
+                return;
+
             angular.extend(activeUser, user); // Shallow copy - just switch the references
+            $localForage.setItem('activeUser', user);
         }
 
         var isAuthorize = function(accessLevel, role) {
@@ -63,7 +78,8 @@ angular.module('easywork')
             return $http.get("/logout")
                 .success(function() {
                     setActiveUser(ANONYMOUS);
-                    $cookieStore.remove('user');
+                    $localForage.removeItem('activeUser');
+                    $cookies.activeUser = JSON.stringify(ANONYMOUS);
                 });
         };
 
