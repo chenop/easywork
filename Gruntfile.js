@@ -57,15 +57,32 @@ module.exports = function (grunt) {
 				// Gets the port from the connect configuration
 				path: 'http://localhost:3000'
 			}
-		}
-
+		},
+        ngAnnotate: {
+            options: {
+                singleQuotes: true,
+            },
+            dist: {
+                files: [{
+                    src: ['client/js/models/**.js'],
+                    expand: true,
+                    //ext: '.annotated.js',
+                    //extDot: 'last'
+                    //ext: '.annotated.js', // Dest filepaths will have this extension.
+                    //extDot: 'last',       // Extensions in filenames begin after the last dot
+                    //dest: '.tmp'
+                }],
+            }
+        }
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-express-server');
 	grunt.loadNpmTasks('grunt-open');
+	grunt.loadNpmTasks('grunt-ng-annotate');
 
 	grunt.registerTask('default', ['express:dev', 'open', 'watch' ])
+	grunt.registerTask('annotate', ['ngAnnotate'])
 }
 ;
 
