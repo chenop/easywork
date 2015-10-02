@@ -26,10 +26,10 @@
     "q": "^1.0.1"
   },
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-cli": "~0.1.11",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-express-server": "~0.4.9",
+    "grunt": "latest",
+    "grunt-cli": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-express-server": "latest",
     "grunt-open": "~0.2.2",
     "grunt-shell": "~0.6.1"
   },

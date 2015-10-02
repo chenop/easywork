@@ -27,35 +27,30 @@ module.exports = function (grunt) {
 			}
 		},
 		watch: {
-			options: {
-				livereload: true
-			},
-			html: {
-				files: [ '**/*.html'],
+			scripts: {
+				files: ['client/js/**/*.js', 'client/views/**/*.html', 'client/css/**/*.css'],
+				//tasks: ['default'],
 				options: {
-					livereload: true
-				}
+					livereload: true,
+				},
 			},
 			server: {
-				files: [ 'server.js'],
+				files: [ 'server.js', 'server/**/*.js'],
 				tasks: ['express:dev'],
 				options: {
 					livereload: true,
 					spawn: false // Without this option specified express won't be reloaded
 				}
 			},
-			js: {
-				files: [ '**/*.js'],
-				options: {
-					livereload: true
-				}
-			},
-			css: {
-				files: [ '**/*.css'],
-				options: {
-					livereload: true
-				}
-			}
+            configFiles: {
+                files: [ 'Gruntfile.js'],
+                options: {
+                    reload: true
+                }
+            },
+            options: {
+                debounceDelay: 100,
+            },
 		},
 		open: {
 			express: {

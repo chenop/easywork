@@ -28,8 +28,6 @@ var log = function (message) {
 	console.log("[" + (Date.now() - start) + "] " + message);
 };
 
-log("Trying to connect to db...");
-
 var dbUrl;
 var baseUrl;
 var env = app.get('env');
@@ -37,7 +35,7 @@ if (!env || 'development' == env) {
     console.log("Development Mode!");
     //dbUrl = "mongodb://localhost/db";
     dbUrl = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
-    app.use(morgan('dev'));
+    //app.use(morgan('dev'));
     app.use(errorhandler())
     baseUrl = 'http://localhost:3000';
 };
@@ -53,11 +51,9 @@ mongoose.connect(dbUrl); // comment
 mongoose.connection.on('error', function(err, req, res, next)  {
     log("Cant connect to MongoDB - please verify that it was started.");
 });
-mongoose.connection.once('open', function callback() {
-    log("Connected to db");
-});
-
-log("Begin server.js");
+//mongoose.connection.once('open', function callback() {
+//    log("Connected to db");
+//});
 
 var clientDir = path.join(__dirname, 'client')
 app.set('port', process.env.PORT || 3000)
