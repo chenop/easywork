@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-	.factory('appManager', function (authService, common, growl, $modal, $rootScope, toaster) {
+	.factory('appManager', function (authService, common, $modal, $rootScope, toaster) {
 
         var selectedCompanies = [];
         var selectedTechnologies = [];

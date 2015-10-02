@@ -4,7 +4,6 @@
 var app = angular.module('easywork',
     [
         , 'ui.bootstrap'
-        , 'angular-growl'
         , 'ngMessages'
         , 'ui.router'
         , 'ngCookies'
