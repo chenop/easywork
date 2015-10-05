@@ -27,8 +27,11 @@
   "devDependencies": {
     "grunt": "latest",
     "grunt-cli": "latest",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-uglify": "^0.9.2",
     "grunt-contrib-watch": "latest",
     "grunt-express-server": "latest",
+    "grunt-html2js": "^0.3.5",
     "grunt-ng-annotate": "^1.0.1",
     "grunt-open": "~0.2.2",
     "grunt-shell": "~0.6.1"
