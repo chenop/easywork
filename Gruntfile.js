@@ -16,7 +16,7 @@ module.exports = function (grunt) {
 			},
 			prod: {
 				options: {
-					script: 'path/to/prod/server.js',
+					script: 'dist/app.js',
 					node_env: 'production'
 				}
 			},
@@ -58,32 +58,47 @@ module.exports = function (grunt) {
 				path: 'http://localhost:3000'
 			}
 		},
+		html2js: {
+			dist: {
+				src: [ 'client/views/**/*.html' ],
+				dest: 'tmp/templates.js'
+			}
+		},
         ngAnnotate: {
             options: {
                 singleQuotes: true,
             },
             dist: {
-                files: [{
-                    src: ['client/js/models/**.js'],
-                    expand: true,
-                    //ext: '.annotated.js',
-                    //extDot: 'last'
-                    //ext: '.annotated.js', // Dest filepaths will have this extension.
-                    //extDot: 'last',       // Extensions in filenames begin after the last dot
-                    //dest: '.tmp'
-                }],
-            }
-        }
+                files: {
+                    'dist/app.js' : ['client/lib/**/*.js', 'client/css/**/*.js', 'client/js/**/*.js', 'tmp/templates.js' ],
+                },
+            },
+        },
+		uglify: {
+			dist: {
+				files: {
+					'dist/app.js': [ 'dist/app.js' ]
+				}
+			}
+		},
+		clean: {
+			temp: {
+				src: [ 'tmp' ]
+			}
+		}
 	});
 
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-express-server');
 	grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-ng-annotate');
+	grunt.loadNpmTasks('grunt-html2js');
+	grunt.loadNpmTasks('grunt-contrib-uglify')
 
 	grunt.registerTask('default', ['express:dev', 'open', 'watch' ])
-	grunt.registerTask('annotate', ['ngAnnotate'])
+	grunt.registerTask('minify', ['html2js', 'ngAnnotate:dist', 'clean'])
 }
 ;
 
