@@ -2,6 +2,46 @@ var path = require('path');
 
 module.exports = function (grunt) {
 
+	var cssFiles = [
+			'https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css'
+			, './lib/bootstrap-rtl/dist/css/bootstrap-rtl.css'
+			, './lib/jasny-bootstrap/dist/css/jasny-bootstrap.min.css'
+			, './lib/select2/select2.css'
+			, './lib/select2/select2.css'
+			, './lib/angularjs-toaster/toaster.min.css'
+			, '//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css'
+			, './css/style.css'
+		];
+
+
+	var generateFilesList = function(files, isConcat, fileType) {
+		//var files = grunt.config('files'),
+		//	isConcat = grunt.config('isConcat');
+
+		var result = "";
+
+		if(isConcat) {
+			result = '<script type="text/javascript" src="' + grunt.config('concat.dist.dest') + '"></script>\n';
+		} else {
+			var preFix = "";
+			var postFix = "";
+
+			switch (fileType) {
+				case ('css') : {
+					preFix = "\t<script type=\"text/javascript\" src=\"";
+					postFix = "\"></script>\n";
+				}
+			}
+
+			for(var i = 0, len = files.length; i < len; i++) {
+				result += preFix + files[i] + postFix;
+				console.log(preFix + files[i] + postFix)
+			}
+		}
+
+		return result;
+	}
+
 	grunt.initConfig({
 		express: {
 			options: {
@@ -23,6 +63,18 @@ module.exports = function (grunt) {
 			test: {
 				options: {
 					script: 'path/to/test/server.js'
+				}
+			}
+		},
+		template: {
+			'process-html-template': {
+				'options': {
+					'data': {
+						'cssFiles': generateFilesList(cssFiles, false, "css")
+					}
+				},
+				'files': {
+					'client/index.html': ['client/index-tpl.html']
 				}
 			}
 		},
@@ -83,21 +135,23 @@ module.exports = function (grunt) {
 		},
 		clean: {
 			temp: {
-				src: [ 'tmp' ]
+				src: [ 'tmp' , 'client/index.html']
 			}
 		}
 	});
 
+	grunt.loadNpmTasks('grunt-template');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-clean');
 	grunt.loadNpmTasks('grunt-express-server');
 	grunt.loadNpmTasks('grunt-open');
 	grunt.loadNpmTasks('grunt-ng-annotate');
 	grunt.loadNpmTasks('grunt-html2js');
-	grunt.loadNpmTasks('grunt-contrib-uglify')
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 
-	grunt.registerTask('default', ['express:dev', 'open', 'watch' ])
-	grunt.registerTask('minify', ['html2js', 'ngAnnotate:dist', 'clean'])
+	grunt.registerTask('default', ['express:dev', 'open', 'watch' ]);
+	grunt.registerTask('minify', ['html2js', 'ngAnnotate:dist', 'clean']);
+	grunt.registerTask('runTemplate', ['clean', 'template']);
 }
 ;
 
