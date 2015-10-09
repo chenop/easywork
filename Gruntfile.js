@@ -96,25 +96,25 @@ module.exports = function (grunt) {
 
 		var result = "";
 
-		if(isConcat) {
-			result = '<script type="text/javascript" src="' + grunt.config('concat.dist.dest') + '"></script>\n';
-		} else {
-			var preFix = "";
-			var postFix = "";
+		var preFix = "";
+		var postFix = "";
 
-			switch (fileType) {
-				case ('css') : {
-					preFix = "\t<link href=";
-					postFix = " rel=\"stylesheet\">\n";
-					break;
-				}
- 				case ('js') : {
-					preFix = "\t<script type=\"text/javascript\" src=\"";
-					postFix = "\"></script>\n";
-					break;
-				}
+		switch (fileType) {
+			case ('css') : {
+				preFix = "\t<link href=";
+				postFix = " rel=\"stylesheet\">\n";
+				break;
 			}
+			case ('js') : {
+				preFix = "\t<script type=\"text/javascript\" src=\"";
+				postFix = "\"></script>\n";
+				break;
+			}
+		}
 
+		if(isConcat) {
+			result = preFix + grunt.config('concat.dist.dest') + postFix;
+		} else {
 			for(var i = 0, len = files.length; i < len; i++) {
 				result += preFix + files[i] + postFix;
 			}
@@ -124,6 +124,10 @@ module.exports = function (grunt) {
 	}
 
 	grunt.initConfig({
+
+		cssFiles: generateFilesList(cssFiles, false, "css"),
+		vendorJsFiles: generateFilesList(vendorJsFiles, false, "js"),
+		appJsFiles: generateFilesList(appJsFiles, false, "js"),
 		express: {
 			options: {
 				port : process.env.PORT || 3000
@@ -151,9 +155,9 @@ module.exports = function (grunt) {
 			'process-html-template': {
 				'options': {
 					'data': {
-						cssFiles: generateFilesList(cssFiles, false, "css"),
-						vendorJsFiles: generateFilesList(vendorJsFiles, false, "js"),
-						appJsFiles: generateFilesList(appJsFiles, false, "js")
+						cssFiles: cssFiles,
+						vendorJsFiles: vendorJsFiles,
+						appJsFiles: appJsFiles
 					}
 				},
 				'files': {
@@ -193,19 +197,13 @@ module.exports = function (grunt) {
 				path: 'http://localhost:3000'
 			}
 		},
-		html2js: {
-			dist: {
-				src: [ 'client/views/**/*.html' ],
-				dest: 'tmp/templates.js'
-			}
-		},
         ngAnnotate: {
             options: {
                 singleQuotes: true,
             },
             dist: {
                 files: {
-                    'dist/app.js' : ['client/lib/**/*.js', 'client/css/**/*.js', 'client/js/**/*.js', 'tmp/templates.js' ],
+                    'dist/app.js' : cssFiles.concat(vendorJsFiles).concat(appJsFiles),
                 },
             },
         },
@@ -229,11 +227,10 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-express-server');
 	grunt.loadNpmTasks('grunt-open');
 	grunt.loadNpmTasks('grunt-ng-annotate');
-	grunt.loadNpmTasks('grunt-html2js');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 
 	grunt.registerTask('default', ['express:dev', 'open', 'watch' ]);
-	grunt.registerTask('minify', ['html2js', 'ngAnnotate:dist', 'clean']);
+	grunt.registerTask('minify', ['ngAnnotate:dist', 'clean']);
 	grunt.registerTask('runTemplate', ['clean', 'template']);
 }
 ;
