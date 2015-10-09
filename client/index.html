@@ -5,14 +5,13 @@
     <title>Easy Work</title>
     <base href="/"> <!--Needed for the $locationProvider.html5Mode-->
 
-	<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"></script>
-	<script type="text/javascript" src="./lib/bootstrap-rtl/dist/css/bootstrap-rtl.css"></script>
-	<script type="text/javascript" src="./lib/jasny-bootstrap/dist/css/jasny-bootstrap.min.css"></script>
-	<script type="text/javascript" src="./lib/select2/select2.css"></script>
-	<script type="text/javascript" src="./lib/select2/select2.css"></script>
-	<script type="text/javascript" src="./lib/angularjs-toaster/toaster.min.css"></script>
-	<script type="text/javascript" src="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css"></script>
-	<script type="text/javascript" src="./css/style.css"></script>
+	<link href=https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css rel="stylesheet">
+	<link href=./lib/bootstrap-rtl/dist/css/bootstrap-rtl.css rel="stylesheet">
+	<link href=./lib/select2/select2.css rel="stylesheet">
+	<link href=./lib/select2/select2.css rel="stylesheet">
+	<link href=./lib/angularjs-toaster/toaster.min.css rel="stylesheet">
+	<link href=//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css rel="stylesheet">
+	<link href=./css/style.css rel="stylesheet">
 
 
 </head>
@@ -26,86 +25,60 @@
     </div>
 </div>
 
-<!-- JQuery -->
-<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="./lib/bootstrap-rtl/dist/js/html5shiv.js"></script>
+	<script type="text/javascript" src="./lib/bootstrap-rtl/dist/js/respond.min.js"></script>
+	<script type="text/javascript" src="./lib/ng-file-upload/angular-file-upload-shim.min.js"></script>
+	<script type="text/javascript" src="./lib/angular/angular.js"></script>
+	<script type="text/javascript" src="./lib/angular-cookies/angular-cookies.js"></script>
+	<script type="text/javascript" src="./lib/angular-animate/angular-animate.js"></script>
+	<script type="text/javascript" src="./lib/angular-sanitize/angular-sanitize.js"></script>
+	<script type="text/javascript" src="./lib/angular-messages/angular-messages.js"></script>
+	<script type="text/javascript" src="./lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script type="text/javascript" src="./lib/angular-ui-router/release/angular-ui-router.js"></script>
+	<script type="text/javascript" src="./lib/select2/select2.js"></script>
+	<script type="text/javascript" src="./lib/angular-ui-select2/src/select2.js"></script>
+	<script type="text/javascript" src="./lib/angularjs-toaster/toaster.js"></script>
+	<script type="text/javascript" src="./lib/jszip/dist/jszip.js"></script>
+	<script type="text/javascript" src="./lib/docx/docx.js"></script>
+	<script type="text/javascript" src="./lib/ng-file-upload/angular-file-upload.js"></script>
+	<script type="text/javascript" src="./lib/bootstrap-rtl/dist/js/holder.js"></script>
+	<script type="text/javascript" src="./lib/localforage/dist/localforage.js"></script>
+	<script type="text/javascript" src="./lib/angular-localforage/dist/angular-localForage.js"></script>
 
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]> -->
-<script src="./lib/bootstrap-rtl/dist/js/html5shiv.js"></script>
-<script src="./lib/bootstrap-rtl/dist/js/respond.min.js"></script>
+	<script type="text/javascript" src="./js/app.js"></script>
+	<script type="text/javascript" src="./js/routingConfig.js"></script>
+	<script type="text/javascript" src="./js/controllers/header-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/job-board-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/company-board-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/company-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/home-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/dashboard-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/dashboard-list-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/user-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/job-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/job-full-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/company-details-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/job-details-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/login-register-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/empty-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/logo-gallery-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/send-cv-dialog-controller.js"></script>
+	<script type="text/javascript" src="./js/services/app-manager-service.js"></script>
+	<script type="text/javascript" src="./js/controllers/login-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/register-controller.js"></script>
+	<script type="text/javascript" src="./js/services/data-manager-service.js"></script>
+	<script type="text/javascript" src="./js/services/auth-service.js"></script>
+	<script type="text/javascript" src="./js/services/mail-service.js"></script>
+	<script type="text/javascript" src="./js/services/cv-parser.js"></script>
+	<script type="text/javascript" src="./js/services/common-service.js"></script>
+	<script type="text/javascript" src="./js/services/utils-services.js"></script>
+	<script type="text/javascript" src="./js/models/job.js"></script>
+	<script type="text/javascript" src="./js/models/modelTransformer.js"></script>
+	<script type="text/javascript" src="./js/directives/directives.js"></script>
+	<script type="text/javascript" src="./js/directives/company-card.js"></script>
+	<script type="text/javascript" src="./js/directives/user-card.js"></script>
+	<script type="text/javascript" src="./js/directives/upload-cv-directive.js"></script>
 
-<!--<script src="./lib/ng-file-upload/angular-file-upload-shim.min.js"></script>-->
-
-
-<!-- Angular 1.3.9 -->
-<script src="./lib/angular/angular.js"></script>
-<script src="./lib/angular-cookies/angular-cookies.js"></script>
-<script src="./lib/angular-animate/angular-animate.js"></script>
-<script src="./lib/angular-sanitize/angular-sanitize.js"></script>
-<script src="./lib/angular-messages/angular-messages.js"></script>
-<script src="./lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-
-<!--<script src="./lib/angular-ui-router/release/angular-ui-router.js"></script>-->
-<script src="./lib/angular-ui-router/release/angular-ui-router.js"></script>
-
-<!-- Ui-Select2-->
-<script src="./lib/select2/select2.js"></script>
-<script src="./lib/angular-ui-select2/src/select2.js"></script>
-
-<!--File Upload - jasny-bootstrap - Needed?-->
-<script src="./lib/jasny-bootstrap/dist/js/jasny-bootstrap.min.js"></script>
-
-<!-- Toaster -->
-<script src="./lib/angularjs-toaster/toaster.js"></script>
-
-<!-- Parsing CVs -->
-<script src="./lib/jszip/dist/jszip.js"></script>
-<script src="./lib/docx/docx.js"></script>
-
-<!--File Upload - danial.farid -->
-<script src="./lib/ng-file-upload/angular-file-upload.js"></script>
-
-<script src="./lib/bootstrap-rtl/dist/js/holder.js"></script>
-<!-- localforage -->
-<script src="./lib/localforage/dist/localforage.js"></script>
-<script src="./lib/angular-localforage/dist/angular-localForage.js"></script>
-
-<script src="./js/app.js"></script>
-
-<script src="./js/routingConfig.js"></script>
-<script src="./js/controllers/header-controller.js"></script>
-<script src="js/controllers/job-board-controller.js"></script>
-<script src="js/controllers/company-board-controller.js"></script>
-<script src="./js/controllers/company-controller.js"></script>
-<script src="./js/controllers/home-controller.js"></script>
-<script src="./js/controllers/dashboard-controller.js"></script>
-<script src="./js/controllers/dashboard-list-controller.js"></script>
-<script src="js/controllers/user-controller.js"></script>
-<script src="./js/controllers/job-controller.js"></script>
-<script src="./js/controllers/job-full-controller.js"></script>
-<script src="./js/controllers/company-details-controller.js"></script>
-<script src="./js/controllers/job-details-controller.js"></script>
-<script src="./js/controllers/login-register-controller.js"></script>
-<script src="./js/controllers/empty-controller.js"></script>
-<script src="./js/controllers/logo-gallery-controller.js"></script>
-<script src="js/controllers/send-cv-dialog-controller.js"></script>
-
-<script src="./js/services/app-manager-service.js"></script>
-<script src="./js/controllers/login-controller.js"></script>
-<script src="./js/controllers/register-controller.js"></script>
-<script src="./js/services/data-manager-service.js"></script>
-<script src="./js/services/auth-service.js"></script>
-<script src="./js/services/mail-service.js"></script>
-<script src="./js/services/cv-parser.js"></script>
-<script src="./js/services/common-service.js"></script>
-<script src="./js/services/utils-services.js"></script>
-
-<script src="./js/models/job.js"></script>
-<script src="./js/models/modelTransformer.js"></script>
-
-<script src="js/directives/directives.js"></script>
-<script src="js/directives/company-card.js"></script>
-<script src="js/directives/user-card.js"></script>
-<script src="js/directives/upload-cv-directive.js"></script>
 </body>
 </html>
