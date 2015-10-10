@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" ng-app="easywork">
+<head>
+    <meta charset="utf-8">
+    <title>Easy Work</title>
+    <base href="/"> <!--Needed for the $locationProvider.html5Mode-->
+
+<%= cssFiles%>
+
+</head>
+<body>
+
+<header ng-include="'./views/header.html'" class="navbar navbar-fixed-top ng-scope"></header>
+
+<div class="content">
+    <div class="container">
+        <div class="view-container" ui-view></div>
+    </div>
+</div>
+
+<%= vendorJsFiles %>
+<%= appJsFiles %>
+</body>
+</html>
