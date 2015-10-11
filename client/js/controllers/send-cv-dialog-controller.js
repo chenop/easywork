@@ -19,7 +19,7 @@ angular.module('easywork')
 
         function initCvData() {
             // todo if (isLoggedIn) {  $scope.cvData = user.cvData; return; };
-            $localForage.getItem(userId)
+            $localForage.getItem($scope.userId)
                 .then(function (cvData) {
                     if (!cvData)
                         return {};
