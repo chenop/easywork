@@ -4,7 +4,7 @@ module.exports = function (grunt) {
 
 
 	var cssFiles = [
-			'https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css'
+			'client/lib/bootstrap/dist/css/bootstrap.min.css'
 			, 'client/lib/bootstrap-rtl/dist/css/bootstrap-rtl.css'
 			, 'client/lib/select2/select2.css'
 			, 'client/lib/select2/select2.css'
@@ -15,7 +15,7 @@ module.exports = function (grunt) {
 
 	var vendorJsFiles = [
 
-		'https://code.jquery.com/jquery-2.1.1.min.js'
+		'client/lib/jquery/dist/jquery.min.js'
 		, 'client/lib/bootstrap-rtl/dist/js/html5shiv.js'
 		, 'client/lib/bootstrap-rtl/dist/js/respond.min.js'
 		, 'client/lib/ng-file-upload/angular-file-upload-shim.min.js'
@@ -91,11 +91,10 @@ module.exports = function (grunt) {
 	]
 
 	var isDevMode = function() {
-		console.log('isDevMode: ' + process.env.NODE_ENV);
 		return process.env.NODE_ENV === 'development';
 	}
 
-	var generateFilesList = function(files, minifiedFileName, fileType) {
+	var generateFilesList = function(files, minifiedFileName, fileType, forceDevMode) {
 		//var files = grunt.config('files'),
 		//	isConcat = grunt.config('isConcat');
 
@@ -117,7 +116,7 @@ module.exports = function (grunt) {
 			}
 		}
 
-		if(isDevMode()) {
+		if(isDevMode() || forceDevMode) {
 			for(var i = 0, len = files.length; i < len; i++) {
 				var filePath = removeClientDirFromPath(files[i]);
 				result += preFix + filePath + postFix;
@@ -222,7 +221,7 @@ module.exports = function (grunt) {
             options: {
                 singleQuotes: true,
             },
-            dist: {
+            prod: {
                 files: {
                     'client/dist/vendors.js' : vendorJsFiles,
                     'client/dist/app.js' : appJsFiles
@@ -271,4 +270,5 @@ module.exports = function (grunt) {
 	grunt.registerTask('runTemplate', ['clean', 'template']);
 }
 ;
+
 
