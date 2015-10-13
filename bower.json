@@ -16,24 +16,25 @@
     "tests"
   ],
   "dependencies": {
-    "angular-ui-select2": "~0.0.4",
-    "bootstrap-rtl": "latest",
-    "json3": "~3.2.4",
-    "ng-file-upload": "~3",
-    "jasny-bootstrap": "~3.1.0",
-    "bootstrap-sass": "~3.3.3",
-    "localforage": "~1",
-    "angular-localforage": "~1.2.3",
-    "angular-bootstrap": "~0.13.3",
-    "angularjs-toaster": "~0.4.15",
-    "angular-animate": "~1.4.7",
     "angular": "~1.4.7",
+    "angular-animate": "~1.4.7",
+    "angular-bootstrap": "~0.13.3",
     "angular-cookies": "~1.4.7",
-    "angular-sanitize": "~1.4.7",
+    "angular-localforage": "~1.2.3",
     "angular-messages": "~1.4.7",
+    "angular-sanitize": "~1.4.7",
     "angular-ui-router": "~0.2.15",
+    "angular-ui-select2": "~0.0.4",
+    "angularjs-toaster": "~0.4.15",
     "bootstrap": "~3.3.5",
-    "jquery": "~2.1.4"
+    "bootstrap-rtl": "latest",
+    "bootstrap-sass": "~3.3.3",
+    "components-font-awesome": "~4.4.0",
+    "jasny-bootstrap": "~3.1.0",
+    "jquery": "~2.1.4",
+    "json3": "~3.2.4",
+    "localforage": "~1",
+    "ng-file-upload": "~3"
   },
   "resolutions": {
     "angular": ">=1"

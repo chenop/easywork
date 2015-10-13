@@ -9,7 +9,7 @@ module.exports = function (grunt) {
         , 'client/lib/select2/select2.css'
         , 'client/lib/select2/select2.css'
         , 'client/lib/angularjs-toaster/toaster.min.css'
-        , '//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css'
+        , 'client/lib/components-font-awesome/css/font-awesome.css'
         , 'client/css/style.css'
     ];
 
@@ -127,6 +127,7 @@ module.exports = function (grunt) {
 			result = preFix + filePath + postFix;
 		}
 
+        console.log(result)
 		return result;
 	}
 
@@ -138,7 +139,7 @@ module.exports = function (grunt) {
 		minifiedVendorsFile = 'client/dist/vendors.js',
 		minifiedAppFile = 'client/dist/app.js';
 
-		grunt.initConfig({
+    grunt.initConfig({
 
 		cssFiles: generateFilesList(cssFiles, minifiedCssFile, "css"),
 		vendorJsFiles: generateFilesList(vendorJsFiles, minifiedVendorsFile, "js"),
@@ -256,6 +257,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
 
     grunt.registerTask('default', ['express:dev', 'open', 'watch']);
+    // TODO no node_env initialization
     grunt.registerTask('dev', ['template', 'default']);
     grunt.registerTask('prod', ['clean', 'template', 'cssmin', 'ngAnnotate', 'uglify:prod']);
     // grunt.registerTask('runTemplate', ['clean', 'template']);
