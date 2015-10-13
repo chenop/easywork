@@ -125,7 +125,6 @@ module.exports = function (grunt) {
 		else { // Production
 			var filePath = removeClientDirFromPath(minifiedFileName);
 			result = preFix + filePath + postFix;
-			console.log('res: ' + result)
 		}
 
 		return result;
