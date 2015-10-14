@@ -9,7 +9,7 @@ module.exports = function (grunt) {
         , 'client/lib/select2/select2.css'
         , 'client/lib/select2/select2.css'
         , 'client/lib/angularjs-toaster/toaster.min.css'
-        , '//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css'
+        , 'client/lib/components-font-awesome/css/font-awesome.min.css'
         , 'client/css/style.css'
     ];
 
