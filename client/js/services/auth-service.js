@@ -7,18 +7,14 @@ angular.module('easywork')
 
         var accessLevels = routingConfig.accessLevels
             , userRoles = routingConfig.userRoles
-            , ANONYMOUS = {username: '', role: "public"};
-            //, activeUser = $cookieStore.get('user') || angular.copy(ANONYMOUS);
+            , ANONYMOUS = {username: '', role: "public"}
+            , activeUser = JSON.parse($cookies.get('activeUser'));
 
-        var activeUser = $localForage.getItem('activeUser').then(function(actUser) {
-             activeUser = (!actUser) ? ANONYMOUS : actUser;
-        }) 
-
-        $rootScope.$watch(function() { return $cookies.activeUser; }, function(newValue) {
-            if (!$cookies.activeUser)
+        $rootScope.$watch(function() { return $cookies.get('activeUser'); }, function(newValue) {
+            if (!newValue)
                 return;
 
-            setActiveUser(JSON.parse($cookies.activeUser));
+            setActiveUser(JSON.parse(newValue));
         });
 
         function setActiveUser(user) {
@@ -79,7 +75,7 @@ angular.module('easywork')
                 .success(function() {
                     setActiveUser(ANONYMOUS);
                     $localForage.removeItem('activeUser');
-                    $cookies.activeUser = JSON.stringify(ANONYMOUS);
+                    $cookies.put('activeUser', JSON.stringify(ANONYMOUS));
                 });
         };
 
