@@ -201,6 +201,13 @@ module.exports = function (grunt) {
                     reload: true
                 }
             },
+            bower: {
+                files: ['bower.json'],
+                tasks: ['dev'],
+                options: {
+                    reload: true
+                }
+            },
             options: {
                 debounceDelay: 100,
             },
