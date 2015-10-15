@@ -5,10 +5,11 @@
 angular.module('easywork')
     .factory('authService', function ($http, $cookies, $rootScope, $localForage) {
 
+        var cookieActiveUser = $cookies.get('activeUser');
         var accessLevels = routingConfig.accessLevels
             , userRoles = routingConfig.userRoles
             , ANONYMOUS = {username: '', role: "public"}
-            , activeUser = JSON.parse($cookies.get('activeUser'));
+            , activeUser = (!cookieActiveUser) ? ANONYMOUS : JSON.parse(cookieActiveUser);
 
         $rootScope.$watch(function() { return $cookies.get('activeUser'); }, function(newValue) {
             if (!newValue)
