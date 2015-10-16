@@ -5,8 +5,8 @@
 angular.module('easywork')
     .controller('LoginRegisterCtrl', function ($scope, $modalInstance, selectedTab) {
     $scope.tabs = [
-        {title: 'Login', template: '/views/users/login.html', active:false},
-        {title: 'Register', template: '/views/users/register.html', active:false}
+        {title: 'כניסה', template: '/views/users/login.html', active:false},
+        {title: 'הרשמה', template: '/views/users/register.html', active:false}
     ];
 
     $scope.tabs[selectedTab].active = true;
