@@ -60,7 +60,7 @@
                 </select>
             </div>
         </div>
-        <div class="form-group" access-level="admin">
+        <div ng-show="user.role === 'jobProvider'" class="form-group" access-level="admin">
             <label class="col-sm-3 control-label">בעל חברה</label>
 
             <div class="experience">
