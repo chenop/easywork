@@ -3,11 +3,11 @@ $icon-font-path: "../lib/bootstrap-sass/assets/fonts/bootstrap/";
 @import '../lib/bootstrap-sass/assets/stylesheets/bootstrap';
 
 // Bootstrap
-$icon-font-path: "../lib/bootstrap-rtl/assets/fonts/bootstrap/";
+$icon-font-path: "../lib/bootstrap/fonts/";
 @import '../lib/bootstrap-sass/assets/stylesheets/bootstrap';
 
 // Bootstrap rtl
-@import '../lib/bootstrap-rtl/dist/css/bootstrap-rtl.css.scss';
+@import '../lib/bootstrap-rtl/dist/css/bootstrap-rtl.min.css.scss';
 
 // Font-awesome
 $fa-font-path: "../lib/components-font-awesome/fonts/";
