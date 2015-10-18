@@ -13,7 +13,7 @@ angular.module('easywork')
             }
         };
     })
-    .controller('loginCtrl', function ($scope, authService, $location) {
+    .controller('loginCtrl', function ($scope, authService, $localForage) {
 
         var SOMETHING_WENT_WRONG_MSG = "Oops, Something went wrong!";
         var modIns = $scope.modIns;
@@ -22,6 +22,29 @@ angular.module('easywork')
         $scope.user.password = null;
         $scope.user.rememeberMe = null;
         $scope.errorMessage = null;
+
+        $localForage.getItem('rememeberMeData').then(function(rememeberMeData) {
+            if (!rememeberMeData)
+                return;
+
+            if (!rememeberMeData.enable)
+                return;
+
+            $scope.rememeberMe = rememeberMeData.enable;
+            $scope.user.email = rememeberMeData.email;
+        });
+
+        $scope.toggleRememberMe = function() {
+            var rememeberMeData = {
+                enable : $scope.rememeberMe
+            }
+
+            if ($scope.rememeberMe && $scope.user.email) {
+                rememeberMeData.email = $scope.user.email;
+            }
+
+            $localForage.setItem('rememeberMeData', rememeberMeData);
+        }
 
         $scope.hasError = function() {
             return true;//$scope.errorMessage != null;

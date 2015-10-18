@@ -15343,6 +15343,29 @@ header a, .caret {
   max-width: 330px;
   padding: 15px;
   margin: 0 auto; }
+  .form-signin .form-control {
+    position: relative;
+    font-size: 16px;
+    height: auto;
+    padding: 10px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box; }
+  .form-signin .checkbox-container {
+    width: 100%;
+    display: inline-block;
+    padding-right: 3px; }
+    .form-signin .checkbox-container .checkbox-inner {
+      float: right; }
+    .form-signin .checkbox-container label {
+      font-size: 16px;
+      font-weight: normal;
+      padding-right: 9px;
+      color: #909090; }
+  .form-signin .login-button {
+    width: 100%;
+    display: block;
+    font-weight: normal; }
 
 .login-input, .login-input-middle-pass {
   margin-bottom: -1px;
@@ -15368,15 +15391,6 @@ header a, .caret {
   text-align: center;
   width: 100%;
   display: block; }
-
-.form-signin .form-control {
-  position: relative;
-  font-size: 16px;
-  height: auto;
-  padding: 10px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box; }
 
 .btn-center {
   width: 50%;
