@@ -35,7 +35,7 @@ describe('Testing CRUD operations on User model', function () {
     });
 
     describe('Create and Update a User', function () {
-        it('should return the updated user', function (done) {
+        it('should return the updated user', function () {
             var newUser = createMockedUser();
 
             return UserService.createOrUpdate(newUser)
@@ -47,10 +47,10 @@ describe('Testing CRUD operations on User model', function () {
                             // verify that the returned user is what we expect
                             updatedUser.name.should.equal('Chen Update');
 
-                            UserModel.count({'email': updatedUser.email}, function(err, count){
-                                count.should.equal(1);
-                                done();
-                            });
+                            return UserModel.count({'email': updatedUser.email}).exec()
+                                .then(function(count) {
+                                    count.should.equal(1);
+                                })
                         });
                 });
         });
