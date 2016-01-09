@@ -61,7 +61,7 @@ describe('Testing CRUD operations on User model', function () {
             var newUser = createMockedUser();
 
             return UserService.createOrUpdate(newUser)
-                .then(UserService.deleteUser2)
+                .then(UserService.deleteUser)
                 .then(UserModel.count({'email': newUser.email}).exec()
                     .then(function (count) {
                         count.should.equal(0);
