@@ -21,7 +21,7 @@ function createMockedUser() {
 }
 
 describe('Testing CRUD operations on User model', function () {
-    describe('Create a new User', function () {
+    describe('Create', function () {
         it('should return the user after created', function () {
             var newUser = createMockedUser();
 
@@ -34,7 +34,7 @@ describe('Testing CRUD operations on User model', function () {
         });
     });
 
-    describe('Create and Update a User', function () {
+    describe('Update', function () {
         it('should return the updated user', function () {
             var newUser = createMockedUser();
 
@@ -48,11 +48,24 @@ describe('Testing CRUD operations on User model', function () {
                             updatedUser.name.should.equal('Chen Update');
 
                             return UserModel.count({'email': updatedUser.email}).exec()
-                                .then(function(count) {
+                                .then(function (count) {
                                     count.should.equal(1);
                                 })
                         });
                 });
+        });
+    });
+
+    describe('Delete', function () {
+        it('should not found the deleted user', function () {
+            var newUser = createMockedUser();
+
+            return UserService.createOrUpdate(newUser)
+                .then(UserService.deleteUser2)
+                .then(UserModel.count({'email': newUser.email}).exec()
+                    .then(function (count) {
+                        count.should.equal(0);
+                    }));
         });
     });
 });

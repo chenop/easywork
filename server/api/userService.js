@@ -25,6 +25,7 @@ module.exports = {
     , register: register
     , upload: upload
     , deleteUser: deleteUser
+    , deleteUser2: deleteUser2
     , deleteCV: deleteCV
 }
 
@@ -354,6 +355,16 @@ function deleteUser(req, res) {
                 console.log(err);
             }
         });
+    });
+}
+
+function deleteUser2(user) {
+    return User.findById(user._id).exec()
+        .then(function (user) {
+        if (user == undefined || user == null)
+            return;
+
+        return user.remove();
     });
 }
 
