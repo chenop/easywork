@@ -1,20 +1,61 @@
 'use strict';
 
-var fs = require('fs')
+var fs         = require('fs')
     , passport = require('passport')
-    , User = require('../model/user')
-    , Cv = require('../model/cv')
-    , utils = require('../utils')
-    , Company = require('../model/company')
-    , q = require('q');
+    , User     = require('../model/user')
+    , Cv       = require('../model/cv')
+    , utils    = require('../utils')
+    , Company  = require('../model/company')
+    , q        = require('q');
 
-var CV_DIRECTORY = "./resources/cvs/";
-module.exports.logout = logout;
-/**********************
- * Public Interface
- **********************/
+var request = require('request');
 
-exports.login = function (req, res, next) {
+/***********
+ * Public
+ ***********/
+module.exports = {
+    login: login
+    , logout: logout
+    , createUser: createUser
+    , createOrUpdate: createOrUpdate
+    , saveUser: saveUser
+    , getUser: getUser
+    , getUsers: getUsers
+    , updateUser: updateUser
+    , register: register
+    , upload: upload
+    , deleteUser: deleteUser
+    , deleteCV: deleteCV
+}
+
+
+/***********
+ * Private
+ ***********/
+function createOrUpdate(user, successHandler, errorHandler) {
+    var userInstance = createUserInstance(user);
+
+    var upsertUser = userInstance.toObject();
+    delete upsertUser._id;
+    return User.findOneAndUpdate({'email': user.email}, upsertUser, {upsert: true, new: true}).exec();
+}
+
+function createUserInstance(user) {
+    var newUser = new User(
+        {
+            name: user.name
+            , username: user.username
+            , role: user.role
+            , email: user.email
+            , experience: user.experience
+            , message: user.message
+        }
+    );
+
+    return newUser;
+}
+
+function login(req, res, next) {
     passport.authenticate('local', function (err, user, info) {
         var error = err || info;
         if (error) {
@@ -31,7 +72,7 @@ exports.login = function (req, res, next) {
     })(req, res, next);
 }
 
-exports.createUser = function (req, res) {
+function createUser(req, res) {
     var newUser = new User(
         {
             name: req.body.name
@@ -56,8 +97,6 @@ exports.createUser = function (req, res) {
         }
     });
 }
-//    return saveUser(newUser, res);
-//}
 
 function saveUser(user, res) {
     user.save(function (err) {
@@ -71,7 +110,7 @@ function saveUser(user, res) {
     });
 }
 
-exports.getUser = function (req, res) {
+function getUser(req, res) {
     return User.findById(req.params.id, function (err, user) {
         if (!err) {
             return res.send(user);
@@ -81,7 +120,7 @@ exports.getUser = function (req, res) {
     });
 }
 
-exports.getUsers = function (req, res) {
+function getUsers(req, res) {
     return User.find(function (err, users) {
         if (!err) {
             return res.send(users);
@@ -89,40 +128,55 @@ exports.getUsers = function (req, res) {
             return console.log(err);
         }
     });
+}
+
+
+function updateUser(req, res) {
+    return User.findById(req.params.id, function (err, user) {
+        if (!user)
+            return;
+        user.name = req.body.name;
+        user.username = req.body.username;
+        user.email = req.body.email;
+        user.experience = req.body.experience;
+        user.message = req.body.message;
+        user.role = req.body.role;
+        user.company = req.body.company;
+        saveUser(user, res);
+    });
 };
 
-
-/**
- * Update user details (except file)
- * @param id
- * @param newUser
- * @param callBack
- * @returns {*}
- */
-function updateUser(id, newUser, callBack) {
-    return User.findById(id, function (err, user) {
-        if ('undefined' !== typeof newUser.name)
-            user.name = newUser.name;
-        if ('undefined' !== typeof newUser.username)
-            user.username = newUser.username;
-        if ('undefined' !== typeof newUser.role)
-            user.role = newUser.role;
-        if ('undefined' !== typeof newUser.email)
-            user.email = newUser.email;
-        if ('undefined' !== typeof newUser.experience)
-            user.experience = newUser.experience;
-//		if ('undefined' !== typeof newUser.file)
-//			user.file = newUser.file;
-        return user.save(callBack);
-    });
-}
+//    /**
+//     * Update user details (except file)
+//     * @param id
+//     * @param newUser
+//     * @param callBack
+//     * @returns {*}
+//     */
+//    function updateUser(id, newUser, callBack) {
+//        return User.findById(id, function (err, user) {
+//            if ('undefined' !== typeof newUser.name)
+//                user.name = newUser.name;
+//            if ('undefined' !== typeof newUser.username)
+//                user.username = newUser.username;
+//            if ('undefined' !== typeof newUser.role)
+//                user.role = newUser.role;
+//            if ('undefined' !== typeof newUser.email)
+//                user.email = newUser.email;
+//            if ('undefined' !== typeof newUser.experience)
+//                user.experience = newUser.experience;
+////		if ('undefined' !== typeof newUser.file)
+////			user.file = newUser.file;
+//            return user.save(callBack);
+//        });
+//    }
 
 function updateUserFile(id, pathName, fileName, callBack) {
     return User.findById(id, function (err, user) {
         if (err)
             throw err;
 
-        if (fileName !== undefined  && fileName != null) {
+        if (fileName !== undefined && fileName != null) {
             user.fileName = fileName;
             user.pathName = pathName;
         }
@@ -168,24 +222,9 @@ function handleRole(user, orgRole, newRole) {
     return deferred.promise;
 }
 
-var isRoleChangedToJobProvider = function (orgRole, newRole) {
+function isRoleChangedToJobProvider(orgRole, newRole) {
     return ((orgRole === "jobSeeker" || orgRole === "public")
-        && (newRole === "jobProvider" || newRole === "admin"))
-};
-
-exports.updateUser = function (req, res) {
-    return User.findById(req.params.id, function (err, user) {
-        if (!user)
-            return;
-        user.name = req.body.name;
-        user.username = req.body.username;
-        user.email = req.body.email;
-        user.experience = req.body.experience;
-        user.message = req.body.message;
-        user.role = req.body.role;
-        user.company = req.body.company;
-        saveUser(user, res);
-    });
+    && (newRole === "jobProvider" || newRole === "admin"))
 };
 
 function prepareCookie(res, user) {
@@ -201,7 +240,8 @@ function prepareCookie(res, user) {
             , '_id': user._id // Helping us to find later the active user in DB
         }));
 }
-exports.register = function (req, res) {
+
+function register(req, res) {
     var role = (typeof req.body.role === 'undefined') ? 'jobSeeker' : req.body.role;
     var user = new User(
         {
@@ -232,15 +272,53 @@ exports.register = function (req, res) {
     });
 }
 
-exports.upload = function (req, res) {
+function analyzeCv(fileName, fileData) {
+    var request = require('request');
+    var FormData = require('form-data');
+
+    var form = new FormData();
+    form.append("folder_id", "0");
+    form.append("filename", fileData);
+
+    form.getLength(function (err, length) {
+        if (err) {
+            return requestCallback(err);
+        }
+
+        var r = request.post("http://localhost:8080/webapi/files/upload", requestCallback);
+        r._form = form;
+        r.setHeader('content-length', length);
+
+    });
+
+    function requestCallback(err, res, body) {
+        console.log(body);
+    }
+
+    //// Build the post string from an object
+    //request.post(
+    //    'http://localhost:8080/webapi/files/upload',
+    //    { form: { file: fileData } }, // TODO chen well how the fuck I'm going to send form-data from nodejs to Jersey... ahhhhh!!!!
+    //    function (error, response, body) {
+    //        if (!error && response.statusCode == 200) {
+    //            console.log(body)
+    //        }
+    //    }
+    //);
+
+}
+
+function upload(req, res) {
     return User.findById(req.params.id, function (err, user) {
         var data = JSON.parse(req.body.data);
         var fileName = data.fileName;
         var fileData = data.data;
         var skills = data.skills;
 
+        analyzeCv(fileName, fileData);
+
         if (user === undefined || user == null) {
-            saveAnonymizeCv(fileData, skills);
+            //saveAnonymizeCv(fileData, skills);
             return;
         }
 
@@ -259,14 +337,13 @@ exports.upload = function (req, res) {
     });
 }
 
-
 function logout(req, res) {
     res.clearCookie('activeUser');
     req.logout();
     res.json("logout");
-};
+}
 
-exports.deleteUser = function (req, res) {
+function deleteUser(req, res) {
     return User.findById(req.params.id, function (err, user) {
         if (user == undefined || user == null)
             return;
@@ -280,7 +357,7 @@ exports.deleteUser = function (req, res) {
     });
 }
 
-exports.deleteCV = function(req, res) {
+function deleteCV(req, res) {
     return User.findById(req.params.id, function (err, user) {
         if (user === undefined || user == null)
             return;
@@ -297,3 +374,4 @@ exports.deleteCV = function(req, res) {
     });
 
 }
+

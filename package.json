@@ -36,6 +36,7 @@
     "q": "^1.0.1"
   },
   "devDependencies": {
+    "chai": "^3.4.1",
     "grunt": "latest",
     "grunt-cli": "latest",
     "grunt-contrib-clean": "^0.6.0",
@@ -47,7 +48,7 @@
     "grunt-ng-annotate": "^1.0.1",
     "grunt-open": "~0.2.2",
     "grunt-shell": "~0.6.1",
-    "grunt-template": "^0.2.3"
+    "grunt-template": "^0.2.3",
   },
   "scripts": {
     "start": "node server.js",
