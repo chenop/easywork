@@ -2,9 +2,6 @@
  * Created by Chen on 06/03/14.
  */
 
-var users = require('./users')
-    , Job = require('../model/job')
-
 exports.getFiltersData = function (req, res) {
     var data = {
         areas: [

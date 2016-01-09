@@ -1,7 +1,7 @@
 
 var mongoose = require('mongoose')
-, companies = require('./server/api/companies')
-    , Company = require('./server/model/company')
+, companies = require('./server/controllers/companies')
+    , Company = require('./server/models/company')
     ;
 var start = Date.now();
 var log = function (message) {

@@ -3,8 +3,8 @@
  */
 
 var assert = require('assert');
-var UserService = require('../server/api/userService');
-var UserModel = require('../server/model/user');
+var UserService = require('../server/services/userService');
+var UserModel = require('../server/models/user');
 var utils = require('./utils');
 var should = require('chai').should();
 

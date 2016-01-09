@@ -6,8 +6,8 @@
  * Companies API
  */
 
-var Company = require('../model/company')
-    , User = require('../model/user')
+var Company = require('../models/company')
+    , User = require('../models/user')
     , Jobs = require('./jobs.js')
     , utils = require('../utils')
     , fs = require('fs')

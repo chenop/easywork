@@ -3,7 +3,7 @@
  * Date: 1/5/14
  * Time: 12:58 PM
  */
-var User = require('./model/user')
+var User = require('./models/user')
     , LocalStrategy = require('passport-local').Strategy
     , LinkedInStrategy = require('passport-linkedin').Strategy
     , GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;

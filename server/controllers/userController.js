@@ -2,10 +2,10 @@
 
 var fs         = require('fs')
     , passport = require('passport')
-    , User     = require('../model/user')
-    , Cv       = require('../model/cv')
+    , User     = require('../models/user')
+    , Cv       = require('../models/cv')
     , utils    = require('../utils')
-    , Company  = require('../model/company')
+    , Company  = require('../models/company')
     , q        = require('q');
 
 var request = require('request');
@@ -17,7 +17,6 @@ module.exports = {
     login: login
     , logout: logout
     , createUser: createUser
-    , createOrUpdate: createOrUpdate
     , saveUser: saveUser
     , getUser: getUser
     , getUsers: getUsers
@@ -25,36 +24,9 @@ module.exports = {
     , register: register
     , upload: upload
     , deleteUser: deleteUser
-    , deleteUser2: deleteUser2
     , deleteCV: deleteCV
 }
 
-
-/***********
- * Private
- ***********/
-function createOrUpdate(user, successHandler, errorHandler) {
-    var userInstance = createUserInstance(user);
-
-    var upsertUser = userInstance.toObject();
-    delete upsertUser._id;
-    return User.findOneAndUpdate({'email': user.email}, upsertUser, {upsert: true, new: true}).exec();
-}
-
-function createUserInstance(user) {
-    var newUser = new User(
-        {
-            name: user.name
-            , username: user.username
-            , role: user.role
-            , email: user.email
-            , experience: user.experience
-            , message: user.message
-        }
-    );
-
-    return newUser;
-}
 
 function login(req, res, next) {
     passport.authenticate('local', function (err, user, info) {
@@ -355,16 +327,6 @@ function deleteUser(req, res) {
                 console.log(err);
             }
         });
-    });
-}
-
-function deleteUser2(user) {
-    return User.findById(user._id).exec()
-        .then(function (user) {
-        if (user == undefined || user == null)
-            return;
-
-        return user.remove();
     });
 }
 
