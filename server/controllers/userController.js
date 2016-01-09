@@ -3,6 +3,7 @@
 var fs         = require('fs')
     , passport = require('passport')
     , User     = require('../models/user')
+    , UserService = require('../services/userService')
     , Cv       = require('../models/cv')
     , utils    = require('../utils')
     , Company  = require('../models/company')
@@ -17,7 +18,6 @@ module.exports = {
     login: login
     , logout: logout
     , createUser: createUser
-    , saveUser: saveUser
     , getUser: getUser
     , getUsers: getUsers
     , updateUser: updateUser
@@ -46,18 +46,8 @@ function login(req, res, next) {
 }
 
 function createUser(req, res) {
-    var newUser = new User(
-        {
-            name: req.body.name
-            , username: req.body.username
-            , role: req.body.role
-            , email: req.body.email
-            , experience: req.body.experience
-            , message: req.body.message
-        }
-    );
+    var newUser = req.body;
 
-//    if (newUser.role === "jobProvider" || newUser.role === "admin") {
     var company = new Company();
     company.save(function (err, company) {
         if (err) {
@@ -66,138 +56,50 @@ function createUser(req, res) {
         else {
             console.log("user " + newUser.email + " created in server");
             newUser.company = company; // Saving the id itself
-            saveUser(newUser, res);
+            createOrUpdate(newUser, res);
         }
     });
 }
 
-function saveUser(user, res) {
-    user.save(function (err) {
-        if (!err) {
-            console.log("user " + user.name + " saved in server")
+function createOrUpdate(user, res) {
+    return UserService.createOrUpdate(user).
+        then(function success(user) {
             return res.send(user);
-        } else {
-            console.log(err);
-            return res.json(401, err);
+        },
+        function error(err) {
+            return res.json(500, err);
         }
-    });
+    );
 }
 
 function getUser(req, res) {
-    return User.findById(req.params.id, function (err, user) {
-        if (!err) {
+    return UserService.getUser(req.body.id).
+        then(function success(user) {
             return res.send(user);
-        } else {
-            return console.log(err);
+        },
+        function error(err) {
+            return res.json(500, err);
         }
-    });
+    );
 }
 
 function getUsers(req, res) {
-    return User.find(function (err, users) {
-        if (!err) {
+    return UserService.getUsers().
+        then(function success(users) {
             return res.send(users);
-        } else {
-            return console.log(err);
+        },
+        function error(err) {
+            return res.json(500, err);
         }
-    });
+    );
 }
 
 
 function updateUser(req, res) {
-    return User.findById(req.params.id, function (err, user) {
-        if (!user)
-            return;
-        user.name = req.body.name;
-        user.username = req.body.username;
-        user.email = req.body.email;
-        user.experience = req.body.experience;
-        user.message = req.body.message;
-        user.role = req.body.role;
-        user.company = req.body.company;
-        saveUser(user, res);
-    });
-};
+    var id = req.params.id;
+    user = req.body;
 
-//    /**
-//     * Update user details (except file)
-//     * @param id
-//     * @param newUser
-//     * @param callBack
-//     * @returns {*}
-//     */
-//    function updateUser(id, newUser, callBack) {
-//        return User.findById(id, function (err, user) {
-//            if ('undefined' !== typeof newUser.name)
-//                user.name = newUser.name;
-//            if ('undefined' !== typeof newUser.username)
-//                user.username = newUser.username;
-//            if ('undefined' !== typeof newUser.role)
-//                user.role = newUser.role;
-//            if ('undefined' !== typeof newUser.email)
-//                user.email = newUser.email;
-//            if ('undefined' !== typeof newUser.experience)
-//                user.experience = newUser.experience;
-////		if ('undefined' !== typeof newUser.file)
-////			user.file = newUser.file;
-//            return user.save(callBack);
-//        });
-//    }
-
-function updateUserFile(id, pathName, fileName, callBack) {
-    return User.findById(id, function (err, user) {
-        if (err)
-            throw err;
-
-        if (fileName !== undefined && fileName != null) {
-            user.fileName = fileName;
-            user.pathName = pathName;
-        }
-        return user.save(callBack);
-
-    });
-}
-
-function updateUserSkills(id, skills, callBack) {
-    return User.findById(id, function (err, user) {
-        if (err)
-            throw err;
-
-        if ('undefined' !== typeof skills) {
-            user.skills = skills;
-        }
-        return user.save(callBack);
-
-    });
-}
-
-function handleRole(user, orgRole, newRole) {
-    var deferred = q.defer();
-    if (isRoleChangedToJobProvider(orgRole, newRole)) {
-        var company = new Company();
-        company.save(function (err) {
-            if (err) {
-                return deferred.reject(err);
-
-            }
-            else {
-                user.company = company;
-//                return saveUser(user, res);
-                return deferred.resolve(user);
-            }
-        });
-    }
-    else {
-        user.company = null;
-        return deferred.resolve(user);
-    }
-    user.role = newRole;
-    return deferred.promise;
-}
-
-function isRoleChangedToJobProvider(orgRole, newRole) {
-    return ((orgRole === "jobSeeker" || orgRole === "public")
-    && (newRole === "jobProvider" || newRole === "admin"))
+    return UserService.createOrUpdate(id, user);
 };
 
 function prepareCookie(res, user) {
@@ -229,11 +131,9 @@ function register(req, res) {
             //cv: req.body.cv
         }
     );
-    console.log("registered user: " + user.email);
-    return user.save(function (err) {
-        if (err) // ...
-            console.log('meow');
-        else {
+
+    return UserService.createOrUpdate(user).
+        then(function success(user) {
             req.login(user, function (err) {
                 if (err) {
                     return res.send(err);
@@ -241,8 +141,11 @@ function register(req, res) {
                 prepareCookie(res, user);
                 return res.send(user);
             });
+        },
+        function error(err) {
+            return res.json(500, err);
         }
-    });
+    );
 }
 
 function analyzeCv(fileName, fileData) {
@@ -299,14 +202,11 @@ function upload(req, res) {
         user.fileName = fileName;
         user.skills = skills;
 
-        user.save(function (err, user) {
-            if (err)
-                throw err;
-
-            saveCv(user, fileData, skills);
-            return res.send(user.skills);
-        })
-
+        return UserService.createOrUpdate(user)
+            .then(function (user) {
+                saveCv(user, fileData, skills);
+                return res.send(user.skills);
+            });
     });
 }
 
@@ -317,17 +217,15 @@ function logout(req, res) {
 }
 
 function deleteUser(req, res) {
-    return User.findById(req.params.id, function (err, user) {
-        if (user == undefined || user == null)
-            return;
-        return user.remove(function (err) {
-            if (!err) {
-                return res.send(user);
-            } else {
-                console.log(err);
-            }
+    var id = req.params.id;
+
+    return UserService.deleteUser(id)
+        .then(function success(user) {
+            return res.send(user);
+        },
+        function error(err) {
+            return res.json(500, err);
         });
-    });
 }
 
 function deleteCV(req, res) {
@@ -339,11 +237,7 @@ function deleteCV(req, res) {
         user.fileName = null;
         user.skills = null;
 
-        user.save(function (err, user) {
-            if (err)
-                throw err;
-            return res.send(user);
-        })
+        return createOrUpdate(user);
     });
 
 }

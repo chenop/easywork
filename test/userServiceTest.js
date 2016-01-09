@@ -1,6 +1,7 @@
 /**
  * Created by Chen on 08/01/2016.
  */
+'use strict';
 
 var assert = require('assert');
 var UserService = require('../server/services/userService');
@@ -20,19 +21,40 @@ function createMockedUser() {
     return newUser;
 }
 
-describe('Testing CRUD operations on User model', function () {
+describe('User model - Testing CRUD operations', function () {
     describe('Create', function () {
         it('should return the user after created', function () {
             var newUser = createMockedUser();
 
-            UserService.createOrUpdate(newUser)
+            return UserService.createOrUpdate(newUser)
                 .then(function (createdUser) {
                     // verify that the returned user is what we expect
-                    should(createdUser.name).equal('Chen');
-                    should(createdUser.username).equal('chenop');
+                    createdUser.name.should.equal('Chen');
+                    createdUser.username.should.equal('chenop');
                 });
         });
     });
+
+    describe('Read', function () {
+        it('should get user', function () {
+            var newUser = createMockedUser();
+
+            return UserService.createOrUpdate(newUser)
+                .then(function(createdUser) {
+                    return UserService.getUser(createdUser._id)
+                })
+                .then(function(fetchedUser){
+                    // verify that the returned user is what we expect
+                    fetchedUser.name.should.equal('Chen');
+                    fetchedUser.username.should.equal('chenop');
+
+                    return UserModel.count({'email': fetchedUser.email}).exec()
+                        .then(function (count) {
+                            count.should.equal(1);
+                        })
+                });
+        });
+    })
 
     describe('Update', function () {
         it('should return the updated user', function () {
@@ -61,7 +83,9 @@ describe('Testing CRUD operations on User model', function () {
             var newUser = createMockedUser();
 
             return UserService.createOrUpdate(newUser)
-                .then(UserService.deleteUser)
+                .then(function(createUser) {
+                    return UserService.deleteUser(createUser._id);
+                })
                 .then(UserModel.count({'email': newUser.email}).exec()
                     .then(function (count) {
                         count.should.equal(0);

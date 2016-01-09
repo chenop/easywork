@@ -10,6 +10,8 @@ var User     = require('../models/user')
 module.exports = {
     createOrUpdate: createOrUpdate
     , deleteUser: deleteUser
+    , getUser: getUser
+    , getUsers: getUsers
 }
 
 /***********
@@ -38,8 +40,8 @@ function createUserInstance(user) {
     return newUser;
 }
 
-function deleteUser(user) {
-    return User.findById(user._id).exec()
+function deleteUser(id) {
+    return User.findById(id).exec()
         .then(function (user) {
             if (user == undefined || user == null)
                 return;
@@ -47,3 +49,12 @@ function deleteUser(user) {
             return user.remove();
         });
 }
+
+function getUser(id) {
+    return User.findById(id).exec();
+}
+
+function getUsers() {
+    return User.find().exec();
+}
+
