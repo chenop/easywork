@@ -48,7 +48,8 @@
     "grunt-ng-annotate": "^1.0.1",
     "grunt-open": "~0.2.2",
     "grunt-shell": "~0.6.1",
-    "grunt-template": "^0.2.3"
+    "grunt-template": "^0.2.3",
+    "supertest": "^1.1.0"
   },
   "scripts": {
     "start": "node server.js",

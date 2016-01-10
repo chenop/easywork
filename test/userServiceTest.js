@@ -3,7 +3,6 @@
  */
 'use strict';
 
-var assert = require('assert');
 var UserService = require('../server/services/userService');
 var UserModel = require('../server/models/user');
 var utils = require('./utils');
@@ -21,7 +20,8 @@ function createMockedUser() {
     return newUser;
 }
 
-describe('User model - Testing CRUD operations', function () {
+describe('User service - Testing CRUD operations', function () {
+    this.timeout(15000);
     describe('Create', function () {
         it('should return the user after created', function () {
             var newUser = createMockedUser();
@@ -41,7 +41,7 @@ describe('User model - Testing CRUD operations', function () {
 
             return UserService.createOrUpdate(newUser)
                 .then(function(createdUser) {
-                    return UserService.getUser(createdUser._id)
+                    return UserService.getUser(createdUser.id)
                 })
                 .then(function(fetchedUser){
                     // verify that the returned user is what we expect
@@ -60,10 +60,12 @@ describe('User model - Testing CRUD operations', function () {
         it('should return the updated user', function () {
             var newUser = createMockedUser();
 
+            // First cal to create
             return UserService.createOrUpdate(newUser)
                 .then(function (createdUser) {
                     createdUser.name = "Chen Update";
 
+                    // Second call to update
                     return UserService.createOrUpdate(createdUser)
                         .then(function (updatedUser) {
                             // verify that the returned user is what we expect

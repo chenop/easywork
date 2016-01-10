@@ -28,7 +28,7 @@ beforeEach(function (done) {
 
 
     if (mongoose.connection.readyState === 0) {
-        mongoose.connect("mongodb://localhost/db", function (err) {
+        mongoose.connect("mongodb://chenop:selavi99@ds039185.mongolab.com:39185/heroku_hjgps9xv", function (err) {
             if (err) {
                 throw err;
             }
@@ -44,3 +44,19 @@ afterEach(function (done) {
     mongoose.disconnect();
     return done();
 });
+
+function createMockedUserPlainObject() {
+    var newUser = {
+        email: 'chenop@gmail.com'
+        , name: "Chen"
+        , username: "chenop"
+        , password: "123456"
+        , role: "JobSeeker"
+        //, skills: {"GUI", "AngularJS"}
+    };
+    return newUser;
+}
+
+module.exports = {
+    createMockedUserPlainObject: createMockedUserPlainObject
+}

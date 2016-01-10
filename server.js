@@ -38,13 +38,17 @@ if (!env || 'development' == env) {
     //app.use(morgan('dev'));
     app.use(errorhandler())
     baseUrl = 'http://localhost:3000';
-};
-
-if ('production' == env) {
+}
+else if ('production' == env) {
     console.log("Production Mode!")
     dbUrl = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
     baseUrl = 'http://easywork.herokuapp.com';
-};
+}
+else if ('test' == env) {
+    console.log("Testing Mode!")
+    dbUrl = "mongodb://chenop:selavi99@ds039185.mongolab.com:39185/heroku_hjgps9xv";
+    baseUrl = 'http://easywork.herokuapp.com';
+}
 
 console.log("DB URL: " + dbUrl);
 mongoose.connect(dbUrl); // comment
