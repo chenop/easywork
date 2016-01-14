@@ -8,7 +8,7 @@ var User     = require('../models/user')
  * Public
  ***********/
 module.exports = {
-    createOrUpdate: createOrUpdate
+    createOrUpdateUser: createOrUpdateUser
     , deleteUser: deleteUser
     , getUser: getUser
     , getUsers: getUsers
@@ -17,7 +17,7 @@ module.exports = {
 /***********
  * Private
  ***********/
-function createOrUpdate(user) {
+function createOrUpdateUser(user) {
     var userInstance = createUserInstance(user);
 
     var upsertUser = userInstance.toObject();
@@ -50,8 +50,8 @@ function deleteUser(id) {
         });
 }
 
-function getUser(id) {
-    return User.findById(id).exec();
+function getUser(userId) {
+    return User.findById(userId).exec();
 }
 
 function getUsers() {

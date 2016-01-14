@@ -26,7 +26,7 @@ describe('User service - Testing CRUD operations', function () {
         it('should return the user after created', function () {
             var newUser = createMockedUser();
 
-            return UserService.createOrUpdate(newUser)
+            return UserService.createOrUpdateUser(newUser)
                 .then(function (createdUser) {
                     // verify that the returned user is what we expect
                     createdUser.name.should.equal('Chen');
@@ -39,7 +39,7 @@ describe('User service - Testing CRUD operations', function () {
         it('should get user', function () {
             var newUser = createMockedUser();
 
-            return UserService.createOrUpdate(newUser)
+            return UserService.createOrUpdateUser(newUser)
                 .then(function(createdUser) {
                     return UserService.getUser(createdUser.id)
                 })
@@ -61,12 +61,12 @@ describe('User service - Testing CRUD operations', function () {
             var newUser = createMockedUser();
 
             // First cal to create
-            return UserService.createOrUpdate(newUser)
+            return UserService.createOrUpdateUser(newUser)
                 .then(function (createdUser) {
                     createdUser.name = "Chen Update";
 
                     // Second call to update
-                    return UserService.createOrUpdate(createdUser)
+                    return UserService.createOrUpdateUser(createdUser)
                         .then(function (updatedUser) {
                             // verify that the returned user is what we expect
                             updatedUser.name.should.equal('Chen Update');
@@ -84,7 +84,7 @@ describe('User service - Testing CRUD operations', function () {
         it('should not found the deleted user', function () {
             var newUser = createMockedUser();
 
-            return UserService.createOrUpdate(newUser)
+            return UserService.createOrUpdateUser(newUser)
                 .then(function(createUser) {
                     return UserService.deleteUser(createUser._id);
                 })

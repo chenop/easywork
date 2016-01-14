@@ -45,29 +45,25 @@ function login(req, res, next) {
     })(req, res, next);
 }
 
+/**
+ * Create user - company is NOT mandatory
+ * @param req
+ * @param res
+ * @returns {*}
+ */
 function createUser(req, res) {
     var newUser = req.body;
 
-    var company = new Company();
-    company.save(function (err, company) {
-        if (err) {
-            console.log("Error while saving company");
-        }
-        else {
-            console.log("user " + newUser.email + " created in server");
-            newUser.company = company; // Saving the id itself
-            createOrUpdate(newUser, res);
-        }
-    });
+    return createOrUpdate(newUser, res);
 }
 
 function createOrUpdate(user, res) {
-    return UserService.createOrUpdate(user).
+    return UserService.createOrUpdateUser(user).
         then(function success(user) {
             return res.send(user);
         },
         function error(err) {
-            return res.json(500, err);
+                return res.json(500, err);
         }
     );
 }
@@ -96,10 +92,15 @@ function getUsers(req, res) {
 
 
 function updateUser(req, res) {
-    var id = req.params.id;
     user = req.body;
 
-    return UserService.createOrUpdate(id, user);
+    return UserService.createOrUpdateUser(user)
+        .then(function success(user) {
+            return res.send(user);
+        },
+        function error(err) {
+            return res.json(500, err);
+        });
 };
 
 function prepareCookie(res, user) {
@@ -132,7 +133,7 @@ function register(req, res) {
         }
     );
 
-    return UserService.createOrUpdate(user).
+    return UserService.createOrUpdateUser(user).
         then(function success(user) {
             req.login(user, function (err) {
                 if (err) {
@@ -202,7 +203,7 @@ function upload(req, res) {
         user.fileName = fileName;
         user.skills = skills;
 
-        return UserService.createOrUpdate(user)
+        return UserService.createOrUpdateUser(user)
             .then(function (user) {
                 saveCv(user, fileData, skills);
                 return res.send(user.skills);

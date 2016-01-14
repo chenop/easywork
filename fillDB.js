@@ -1,6 +1,6 @@
 
 var mongoose = require('mongoose')
-, companies = require('./server/controllers/companies')
+, companies = require('./server/controllers/companyController')
     , Company = require('./server/models/company')
     ;
 var start = Date.now();
