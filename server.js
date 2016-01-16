@@ -7,11 +7,11 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 var express = require('express')
 	, path = require('path')
 	, passport = require('passport')
-	, users = require('./server/api/users')
-	, jobs = require('./server/api/jobs')
+	, userController = require('./server/controllers/userController')
+	, jobs = require('./server/controllers/jobs')
 	, mail = require('./server/mail')
-	, companies = require('./server/api/companies')
-	, dataProxy = require('./server/api/dataProxy')
+	, companyController = require('./server/controllers/companyController')
+	, dataProxy = require('./server/controllers/dataProxy')
     , morgan = require('morgan')
     , errorhandler = require('errorhandler')
     , cookieParser = require('cookie-parser')
@@ -38,13 +38,17 @@ if (!env || 'development' == env) {
     //app.use(morgan('dev'));
     app.use(errorhandler())
     baseUrl = 'http://localhost:3000';
-};
-
-if ('production' == env) {
+}
+else if ('production' == env) {
     console.log("Production Mode!")
     dbUrl = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
     baseUrl = 'http://easywork.herokuapp.com';
-};
+}
+else if ('test' == env) {
+    console.log("Testing Mode!")
+    dbUrl = "mongodb://chenop:selavi99@ds039185.mongolab.com:39185/heroku_hjgps9xv";
+    baseUrl = 'http://easywork.herokuapp.com';
+}
 
 console.log("DB URL: " + dbUrl);
 mongoose.connect(dbUrl); // comment
@@ -74,31 +78,31 @@ app.use(express.static(clientDir));
 
 require('./server/pass.js')(passport, app, baseUrl);
 
-app.post('/api/login', users.login)
-app.post('/api/logout', users.logout)
-app.post('/api/register', users.register)
+app.post('/api/login', userController.login)
+app.post('/api/logout', userController.logout)
+app.post('/api/register', userController.register)
 app.post('/api/sendMail', mail.sendMail)
 app.get('/api/filtersData', dataProxy.getFiltersData)
 
 // Users
-app.get('/api/user/list', users.getUsers)
-app.get('/api/user/:id', users.getUser)
-app.post('/api/user', users.createUser)
-app.put('/api/user/:id', users.updateUser)
-app.delete('/api/user/:id', users.deleteUser)
-app.post('/api/user/cv-upload/:id', users.upload)
-app.post('/api/user/cv-delete/:id', users.deleteCV)
+app.get('/api/user/list', userController.getUsers)
+app.get('/api/user/:id', userController.getUser)
+app.post('/api/user', userController.createUser)
+app.put('/api/user/:id', userController.updateUser)
+app.delete('/api/user/:id', userController.deleteUser)
+app.post('/api/user/cv-upload/:id', userController.upload)
+app.post('/api/user/cv-delete/:id', userController.deleteCV)
 
 // Companies
-app.get('/api/company/list', companies.getCompanies)
-app.get('/api/company/:id', companies.getCompany)
-app.post('/api/company', companies.createCompany)
-app.put('/api/company/:id', companies.updateCompany)
-app.delete('/api/company/:id', companies.deleteCompany)
-app.post('/api/company/logo-upload/:id', companies.upload)
-app.get('/api/company/logo/:id/:force', companies.getCompanyLogo)
-app.get('/api/allCompanies', companies.getAllCompanies)
-app.get('/api/company/jobsBySkill/:id/:skill', companies.getJobsBySkill);
+app.get('/api/company/list', companyController.getCompanies)
+app.get('/api/company/:id', companyController.getCompany)
+app.post('/api/company', companyController.createCompany)
+app.put('/api/company/:id', companyController.updateCompany)
+app.delete('/api/company/:id', companyController.deleteCompany)
+app.post('/api/company/logo-upload/:id', companyController.upload)
+app.get('/api/company/logo/:id/:force', companyController.getCompanyLogo)
+app.get('/api/allCompanies', companyController.getCompanies); //companies.getAllCompanies)
+app.get('/api/company/jobsBySkill/:id/:skill', companyController.getJobsBySkill);
 
 // Jobs
 app.get('/api/job/list/:id', jobs.getJobs)

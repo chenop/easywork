@@ -103,15 +103,15 @@ angular.module('easywork')
                 })
         }
 
-        var updateUser0 = function () {
-            return dataManager.updateUser($scope.user)
-        }
+        var debounceUpdateUser = debounce(function() {
+           return dataManager.updateUser($scope.user)
+                .then(function (entity) {
+                        $scope.$emit('dataChanged', entity.data);
+                });
+        }, 300, false);
 
         $scope.updateUser = function (event) {
-            debounce(updateUser0, 500)()
-            .then(function (entity) {
-                $scope.$emit('dataChanged', entity.data);
-            });
+            debounceUpdateUser()
         }
 
         $scope.deleteUser = function () {
@@ -140,7 +140,7 @@ angular.module('easywork')
 
             $scope.user.role = newRole;
             appManager.setActiveUser($scope.user);
-            updateUser0();
+            debounceUpdateUser();
         }
     }
 );

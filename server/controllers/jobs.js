@@ -6,8 +6,8 @@
 
 var fs = require('fs')
     , passport = require('passport')
-    , Job = require('../model/job')
-    , Company = require('../model/company')
+    , Job = require('../models/job')
+    , Company = require('../models/company')
     , mongoose = require('mongoose');
 
 Array.prototype.equals = function (array, strict) {
