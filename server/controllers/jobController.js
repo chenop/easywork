@@ -148,6 +148,7 @@ function isCompanyChanged(oldCompany, newCompany) {
 function isTechnologiesEquals(oldTechnologies, newTechnologies) {
     return oldTechnologies.equals(newTechnologies);
 }
+
 function updateJob (req, res) {
     return Job.findById(req.params.id, function (err, job) {
         if (job === undefined || job == null)
