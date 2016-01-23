@@ -1,15 +1,11 @@
 'use strict';
 
-var fs         = require('fs')
-    , passport = require('passport')
+var passport = require('passport')
     , User     = require('../models/user')
     , UserService = require('../services/userService')
     , Cv       = require('../models/cv')
-    , utils    = require('../utils')
     , Company  = require('../models/company')
-    , q        = require('q');
-
-var request = require('request');
+    ;
 
 /***********
  * Public
@@ -63,7 +59,7 @@ function createOrUpdate(user, res) {
             return res.send(user);
         },
         function error(err) {
-                return res.json(500, err);
+            return res.json(500, err);
         }
     );
 }

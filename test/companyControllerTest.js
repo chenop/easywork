@@ -8,51 +8,55 @@ var should = require('chai').should();
 
 var server = supertest.agent("http://localhost:3000");
 
-describe("User controller", function () {
+describe("Company controller", function () {
     this.timeout(15000);
 
     describe("HTTP Verbs", function () {
+        before(function() {
+            //return server.post("/api/company")
+            //    .send(utils.createMockedCompanyPlainObject()).end();
+        })
         it("GET", function (done) {
-            server.post("/api/user")
-                .send(utils.createMockedUserPlainObject())
+            server.post("/api/company")
+                .send(utils.createMockedCompanyPlainObject())
                 .end(function(err, res) {
 
-                    server.get("/api/user/list")
+                    server.get("/api/company/list")
                         .expect("Content-type", /json/)
                         .expect(200) // THis is HTTP response
                         .end(function (err, res) {
                             // HTTP status should be 200
                             res.status.should.equal(200);
-                            res.body.should.have.length(1);
+                            res.body.should.not.empty;
 
                             done();
                         });
                 })
         });
         it("POST", function (done) {
-            server.post("/api/user")
-                .send(utils.createMockedUserPlainObject())
+            server.post("/api/company")
+                .send(utils.createMockedCompanyPlainObject("Toluna"))
                 .expect("Content-type", /json/)
                 .expect(200) // THis is HTTP response
                 .end(function (err, res) {
                     // HTTP status should be 200
                     res.status.should.equal(200);
-                    var returnedUser = res.body;
+                    var returnedCompany = res.body;
 
-                    returnedUser.should.not.empty;
-                    returnedUser.name.should.equal('Chen');
-                    returnedUser.username.should.equal('chenop');
+                    returnedCompany.should.not.empty;
+                    returnedCompany.name.should.equal("Toluna");
+                    returnedCompany.street.should.equal("Matam 1");
 
                     done();
                 });
         });
         it("DELETE", function (done) {
-            server.post("/api/user")
-                .send(utils.createMockedUserPlainObject())
+            server.post("/api/company")
+                .send(utils.createMockedCompanyPlainObject())
                 .end(function (err, res) {
-                    var returnedUser = res.body;
+                    var returnedCompany = res.body;
 
-                    server.delete("/api/user/" + returnedUser._id)
+                    server.delete("/api/company/" + returnedCompany._id)
 
                         .expect("Content-type", /json/)
                         .expect(200) // THis is HTTP response
@@ -60,8 +64,8 @@ describe("User controller", function () {
                             // HTTP status should be 200
                             res.status.should.equal(200);
 
-                            server.get("/api/user")
-                                .send(returnedUser.id)
+                            server.get("/api/company")
+                                .send(returnedCompany.id)
                                 .expect("Content-type", /json/)
                                 .expect(200) // THis is HTTP response
                                 .end(function (err, res) {

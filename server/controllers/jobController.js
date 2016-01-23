@@ -5,81 +5,107 @@
 'use strict';
 
 var fs = require('fs')
-    , passport = require('passport')
+    , JobService = require('../services/jobService')
+    , CompanyService = require('../services/companyService')
     , Job = require('../models/job')
     , Company = require('../models/company')
+    , arrayUtils = require('../utils/arrayUtils')
     , mongoose = require('mongoose');
 
-Array.prototype.equals = function (array, strict) {
-    if (!array)
-        return false;
 
-    if (arguments.length == 1)
-        strict = true;
-
-    if (this.length != array.length)
-        return false;
-
-    for (var i = 0; i < this.length; i++) {
-        if (this[i] instanceof Array && array[i] instanceof Array) {
-            if (!this[i].equals(array[i], strict))
-                return false;
-        }
-        else if (strict && this[i] != array[i]) {
-            return false;
-        }
-        else if (!strict) {
-            return this.sort().equals(array.sort(), true);
-        }
-    }
-    return true;
+/***********
+ * Public
+ ***********/
+module.exports = {
+    createJob: createJob
+    , getJob: getJob
+    , getJobs: getJobs
+    , updateJob: updateJob
+    , deleteJob: deleteJob
 }
 
-Array.prototype.merge = function(/* variable number of arrays */){
-    for(var i = 0; i < arguments.length; i++){
-        var array = arguments[i];
-        for(var j = 0; j < array.length; j++){
-            if(this.indexOf(array[j]) === -1) {
-                this.push(array[j]);
-            }
-        }
-    }
-    return this;
+function createJob (req, res) {
+    var newJob = req.body.job;
+    var company = req.body.company;
+
+    return JobService.createOrUpdateJob(newJob)
+        .then(function (jobCreated) {
+            return CompanyService.getCompany(company)
+                .then(function (companyFetched) {
+                    return CompanyService.addJob(companyFetched, jobCreated)
+                        .then(function () {
+                            return jobCreated;
+                        });
+                })
+        })
+        .then(function success(job) {
+            return res.send(job);
+        },
+        function error(err) {
+            return res.json(500, err);
+        });
 };
 
-exports.createJob = function (req, res) {
-    return Company.findById(req.body.company, function(err, company) {
+function getJob (req, res) {
+    var id = req.params.id;
 
-        var newJob = new Job(
-            {
-                name: req.body.name
-                //, code: req.body.code
-                //, description: req.body.description
-                //, city: req.body.city
-                , company: company
-            }
-        );
-
-        // Adding job to company
-        company.jobs.push(newJob);
-        return company.save(function (err) {
-            if (err) {
-                console.log("Error saving job in company " + company.name);
-            }
-
-            return newJob.save(function (err, newJob) {
-                if (!err) {
-                    console.log("job " + newJob["name"] + " create in server")
-                    return res.send(newJob);
-                } else {
-                    console.log(err);
-                    return res.json(401, err);
-                }
-            });
-        })
-    })
+    return JobService.getJob(id)
+        .then(function success(job) {
+            return res.send(job);
+        },
+        function error(err) {
+            return res.json(500, err);
+        });
 }
 
+function getJobs (req, res) {
+    var companyId = req.params.id;
+
+    if (!companyId) {
+        return JobService.getJobs()
+            .then(function success(job) {
+                return res.send(job);
+            },
+            function error(err) {
+                return res.json(500, err);
+            });
+    }
+    else {
+        return CompanyService.getCompany(companyId)
+            .then(function success(company) {
+                return res.send(company.jobs)
+            },
+            function error(err) {
+                return res.json(500, err);
+            }
+        );
+    }
+};
+
+function deleteJob (req, res) {
+    var jobId = req.params.id;
+    var company = req.body.company;
+
+    return CompanyService.deleteJob(company, jobId)
+        .then(JobService.deleteJob(jobId))
+        .then(function success(job) {
+            return res.send(job);
+        },
+        function error(err) {
+            return res.json(500, err);
+        });
+}
+
+function createOrUpdateJob(job, res) {
+    return JobService.createOrUpdateJob(job).
+        then(function success(job) {
+            return res.send(job);
+        },
+        function error(err) {
+            return res.json(500, err);
+        }
+    );
+}
 function updateCompanyAfterJobChange(company, jobId) {
     Company.findById(company, function (err, company) {
         if (company === undefined || company == null)
@@ -122,7 +148,7 @@ function isCompanyChanged(oldCompany, newCompany) {
 function isTechnologiesEquals(oldTechnologies, newTechnologies) {
     return oldTechnologies.equals(newTechnologies);
 }
-exports.updateJob = function (req, res) {
+function updateJob (req, res) {
     return Job.findById(req.params.id, function (err, job) {
         if (job === undefined || job == null)
             return;
@@ -234,66 +260,6 @@ function deleteJob0(job, company, res) {
         }
     });
 }
-exports.deleteJob = function (req, res) {
-    var jobId = req.params.id;
-    return Job.findById(jobId, function (err, job) {
-        // Remove job from company
-        if (!job) {
-            return res.json(501, "job not found");
-        }
-
-        var company = job.company;
-        if (company !== null && company !== undefined) {
-            return Company.findById(company, function (err, company) {
-                if (company === null || company === undefined)
-                    return;
-
-                company.jobs.remove(jobId);
-
-                return company.save(function(err, savedCompany) {
-
-                    // Remove job from collection jobs
-                    return deleteJob0(job, company, res);
-                });
-            })
-        }
-        else {
-            // In case its a job that no company were set to
-            deleteJob0(job, null, res);
-        }
-    });
-}
-
-exports.getJob = function (req, res) {
-    return Job.findById(req.params.id, function (err, job) {
-        if (!err) {
-            return res.send(job);
-        } else {
-            return console.log(err);
-        }
-    });
-}
-
-exports.getJobs = function (req, res) {
-    return getJobsByCompanyId(req.params.id);
-};
-
-var getJobsByCompanyId = function(companyId, callback) {
-    return Job.find({'company': companyId}, function (err, jobs) {
-        if (!err) {
-            if (callback) {
-                callback(jobs)
-            }
-            else {
-                return jobs;
-            }
-        } else {
-            return console.log(err);
-        }
-    });
-}
-
-exports.getJobsByCompanyId = getJobsByCompanyId;
 
 exports.getAllJobs = function(req, res) {
     var conditions = {};

@@ -40,10 +40,10 @@ beforeEach(function (done) {
 });
 
 
-afterEach(function (done) {
-    mongoose.disconnect();
-    return done();
-});
+//afterEach(function (done) {
+//    mongoose.disconnect();
+//    return done();
+//});
 
 function createMockedUserPlainObject() {
     var newUser = {
@@ -57,6 +57,34 @@ function createMockedUserPlainObject() {
     return newUser;
 }
 
+function createMockedJobPlainObject(name) {
+    return {
+        name: name
+        , code: "111222"
+        , city: "Haifa"
+        , description: "Job of my dreams"
+    };
+}
+
+function createMockedCompanyPlainObject(name) {
+    var newCompany = {
+        name: name
+        , street: "Matam 1"
+        , city: "Haifa"
+        , addresses: "Matam 1"
+        , email: "chen.oppenhaim@toluna.com"
+        , technologies: ["AngularJS", "C#"]
+        //, owner: company.user
+        //, logo: company.logo
+        //, site: company.site
+        //, description: company.description
+        //, locations: company.locations
+    };
+    return newCompany;
+}
+
 module.exports = {
     createMockedUserPlainObject: createMockedUserPlainObject
+    , createMockedJobPlainObject: createMockedJobPlainObject
+    , createMockedCompanyPlainObject: createMockedCompanyPlainObject
 }

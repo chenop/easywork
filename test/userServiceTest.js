@@ -5,7 +5,7 @@
 
 var UserService = require('../server/services/userService');
 var UserModel = require('../server/models/user');
-var utils = require('./utils');
+var utils = require('./testUtils');
 var should = require('chai').should();
 
 function createMockedUser() {

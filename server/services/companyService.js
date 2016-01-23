@@ -13,6 +13,8 @@ module.exports = {
     , deleteCompany: deleteCompany
     , getCompany: getCompany
     , getCompanies: getCompanies
+    , deleteJob: deleteJob
+    , addJob: addJob
 }
 
 /***********
@@ -77,3 +79,10 @@ function getCompanies() {
     return Company.find({}).exec();
 }
 
+function deleteJob(company, job) {
+    return Company.update( {_id: company._id}, { $pull: {jobs: job._id } }).exec();
+}
+
+function addJob(company, job) {
+    return Company.update( {_id: company._id}, { $push: {jobs: job._id } } ).exec();
+}

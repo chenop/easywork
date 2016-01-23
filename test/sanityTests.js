@@ -3,7 +3,7 @@
  */
 
 var supertest = require("supertest");
-var utils = require('./utils');
+var utils = require('./testUtils');
 var should = require('chai').should();
 
 // This agent refers to PORT where program is runninng.
