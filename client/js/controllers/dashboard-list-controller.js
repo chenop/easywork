@@ -86,11 +86,11 @@ angular.module('easywork')
 
         function getJobs() {
             if (appManager.getActiveUser().role == "admin") {
-                return dataManager.getAllJobs();
+                return dataManager.getJobs();
             }
             else {
                 var companyId = appManager.getActiveCompanyId();
-                return dataManager.getAllJobs(companyId);
+                return dataManager.getJobs(companyId);
             }
         };
 
