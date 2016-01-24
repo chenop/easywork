@@ -50,11 +50,7 @@ function login(req, res, next) {
 function createUser(req, res) {
     var newUser = req.body;
 
-    return createOrUpdate(newUser, res);
-}
-
-function createOrUpdate(user, res) {
-    return UserService.createOrUpdateUser(user).
+    return UserService.createUser(newUser).
         then(function success(user) {
             return res.send(user);
         },
@@ -88,15 +84,16 @@ function getUsers(req, res) {
 
 
 function updateUser(req, res) {
-    user = req.body;
+    var user = req.body;
 
-    return UserService.createOrUpdateUser(user)
-        .then(function success(user) {
+    return UserService.updateUser(user).
+        then(function success(user) {
             return res.send(user);
         },
         function error(err) {
             return res.json(500, err);
-        });
+        }
+    );
 };
 
 function prepareCookie(res, user) {

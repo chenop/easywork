@@ -24,6 +24,12 @@ module.exports = {
     , deleteJob: deleteJob
 }
 
+/**
+ * Create a job - also add the job to the company
+ * @param req
+ * @param res
+ * @returns {Promise.<T>|*}
+ */
 function createJob (req, res) {
     var newJob = req.body.job;
     var company = req.body.company;
@@ -96,16 +102,6 @@ function deleteJob (req, res) {
         });
 }
 
-function createOrUpdateJob(job, res) {
-    return JobService.createOrUpdateJob(job).
-        then(function success(job) {
-            return res.send(job);
-        },
-        function error(err) {
-            return res.json(500, err);
-        }
-    );
-}
 function updateCompanyAfterJobChange(company, jobId) {
     Company.findById(company, function (err, company) {
         if (company === undefined || company == null)
@@ -147,6 +143,40 @@ function isCompanyChanged(oldCompany, newCompany) {
 
 function isTechnologiesEquals(oldTechnologies, newTechnologies) {
     return oldTechnologies.equals(newTechnologies);
+}
+
+/**
+ * Update user details (except file)
+ * @param id
+ * @param newUser
+ * @param callBack
+ * @returns {*}
+ */
+function updateJob(id, newJob, callBack) {
+    return Job.findById(id, function (err, job) {
+        if ('undefined' !== typeof newJob.name)
+            job.name = newJob.name;
+        if ('undefined' !== typeof newJob.code)
+            job.code = newJob.code;
+        if ('undefined' !== typeof newJob.description)
+            job.description = newJob.description;
+        if ('undefined' !== typeof newJob.company)
+            job.company = newJob.company;
+        if ('undefined' !== typeof newJob.city)
+            job.city = newJob.city;
+        return job.save(callBack);
+    });
+}
+
+function createOrUpdateJob(job, res) {
+    return JobService.createOrUpdateJob(job).
+        then(function success(job) {
+            return res.send(job);
+        },
+        function error(err) {
+            return res.json(500, err);
+        }
+    );
 }
 
 function updateJob (req, res) {
@@ -205,45 +235,23 @@ function updateJob (req, res) {
                 job.company = company;
 
                 // New company we need to job.save() it
-                return saveJob(job);
+                return saveJob(job, res);
 
             });
         }
         else {
-            return saveJob(job);
+            return saveJob(job, res);
         }
     });
 };
 
-function saveJob(job) {
+function saveJob(job, res) {
     return job.save(function (err) {
         if (err) {
             console.log(err);
-            return res.json(401, err);
+            return res.json(500, err);
         }
         return res.send(job);
-    });
-}
-/**
- * Update user details (except file)
- * @param id
- * @param newUser
- * @param callBack
- * @returns {*}
- */
-function updateJob(id, newJob, callBack) {
-    return Job.findById(id, function (err, job) {
-        if ('undefined' !== typeof newJob.name)
-            job.name = newJob.name;
-        if ('undefined' !== typeof newJob.code)
-            job.code = newJob.code;
-        if ('undefined' !== typeof newJob.description)
-            job.description = newJob.description;
-        if ('undefined' !== typeof newJob.company)
-            job.company = newJob.company;
-        if ('undefined' !== typeof newJob.city)
-            job.city = newJob.city;
-        return job.save(callBack);
     });
 }
 

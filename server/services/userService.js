@@ -8,7 +8,8 @@ var User     = require('../models/user')
  * Public
  ***********/
 module.exports = {
-    createOrUpdateUser: createOrUpdateUser
+    createUser: createUser
+    , updateUser: updateUser
     , deleteUser: deleteUser
     , getUser: getUser
     , getUsers: getUsers
@@ -17,12 +18,23 @@ module.exports = {
 /***********
  * Private
  ***********/
-function createOrUpdateUser(user) {
+function createUser(user) {
     var userInstance = createUserInstance(user);
 
+    return userInstance.save();
+    //var upsertUser = userInstance.toObject();
+    //
+    //delete upsertUser._id; // Just to make sure - we should not have an _id on a new object
+    //return User.findOneAndUpdate({}, upsertUser, {upsert: true, new: true}).exec();
+}
+
+function updateUser(user) {
+    var userInstance = createUserInstance(user);
+    userInstance._id = user._id;
+
     var upsertUser = userInstance.toObject();
-    delete upsertUser._id;
-    return User.findOneAndUpdate({'email': user.email}, upsertUser, {upsert: true, new: true}).exec();
+    //delete upsertUser._id;
+    return User.findOneAndUpdate({'_id': user._id}, upsertUser, {upsert: true, new: true}).exec();
 }
 
 function createUserInstance(user) {

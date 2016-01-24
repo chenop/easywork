@@ -9,6 +9,7 @@ var UserService = require('../services/userService');
  * Public
  ***********/
 module.exports = {
+    // TODO seperate create and update
     createOrUpdateCompany: createOrUpdateCompany
     , deleteCompany: deleteCompany
     , getCompany: getCompany

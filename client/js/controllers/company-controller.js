@@ -2,7 +2,7 @@
 
 
 angular.module('easywork')
-    .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout, $state, $stateParams, $modal) {
+    .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout, $state, $stateParams, $modal, debounce) {
         function isDefined(value){return typeof value !== 'undefined';}
 
         if ($state.current.isDashboard) {
@@ -80,8 +80,9 @@ angular.module('easywork')
             console.log("logoUrl: " + $scope.company.logo);
         };
 
-        $scope.updateCompany = function () {
-            dataManager.updateCompany($scope.company)
+
+        var debounceUpdateCompany = debounce(function() {
+            return dataManager.updateCompany($scope.company)
                 .then(function (entity) {
                     $scope.$emit('dataChanged', entity);
                     return entity.data;
@@ -92,6 +93,10 @@ angular.module('easywork')
                             $scope.company.logo.url = url;
                         })
                 })
+        }, 300, false);
+
+        $scope.updateCompany = function () {
+            debounceUpdateCompany();
         }
 
         $scope.deleteCompany = function () {

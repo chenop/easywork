@@ -144,8 +144,17 @@ angular.module('easywork')
             handleSelection(entity._id);
         }
 
-        $scope.$on('dataChanged', function (event, entity) {
-            refreshEntities(contentTypeName, entity._id);
+        $scope.$on('dataChanged', function (event, entityToUpdate) {
+            //refreshEntities(contentTypeName, entity._id);
+
+            for (var i = 0; i < $scope.entities.length; i++) {
+                var entity = $scope.entities[i];
+
+                if (entity._id === entityToUpdate._id) {
+                    entity = entityToUpdate;
+                    return;
+                }
+            }
         })
 
         $scope.getDisplayName = function(entity) {

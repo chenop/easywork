@@ -75,7 +75,7 @@ describe('Job service - Testing CRUD operations', function () {
                             // verify that the returned job is what we expect
                             updatedJob.name.should.equal('Intel');
 
-                            return JobModel.count({'name': updatedJob.name}).exec()
+                            return JobModel.count().exec()
                                 .then(function (count) {
                                     count.should.equal(1);
                                 })
