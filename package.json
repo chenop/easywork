@@ -42,7 +42,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "postinstall": "bower install && grunt prod"
+    "postinstall": "bower install "
   },
   "description": "Easywork: Building an App with AngularJS, Express andNode.js\r ============================================================",
   "main": "Gruntfile.js",
