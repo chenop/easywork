@@ -25,8 +25,6 @@ describe("Company controller", function () {
                         .expect("Content-type", /json/)
                         .expect(200) // THis is HTTP response
                         .end(function (err, res) {
-                            // HTTP status should be 200
-                            res.status.should.equal(200);
                             res.body.should.not.empty;
 
                             done();
@@ -39,8 +37,6 @@ describe("Company controller", function () {
                 .expect("Content-type", /json/)
                 .expect(200) // THis is HTTP response
                 .end(function (err, res) {
-                    // HTTP status should be 200
-                    res.status.should.equal(200);
                     var returnedCompany = res.body;
 
                     returnedCompany.should.not.empty;
@@ -61,16 +57,12 @@ describe("Company controller", function () {
                         .expect("Content-type", /json/)
                         .expect(200) // THis is HTTP response
                         .end(function (err, res) {
-                            // HTTP status should be 200
-                            res.status.should.equal(200);
 
                             server.get("/api/company")
                                 .send(returnedCompany.id)
                                 .expect("Content-type", /json/)
                                 .expect(200) // THis is HTTP response
                                 .end(function (err, res) {
-                                    // HTTP status should be 200
-                                    res.status.should.equal(200);
                                     res.body.should.empty;
 
                                     done();
