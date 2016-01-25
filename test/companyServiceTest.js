@@ -16,7 +16,7 @@ describe('Company service', function () {
             it('should return the company after created', function () {
                 var newCompany = utils.createMockedCompanyPlainObject("Toluna");
 
-                return CompanyService.createOrUpdateCompany(newCompany)
+                return CompanyService.createCompany(newCompany)
                     .then(function (createdCompany) {
                         // verify that the returned company is what we expect
                         createdCompany.name.should.equal('Toluna');
@@ -29,7 +29,7 @@ describe('Company service', function () {
             it('should get company', function () {
                 var newCompany = utils.createMockedCompanyPlainObject("Toluna");
 
-                return CompanyService.createOrUpdateCompany(newCompany)
+                return CompanyService.createCompany(newCompany)
                     .then(function (createdCompany) {
                         return CompanyService.getCompany(createdCompany.id)
                     })
@@ -49,8 +49,8 @@ describe('Company service', function () {
                 var toluna = utils.createMockedCompanyPlainObject('Toluna');
                 var intel = utils.createMockedCompanyPlainObject('Intel');
 
-                return CompanyService.createOrUpdateCompany(toluna)
-                    .then(CompanyService.createOrUpdateCompany(intel))
+                return CompanyService.createCompany(toluna)
+                    .then(CompanyService.createCompany(intel))
                     .then(CompanyService.getCompanies)
                     .then(function (companies) {
                         companies.length.should.equal(2);
@@ -63,17 +63,17 @@ describe('Company service', function () {
                 var newCompany = utils.createMockedCompanyPlainObject("Toluna");
 
                 // First cal to create
-                return CompanyService.createOrUpdateCompany(newCompany)
+                return CompanyService.createCompany(newCompany)
                     .then(function (createdCompany) {
                         createdCompany.name = "Intel";
 
                         // Second call to update
-                        return CompanyService.createOrUpdateCompany(createdCompany)
+                        return CompanyService.updateCompany(createdCompany)
                             .then(function (updatedCompany) {
                                 // verify that the returned company is what we expect
                                 updatedCompany.name.should.equal('Intel');
 
-                                return CompanyModel.count({'name': updatedCompany.name}).exec()
+                                return CompanyModel.count().exec()
                                     .then(function (count) {
                                         count.should.equal(1);
                                     })
@@ -86,7 +86,7 @@ describe('Company service', function () {
             it('should not found the deleted company', function () {
                 var newCompany = utils.createMockedCompanyPlainObject("Toluna");
 
-                return CompanyService.createOrUpdateCompany(newCompany)
+                return CompanyService.createCompany(newCompany)
                     .then(function (createCompany) {
                         return CompanyService.deleteCompany(createCompany._id);
                     })
@@ -104,10 +104,10 @@ describe('Company service', function () {
             var createdCompany;
             var createdJob;
 
-            return CompanyService.createOrUpdateCompany(mockCompany)
+            return CompanyService.createCompany(mockCompany)
                 .then(function (company) {
                     createdCompany = company;
-                    return JobService.createOrUpdateJob((mockJob))
+                    return JobService.createJob(mockJob)
                 })
                 .then(function (job) {
                     createdJob = job;

@@ -14,7 +14,7 @@ describe('Job service - Testing CRUD operations', function () {
         it('should return the job after created', function () {
             var newJob = utils.createMockedJobPlainObject("Job at Toluna");
 
-            return JobService.createOrUpdateJob(newJob)
+            return JobService.createJob(newJob)
                 .then(function (createdJob) {
                     // verify that the returned job is what we expect
                     createdJob.name.should.equal('Job at Toluna');
@@ -27,7 +27,7 @@ describe('Job service - Testing CRUD operations', function () {
         it('should get job', function () {
             var newJob = utils.createMockedJobPlainObject("Toluna");
 
-            return JobService.createOrUpdateJob(newJob)
+            return JobService.createJob(newJob)
                 .then(function(createdJob) {
                     return JobService.getJob(createdJob.id)
                 })
@@ -47,9 +47,9 @@ describe('Job service - Testing CRUD operations', function () {
             var toluna = utils.createMockedJobPlainObject('Toluna');
             var intel = utils.createMockedJobPlainObject('Intel');
 
-            return JobService.createOrUpdateJob(toluna)
+            return JobService.createJob(toluna)
                 .then(function() {
-                    return JobService.createOrUpdateJob(intel);
+                    return JobService.createJob(intel);
                 })
                 .then(function() {
                     return JobService.getJobs();
@@ -65,12 +65,12 @@ describe('Job service - Testing CRUD operations', function () {
             var newJob = utils.createMockedJobPlainObject("Toluna");
 
             // First cal to create
-            return JobService.createOrUpdateJob(newJob)
+            return JobService.createJob(newJob)
                 .then(function (createdJob) {
                     createdJob.name = "Intel";
 
                     // Second call to update
-                    return JobService.createOrUpdateJob(createdJob)
+                    return JobService.updateJob(createdJob)
                         .then(function (updatedJob) {
                             // verify that the returned job is what we expect
                             updatedJob.name.should.equal('Intel');
@@ -88,7 +88,7 @@ describe('Job service - Testing CRUD operations', function () {
         it('should not found the deleted job', function () {
             var newJob = utils.createMockedJobPlainObject("Toluna");
 
-            return JobService.createOrUpdateJob(newJob)
+            return JobService.createJob(newJob)
                 .then(function(createJob) {
                     return JobService.deleteJob(createJob._id);
                 })

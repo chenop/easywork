@@ -8,8 +8,8 @@ var Job     = require('../models/job')
  * Public
  ***********/
 module.exports = {
-    // TODO seperate create and update
-    createOrUpdateJob: createOrUpdateJob
+    createJob: createJob
+    , updateJob: updateJob
     , deleteJob: deleteJob
     , getJob: getJob
     , getJobs: getJobs
@@ -18,11 +18,17 @@ module.exports = {
 /***********
  * Private
  ***********/
-function createOrUpdateJob(job) {
+function createJob(job) {
     var jobInstance = createJobInstance(job);
 
+    return jobInstance.save();
+}
+
+function updateJob(job) {
+    var jobInstance = createJobInstance(job);
+    jobInstance._id = job._id;
+
     var upsertJob = jobInstance.toObject();
-    delete upsertJob._id;
     return Job.findOneAndUpdate({'code': job.code}, upsertJob, {upsert: true, new: true}).exec();
 }
 

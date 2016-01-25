@@ -9,8 +9,8 @@ var UserService = require('../services/userService');
  * Public
  ***********/
 module.exports = {
-    // TODO seperate create and update
-    createOrUpdateCompany: createOrUpdateCompany
+    createCompany: createCompany
+    , updateCompany: updateCompany
     , deleteCompany: deleteCompany
     , getCompany: getCompany
     , getCompanies: getCompanies
@@ -21,6 +21,20 @@ module.exports = {
 /***********
  * Private
  ***********/
+function createCompany(company) {
+    var companyInstance = createCompanyInstance(company);
+
+    return companyInstance.save();
+}
+
+function updateCompany(company) {
+    var companyInstance = createCompanyInstance(company);
+    companyInstance._id = company._id;
+
+    var upsertCompany = companyInstance.toObject();
+    return Company.findOneAndUpdate({'_id': company._id}, upsertCompany, {upsert: true, new: true}).exec();
+}
+
 function createOrUpdateCompany(company) {
     return UserService.getUser(company.ownerId)
         .then(function (user) {
