@@ -24,7 +24,7 @@ describe('Job service - Testing CRUD operations', function () {
     });
 
     describe('Read', function () {
-        it('should get job', function () {
+        it.only('should get job', function () {
             var newJob = utils.createMockedJobPlainObject("Toluna");
 
             return JobService.createJob(newJob)

@@ -13,16 +13,6 @@
     "express": "^4.10.0",
     "express-session": "^1.9.1",
     "googleapis": "^1.1.4",
-    "method-override": "^2.3.1",
-    "mongoose": "^4",
-    "morgan": "^1.4.1",
-    "multer": "^0.1.7",
-    "nodemailer": "^1",
-    "passport": "~0.1.17",
-    "passport-google-oauth2": "^0.1.6",
-    "passport-linkedin": "^0.1.3",
-    "passport-local": "~0.1.6",
-    "q": "^1.0.1",
     "grunt": "latest",
     "grunt-cli": "latest",
     "grunt-contrib-clean": "^0.6.0",
@@ -34,7 +24,18 @@
     "grunt-ng-annotate": "^1.0.1",
     "grunt-open": "~0.2.2",
     "grunt-shell": "~0.6.1",
-    "grunt-template": "^0.2.3"
+    "grunt-template": "^0.2.3",
+    "method-override": "^2.3.1",
+    "mocha": "^2.3.4",
+    "mongoose": "^4",
+    "morgan": "^1.4.1",
+    "multer": "^0.1.7",
+    "nodemailer": "^1",
+    "passport": "~0.1.17",
+    "passport-google-oauth2": "^0.1.6",
+    "passport-linkedin": "^0.1.3",
+    "passport-local": "~0.1.6",
+    "q": "^1.0.1"
   },
   "devDependencies": {
     "chai": "^3.4.1",
@@ -43,7 +44,7 @@
   "scripts": {
     "start": "node server.js",
     "postinstall": "bower install",
-    "test": "mocha -w"
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha"
   },
   "description": "Easywork: Building an App with AngularJS, Express andNode.js\r ============================================================",
   "main": "Gruntfile.js",
