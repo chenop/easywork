@@ -10,8 +10,8 @@ var utils = require('./testUtils');
 var should = require('chai').should();
 
 describe('Company service', function () {
+    this.timeout(15000);
     describe('CRUD operations', function () {
-        this.timeout(15000);
         describe('Create', function () {
             it('should return the company after created', function () {
                 var newCompany = utils.createMockedCompanyPlainObject("Toluna");
