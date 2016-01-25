@@ -1,10 +1,9 @@
 'use strict';
 
 var nodemailer = require("nodemailer")
-    , users    = require('./api/users')
-    , User     = require('./model/user')
+    , User     = require('./models/user')
     , path     = require('path')
-    , Cv       = require('./model/cv')
+    , Cv       = require('./models/cv')
 
 var ADMIN_ID = '53c927dae4b06ed9bccb4e52';
 
