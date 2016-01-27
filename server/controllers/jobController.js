@@ -34,7 +34,7 @@ function createJob (req, res) {
     var newJob = req.body.job;
     var company = req.body.company;
 
-    return JobService.createOrUpdateJob(newJob)
+    return JobService.createJob(newJob)
         .then(function (jobCreated) {
             return CompanyService.getCompany(company)
                 .then(function (companyFetched) {

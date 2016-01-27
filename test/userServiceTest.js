@@ -21,7 +21,7 @@ function createMockedUser() {
 }
 
 describe('User service - Testing CRUD operations', function () {
-    this.timeout(15000);
+    this.timeout(utils.TIMEOUT);
     describe('Create', function () {
         it('should return the user after created', function () {
             var newUser = createMockedUser();
@@ -36,7 +36,7 @@ describe('User service - Testing CRUD operations', function () {
     });
 
     describe('Read', function () {
-        it('should get user', function () {
+        it('should get user', function (done) {
             var newUser = createMockedUser();
 
             return UserService.createUser(newUser)
@@ -51,6 +51,7 @@ describe('User service - Testing CRUD operations', function () {
                     return UserModel.count({'email': fetchedUser.email}).exec()
                         .then(function (count) {
                             count.should.equal(1);
+                            done();
                         })
                 });
         });

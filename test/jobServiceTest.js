@@ -6,10 +6,11 @@
 var JobService = require('../server/services/jobService');
 var JobModel = require('../server/models/job');
 var utils = require('./testUtils');
-var should = require('chai').should();
+var should = require('chai').should;
+var expect = require('chai').expect;
 
 describe('Job service - Testing CRUD operations', function () {
-    this.timeout(15000);
+    this.timeout(utils.TIMEOUT);
     describe('Create', function () {
         it('should return the job after created', function () {
             var newJob = utils.createMockedJobPlainObject("Job at Toluna");
@@ -24,26 +25,30 @@ describe('Job service - Testing CRUD operations', function () {
     });
 
     describe('Read', function () {
-        it('should get job', function () {
+        it('should get job', function (done) {
             var newJob = utils.createMockedJobPlainObject("Toluna");
 
             return JobService.createJob(newJob)
                 .then(function(createdJob) {
-                    return JobService.getJob(createdJob.id)
+                    console.log("id: " + createdJob.id);
+                    return JobService.getJob(createdJob.id);
                 })
                 .then(function(fetchedJob){
+                    expect(fetchedJob).to.not.equal(null);
+                    console.log("id: " + fetchedJob.id);
                     // verify that the returned job is what we expect
-                    fetchedJob.name.should.equal('Toluna');
-                    fetchedJob.city.should.equal('Haifa');
+                    expect(fetchedJob.name).to.equal('Toluna');
+                    expect(fetchedJob.city).to.equal('Haifa');
 
                     return JobModel.count({'name': fetchedJob.name}).exec()
                         .then(function (count) {
-                            count.should.equal(1);
+                            expect(count).to.equal(1);
+                            done();
                         })
                 });
         });
 
-        it('should get jobs', function() {
+        it('should get jobs', function(done) {
             var toluna = utils.createMockedJobPlainObject('Toluna');
             var intel = utils.createMockedJobPlainObject('Intel');
 
@@ -56,6 +61,7 @@ describe('Job service - Testing CRUD operations', function () {
                 })
                 .then(function(jobs){
                     jobs.length.should.equal(2);
+                    done();
                 });
         })
     })

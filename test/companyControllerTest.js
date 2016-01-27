@@ -9,27 +9,31 @@ var should = require('chai').should();
 var server = supertest.agent("http://localhost:3000");
 
 describe("Company controller", function () {
-    this.timeout(15000);
+    this.timeout(utils.TIMEOUT);
 
     describe("HTTP Verbs", function () {
-        before(function() {
-            //return server.post("/api/company")
-            //    .send(utils.createMockedCompanyPlainObject()).end();
-        })
         it("GET", function (done) {
-            server.post("/api/company")
-                .send(utils.createMockedCompanyPlainObject())
-                .end(function(err, res) {
+            server.post("/api/user")
+                .send(utils.createMockedUserPlainObject())
+                .end(function (err, res) {
+                    var company = utils.createMockedCompanyPlainObject();
+                    company.owner = res.body;
 
-                    server.get("/api/company/list")
-                        .expect("Content-type", /json/)
-                        .expect(200) // THis is HTTP response
+                    server.post("/api/company")
+                        .send(company)
                         .end(function (err, res) {
-                            res.body.should.not.empty;
 
-                            done();
-                        });
-                })
+                            server.get("/api/company/list")
+                                .expect("Content-type", /json/)
+                                .expect(200) // THis is HTTP response
+                                .end(function (err, res) {
+                                    res.body.should.be.not.empty;
+
+                                    done();
+                                });
+                        })
+
+                });
         });
         it("POST", function (done) {
             server.post("/api/company")

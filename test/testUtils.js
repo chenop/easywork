@@ -15,11 +15,13 @@ var mongoose = require('mongoose');
 // this is helpful when you would like to change behavior when testing
 process.env.NODE_ENV = 'test';
 
+var TIMEOUT = 20000;
 
 beforeEach(function (done) {
 
 
     function clearDB() {
+        console.log("clearDB")
         for (var i in mongoose.connection.collections) {
             mongoose.connection.collections[i].remove(function() {});
         }
@@ -87,4 +89,5 @@ module.exports = {
     createMockedUserPlainObject: createMockedUserPlainObject
     , createMockedJobPlainObject: createMockedJobPlainObject
     , createMockedCompanyPlainObject: createMockedCompanyPlainObject
+    , TIMEOUT: TIMEOUT
 }

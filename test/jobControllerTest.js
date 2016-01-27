@@ -9,7 +9,7 @@ var should = require('chai').should();
 var server = supertest.agent("http://localhost:3000");
 
 describe("Job controller", function () {
-    this.timeout(15000);
+    this.timeout(utils.TIMEOUT);
 
     describe("HTTP Verbs", function () {
         it("GET", function (done) {

@@ -10,7 +10,7 @@ var utils = require('./testUtils');
 var should = require('chai').should();
 
 describe('Company service', function () {
-    this.timeout(15000);
+    this.timeout(utils.TIMEOUT);
     describe('CRUD operations', function () {
         describe('Create', function () {
             it('should return the company after created', function () {
@@ -50,7 +50,9 @@ describe('Company service', function () {
                 var intel = utils.createMockedCompanyPlainObject('Intel');
 
                 return CompanyService.createCompany(toluna)
-                    .then(CompanyService.createCompany(intel))
+                    .then(function() {
+                        return CompanyService.createCompany(intel);
+                    })
                     .then(CompanyService.getCompanies)
                     .then(function (companies) {
                         companies.length.should.equal(2);
@@ -107,14 +109,14 @@ describe('Company service', function () {
             return CompanyService.createCompany(mockCompany)
                 .then(function (company) {
                     createdCompany = company;
-                    return JobService.createJob(mockJob)
+                    return JobService.createJob(mockJob);
                 })
                 .then(function (job) {
                     createdJob = job;
-                    return CompanyService.addJob(createdCompany, createdJob)
+                    return CompanyService.addJob(createdCompany, createdJob);
                 })
                 .then(function () {
-                    return CompanyService.getCompany(createdCompany)
+                    return CompanyService.getCompany(createdCompany);
                 })
                 .then(function (fetchedCompany) {
                     fetchedCompany.jobs.should.not.empty;
@@ -123,7 +125,7 @@ describe('Company service', function () {
                     return CompanyService.deleteJob(fetchedCompany, createdJob);
                 })
                 .then(function () {
-                    return CompanyService.getCompany(createdCompany)
+                    return CompanyService.getCompany(createdCompany);
                 })
                 .then(function (fetchedCompany) {
                     console.log(fetchedCompany.jobs.length);

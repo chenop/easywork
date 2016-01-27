@@ -34,11 +34,8 @@ module.exports = {
  */
 function createCompany(req, res) {
     var company = req.body;
-    var ownerId = req.body.ownerId;
 
-    company.ownerId = ownerId;
-
-    return CompanyService.createOrUpdateCompany(company)
+    return CompanyService.createCompany(company)
         .then(function success(savedCompany) {
             return res.send(savedCompany);
         },
