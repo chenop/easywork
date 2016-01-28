@@ -16,6 +16,9 @@ describe("Company controller", function () {
             server.post("/api/user")
                 .send(utils.createMockedUserPlainObject())
                 .end(function (err, res) {
+                    if (err)
+                        done(err);
+
                     var company = utils.createMockedCompanyPlainObject();
                     company.owner = res.body;
 
