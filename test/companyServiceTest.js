@@ -26,7 +26,7 @@ describe('Company service', function () {
         });
 
         describe('Read', function () {
-            it('should get company', function () {
+            it('should get company', function (done) {
                 var newCompany = utils.createMockedCompanyPlainObject("Toluna");
 
                 return CompanyService.createCompany(newCompany)
@@ -41,22 +41,29 @@ describe('Company service', function () {
                         return CompanyModel.count({'name': fetchedCompany.name}).exec()
                             .then(function (count) {
                                 count.should.equal(1);
+                                done();
                             })
                     });
             });
 
-            it('should get companies', function () {
+            it('should get companies', function (done) {
                 var toluna = utils.createMockedCompanyPlainObject('Toluna');
                 var intel = utils.createMockedCompanyPlainObject('Intel');
 
-                return CompanyService.createCompany(toluna)
-                    .then(function() {
-                        return CompanyService.createCompany(intel);
+                return CompanyService.getCompanies()
+                    .then(function(companies) {
+                        console.log("len:" + companies.length);
+                        return CompanyService.createCompany(toluna)
+                            .then(function() {
+                                return CompanyService.createCompany(intel);
+                            })
+                            .then(CompanyService.getCompanies)
+                            .then(function (companies) {
+                                companies.length.should.equal(2);
+                                done();
+                            });
+
                     })
-                    .then(CompanyService.getCompanies)
-                    .then(function (companies) {
-                        companies.length.should.equal(2);
-                    });
             })
         })
 
