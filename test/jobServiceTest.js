@@ -13,6 +13,7 @@ describe('Job service - Testing CRUD operations', function () {
     this.timeout(utils.TIMEOUT);
     describe('Create', function () {
         it('should return the job after created', function () {
+            console.log("start");
             var newJob = utils.createMockedJobPlainObject("Job at Toluna");
 
             return JobService.createJob(newJob)
@@ -27,53 +28,42 @@ describe('Job service - Testing CRUD operations', function () {
     describe('Read', function () {
         it('should get job', function (done) {
 
-            try {
-                var newJob = utils.createMockedJobPlainObject("Toluna");
+            var newJob = utils.createMockedJobPlainObject("Toluna");
 
-                return JobService.createJob(newJob)
-                    .then(function (createdJob) {
-                        console.log("id: " + createdJob.id);
-                        return JobService.getJob(createdJob.id);
-                    })
-                    .then(function (fetchedJob) {
-                        expect(fetchedJob).to.not.equal(null);
-                        console.log("id: " + fetchedJob.id);
-                        // verify that the returned job is what we expect
-                        expect(fetchedJob.name).to.equal('Toluna');
-                        expect(fetchedJob.city).to.equal('Haifa');
+            return JobService.createJob(newJob)
+                .then(function (createdJob) {
+                    return JobService.getJob(createdJob._id);
+                })
+                .then(function (fetchedJob) {
+                    console.log(3);
+                    expect(fetchedJob).to.not.equal(null);
+                    // verify that the returned job is what we expect
+                    expect(fetchedJob.name).to.equal('Toluna');
+                    expect(fetchedJob.city).to.equal('Haifa');
 
-                        return JobModel.count({'name': fetchedJob.name}).exec()
-                            .then(function (count) {
-                                expect(count).to.equal(1);
-                                done();
-                            })
-                    });
-            }
-            catch (e) {
-                done(e);
-            }
+                    return JobModel.count({'_id': fetchedJob._id}).exec()
+                        .then(function (count) {
+                            expect(count).to.equal(1);
+                            done();
+                        })
+                });
         });
 
-        it('should get jobs', function(done) {
-            try {
-                var toluna = utils.createMockedJobPlainObject('Toluna');
-                var intel = utils.createMockedJobPlainObject('Intel');
+        it('should get jobs', function (done) {
+            var toluna = utils.createMockedJobPlainObject('Toluna');
+            var intel = utils.createMockedJobPlainObject('Intel');
 
-                return JobService.createJob(toluna)
-                    .then(function () {
-                        return JobService.createJob(intel);
-                    })
-                    .then(function () {
-                        return JobService.getJobs();
-                    })
-                    .then(function (jobs) {
-                        jobs.length.should.equal(2);
-                        done();
-                    });
-            }
-            catch(e) {
-                done(e);
-            }
+            return JobService.createJob(toluna)
+                .then(function (job) {
+                    return JobService.createJob(intel);
+                })
+                .then(function (job) {
+                    return JobService.getJobs();
+                })
+                .then(function (jobs) {
+                    expect(jobs.length).to.equal(2);
+                    done();
+                });
         })
     })
 
@@ -106,7 +96,7 @@ describe('Job service - Testing CRUD operations', function () {
             var newJob = utils.createMockedJobPlainObject("Toluna");
 
             return JobService.createJob(newJob)
-                .then(function(createJob) {
+                .then(function (createJob) {
                     return JobService.deleteJob(createJob._id);
                 })
                 .then(JobModel.count({'email': newJob.email}).exec()

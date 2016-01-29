@@ -18,27 +18,44 @@ process.env.NODE_ENV = 'test';
 var TIMEOUT = 20000;
 
 beforeEach(function (done) {
+    this.timeout(TIMEOUT);
 
+    mongoose.connect('mongodb://chenop:selavi99@ds039185.mongolab.com:39185/heroku_hjgps9xv', function () {
+        mongoose.connection.db.dropDatabase(function () {
+            done();
+        })
+    });
 
-    function clearDB() {
-        for (var i in mongoose.connection.collections) {
-            mongoose.connection.collections[i].remove(function() {});
-        }
-        return done();
-    }
-
-
-    if (mongoose.connection.readyState === 0) {
-        mongoose.connect("mongodb://chenop:selavi99@ds039185.mongolab.com:39185/heroku_hjgps9xv", function (err) {
-            if (err) {
-                throw err;
-            }
-            return clearDB();
-        });
-    } else {
-        return clearDB();
-    }
+    //function clearDB() {
+    //    console.log("clearDB");
+    //    var promises = [];
+    //
+    //    for (var i in mongoose.connection.collections) {
+    //
+    //        var collection = mongoose.connection.collections[i];
+    //        promises.push(collection.remove(function() {
+    //            console.log("done remove");
+    //        }).exec());
+    //    }
+    //    Promise.all(promises)
+    //        .then(function() {
+    //            console.log("done");
+    //            done();
+    //        })
 });
+
+
+//if (mongoose.connection.readyState === 0) {
+//    mongoose.connect("mongodb://chenop:selavi99@ds039185.mongolab.com:39185/heroku_hjgps9xv", function (err) {
+//        if (err) {
+//            throw err;
+//        }
+//        return clearDB();
+//    });
+//} else {
+//    return clearDB();
+//}
+//});
 
 
 afterEach(function (done) {
