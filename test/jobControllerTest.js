@@ -87,7 +87,7 @@ describe("Job controller", function () {
                                     res.status.should.equal(200);
 
                                     server.get("/api/job")
-                                        .send(createdJob.id)
+                                        .send(createdJob._id)
                                         .expect("Content-type", /json/)
                                         .expect(200) // THis is HTTP response
                                         .end(function (err, res) {

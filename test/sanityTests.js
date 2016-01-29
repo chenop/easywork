@@ -8,7 +8,7 @@ var should = require('chai').should();
 
 // This agent refers to PORT where program is runninng.
 
-var server = supertest.agent("http://localhost:3000");
+var server = supertest.agent("http://easywork.herokuapp.com");
 
 describe("Sanity tests", function () {
 
