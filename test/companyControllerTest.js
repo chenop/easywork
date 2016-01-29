@@ -6,7 +6,7 @@ var supertest = require("supertest");
 var utils = require('./testUtils');
 var should = require('chai').should();
 
-var server = supertest.agent("http://localhost:3000");
+var server = supertest.agent("http://easywork.herokuapp.com");
 
 describe("Company controller", function () {
     this.timeout(utils.TIMEOUT);
