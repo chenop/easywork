@@ -13,7 +13,6 @@ describe('Job service - Testing CRUD operations', function () {
     this.timeout(utils.TIMEOUT);
     describe('Create', function () {
         it('should return the job after created', function () {
-            console.log("start");
             var newJob = utils.createMockedJobPlainObject("Job at Toluna");
 
             return JobService.createJob(newJob)

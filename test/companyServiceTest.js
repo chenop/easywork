@@ -52,7 +52,6 @@ describe('Company service', function () {
 
                 return CompanyService.getCompanies()
                     .then(function(companies) {
-                        console.log("len:" + companies.length);
                         return CompanyService.createCompany(toluna)
                             .then(function() {
                                 return CompanyService.createCompany(intel);

@@ -45,7 +45,7 @@
   "scripts": {
     "start": "node server.js",
     "postinstall": "bower install",
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha"
+    "test": "set NODE_ENV=test &  mocha"
   },
   "description": "Easywork: Building an App with AngularJS, Express andNode.js\r ============================================================",
   "main": "Gruntfile.js",

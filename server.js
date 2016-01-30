@@ -13,7 +13,6 @@ var express = require('express')
 	, companyController = require('./server/controllers/companyController')
 	, dataProxy = require('./server/controllers/dataProxy')
     , morgan = require('morgan')
-    , errorhandler = require('errorhandler')
     , cookieParser = require('cookie-parser')
     , bodyParser = require('body-parser')
     , multer  = require('multer')
@@ -21,6 +20,7 @@ var express = require('express')
     , session = require('express-session')
 	, mongoose = require('mongoose')
     , url = require('url')
+    , config = require('./server/config')
 
 var app = express(); // comment
 var start = Date.now();
@@ -28,30 +28,17 @@ var log = function (message) {
 	console.log("[" + (Date.now() - start) + "] " + message);
 };
 
-var dbUrl;
-var baseUrl;
 var env = app.get('env');
-if (!env || 'development' == env) {
-    console.log("Development Mode!");
-    //dbUrl = "mongodb://localhost/db";
-    dbUrl = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
-    //app.use(morgan('dev'));
+config.init(env);
+
+if (env === "development") {
+    var errorhandler = require('errorhandler');
     app.use(errorhandler())
-    baseUrl = 'http://localhost:3000';
-}
-else if ('production' == env) {
-    console.log("Production Mode!")
-    dbUrl = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
-    baseUrl = 'http://easywork.herokuapp.com';
-}
-else if ('test' == env) {
-    console.log("Testing Mode!")
-    dbUrl = "mongodb://chenop:selavi99@ds039185.mongolab.com:39185/heroku_hjgps9xv";
-    baseUrl = 'http://easywork.herokuapp.com';
 }
 
-console.log("DB URL: " + dbUrl);
-mongoose.connect(dbUrl); // comment
+console.log("DB URL: " + config.dbUrl);
+console.log("BASE URL: " + config.baseUrl);
+mongoose.connect(config.dbUrl); // comment
 mongoose.connection.on('error', function(err, req, res, next)  {
     log("Cant connect to MongoDB - please verify that it was started.");
 });
@@ -76,7 +63,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(clientDir));
 
-require('./server/pass.js')(passport, app, baseUrl);
+require('./server/pass.js')(passport, app, config.baseUrl);
 
 app.post('/api/login', userController.login)
 app.post('/api/logout', userController.logout)

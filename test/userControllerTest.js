@@ -5,14 +5,17 @@
 var supertest = require("supertest");
 var utils = require('./testUtils');
 var should = require('chai').should();
+var config = require('../server/config');
 
-var server = supertest.agent("http://easywork.herokuapp.com");
+var server = supertest.agent(config.baseUrl);
 
 describe("User controller", function () {
     this.timeout(utils.TIMEOUT);
 
     describe("HTTP Verbs", function () {
         it("GET", function (done) {
+            console.log(config.dbUrl);
+            console.log(config.baseUrl);
             server.post("/api/user")
                 .send(utils.createMockedUserPlainObject())
                 .end(function(err, res) {

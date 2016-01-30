@@ -9,10 +9,11 @@
 
 //var config = require('../config');
 var mongoose = require('mongoose');
-
+var config = require('../server/config');
 
 // ensure the NODE_ENV is set to 'test'
 // this is helpful when you would like to change behavior when testing
+console.log("NODE_ENV: " + process.env.NODE_ENV);
 process.env.NODE_ENV = 'test';
 
 var TIMEOUT = 20000;
@@ -20,7 +21,7 @@ var TIMEOUT = 20000;
 beforeEach(function (done) {
     this.timeout(TIMEOUT);
 
-    mongoose.connect('mongodb://chenop:selavi99@ds039185.mongolab.com:39185/heroku_hjgps9xv', function () {
+    mongoose.connect(config.dbUrl, function () {
         mongoose.connection.db.dropDatabase(function () {
             done();
         })
