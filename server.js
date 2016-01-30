@@ -28,10 +28,7 @@ var log = function (message) {
 	console.log("[" + (Date.now() - start) + "] " + message);
 };
 
-var env = app.get('env');
-config.init(env);
-
-if (env === "development") {
+if (process.env.NODE_ENV === "development") {
     var errorhandler = require('errorhandler');
     app.use(errorhandler())
 }
