@@ -5,10 +5,9 @@
 var supertest = require("supertest");
 var utils = require('./testUtils');
 var should = require('chai').should();
+var config = require('../server/config');
 
-// This agent refers to PORT where program is runninng.
-
-var server = supertest.agent("http://easywork.herokuapp.com");
+var server = supertest.agent(config.baseUrl);
 
 describe("Sanity tests", function () {
 

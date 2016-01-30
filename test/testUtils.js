@@ -10,6 +10,9 @@
 //var config = require('../config');
 var mongoose = require('mongoose');
 var config = require('../server/config');
+var CompanyModel = require('../server/models/company');
+var UserModel = require('../server/models/user');
+var JobModel = require('../server/models/job');
 
 // ensure the NODE_ENV is set to 'test'
 // this is helpful when you would like to change behavior when testing
@@ -21,42 +24,42 @@ var TIMEOUT = 20000;
 beforeEach(function (done) {
     this.timeout(TIMEOUT);
 
-    mongoose.connect(config.dbUrl, function () {
-        mongoose.connection.db.dropDatabase(function () {
-            done();
-        })
-    });
+    //mongoose.connect(config.dbUrl, function () {
+    //    mongoose.connection.db.dropDatabase(function () {
+    //        done();
+    //    })
+    //});
 
-    //function clearDB() {
-    //    console.log("clearDB");
-    //    var promises = [];
-    //
-    //    for (var i in mongoose.connection.collections) {
-    //
-    //        var collection = mongoose.connection.collections[i];
-    //        promises.push(collection.remove(function() {
-    //            console.log("done remove");
-    //        }).exec());
-    //    }
-    //    Promise.all(promises)
-    //        .then(function() {
-    //            console.log("done");
-    //            done();
-    //        })
+    function clearDB() {
+        console.log("clearDB");
+        var promises = [
+            CompanyModel.remove().exec(),
+            UserModel.remove().exec(),
+            JobModel.remove().exec()
+        ];
+
+        //promises.push(collection.remove(function() {
+        //    console.log("done remove");
+        //}).exec());
+
+        Promise.all(promises)
+            .then(function () {
+                console.log("done");
+                done();
+            })
+    }
+
+    if (mongoose.connection.readyState === 0) {
+        mongoose.connect(config.dbUrl, function (err) {
+            if (err) {
+                throw err;
+            }
+            return clearDB();
+        });
+    } else {
+        return clearDB();
+    }
 });
-
-
-//if (mongoose.connection.readyState === 0) {
-//    mongoose.connect("mongodb://chenop:selavi99@ds039185.mongolab.com:39185/heroku_hjgps9xv", function (err) {
-//        if (err) {
-//            throw err;
-//        }
-//        return clearDB();
-//    });
-//} else {
-//    return clearDB();
-//}
-//});
 
 
 afterEach(function (done) {
