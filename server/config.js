@@ -32,7 +32,7 @@ function init() {
             console.log("Testing Mode!")
 
             module.exports.dbUrl = TEST_DB_URL;
-            module.exports.baseUrl = LOCALHOST_ADDRESS;
+            module.exports.baseUrl = PRODUCTION_ADDRESS;
             break;
         }
     }
