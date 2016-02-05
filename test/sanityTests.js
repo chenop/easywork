@@ -12,7 +12,7 @@ var server = supertest.agent(app);
 describe("Sanity tests", function () {
 
     // #1 should return home page
-    it.only("should return home page", function (done) {
+    it("should return home page", function (done) {
         // calling home page api
         server
             .get("/")
