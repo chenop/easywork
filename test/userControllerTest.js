@@ -5,7 +5,6 @@
 var supertest = require("supertest");
 var utils = require('./testUtils');
 var should = require('chai').should();
-//var config = require('../server/config');
 var app = require('../server');
 
 var server = supertest.agent(app);
@@ -15,8 +14,6 @@ describe("User controller", function () {
 
     describe("HTTP Verbs", function () {
         it("GET", function (done) {
-            //console.log(config.dbUrl);
-            //console.log(config.baseUrl);
             server.post("/api/user")
                 .send(utils.createMockedUserPlainObject())
                 .end(function(err, res) {

@@ -5,9 +5,9 @@
 var supertest = require("supertest");
 var utils = require('./testUtils');
 var should = require('chai').should();
-var config = require('../server/config');
+var app = require('../server');
 
-var server = supertest.agent(config.baseUrl);
+var server = supertest.agent(app);
 
 describe("Company controller", function () {
     this.timeout(utils.TIMEOUT);
