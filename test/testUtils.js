@@ -9,7 +9,6 @@
 
 //var config = require('../config');
 var mongoose = require('mongoose');
-var config = require('../server/config');
 var CompanyModel = require('../server/models/company');
 var UserModel = require('../server/models/user');
 var JobModel = require('../server/models/job');
@@ -18,6 +17,7 @@ var JobModel = require('../server/models/job');
 // this is helpful when you would like to change behavior when testing
 process.env.NODE_ENV = 'test';
 console.log("NODE_ENV: " + process.env.NODE_ENV);
+var config = require('../server/config');
 
 var TIMEOUT = 20000;
 
