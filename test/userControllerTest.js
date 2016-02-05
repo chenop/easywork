@@ -13,7 +13,7 @@ describe("User controller", function () {
     this.timeout(utils.TIMEOUT);
 
     describe("HTTP Verbs", function () {
-        it.only("GET", function (done) {
+        it("GET", function (done) {
             console.log(config.dbUrl);
             console.log(config.baseUrl);
             server.post("/api/user")

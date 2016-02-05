@@ -32,6 +32,7 @@ describe("Company controller", function () {
                                 .expect(200) // THis is HTTP response
                                 .end(function (err, res) {
                                     res.body.should.be.not.empty;
+                                    res.body.should.have.length(1);
 
                                     done();
                                 });
