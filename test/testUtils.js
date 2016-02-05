@@ -15,6 +15,7 @@ var JobModel = require('../server/models/job');
 
 // ensure the NODE_ENV is set to 'test'
 // this is helpful when you would like to change behavior when testing
+console.log("process.env.NODE_ENV: " + process.env.NODE_ENV);
 process.env.NODE_ENV = 'test';
 var config = require('../server/config');
 
@@ -30,20 +31,14 @@ beforeEach(function (done) {
     //});
 
     function clearDB() {
-        console.log("clearDB");
         var promises = [
             CompanyModel.remove().exec(),
             UserModel.remove().exec(),
             JobModel.remove().exec()
         ];
 
-        //promises.push(collection.remove(function() {
-        //    console.log("done remove");
-        //}).exec());
-
         Promise.all(promises)
             .then(function () {
-                console.log("done");
                 done();
             })
     }
