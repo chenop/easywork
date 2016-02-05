@@ -35,5 +35,8 @@ function init() {
             module.exports.baseUrl = PRODUCTION_ADDRESS;
             break;
         }
+        default :{
+            console.log("Error! No Mode was set!")
+        }
     }
 }
