@@ -35,23 +35,6 @@ function updateCompany(company) {
     return Company.findOneAndUpdate({'_id': company._id}, upsertCompany, {upsert: true, new: true}).exec();
 }
 
-function createOrUpdateCompany(company) {
-    return UserService.getUser(company.ownerId)
-        .then(function (user) {
-            company.owner = user;
-            return createOrUpdateCompany0(company);
-        }
-    );
-}
-
-function createOrUpdateCompany0(company) {
-    var companyInstance = createCompanyInstance(company);
-
-    var upsertCompany = companyInstance.toObject();
-    delete upsertCompany._id;
-    return Company.findOneAndUpdate({'name': company.name}, upsertCompany, {upsert: true, new: true}).exec();
-}
-
 function createCompanyInstance(company) {
     if (!company) {
         return new Company();

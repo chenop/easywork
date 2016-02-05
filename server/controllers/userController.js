@@ -126,7 +126,7 @@ function register(req, res) {
         }
     );
 
-    return UserService.createOrUpdateUser(user).
+    return UserService.createUser(user).
         then(function success(user) {
             req.login(user, function (err) {
                 if (err) {
@@ -196,7 +196,7 @@ function upload(req, res) {
         user.fileName = fileName;
         user.skills = skills;
 
-        return UserService.createOrUpdateUser(user)
+        return UserService.updateUser(user)
             .then(function (user) {
                 saveCv(user, fileData, skills);
                 return res.send(user.skills);
@@ -231,7 +231,7 @@ function deleteCV(req, res) {
         user.fileName = null;
         user.skills = null;
 
-        return createOrUpdate(user);
+        return updateUser(user);
     });
 
 }

@@ -70,7 +70,7 @@ function getCompany(req, res) {
 function updateCompany(req, res) {
     var company = req.body;
 
-    return CompanyService.createOrUpdateCompany(company)
+    return CompanyService.updateCompany(company)
         .then(function success(company) {
             return res.send(company);
         },

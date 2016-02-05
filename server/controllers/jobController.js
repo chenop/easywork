@@ -168,17 +168,6 @@ function updateJob(id, newJob, callBack) {
     });
 }
 
-function createOrUpdateJob(job, res) {
-    return JobService.createOrUpdateJob(job).
-        then(function success(job) {
-            return res.send(job);
-        },
-        function error(err) {
-            return res.json(500, err);
-        }
-    );
-}
-
 function updateJob (req, res) {
     return Job.findById(req.params.id, function (err, job) {
         if (job === undefined || job == null)
