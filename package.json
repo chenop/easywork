@@ -44,7 +44,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "postinstall": "bower install",
+    "postinstall": "bower install && grunt prod",
     "test": "set NODE_ENV=test &  mocha"
   },
   "description": "Easywork: Building an App with AngularJS, Express andNode.js\r ============================================================",

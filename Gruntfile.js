@@ -153,14 +153,12 @@ module.exports = function (grunt) {
             dev: {
                 options: {
                     script: 'server.js',
-                    //node_env: 'development'
 //					debug : true //enable debugging
                 }
             },
             prod: {
                 options: {
                     script: 'server.js',
-                    //node_env: 'production'
                 }
             }
         },
