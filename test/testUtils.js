@@ -50,6 +50,7 @@ beforeEach(function (done) {
     }
 
     if (mongoose.connection.readyState === 0) {
+        console.log("config.dbUrl: " + config.dbUrl);
         mongoose.connect(config.dbUrl, function (err) {
             if (err) {
                 throw err;
