@@ -9,7 +9,7 @@
 var Company          = require('../models/company')
     , User           = require('../models/user')
     , CompanyService = require('../services/companyService')
-    , Jobs           = require('./jobs.js')
+    , Jobs           = require('./jobController.js')
     , utils          = require('../utils')
     , fs             = require('fs')
     , googleApis     = require('../googleApis');
@@ -34,11 +34,8 @@ module.exports = {
  */
 function createCompany(req, res) {
     var company = req.body;
-    var ownerId = req.body.ownerId;
 
-    company.ownerId = ownerId;
-
-    return CompanyService.createOrUpdateCompany(company)
+    return CompanyService.createCompany(company)
         .then(function success(savedCompany) {
             return res.send(savedCompany);
         },
@@ -73,7 +70,7 @@ function getCompany(req, res) {
 function updateCompany(req, res) {
     var company = req.body;
 
-    return CompanyService.createOrUpdateCompany(company)
+    return CompanyService.updateCompany(company)
         .then(function success(company) {
             return res.send(company);
         },

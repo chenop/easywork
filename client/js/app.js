@@ -163,6 +163,16 @@ app.config(
                 return $rootScope.isUndefined(value) || value === '' || value === null || value !== value;
             }
         };
+        $rootScope.removeObject = function(array, object) {
+            if ($rootScope.isEmpty(array))
+                return array;
+
+            var index = array.indexOf(object);
+            if (index !== -1) {
+                array.splice(index, 1);
+            }
+            return array;
+        }
 
     });
 

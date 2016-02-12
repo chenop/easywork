@@ -86,11 +86,11 @@ angular.module('easywork')
 
         function getJobs() {
             if (appManager.getActiveUser().role == "admin") {
-                return dataManager.getAllJobs();
+                return dataManager.getJobs();
             }
             else {
                 var companyId = appManager.getActiveCompanyId();
-                return dataManager.getAllJobs(companyId);
+                return dataManager.getJobs(companyId);
             }
         };
 
@@ -127,10 +127,10 @@ angular.module('easywork')
         $scope.deleteEntity = function (entity, index) {
             var contentType = appManager.getCurrentContentType();
             var nextEntityToSelect = prepareNextEntityToSelect(index);
-            dataManager.deleteEntity(contentType, entity._id).
-                success(function () {
-                    refreshEntities(contentType.name, nextEntityToSelect._id);
-                });
+            $scope.removeObject($scope.entities, entity);
+
+            handleSelection(nextEntityToSelect._id);
+            dataManager.deleteEntity(contentType, entity._id);
         }
 
         $scope.isSelected = function (entity) {
@@ -144,8 +144,17 @@ angular.module('easywork')
             handleSelection(entity._id);
         }
 
-        $scope.$on('dataChanged', function (event, entity) {
-            refreshEntities(contentTypeName, entity._id);
+        $scope.$on('dataChanged', function (event, entityToUpdate) {
+            //refreshEntities(contentTypeName, entity._id);
+
+            for (var i = 0; i < $scope.entities.length; i++) {
+                var entity = $scope.entities[i];
+
+                if (entity._id === entityToUpdate._id) {
+                    entity = entityToUpdate;
+                    return;
+                }
+            }
         })
 
         $scope.getDisplayName = function(entity) {

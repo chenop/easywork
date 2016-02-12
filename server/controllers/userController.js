@@ -1,15 +1,11 @@
 'use strict';
 
-var fs         = require('fs')
-    , passport = require('passport')
+var passport = require('passport')
     , User     = require('../models/user')
     , UserService = require('../services/userService')
     , Cv       = require('../models/cv')
-    , utils    = require('../utils')
     , Company  = require('../models/company')
-    , q        = require('q');
-
-var request = require('request');
+    ;
 
 /***********
  * Public
@@ -54,16 +50,12 @@ function login(req, res, next) {
 function createUser(req, res) {
     var newUser = req.body;
 
-    return createOrUpdate(newUser, res);
-}
-
-function createOrUpdate(user, res) {
-    return UserService.createOrUpdateUser(user).
+    return UserService.createUser(newUser).
         then(function success(user) {
             return res.send(user);
         },
         function error(err) {
-                return res.json(500, err);
+            return res.json(500, err);
         }
     );
 }
@@ -92,15 +84,16 @@ function getUsers(req, res) {
 
 
 function updateUser(req, res) {
-    user = req.body;
+    var user = req.body;
 
-    return UserService.createOrUpdateUser(user)
-        .then(function success(user) {
+    return UserService.updateUser(user).
+        then(function success(user) {
             return res.send(user);
         },
         function error(err) {
             return res.json(500, err);
-        });
+        }
+    );
 };
 
 function prepareCookie(res, user) {
@@ -133,7 +126,7 @@ function register(req, res) {
         }
     );
 
-    return UserService.createOrUpdateUser(user).
+    return UserService.createUser(user).
         then(function success(user) {
             req.login(user, function (err) {
                 if (err) {
@@ -203,7 +196,7 @@ function upload(req, res) {
         user.fileName = fileName;
         user.skills = skills;
 
-        return UserService.createOrUpdateUser(user)
+        return UserService.updateUser(user)
             .then(function (user) {
                 saveCv(user, fileData, skills);
                 return res.send(user.skills);
@@ -238,7 +231,7 @@ function deleteCV(req, res) {
         user.fileName = null;
         user.skills = null;
 
-        return createOrUpdate(user);
+        return updateUser(user);
     });
 
 }

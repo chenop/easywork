@@ -9,30 +9,30 @@ var UserService = require('../services/userService');
  * Public
  ***********/
 module.exports = {
-    createOrUpdateCompany: createOrUpdateCompany
+    createCompany: createCompany
+    , updateCompany: updateCompany
     , deleteCompany: deleteCompany
     , getCompany: getCompany
     , getCompanies: getCompanies
+    , deleteJob: deleteJob
+    , addJob: addJob
 }
 
 /***********
  * Private
  ***********/
-function createOrUpdateCompany(company) {
-    return UserService.getUser(company.ownerId)
-        .then(function (user) {
-            company.owner = user;
-            return createOrUpdateCompany0(company);
-        }
-    );
-}
-
-function createOrUpdateCompany0(company) {
+function createCompany(company) {
     var companyInstance = createCompanyInstance(company);
 
+    return companyInstance.save();
+}
+
+function updateCompany(company) {
+    var companyInstance = createCompanyInstance(company);
+    companyInstance._id = company._id;
+
     var upsertCompany = companyInstance.toObject();
-    delete upsertCompany._id;
-    return Company.findOneAndUpdate({'name': company.name}, upsertCompany, {upsert: true, new: true}).exec();
+    return Company.findOneAndUpdate({'_id': company._id}, upsertCompany, {upsert: true, new: true}).exec();
 }
 
 function createCompanyInstance(company) {
@@ -77,3 +77,10 @@ function getCompanies() {
     return Company.find({}).exec();
 }
 
+function deleteJob(company, job) {
+    return Company.update( {_id: company._id}, { $pull: {jobs: job._id } }).exec();
+}
+
+function addJob(company, job) {
+    return Company.update( {_id: company._id}, { $push: {jobs: job._id } } ).exec();
+}

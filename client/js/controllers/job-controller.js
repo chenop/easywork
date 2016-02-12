@@ -11,7 +11,7 @@ Array.prototype.contains = function(elm) {
 }
 
 angular.module('easywork')
-    .controller('JobCtrl', function ($scope, dataManager, common, appManager, $timeout, $stateParams, $rootScope) {
+    .controller('JobCtrl', function ($scope, dataManager, common, appManager, $timeout, $stateParams, $rootScope, debounce) {
 
         init();
 
@@ -29,7 +29,7 @@ angular.module('easywork')
             });
 
             if ($scope.job && $scope.job.company) {
-                $scope.jobCompanyId = $scope.job.company._id;
+                $scope.jobCompanyId = $scope.job.company;
             }
 
             dataManager.getUsers()
@@ -58,16 +58,21 @@ angular.module('easywork')
             minimumResultsForSearch: -1 // Disable the search field in the combo box
         };
 
-
-        $scope.updateJob = function () {
+        var debounceUpdateJob = debounce(function() {
             $scope.job.company = $scope.jobCompanyId; // Update the selected company;
-            dataManager.updateJob($scope.job)
+            return dataManager.updateJob($scope.job)
                 .success(function (entity) {
                     $scope.$emit('dataChanged', entity);
                 });
+        }, 300, false);
+
+        $scope.updateJob = function () {
+            debounceUpdateJob();
         }
 
+        // TODO chen after refactor deleteJob in the BE expects 2 parameters...
         $scope.deleteJob = function () {
+            //appManager.deleteJob
             $scope.$emit('deleteEntityClicked', appManager.getSelectedEntity());
         }
 

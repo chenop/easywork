@@ -30,49 +30,28 @@ angular.module('easywork')
 
         // Companies
         var getCompanies = function() {
-            var deferred = $q.defer();
-            var start = new Date().getTime();
-
-            getEntities(common.CONTENT_TYPE.COMPANY)
-                .success(function(result) {
-//                     console.log('time taken for request: ' + (new Date().getTime() - start) + 'ms');
-                    deferred.resolve(result);
-
-                    companies = result.data;
-                    deferred.resolve(companies);
-                });
-
-            return deferred.promise;
-            //$http.get('api/data/' + id, {
-            //    cache: CacheFactory.get('dataCache')
-            //}).success(function (data) {
-            //    console.log('time taken for request: ' + (new Date().getTime() - start) + 'ms');
-            //    deferred.resolve(data);
-            //});
-
+            return getEntities(common.CONTENT_TYPE.COMPANY);
         }
 
         var getJobs = function(companyId) {
-            return $http.get('/api/job/list/' + companyId)
-                .success(function(result) {
+            var url = '/api/job/list';
+
+            if (companyId)
+                url +=  "/" + companyId;
+
+            return $http.get(url)
+                .then(function(result) {
                     jobs = result.data;
                     return jobs;
                 });
         }
 
         var getUsers = function() {
-            var deferred = $q.defer();
-            // Check if logo is cached
-            //if (users !== null) {
-            //    deferred.resolve(users);
-            //    return deferred.promise;
-            //}
-
-            return getEntities(common.CONTENT_TYPE.USER)
-                .then(function(result) {
-                    users = result.data;
-                    return users;
-                });;
+            return getEntities(common.CONTENT_TYPE.USER);
+                //.then(function(entities) {
+                //    users = entities;
+                //    return users;
+                //});;
         }
 
         var getCompany = function (id) {
@@ -136,7 +115,10 @@ angular.module('easywork')
 
         // Entities
         var getEntities = function(entityType) {
-            return $http.get('/api/' + entityType.name + '/list');
+            return $http.get('/api/' + entityType.name + '/list')
+                .then(function(result) {
+                    return result.data;
+                });
         }
 
         var getEntity = function(entityType, id) {

@@ -3,19 +3,16 @@
  */
 
 var supertest = require("supertest");
-var utils = require('./utils');
+var utils = require('./testUtils');
 var should = require('chai').should();
+var app = require('../server');
 
-var server = supertest.agent("http://localhost:3000");
+var server = supertest.agent(app);
 
 describe("User controller", function () {
-    this.timeout(15000);
+    this.timeout(utils.TIMEOUT);
 
     describe("HTTP Verbs", function () {
-        before(function() {
-            //return server.post("/api/user")
-            //    .send(utils.createMockedUserPlainObject()).end();
-        })
         it("GET", function (done) {
             server.post("/api/user")
                 .send(utils.createMockedUserPlainObject())
@@ -27,7 +24,7 @@ describe("User controller", function () {
                         .end(function (err, res) {
                             // HTTP status should be 200
                             res.status.should.equal(200);
-                            res.body.should.not.empty;
+                            res.body.should.have.length(1);
 
                             done();
                         });

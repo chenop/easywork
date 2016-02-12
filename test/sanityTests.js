@@ -3,12 +3,11 @@
  */
 
 var supertest = require("supertest");
-var utils = require('./utils');
+var utils = require('./testUtils');
 var should = require('chai').should();
+var app = require('../server');
 
-// This agent refers to PORT where program is runninng.
-
-var server = supertest.agent("http://localhost:3000");
+var server = supertest.agent(app);
 
 describe("Sanity tests", function () {
 
