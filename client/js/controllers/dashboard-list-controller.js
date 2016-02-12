@@ -127,10 +127,10 @@ angular.module('easywork')
         $scope.deleteEntity = function (entity, index) {
             var contentType = appManager.getCurrentContentType();
             var nextEntityToSelect = prepareNextEntityToSelect(index);
-            dataManager.deleteEntity(contentType, entity._id).
-                success(function () {
-                    refreshEntities(contentType.name, nextEntityToSelect._id);
-                });
+            $scope.removeObject($scope.entities, entity);
+
+            handleSelection(nextEntityToSelect._id);
+            dataManager.deleteEntity(contentType, entity._id);
         }
 
         $scope.isSelected = function (entity) {
