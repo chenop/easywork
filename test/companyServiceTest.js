@@ -128,7 +128,7 @@ describe('Company service', function () {
                     fetchedCompany.jobs.should.not.empty;
                     fetchedCompany.jobs.should.have.length(1);
 
-                    return CompanyService.deleteJob(fetchedCompany, createdJob);
+                    return CompanyService.deleteJob(fetchedCompany._id, createdJob._id);
                 })
                 .then(function () {
                     return CompanyService.getCompany(createdCompany);

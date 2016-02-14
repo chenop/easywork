@@ -77,8 +77,8 @@ function getCompanies() {
     return Company.find({}).exec();
 }
 
-function deleteJob(company, job) {
-    return Company.update( {_id: company._id}, { $pull: {jobs: job._id } }).exec();
+function deleteJob(companyId, jobId) {
+    return Company.update( {_id: companyId}, { $pull: {jobs: jobId } }).exec();
 }
 
 function addJob(company, job) {

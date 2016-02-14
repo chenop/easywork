@@ -41,7 +41,7 @@ describe("Job controller", function () {
                         })
                 })
         });
-        it("POST", function (done) {
+        it("POST - with company", function (done) {
             server.post("/api/company")
                 .send(utils.createMockedCompanyPlainObject("Toluna"))
                 .end(function (err, res) {
@@ -58,9 +58,27 @@ describe("Job controller", function () {
 
                             returnedJob.should.not.empty;
                             returnedJob.name.should.equal('Chen');
+                            returnedJob.company.should.not.empty;
 
                             done();
                         });
+                });
+        });
+        it("POST - without company", function (done) {
+            server.post("/api/job")
+                .send({job: utils.createMockedJobPlainObject("Chen")})
+                //.expect("Content-type", /json/)
+                //.expect(200) // THis is HTTP response
+                .end(function (err, res) {
+                    // HTTP status should be 200
+                    res.status.should.equal(200);
+                    var returnedJob = res.body;
+
+                    returnedJob.should.not.empty;
+                    returnedJob.name.should.equal('Chen');
+                    should.equal(returnedJob.company, undefined);
+
+                    done();
                 });
         });
         it("DELETE", function (done) {
