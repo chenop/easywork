@@ -33,9 +33,13 @@ module.exports = {
 function createJob (req, res) {
     var newJob = req.body.job;
     var company = req.body.company;
+    newJob.company = company; // set the company on the job
 
     return JobService.createJob(newJob)
         .then(function (jobCreated) {
+            if (!company)
+                return jobCreated;
+
             return CompanyService.getCompany(company)
                 .then(function (companyFetched) {
                     return CompanyService.addJob(companyFetched, jobCreated)
@@ -90,10 +94,14 @@ function getJobs (req, res) {
 
 function deleteJob (req, res) {
     var jobId = req.params.id;
-    var company = req.body.company;
 
-    return CompanyService.deleteJob(company, jobId)
-        .then(JobService.deleteJob(jobId))
+    return JobService.getJob(jobId)
+        .then(function(job) {
+            return CompanyService.deleteJob(job.company, job._id)
+        })
+        .then(function() {
+            return JobService.deleteJob(jobId);
+        })
         .then(function success(job) {
             return res.send(job);
         },

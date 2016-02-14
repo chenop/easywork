@@ -78,15 +78,15 @@ angular.module('easywork')
         }
 
         var createCompany = function(company) {
-            return createEntity(common.CONTENT_TYPE.COMPANY, company);
+            return createEntity(common.CONTENT_TYPE.COMPANY, {company: company});
         }
 
         var createJob = function(job) {
-            return createEntity(common.CONTENT_TYPE.JOB, job);
+            return createEntity(common.CONTENT_TYPE.JOB, {job: job});
         }
 
         var createUser = function(user) {
-            return createEntity(common.CONTENT_TYPE.USER, user);
+            return createEntity(common.CONTENT_TYPE.USER, {user: user});
         }
 
         var deleteCompany = function(id) {
@@ -238,13 +238,13 @@ angular.module('easywork')
 
                 case common.CONTENT_TYPE.JOB.name:
                     entity = createEmptyJob()
-                    return createEntity(common.CONTENT_TYPE.JOB, entity);
+                    return createJob(entity);
                 case common.CONTENT_TYPE.COMPANY.name:
                     entity = createEmptyCompany()
-                    return createEntity(common.CONTENT_TYPE.COMPANY, entity);
+                    return createCompany(entity);
                 case common.CONTENT_TYPE.USER.name:
                     entity = createEmptyUser()
-                    return createEntity(common.CONTENT_TYPE.USER, entity);
+                    return createUser(entity);
             }
 
         }

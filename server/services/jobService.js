@@ -39,6 +39,7 @@ function createJobInstance(job) {
             , code: job.code
             , city: job.city
             , description: job.description
+            , company: job.company
         }
     );
 
