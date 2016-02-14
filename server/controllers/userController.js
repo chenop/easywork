@@ -185,6 +185,7 @@ function upload(req, res) {
         var fileData = data.data;
         var skills = data.skills;
 
+        // TODO chen lets connect to the java server...
         analyzeCv(fileName, fileData);
 
         if (user === undefined || user == null) {
