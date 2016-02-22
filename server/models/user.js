@@ -21,7 +21,6 @@ var userSchema = new Schema({
     , fileName: String
     , skills: [String]
     , company: { type: Schema.Types.ObjectId, ref: 'Company'}
-    , skills: Object
 });
 
 userSchema.methods.validPassword = function (pwd) {

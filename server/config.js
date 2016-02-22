@@ -6,6 +6,7 @@ var TEST_DB_URL = "mongodb://chenop:selavi99@ds039185.mongolab.com:39185/heroku_
 var PRODUCTION_DB = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
 
 var LOCALHOST_ADDRESS = 'http://localhost:3000';
+var LOCAL_CV_PARSER_ADDRESS = 'http://localhost:8080';
 var PRODUCTION_ADDRESS = 'http://easywork.herokuapp.com';
 
 
@@ -26,6 +27,7 @@ function init() {
 
             module.exports.dbUrl = PRODUCTION_DB;
             module.exports.baseUrl = LOCALHOST_ADDRESS;
+            module.exports.cvParserUrl = LOCAL_CV_PARSER_ADDRESS;
             break;
         }
         case "test" : {

@@ -7,6 +7,9 @@ var passport = require('passport')
     , Company  = require('../models/company')
     ;
 
+var rp = require('request-promise');
+var FormData = require('form-data');
+
 /***********
  * Public
  ***********/
@@ -143,66 +146,63 @@ function register(req, res) {
 }
 
 function analyzeCv(fileName, fileData) {
-    var request = require('request');
-    var FormData = require('form-data');
 
-    var form = new FormData();
-    form.append("folder_id", "0");
-    form.append("filename", fileData);
-
-    form.getLength(function (err, length) {
-        if (err) {
-            return requestCallback(err);
-        }
-
-        var r = request.post("http://localhost:8080/webapi/files/upload", requestCallback);
-        r._form = form;
-        r.setHeader('content-length', length);
-
-    });
-
-    function requestCallback(err, res, body) {
-        console.log(body);
+    var formData = {
+        name: fileName,
+        file: fileData
     }
 
-    //// Build the post string from an object
-    //request.post(
-    //    'http://localhost:8080/webapi/files/upload',
-    //    { form: { file: fileData } }, // TODO chen well how the fuck I'm going to send form-data from nodejs to Jersey... ahhhhh!!!!
-    //    function (error, response, body) {
-    //        if (!error && response.statusCode == 200) {
-    //            console.log(body)
-    //        }
-    //    }
-    //);
+    var options = {
+        method: 'POST',
+        uri: 'http://localhost:8080/webapi/files/upload',
+        formData: formData,
+        headers: {
+            'content-type': 'multipart/form-data' // Set automatically
+        }
+    };
 
+    return rp(options)
+        .then(function (body) {
+            if (body) {
+                var data = JSON.parse(body);
+                if (data) {
+                    return data.keywords;
+                }
+            }
+            return null;
+        })
+        .catch(function (err) {
+            console.log(err);
+        });
 }
 
 function upload(req, res) {
-    return User.findById(req.params.id, function (err, user) {
-        var data = JSON.parse(req.body.data);
-        var fileName = data.fileName;
-        var fileData = data.data;
-        var skills = data.skills;
+    var userId = req.params.id;
+    var data = JSON.parse(req.body.data);
+    var fileName = data.fileName;
+    var fileData = data.data;
 
-        // TODO chen lets connect to the java server...
-        analyzeCv(fileName, fileData);
+    return UserService.getUser(userId)
+        .then(function (user) {
 
-        if (user === undefined || user == null) {
-            //saveAnonymizeCv(fileData, skills);
-            return;
-        }
+            return analyzeCv(fileName, fileData)
+                .then(function (skills) {
+                    if (user === undefined || user == null) {
+                        //saveAnonymizeCv(fileData, skills);
+                        return;
+                    }
 
-        user.cv = fileData;
-        user.fileName = fileName;
-        user.skills = skills;
+                    user.cv = fileData;
+                    user.fileName = fileName;
+                    user.skills = skills;
 
-        return UserService.updateUser(user)
-            .then(function (user) {
-                saveCv(user, fileData, skills);
-                return res.send(user.skills);
-            });
-    });
+                    return UserService.updateUser(user)
+                        .then(function (user) {
+                            //saveCv(user, fileData, skills);
+                            return res.send(user.skills);
+                        });
+                });
+        });
 }
 
 function logout(req, res) {

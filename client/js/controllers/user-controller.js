@@ -17,7 +17,7 @@ angular.module('easywork')
             var activeUserId = appManager.getActiveUserId();
             dataManager.getUser(activeUserId)
                 .then(function(result) {
-                    refreshUser(result.data); 
+                    refreshUser(result.data);
                 })
         }
 
@@ -61,13 +61,13 @@ angular.module('easywork')
          * @param skills
          * @param activeUserId
          */
-        function sendCVToServer(fileName, fileData, skills, activeUserId) {
+        function sendCVToServer(fileName, fileData, activeUserId) {
             $scope.upload = $upload.upload({
                 url: '/api/user/cv-upload/' + activeUserId, //upload.php script, node.js route, or servlet url
                 method: 'POST',
                 data: {
                     data: fileData, // File as base64
-                    skills: skills,
+                    //skills: skills,
                     fileName: fileName
                 }
             }).progress(function (evt) {
@@ -88,19 +88,19 @@ angular.module('easywork')
 
         $scope.onFileSelect = function ($files) {
             var activeUserId = appManager.getActiveUserId();
-            cvParser.parseCV($files[0]).
-                then(function (skills) {
+            //cvParser.parseCV($files[0]).
+            //    then(function (skills) {
                     var file = $files[0];
                     var fileReader = new FileReader();
                     fileReader.readAsDataURL(file); // Reading the file as base64
                     fileReader.onload = function (e) {
-                        sendCVToServer(file.name, e.target.result, skills, activeUserId)
+                        sendCVToServer(file.name, e.target.result, activeUserId)
                             .then(function() {
                                 $scope.user.fileName = file.name;
                             });
                     }
 
-                })
+                //})
         }
 
         var debounceUpdateUser = debounce(function() {
