@@ -8,7 +8,7 @@ var passport = require('passport')
     ;
 
 var rp = require('request-promise');
-var FormData = require('form-data');
+var config = require('../config');
 
 /***********
  * Public
