@@ -8,6 +8,8 @@ var PRODUCTION_DB = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/herok
 var LOCALHOST_ADDRESS = 'http://localhost:3000';
 var PRODUCTION_ADDRESS = 'http://easywork.herokuapp.com';
 
+var LOCALHOST_DOC_PARSER = 'http://localhost:8080/webapi/files/upload';
+var PRODUCTION_DOC_PARSER = 'https://doc-parser.herokuapp.com//webapi/files/upload';
 
 if (!module.exports.dbUrl)
     init();
@@ -19,6 +21,7 @@ function init() {
 
             module.exports.dbUrl = PRODUCTION_DB;
             module.exports.baseUrl = PRODUCTION_ADDRESS;
+            module.exports.docParserUrl = PRODUCTION_DOC_PARSER;
             break;
         }
         case "development" : {
@@ -26,6 +29,7 @@ function init() {
 
             module.exports.dbUrl = PRODUCTION_DB;
             module.exports.baseUrl = LOCALHOST_ADDRESS;
+            module.exports.docParserUrl = PRODUCTION_DOC_PARSER;
             break;
         }
         case "test" : {
@@ -33,6 +37,7 @@ function init() {
 
             module.exports.dbUrl = TEST_DB_URL;
             module.exports.baseUrl = PRODUCTION_ADDRESS;
+            module.exports.docParserUrl = PRODUCTION_DOC_PARSER;
             break;
         }
         default :{
