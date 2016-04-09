@@ -88,19 +88,15 @@ angular.module('easywork')
 
         $scope.onFileSelect = function ($files) {
             var activeUserId = appManager.getActiveUserId();
-            //cvParser.parseCV($files[0]).
-            //    then(function (skills) {
-                    var file = $files[0];
-                    var fileReader = new FileReader();
-                    fileReader.readAsDataURL(file); // Reading the file as base64
-                    fileReader.onload = function (e) {
-                        sendCVToServer(file.name, e.target.result, activeUserId)
-                            .then(function() {
-                                $scope.user.fileName = file.name;
-                            });
-                    }
-
-                //})
+            var file = $files[0];
+            var fileReader = new FileReader();
+            fileReader.readAsDataURL(file); // Reading the file as base64
+            fileReader.onload = function (e) {
+                sendCVToServer(file.name, e.target.result, activeUserId)
+                    .then(function () {
+                        $scope.user.fileName = file.name;
+                    });
+            }
         }
 
         var debounceUpdateUser = debounce(function() {

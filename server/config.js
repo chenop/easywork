@@ -9,9 +9,9 @@ var LOCALHOST_ADDRESS = 'http://localhost:3000';
 var PRODUCTION_ADDRESS = 'http://easywork.herokuapp.com';
 
 var LOCALHOST_DOC_PARSER = 'http://localhost:8080/webapi/files/upload';
-var PRODUCTION_DOC_PARSER = 'https://doc-parser.herokuapp.com//webapi/files/upload';
+var PRODUCTION_DOC_PARSER = 'http://doc-parser.herokuapp.com/webapi/files/upload';
 
-if (!module.exports.dbUrl) //
+if (!module.exports.dbUrl)
     init();
 
 function init() {

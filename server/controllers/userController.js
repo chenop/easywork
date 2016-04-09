@@ -8,7 +8,7 @@ var passport = require('passport')
     ;
 
 var rp = require('request-promise');
-var FormData = require('form-data');
+var config = require('../config');
 
 /***********
  * Public
@@ -154,7 +154,7 @@ function analyzeCv(fileName, fileData) {
 
     var options = {
         method: 'POST',
-        uri: 'http://localhost:8080/webapi/files/upload',
+        uri: config.docParserUrl,
         formData: formData,
         headers: {
             'content-type': 'multipart/form-data' // Set automatically
