@@ -1,7 +1,8 @@
 
 var mongoose = require('mongoose')
-, companies = require('./server/controllers/companyController')
+, companyService = require('./server/services/companyService')
     , Company = require('./server/models/company')
+    , config = require('./server/config')
     ;
 var start = Date.now();
 var log = function (message) {
@@ -10,7 +11,7 @@ var log = function (message) {
 
 log("Trying to connect to db...");
 
-var dbUrl = "mongodb://localhost/db";
+var dbUrl = config.dbUrl;
 
 console.log("DB URL: " + dbUrl);
 mongoose.connect(dbUrl); // comment
@@ -140,29 +141,30 @@ function updateCompany(company) {
     }
 }
 
-//Company.find( { locations : { $exists : false } } ).forEach( function (company) {
-Company.find({}, function(err, companies) {
+// TODO Chen - trying to move the city (inside the street) to the city field
+// 1. find a specific company with multi locations
+// 2. cut and paste the city
+// 3. repeatfor all
+Company.find({}, function (err, companies) {
 
-//Company.findOne({name : 'Intel'}, function(err, company) {
+    for (var i = 0; i < companies.length; i++) {
+        var company = companies[i];
 
-    companies.forEach(function (company) {
         // Setting locations
-        for (var i = 0; i < company.technologies.length; i++) {
-            var tech = company.technologies[i];
+        for (var l = 0; l < company.locations.length; l++) {
+            var location = company.locations[l];
 
-            if (!tech || tech.length == 0) {
-                company.technologies.splice(i, 1);
-            }
+            if (!location || !(location.street))
+                continue;
+
+            var street = location.street;
+            console.log(street);
+
         }
 
-         //Save the updated document
-        company.save(function (err, savedCompany) {
-            if (!err) {
-                console.log("company " + savedCompany.name + " was saved")
-            } else {
-                console.log(err);
-            }
-        });
+        if (i == 3)
+            return;
 
-    })
+        //companyService.updateCompany(company);
+    }
 });
