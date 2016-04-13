@@ -22,10 +22,6 @@ function createUser(user) {
     var userInstance = createUserInstance(user);
 
     return userInstance.save();
-    //var upsertUser = userInstance.toObject();
-    //
-    //delete upsertUser._id; // Just to make sure - we should not have an _id on a new object
-    //return User.findOneAndUpdate({}, upsertUser, {upsert: true, new: true}).exec();
 }
 
 function updateUser(user) {
@@ -33,7 +29,6 @@ function updateUser(user) {
     userInstance._id = user._id;
 
     var upsertUser = userInstance.toObject();
-    //delete upsertUser._id;
     return User.findOneAndUpdate({'_id': user._id}, upsertUser, {upsert: true, new: true}).exec();
 }
 
@@ -46,6 +41,7 @@ function createUserInstance(user) {
             , email: user.email
             , experience: user.experience
             , message: user.message
+            , skills: user.skills
         }
     );
 

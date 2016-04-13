@@ -70,7 +70,6 @@ angular.module('easywork')
             debounceUpdateJob();
         }
 
-        // TODO chen after refactor deleteJob in the BE expects 2 parameters...
         $scope.deleteJob = function () {
             //appManager.deleteJob
             $scope.$emit('deleteEntityClicked', appManager.getSelectedEntity());

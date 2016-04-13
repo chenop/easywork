@@ -1,7 +1,7 @@
-
-var mongoose = require('mongoose')
-, companies = require('./server/controllers/companyController')
-    , Company = require('./server/models/company')
+var mongoose         = require('mongoose')
+    , companyService = require('./server/services/companyService')
+    , Company        = require('./server/models/company')
+    , config         = require('./server/config')
     ;
 var start = Date.now();
 var log = function (message) {
@@ -10,11 +10,11 @@ var log = function (message) {
 
 log("Trying to connect to db...");
 
-var dbUrl = "mongodb://localhost/db";
+var dbUrl = config.dbUrl;
 
 console.log("DB URL: " + dbUrl);
 mongoose.connect(dbUrl); // comment
-mongoose.connection.on('error', function(err, req, res, next)  {
+mongoose.connection.on('error', function (err, req, res, next) {
     log("Cant connect to MongoDB - please verify that it was started.");
 });
 mongoose.connection.once('open', function callback() {
@@ -72,10 +72,10 @@ function searchCity(address) {
 
 function createCompany(company) {
     var newAddresses = reformatAddresses(company);
-    var newCompany = new Company ({
-        name : company.name
-        , site : company.site
-        , description : company.description
+    var newCompany = new Company({
+        name: company.name
+        , site: company.site
+        , description: company.description
         , street: company.street
         , addresses: newAddresses
         , city: company.city
@@ -140,29 +140,47 @@ function updateCompany(company) {
     }
 }
 
-//Company.find( { locations : { $exists : false } } ).forEach( function (company) {
-Company.find({}, function(err, companies) {
+// TODO Chen - trying to move the city (inside the street) to the city field
+// 1. find a specific company with multi locations
+// 2. cut and paste the city
+// 3. repeat for all
+var extractCity = function (street) {
+    for (var i = 0; i < cities.length; i++) {
+        var city = cities[i];
 
-//Company.findOne({name : 'Intel'}, function(err, company) {
+        //if (street.toLowerCase().indexOf(city.toLowerCase()) > -1)
+        if (street.indexOf(city) > -1)
+            return city;
+    }
 
-    companies.forEach(function (company) {
-        // Setting locations
-        for (var i = 0; i < company.technologies.length; i++) {
-            var tech = company.technologies[i];
+    return null;
+};
 
-            if (!tech || tech.length == 0) {
-                company.technologies.splice(i, 1);
+companyService.getCompanies()
+    .then(function (companies) {
+        for (var i = 0; i < companies.length; i++) {
+            var company = companies[i];
+
+            // Setting locations
+            for (var l = 0; l < company.locations.length; l++) {
+                var location = company.locations[l];
+
+                if (!location || !(location.street))
+                    continue;
+
+                var street = location.street;
+                console.log(i + ": " + street);
+
+                var cityFound = extractCity(street);
+                if (cityFound) {
+                    console.log("found! " + cityFound);
+                    company.city = cityFound;
+                }
             }
+
+            if (i == 30)
+                return;
+
+            //companyService.updateCompany(company);
         }
-
-         //Save the updated document
-        company.save(function (err, savedCompany) {
-            if (!err) {
-                console.log("company " + savedCompany.name + " was saved")
-            } else {
-                console.log(err);
-            }
-        });
-
-    })
-});
+    });
