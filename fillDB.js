@@ -173,13 +173,21 @@ companyService.getCompanies()
 
                 var cityFound = extractCity(street);
                 if (cityFound) {
-                    console.log("found! " + cityFound);
-                    company.city = cityFound;
+                    //console.log("found! " + cityFound);
+                    location.city = cityFound;
+
+                    var re = new RegExp("[ ,]*" + cityFound, "");
+                    location.street = location.street.replace(re, "");
+                    console.log("city:" + location.city);
+                    console.log("street:" + location.street);
+
+                    //  TODO 1. enable save 2. backup db before running!
+                    //company.save();
                 }
             }
 
-            if (i == 30)
-                return;
+            //if (i == 30)
+            //    return;
 
             //companyService.updateCompany(company);
         }
