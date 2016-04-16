@@ -496,7 +496,7 @@ header a, .caret {
 .btn-primary:focus,
 .btn-primary:active,
 .btn-primary.active,
-.open .dropdown-toggle.btn-primary,
+.open .dropdown-toggle.btn-primary
 {
   color: #fff;
   background-color: darken($base30-1, 20%);
@@ -776,4 +776,9 @@ header a, .caret {
       margin-top: 6px;
     }
   }
+}
+
+.delete-entity-icon {
+  float: left;
+  padding: 0px 10px;
 }

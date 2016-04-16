@@ -182,7 +182,7 @@ companyService.getCompanies()
                     console.log("street:" + location.street);
 
                     //  TODO 1. enable save 2. backup db before running!
-                    //company.save();
+                    company.save();
                 }
             }
 
