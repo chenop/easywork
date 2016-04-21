@@ -33,7 +33,7 @@
     "method-override": "^2.3.1",
     "mocha": "^2.3.4",
     "mongoose": "^4",
-    "mornpgan": "^1.4.1",
+    "morgan": "^1.4.1",
     "multer": "^0.1.7",
     "nodemailer": "^1",
     "passport": "~0.1.17",
