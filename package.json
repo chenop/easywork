@@ -65,7 +65,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "postinstall": "grunt prod",
+    "postinstall": "./node_modules/grunt-cli/bin/grunt  prod",
     "test": "set NODE_ENV=test &  mocha"
   },
   "description": "Easywork: Building an App with AngularJS, Express andNode.js\r ============================================================",
