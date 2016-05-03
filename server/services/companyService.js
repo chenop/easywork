@@ -4,6 +4,7 @@
 
 var Company          = require('../models/company');
 var UserService = require('../services/userService');
+const utils          = require('../utils/utils');
 
 /***********
  * Public
@@ -16,6 +17,7 @@ module.exports = {
     , getCompanies: getCompanies
     , deleteJob: deleteJob
     , addJob: addJob
+    , setPublish: setPublish
 }
 
 /***********
@@ -73,8 +75,11 @@ function getCompany(companyId) {
     return Company.findById(companyId).exec();
 }
 
-function getCompanies() {
-    return Company.find({}).exec();
+function getCompanies(publish) {
+    if (utils.isUndefine(publish))
+        publish = true;
+
+    return Company.find({publish: publish}).exec();
 }
 
 function deleteJob(companyId, jobId) {
@@ -83,4 +88,8 @@ function deleteJob(companyId, jobId) {
 
 function addJob(company, job) {
     return Company.update( {_id: company._id}, { $push: {jobs: job._id } } ).exec();
+}
+
+function setPublish(company, publish) {
+    return Company.update( {_id: company._id}, { publish: publish } ).exec();
 }

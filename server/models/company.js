@@ -37,6 +37,7 @@ var companySchema = new Schema({
     }
     , owner: { type: Schema.Types.ObjectId, ref: 'User'}
     , jobs: [{ type: Schema.Types.ObjectId, ref: 'Job'}]
+    , publish: { type: Boolean, default: true }
 });
 
 companySchema.methods.mergeTechnologies = function(jobs) {

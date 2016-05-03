@@ -139,6 +139,48 @@ describe('Company service', function () {
                 })
         })
     })
+    describe("publish", function() {
+        it("should be true by default", function() {
+            var mockCompany = utils.createMockedCompanyPlainObject("Toluna");
+            var createdCompany;
+
+            return CompanyService.createCompany(mockCompany)
+                .then(function (company) {
+                    createdCompany = company;
+                    company.publish.should.equal(true);
+                    return CompanyService.setPublish(company, false)
+                })
+                .then(function() {
+                    CompanyService.getCompany(createdCompany._id)
+                        .then(function(company) {
+                            company.publish.should.equal(false);
+                        })
+                })
+        })
+        it("should return only published companies", function() {
+            var mockCompany1 = utils.createMockedCompanyPlainObject("Toluna");
+            mockCompany1.publish = false;
+            var mockCompany2 = utils.createMockedCompanyPlainObject("intel");
+
+            var createdCompany;
+
+            return CompanyService.createCompany(mockCompany1)
+                .then(function (company) {
+                    createdCompany = company;
+                    company.publish.should.equal(true);
+                    return CompanyService.setPublish(company, false)
+                })
+                .then(function() {
+                    return CompanyService.createCompany(mockCompany2)
+                })
+                .then(function() {
+                    return CompanyService.getCompanies()
+                        .then(function(companies) {
+                            companies.should.have.length(1);
+                        })
+                })
+        })
+    })
 
 });
 

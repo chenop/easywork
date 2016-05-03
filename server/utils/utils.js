@@ -42,3 +42,5 @@ module.exports.getFileName = function(fileName) {
 
     return fileName;
 }
+
+module.exports.isUndefine = function(value){return typeof value === 'undefined';}
