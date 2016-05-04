@@ -29,8 +29,20 @@ angular.module('easywork')
         }
 
         // Companies
-        var getCompanies = function() {
-            return getEntities(common.CONTENT_TYPE.COMPANY);
+        var getCompanies = function(showPublishOnly) {
+            var params = {};
+
+            if (isDefined(showPublishOnly) && showPublishOnly === true)
+                params = {showPublishOnly: showPublishOnly};
+
+            return $http({
+                url: "/api/company/list"
+                , method: "GET"
+                , params: params
+                })
+                .then(function(result) {
+                    return result.data;
+                });
         }
 
         var getJobs = function(companyId) {

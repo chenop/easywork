@@ -41,7 +41,7 @@ angular.module('easywork')
             }
         };
 
-        dataManager.getCompanies().then(function (companies) {
+        dataManager.getCompanies(true).then(function (companies) {
             $scope.companies = companies;
             angular.forEach($scope.companies, function (company, key) {
                 dataManager.getCompanyLogo(company._id, company);

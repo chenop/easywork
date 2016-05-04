@@ -46,7 +46,9 @@ function createCompany(req, res) {
 }
 
 function getCompanies (req, res) {
-    return CompanyService.getCompanies().
+    var showPublishOnly = Boolean(req.query.showPublishOnly);
+
+    return CompanyService.getCompanies(showPublishOnly).
         then(function success(companies) {
             return res.send(companies);
         },
