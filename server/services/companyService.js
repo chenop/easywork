@@ -76,7 +76,7 @@ function getCompany(companyId) {
 }
 
 function getCompanies(publish) {
-    if (utils.isUndefine(publish))
+    if (utils.isUndefined(publish))
         publish = true;
 
     return Company.find({publish: publish}).exec();

@@ -4,7 +4,7 @@
 
 var fs = require('fs');
 
-module.exports.getUniqueFileName = function(fullFileName) {
+function getUniqueFileName(fullFileName) {
 
     if (!fs.existsSync(fullFileName)) {
         return fullFileName;
@@ -29,18 +29,32 @@ module.exports.getUniqueFileName = function(fullFileName) {
     }
 }
 
-module.exports.getExtension = function(fileName) {
+function getExtension(fileName) {
     var periodIndex = fileName.lastIndexOf('.');
     var fileType = fileName.substr(periodIndex + 1, fileName.length - 1);
 
     return fileType;
 }
 
-module.exports.getFileName = function(fileName) {
+function getFileName(fileName) {
     var periodIndex = fileName.lastIndexOf('.');
     var fileName = fileName.substr(0, periodIndex) || fileName;
 
     return fileName;
 }
 
-module.exports.isUndefine = function(value){return typeof value === 'undefined';}
+function isDefined (value) {
+    return typeof value !== 'undefined' && value !== null;
+}
+
+function isUndefined (obj) {
+    return !isDefined(obj);
+}
+
+module.exports = {
+    getUniqueFileName: getUniqueFileName
+    , getExtension: getExtension
+    , getFileName: getFileName
+    , isDefined: isDefined
+    , isUndefined: isUndefined
+}
