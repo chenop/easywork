@@ -22,7 +22,6 @@ module.exports = {
     , upload: upload
     , deleteCompany: deleteCompany
     , getJobsBySkill: getJobsBySkill
-    , getAllCompanies: getAllCompanies
     , getCompanyLogo: getCompanyLogo
 }
 
@@ -136,18 +135,6 @@ function getCompanyLogo (req, res, next) {
         return res.send(company.logo.url);
     });
 };
-
-function getAllCompanies (req, res) {
-    Company.find({}, 'name description site city technologies locations logo',
-        function (err, companies) {
-            if (err) {
-                console.log("error while trying to populate jobs:" + err);
-            }
-
-            var data = JSON.stringify(companies);
-            return res.send(data);
-        })
-}
 
 function getJobsBySkill (req, res) {
     var companyId = req.params.id;

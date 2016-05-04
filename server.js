@@ -86,7 +86,6 @@ app.put('/api/company/:id', companyController.updateCompany)
 app.delete('/api/company/:id', companyController.deleteCompany)
 app.post('/api/company/logo-upload/:id', companyController.upload)
 app.get('/api/company/logo/:id/:force', companyController.getCompanyLogo)
-app.get('/api/allCompanies', companyController.getCompanies); //companies.getAllCompanies)
 app.get('/api/company/jobsBySkill/:id/:skill', companyController.getJobsBySkill);
 
 // Jobs
