@@ -75,11 +75,13 @@ function getCompany(companyId) {
     return Company.findById(companyId).exec();
 }
 
-function getCompanies(publish) {
-    if (utils.isUndefined(publish))
-        publish = true;
+function getCompanies(showPublishOnly) {
+    var conditions = {};
 
-    return Company.find({publish: publish}).exec();
+    if (utils.isDefined(showPublishOnly) && showPublishOnly === true)
+        conditions = {publish: showPublishOnly};
+
+    return Company.find(conditions).exec();
 }
 
 function deleteJob(companyId, jobId) {

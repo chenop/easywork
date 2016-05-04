@@ -139,46 +139,55 @@ describe('Company service', function () {
                 })
         })
     })
-    describe("publish", function() {
-        it("should be true by default", function() {
-            var mockCompany = utils.createMockedCompanyPlainObject("Toluna");
-            var createdCompany;
+    describe.only("publish", function() {
+        describe("Given a new created company", function () {
+            it("publish should be true by default unless it was set", function () {
+                var mockCompany = utils.createMockedCompanyPlainObject("Toluna");
+                var createdCompany;
 
-            return CompanyService.createCompany(mockCompany)
-                .then(function (company) {
-                    createdCompany = company;
-                    company.publish.should.equal(true);
-                    return CompanyService.setPublish(company, false)
-                })
-                .then(function() {
-                    CompanyService.getCompany(createdCompany._id)
-                        .then(function(company) {
-                            company.publish.should.equal(false);
-                        })
-                })
+                return CompanyService.createCompany(mockCompany)
+                    .then(function (company) {
+                        createdCompany = company;
+                        company.publish.should.equal(true);
+                        return CompanyService.setPublish(company, false)
+                    })
+                    .then(function () {
+                        CompanyService.getCompany(createdCompany._id)
+                            .then(function (company) {
+                                company.publish.should.equal(false);
+                            })
+                    })
+            })
         })
-        it("should return only published companies", function() {
-            var mockCompany1 = utils.createMockedCompanyPlainObject("Toluna");
-            mockCompany1.publish = false;
-            var mockCompany2 = utils.createMockedCompanyPlainObject("intel");
+        describe("Given list of companies", function () {
+            beforeEach(function () {
+                var mockCompany1 = utils.createMockedCompanyPlainObject("Toluna");
+                var mockCompany2 = utils.createMockedCompanyPlainObject("intel");
 
-            var createdCompany;
+                var createdCompany;
 
-            return CompanyService.createCompany(mockCompany1)
-                .then(function (company) {
-                    createdCompany = company;
-                    company.publish.should.equal(true);
-                    return CompanyService.setPublish(company, false)
-                })
-                .then(function() {
-                    return CompanyService.createCompany(mockCompany2)
-                })
-                .then(function() {
-                    return CompanyService.getCompanies()
-                        .then(function(companies) {
-                            companies.should.have.length(1);
-                        })
-                })
+                return CompanyService.createCompany(mockCompany1)
+                    .then(function (company) {
+                        createdCompany = company;
+                        company.publish.should.equal(true);
+                        return CompanyService.setPublish(company, false)
+                    })
+                    .then(function () {
+                        return CompanyService.createCompany(mockCompany2)
+                    });
+            })
+            it("should return only published companies", function () {
+                return CompanyService.getCompanies(true)
+                    .then(function (companies) {
+                        companies.should.have.length(1);
+                    });
+            })
+            it("should return all companies when nothing set on publish", function () {
+                return CompanyService.getCompanies()
+                    .then(function (companies) {
+                        companies.should.have.length(2);
+                    })
+            })
         })
     })
 
