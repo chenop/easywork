@@ -342,7 +342,6 @@ angular.module('easywork')
             , deleteEntity: deleteEntity
 
             , getAllJobs: getAllJobs
-            , getAllCompanies: getAllCompanies
             , prepareBase64ImgSrc: prepareBase64ImgSrc
             , createEmptyEntity: createEmptyEntity
             , getJobsBySkill: getJobsBySkill
