@@ -24,7 +24,7 @@
     "bootstrap-sass": "~3.3.3",
     "localforage": "latest",
     "angular-localforage": "~1.2.3",
-    "angular-bootstrap": "~0.13.3",
+    "angular-bootstrap": "~1",
     "angularjs-toaster": "~0.4.15",
     "angular-animate": "~1.4.7",
     "angular": "~1.4.7",

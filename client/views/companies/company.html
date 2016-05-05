@@ -61,6 +61,16 @@
                        id="cDescription" name="cDescription" placeholder="Few words about the company..."
                        ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
             </div>
+
+            <pre>{{publish}}</pre>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">פרסם</label>
+                <div class="btn-group">
+                    <label class="btn btn-primary" ng-model="publish" uib-btn-radio="true">כן</label>
+                    <label class="btn btn-primary" ng-model="publish" uib-btn-radio="false">לא</label>
+                </div>
+            </div>
+
             <!--Angular-->
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="cMail">Logo</label>

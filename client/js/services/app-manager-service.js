@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-	.factory('appManager', function (authService, common, $modal, $rootScope, toaster) {
+	.factory('appManager', function (authService, common, $uibModal, $rootScope, toaster) {
 
         var selectedCompanies = [];
         var selectedTechnologies = [];
@@ -97,7 +97,7 @@ angular.module('easywork')
         }
 
         function sendCVDialog(callBack) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: '/views/users/sendCvDialog.html',
                 controller: 'SendCvDialogCtrl',
                 resolve: {
@@ -125,7 +125,7 @@ angular.module('easywork')
 
         function openLoginDialog (callBack) {
 
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: '/views/users/loginRegister.html',
                 controller: 'LoginRegisterCtrl',
                 resolve: {

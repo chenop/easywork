@@ -20,7 +20,7 @@ angular.module('easywork')
                 requiredSkill: '=',
                 user: '='
             },
-            controller: function($scope, $modal) {
+            controller: function($scope, $uibModal) {
             },
             template: '<span class="skill-tag"><i class="glyphicon glyphicon-tag skill-icon"></i>{{::requiredSkill}}</span>'
         }

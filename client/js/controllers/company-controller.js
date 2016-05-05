@@ -2,9 +2,10 @@
 
 
 angular.module('easywork')
-    .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout, $state, $stateParams, $modal, debounce) {
+    .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout, $state, $stateParams, $uibModal, debounce) {
         function isDefined(value){return typeof value !== 'undefined';}
 
+        $scope.publish = false;
         if ($state.current.isDashboard) {
             // Basically we pass the entityId so the state will change and will have the update
             // But we take the entity from the appManager (cause its cached)
@@ -113,7 +114,7 @@ angular.module('easywork')
         }
 
         $scope.showLogoGallery = function(company) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: '/views/companies/logo-gallery.html',
                 controller: 'LogoGalleryCtrl',
                 resolve: {

@@ -26,7 +26,7 @@ angular.module('easywork')
             });
         }
     })
-    .controller('CompaniesBoardCtrl', function ($scope, $http, mailService, dataManager, appManager, $modal) {
+    .controller('CompaniesBoardCtrl', function ($scope, $http, mailService, dataManager, appManager, $uibModal) {
         var prepareFormattedLocation = function (location) {
             if (!$scope.isEmpty(location.street) && !$scope.isEmpty(location.city)) {
                 return (location.street + ", " + location.city);
@@ -134,7 +134,7 @@ angular.module('easywork')
                 event.stopPropagation();
                 event.preventDefault();
             }
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: '/views/companies/company-details.html',
                 controller: 'CompanyDetailsCtrl',
                 windowClass: 'company-details-dialog',
@@ -160,7 +160,7 @@ angular.module('easywork')
                 event.stopPropagation();
                 event.preventDefault();
             }
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: '/views/companies/company-details.html',
                 controller: 'CompanyDetailsCtrl',
                 windowClass: 'company-details-dialog',

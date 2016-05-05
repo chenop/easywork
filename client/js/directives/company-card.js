@@ -21,7 +21,7 @@ angular.module('easywork')
                 requiredSkill: '=',
                 company: '='
             },
-            controller: function($scope, $modal) {
+            controller: function($scope, $uibModal) {
                 $scope.showJobDetails = function (company, event) {
                     // Do not propagate the event to the table
                     if(event){
@@ -29,7 +29,7 @@ angular.module('easywork')
                         event.preventDefault();
                     }
 
-                    var modalInstance = $modal.open({
+                    var modalInstance = $uibModal.open({
                         templateUrl: '/views/jobs/job-details.html',
                         controller: 'JobDetailsCtrl',
                         windowClass: 'company-details-dialog',

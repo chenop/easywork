@@ -3,7 +3,7 @@
 var SEND_BUTTON_STR = 'שלח';
 
 angular.module('easywork')
-    .controller('HeaderController', function ($scope, authService, appManager, dataManager, $modal, $location, common) {
+    .controller('HeaderController', function ($scope, authService, appManager, dataManager, $uibModal, $location, common) {
         $scope.isError = false;
         $scope.user = authService.getActiveUser();
         $scope.authService = authService;
@@ -22,7 +22,7 @@ angular.module('easywork')
         }
 
         var openUserDetailsDialog = function (callBack) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: '/views/users/user.html'
             });
 
@@ -47,7 +47,7 @@ angular.module('easywork')
         }
 
         function openDialog(selectedTab) {
-            var modalInstance = $modal.open({
+            var modalInstance = $uibModal.open({
                 templateUrl: '/views/users/loginRegister.html',
                 controller: 'LoginRegisterCtrl',
                 resolve: {
