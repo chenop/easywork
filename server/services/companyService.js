@@ -55,6 +55,7 @@ function createCompanyInstance(company) {
             , site: company.site
             , description: company.description
             , locations: company.locations
+            , publish: company.publish
         }
     );
 

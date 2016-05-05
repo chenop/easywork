@@ -68,8 +68,8 @@
                                 </div>
                             </div>
                             <div ng-if="authService.isLoggedIn()" class="row">
-                                <div dropdown>
-                                    <a href dropdown-toggle>{{getDisplayName()}}</a><b class="caret"></b>
+                                <div uib-dropdown>
+                                    <a href uib-dropdown-toggle>{{getDisplayName()}}</a><b class="caret"></b>
                                     <ul class="dropdown-menu" aria-labelledby="simple-dropdown">
                                         <li access-level="public">
                                             <a ui-sref="user_details">My User Profile</a>
