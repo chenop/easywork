@@ -19,9 +19,10 @@ exports.sendMail = function (req, res) {
             return User.findById(userId, function (err, user) {
                 if (!err) {
                     if (user) {
-                        sendMail(user, companies, cvData);
+                        sendUserCVToCompanies(user, companies, cvData);
+                        sendSummaryToUser(user, companies, cvData);
                     } else {
-                        sendAnonymizeMail(companies, cvData);
+                        sendAnonymizeUserCVToCompanies(companies, cvData);
                     }
                 }
             });
@@ -90,11 +91,69 @@ function calcToField(companies) {
     return to_addresses;
 }
 
-function sendAnonymizeMail(companies, cvData) {
-    sendMail({name: "anonymous"}, companies, cvData);
+function sendAnonymizeUserCVToCompanies(companies, cvData) {
+    sendUserCVToCompanies({name: "anonymous"}, companies, cvData);
 }
 
-function sendMail(user, companies, cvData) {
+function concatCompaniesNames(companies) {
+    var html = "";
+    for (var i = 0; i < companies.length; i++) {
+        var company = companies[i];
+
+        html += company.name + "<br>";
+    }
+
+    return html;
+}
+
+function sendSummaryToUser(user, companies, cvData) {
+    if (!user || !user.email)
+        return;
+
+    var smtpTransport = nodemailer.createTransport({
+        //service: "Gmail",
+        //auth: {
+        //	user: "chenop@gmail.com",
+        //	pass: "[my gmail pass]"
+        //}
+        host: "mail.easywork.co.il", // hostname
+        port: 25, // port for secure SMTP
+        auth: {
+            user: "webmaster@easywork.co.il",
+            pass: "dontjudge"
+        }
+    });
+
+    var companiesNames = concatCompaniesNames(companies);
+
+    // setup e-mail data with unicode symbols
+    var mailOptions = {
+        from: "Easy-Work <webmaster@easywork.co.il>", // sender address
+        to: user.email, // list of receivers
+        subject: 'Easy Work - CV was sent successfully!', // Subject line
+        html: "<b>Hi " + user.name + ", CV was sent to the following companies:</b><br>" + companiesNames, // html body
+        attachments: [
+            {
+                filename: cvData.fileName,
+                path: cvData.fileData // data uri
+            }
+        ]
+    }
+
+    // send mail with defined transport object
+    smtpTransport.sendMail(mailOptions, function (error, response) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log("Message sent: " + response.message);
+        }
+
+        // if you don't want to use this transport object anymore, uncomment following line
+        //smtpTransport.close(); // shut down the connection pool, no more messages
+    });
+}
+
+function sendUserCVToCompanies(user, companies, cvData) {
     console.log("server is sending!");
     var appDir = path.dirname(require.main.filename) + '\\images\\';
 
@@ -118,8 +177,7 @@ function sendMail(user, companies, cvData) {
         from: "Easy-Work <webmaster@easywork.co.il>", // sender address
         to: to_addresses, // list of receivers
         subject: 'Easy work presents ' + user.name, // Subject line
-//			text: "Hello world", // plaintext body
-        html: "<b>Companies you sent mail to:</b>", // html body
+        html: "<b>Hi, Please see CV Attached</b>", // html body
         attachments: [
             {
                 filename: cvData.fileName,

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-    .controller('LogoGalleryCtrl', function ($scope, company, $modalInstance, dataManager) {
+    .controller('LogoGalleryCtrl', function ($scope, company, $uibModalInstance, dataManager) {
         $scope.urlObject = {};
         $scope.urlObject.url = company.logo.url;
 
@@ -15,7 +15,7 @@ angular.module('easywork')
         $scope.selectLogo = function() {
             company.logo.url = $scope.urlObject.url;
             dataManager.updateCompany(company);
-            $modalInstance.dismiss();
+            $uibModalInstance.dismiss();
         }
 
         $scope.hitEnter = function (evt) {

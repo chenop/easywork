@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-	.factory('appManager', function (authService, common, $uibModal, $rootScope, toaster) {
+	.factory('appManager', function (authService, common, $uibModal, $rootScope, toaster, mailService) {
 
         var selectedCompanies = [];
         var selectedTechnologies = [];
@@ -101,9 +101,6 @@ angular.module('easywork')
                 templateUrl: '/views/users/sendCvDialog.html',
                 controller: 'SendCvDialogCtrl',
                 resolve: {
-                    selectedCompanies: function () {
-                        return getSelectedCompanies();
-                    },
                     userId: function() {
                         return getActiveUserId()
                     }
@@ -111,7 +108,9 @@ angular.module('easywork')
 
             });
 
-            modalInstance.result.then(function () {
+            modalInstance.result.then(function (cvData) {
+                mailService.sendMail(selectedCompanies, cvData);
+                modalInstance.close();
                 if (callBack !== undefined)
                     callBack();
             });

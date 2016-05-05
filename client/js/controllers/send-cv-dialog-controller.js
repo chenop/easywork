@@ -3,8 +3,8 @@
  */
 
 angular.module('easywork')
-    .controller('SendCvDialogCtrl', function ($scope, $modalInstance, $localForage, mailService, selectedCompanies, userId) {
-        $scope.modIns = $modalInstance;
+    .controller('SendCvDialogCtrl', function ($scope, $uibModalInstance, $localForage, userId) {
+        $scope.modIns = $uibModalInstance;
         $scope.userId = (!userId) ? "anonymous" : userId;
         initCvData($scope.userId);
         
@@ -13,8 +13,7 @@ angular.module('easywork')
         }
 
         $scope.sendCV = function () {
-            mailService.sendMail(selectedCompanies, $scope.cvData);
-            $modalInstance.close();
+            $uibModalInstance.close($scope.cvData);
         }
 
         function initCvData() {
