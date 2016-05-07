@@ -6,7 +6,6 @@ exports.getFiltersData = function (req, res) {
     var data = {
         areas: [
             'ירושליים'
-            , 'ירושלים'
             , 'תל אביב'
             , 'יקום'
             , 'חיפה'

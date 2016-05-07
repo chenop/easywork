@@ -92,7 +92,7 @@ angular.module('easywork')
             // Update send button label
             $scope.sendButtonLabel = SEND_BUTTON_STR;
             if (appManager.getSelectedCompaniesCount() > 0) {
-                $scope.sendButtonLabel += ' (' + appManager.getSelectedCompaniesCount() + ' משרות)';
+                $scope.sendButtonLabel += ' (' + appManager.getSelectedCompaniesCount() + ' חברות)';
             }
         }, true);
 
