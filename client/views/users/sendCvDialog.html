@@ -1,5 +1,7 @@
 <div class="send-cv-container">
     <upload-cv user-id="userId" data="cvData"></upload-cv>
+    <button class="btn btn-lg btn-default align-middle"
+            ng-click="close()">סגור</button>
     <button class="btn btn-lg btn-primary align-middle"
             ng-disabled="!isSendEnable()" ng-click="sendCV()">שלח קו"ח
     </button>

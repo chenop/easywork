@@ -16,6 +16,10 @@ angular.module('easywork')
             $uibModalInstance.close($scope.cvData);
         }
 
+        $scope.close = function() {
+            $uibModalInstance.close();
+        }
+
         function initCvData() {
             // todo if (isLoggedIn) {  $scope.cvData = user.cvData; return; };
             $localForage.getItem($scope.userId)
