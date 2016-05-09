@@ -109,10 +109,13 @@ angular.module('easywork')
             });
 
             modalInstance.result.then(function (cvData) {
-                mailService.sendMail(selectedCompanies, cvData);
+                if (cvData) {
+                    mailService.sendMail(selectedCompanies, cvData);
+                    if (callBack !== undefined)
+                        callBack();
+                }
+
                 modalInstance.close();
-                if (callBack !== undefined)
-                    callBack();
             });
         }
 
