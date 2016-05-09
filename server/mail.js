@@ -2,6 +2,7 @@
 
 var nodemailer = require("nodemailer")
     , User     = require('./models/user')
+    , UserController     = require('./services/userService')
     , path     = require('path')
     , Cv       = require('./models/cv')
 
@@ -16,16 +17,15 @@ exports.sendMail = function (req, res) {
 
     saveCV(userId, cvData)
         .then(function (user) {
-            return User.findById(userId, function (err, user) {
-                if (!err) {
+            return UserController.getUser(userId)
+                .then(function(user) {
                     if (user) {
                         sendUserCVToCompanies(user, companies, cvData);
                         sendSummaryToUser(user, companies, cvData);
                     } else {
                         sendAnonymizeUserCVToCompanies(companies, cvData);
                     }
-                }
-            });
+                })
         });
 }
 
@@ -34,36 +34,33 @@ function saveCV(userId, cvData) {
         return saveAnonymizeCv(cvData)
     }
 
-    return User.findById(userId, function (err, user) {
+    return UserController.getUser(userId)
+        .then(function (user) {
 
-        if (err) {
-            throw err;
-        }
+            if (!user) {
+                throw "mail.js, saveCV - user not found";
+            }
 
-        if (!user) {
-            throw "mail.js, saveCV - user not found";
-        }
+            // Update user with new data
+            user.cv = cvData.fileData;
+            user.fileName = cvData.fileName;
+            user.skills = cvData.skills;
 
-        // Update user with new data
-        user.cv = cvData.fileData;
-        user.fileName = cvData.fileName;
-        user.skills = cvData.skills;
+            return UserController.updateUser(user)
+                .then(function (user) {
 
-        return user.save(function (err, user) {
-            if (err)
-                throw err;
-
-            saveCvToDb(user, cvData);
-            return res.send(user.skills);
-        })
-    });
+                    saveCvToDb(user, cvData);
+                    return res.send(user.skills);
+                })
+        });
 }
 
 
 function saveAnonymizeCv(cvData) {
-    return User.findById(ADMIN_ID, function (err, user) {
-        return saveCvToDb(user, cvData);
-    })
+    return UserController.getUser(ADMIN_ID)
+        .then(function(admin) {
+            return saveCvToDb(user, cvData);
+        });
 }
 
 function saveCvToDb(user, cvData) {
@@ -148,8 +145,7 @@ function sendSummaryToUser(user, companies, cvData) {
             console.log("Message sent: " + response.message);
         }
 
-        // if you don't want to use this transport object anymore, uncomment following line
-        //smtpTransport.close(); // shut down the connection pool, no more messages
+        smtpTransport.close(); // shut down the connection pool, no more messages
     });
 }
 
@@ -194,7 +190,6 @@ function sendUserCVToCompanies(user, companies, cvData) {
             console.log("Message sent: " + response.message);
         }
 
-        // if you don't want to use this transport object anymore, uncomment following line
-        //smtpTransport.close(); // shut down the connection pool, no more messages
+        smtpTransport.close(); // shut down the connection pool, no more messages
     });
 }
