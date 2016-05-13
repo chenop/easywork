@@ -1,12 +1,10 @@
 <div class="row" data-ng-controller="DashboardListCtrl">
     <div class="col-xs-12 col-sm-4">
-        <div>
-                <input class="form-control top-padding searchCotainer" placeholder="חפש..."
-                       ng-model="searchStr"/>
-                <a ng-click="searchStr = ''">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </a>
-        </div>
+        <input class="form-control top-padding searchCotainer" placeholder="חפש..."
+               ng-model="searchStr"/>
+        <a ng-click="searchStr = ''">
+            <span class="glyphicon glyphicon-remove"></span>
+        </a>
 
         <div class="no-padding dashboard-list">
             <ul class="nav nav-pills nav-stacked">
