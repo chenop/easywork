@@ -1,8 +1,8 @@
 <div class="modal-body" ng-keyup="hitEnter($event)">
-    <tabset>
-        <tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active">
+    <uib-tabset>
+        <uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active">
             <div ng-include="tab.template"></div>
-        </tab>
-    </tabset>
+        </uib-tab>
+    </uib-tabset>
 </div>
 
