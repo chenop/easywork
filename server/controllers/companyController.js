@@ -12,7 +12,8 @@ var Company          = require('../models/company')
     , Jobs           = require('./jobController.js')
     , utils          = require('../utils/utils')
     , fs             = require('fs')
-    , googleApis     = require('../googleApis');
+    , googleApis     = require('../googleApis')
+    , mailService     = require('../mail');
 
 module.exports = {
     createCompany: createCompany
@@ -23,6 +24,7 @@ module.exports = {
     , deleteCompany: deleteCompany
     , getJobsBySkill: getJobsBySkill
     , getCompanyLogo: getCompanyLogo
+    , setPublish: setPublish
 }
 
 /**
@@ -58,7 +60,7 @@ function getCompanies (req, res) {
 };
 
 function getCompany(req, res) {
-    return CompanyService.getCompany(req.body.id).
+    return CompanyService.getCompany(req.params.id).
         then(function success(company) {
             return res.send(company);
         },
@@ -150,4 +152,19 @@ function getJobsBySkill (req, res) {
             });
             return res.send(relevantJobs);
         });
+}
+
+function setPublish(req, res) {
+    var companyId = req.params.id;
+    var publish = req.params.publish;
+
+    return CompanyService.getCompany(companyId)
+        .then(function(company) {
+            mailService.sendMailCompanyWasUnpublished(company);
+            return CompanyService.setPublish(company, publish)
+        })
+        .then(function () {
+            return res.send();
+        });
+
 }

@@ -67,10 +67,10 @@ app.config(
                 url: "/list/empty",
                 templateUrl: "/views/admin/empty.html"
             })
-            //.state('job-board', {
-            //    url: "/job-board",
-            //    templateUrl: "/views/jobs/job-board.html"
-            //})
+            .state('unsuscribe', {
+                url: "/company/:companyId/unsuscribe",
+                templateUrl: "/views/companies/unsuscribe.html"
+            })
             .state('company-board', {
                 url: "/company-board",
                 templateUrl: "/views/companies/company-board.html"

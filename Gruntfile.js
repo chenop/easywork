@@ -6,7 +6,7 @@ module.exports = function (grunt) {
     var cssFiles = [
         //'client/lib/bootstrap/dist/css/bootstrap.min.css'
         //, 'client/lib/bootstrap-rtl/dist/css/bootstrap-rtl.css'
-         'client/lib/select2/select2.css'
+        'client/lib/select2/select2.css'
         , 'client/lib/angularjs-toaster/toaster.min.css'
         //, 'client/lib/components-font-awesome/css/font-awesome.min.css'
         , 'client/css/style.css'
@@ -70,6 +70,7 @@ module.exports = function (grunt) {
         , 'client/js/controllers/logo-gallery-controller.js'
         , 'client/js/controllers/send-cv-dialog-controller.js'
         , 'client/js/controllers/yesNoModal-controller.js'
+        , 'client/js/controllers/unsuscribe-controller.js'
 
         , 'client/js/services/app-manager-service.js'
         , 'client/js/controllers/login-controller.js'
@@ -91,13 +92,10 @@ module.exports = function (grunt) {
     ]
 
     var isDevMode = function () {
-        return process.env.NODE_ENV === 'development';
+        return process.env.NODE_ENV === 'development' || grunt.option('environment') === 'development';
     }
 
     var generateFilesList = function (files, minifiedFileName, fileType, forceDevMode) {
-        //var files = grunt.config('files'),
-        //	isConcat = grunt.config('isConcat');
-
         var result = "";
 
         var preFix = "";

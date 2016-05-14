@@ -59,7 +59,7 @@ function saveCV(userId, cvData) {
 function saveAnonymizeCv(cvData) {
     return UserController.getUser(ADMIN_ID)
         .then(function(admin) {
-            return saveCvToDb(user, cvData);
+            return saveCvToDb(admin, cvData);
         });
 }
 
@@ -73,8 +73,7 @@ function saveCvToDb(user, cvData) {
         }
     )
 
-    newCv.save();
-    return null;
+    return newCv.save();
 }
 
 function calcToField(companies) {
@@ -149,16 +148,32 @@ function sendSummaryToUser(user, companies, cvData) {
     });
 }
 
-function sendUserCVToCompanies(user, companies, cvData) {
-    console.log("server is sending!");
-    var appDir = path.dirname(require.main.filename) + '\\images\\';
+function createMailOptions(subject, cvData) {
+//var to_addresses = calcToField(companies);
+    // setup e-mail data with unicode symbols
+    var mailOptions = {
+        from: "Easy-Work <webmaster@easywork.co.il>", // sender address
+        //to: to_addresses, // list of receivers
+        subject: subject, // Subject line
+    }
 
+    if (cvData) {
+        mailOptions.attachments = [
+            {
+                filename: cvData.fileName,
+                path: cvData.fileData // data uri
+            }
+        ];
+    }
+    return mailOptions;
+}
+function createSmtpTransport() {
     var smtpTransport = nodemailer.createTransport({
-			//service: "Gmail",
-			//auth: {
-			//	user: "chenop@gmail.com",
-			//	pass: "[my gmail pass]"
-			//}
+        //service: "Gmail",
+        //auth: {
+        //	user: "chenop@gmail.com",
+        //	pass: "[my gmail pass]"
+        //}
         host: "mail.easywork.co.il", // hostname
         port: 25, // port for secure SMTP
         auth: {
@@ -166,23 +181,10 @@ function sendUserCVToCompanies(user, companies, cvData) {
             pass: "dontjudge"
         }
     });
-
-    var to_addresses = calcToField(companies);
-    // setup e-mail data with unicode symbols
-    var mailOptions = {
-        from: "Easy-Work <webmaster@easywork.co.il>", // sender address
-        to: to_addresses, // list of receivers
-        subject: 'Easy work presents ' + user.name, // Subject line
-        html: "<b>Hi, Please see CV Attached</b>", // html body
-        attachments: [
-            {
-                filename: cvData.fileName,
-                path: cvData.fileData // data uri
-            }
-        ]
-    }
-
-    // send mail with defined transport object
+    return smtpTransport;
+}
+function sendMailViaSmtpTransport(smtpTransport, mailOptions) {
+// send mail with defined transport object
     smtpTransport.sendMail(mailOptions, function (error, response) {
         if (error) {
             console.log(error);
@@ -190,6 +192,39 @@ function sendUserCVToCompanies(user, companies, cvData) {
             console.log("Message sent: " + response.message);
         }
 
-        smtpTransport.close(); // shut down the connection pool, no more messages
+        //smtpTransport.close(); // shut down the connection pool, no more messages
     });
+}
+function sendUserCVToCompanies(user, companies, cvData) {
+    var mailOptions = createMailOptions('Easy work presents ' + user.name, cvData);
+
+    var smtpTransport = createSmtpTransport();
+
+    for (var i = 0; i < companies.length; i++) {
+        var company = companies[i];
+
+        if (!company || !company.email)
+            continue;
+        mailOptions.to = "chenop@gmail.com";// company.email;
+        mailOptions.html = renderHtml(company._id);
+
+        sendMailViaSmtpTransport(smtpTransport, mailOptions);
+    }
+}
+
+function renderHtml(companyId) {
+    var html = "<b>Hi, Please see CV Attached</b>";
+    var unsuscribeLink = "http://localhost:3000/company/" + companyId + "/unsuscribe";
+    html += '<font size="1" color="gray"><br><br>Disclaimer:<br>This mail was send from http://www.easywork.co.il<br>This mail is not an advertisment.<br>If you would like to stop getting CVs from Easy-Work,<br>please <a href=' + unsuscribeLink + '>unsuscribe</a>.';
+    return html;
+}
+
+exports.sendMailCompanyWasUnpublished = function(company) {
+    var mailOptions = createMailOptions('Company ' + company.name + ' was unpublished :(', null);
+    var smtpTransport = createSmtpTransport();
+
+    mailOptions.to = "chenop@gmail.com";// company.email;
+
+    sendMailViaSmtpTransport(smtpTransport, mailOptions);
+
 }

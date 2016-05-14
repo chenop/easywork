@@ -308,6 +308,10 @@ angular.module('easywork')
             };
         }
 
+        function setPublish(companyId, publish) {
+            return $http.post('/api/company/' + companyId + '/setPublish/' + publish);
+        }
+
         return {
             getFiltersData: getFiltersData
             , getTechnologiesSelect2Options: getTechnologiesSelect2Options
@@ -323,6 +327,7 @@ angular.module('easywork')
             , getCompany: getCompany
             , deleteCompany: deleteCompany
             , getCompanyLogo: getCompanyLogo
+            , setPublish: setPublish
 
             // Jobs
             , getJobs: getJobs
