@@ -147,8 +147,8 @@ describe('Company service', function () {
                 return CompanyService.createCompany(mockCompany)
                     .then(function (company) {
                         createdCompany = company;
-                        company.publish.should.equal(true);
-                        return CompanyService.setPublish(company, false)
+                        createdCompany.publish.should.equal(true);
+                        return CompanyService.setPublish(createdCompany, false)
                     })
                     .then(function () {
                         CompanyService.getCompany(createdCompany._id)
