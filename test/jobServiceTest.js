@@ -34,7 +34,6 @@ describe('Job service - Testing CRUD operations', function () {
                     return JobService.getJob(createdJob._id);
                 })
                 .then(function (fetchedJob) {
-                    console.log(3);
                     expect(fetchedJob).to.not.equal(null);
                     // verify that the returned job is what we expect
                     expect(fetchedJob.name).to.equal('Toluna');

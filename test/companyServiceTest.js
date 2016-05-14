@@ -134,14 +134,13 @@ describe('Company service', function () {
                     return CompanyService.getCompany(createdCompany);
                 })
                 .then(function (fetchedCompany) {
-                    console.log(fetchedCompany.jobs.length);
                     fetchedCompany.jobs.should.empty;
                 })
         })
     })
     describe("publish", function() {
         describe("Given a new created company", function () {
-            it("publish should be true by default unless it was set", function () {
+            it.only("publish should be true by default unless it was set", function () {
                 var mockCompany = utils.createMockedCompanyPlainObject("Toluna");
                 var createdCompany;
 
