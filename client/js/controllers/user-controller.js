@@ -63,10 +63,11 @@ angular.module('easywork')
          */
         function sendCVToServer(fileName, fileData, activeUserId) {
             $scope.upload = $upload.upload({
-                url: '/api/user/cv-upload/' + activeUserId, //upload.php script, node.js route, or servlet url
+                url: '/api/cv', //upload.php script, node.js route, or servlet url
                 method: 'POST',
                 data: {
-                    data: fileData, // File as base64
+                    userId: activeUserId,
+                    fileData: fileData, // File as base64
                     //skills: skills,
                     fileName: fileName
                 }

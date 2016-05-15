@@ -11,7 +11,7 @@ var mongoose = require('mongoose')
 
 var cvSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User'}
-    , data: Buffer
+    , fileData: Buffer
     , skills: [String]
     , fileName: String
 });

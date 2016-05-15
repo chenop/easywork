@@ -15,13 +15,14 @@ module.exports = {
 }
 
 function createCv(req, res) {
-    var data = JSON.parse(req.body.data);
+    var cv = JSON.parse(req.body.data);
     var fileName = data.fileName;
     var fileData = data.data;
 
-    return docParserApi.analyzeCv(fileName, fileData)
+    return docParserApi.analyzeCv(cv.fileName, cv.fileData)
         .then(function(skills) {
-            return CvService.createCv(fileName, fileData, skills)
+            cv.skills = skills;
+            return CvService.createCv(cv);
         })
         .then(function success(cv) {
             return res.send(cv);
@@ -32,7 +33,7 @@ function createCv(req, res) {
 }
 
 function getCv(req, res) {
-    var id = req.params.ID();
+    var id = req.params.Id;
 
     return CvService.getCv(id)
         .then(function success(cv) {
