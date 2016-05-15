@@ -784,10 +784,16 @@ header a, .caret {
 }
 
 .searchCotainer {
-  width: 94%;
+  width: 90%;
   display: inline-block;
 }
 
 .unsuscribe-container {
   text-align: center;
+}
+
+.clearSearchStrIcon {
+  float: left;
+  margin-top: 10px;
+  margin-left: 5px;
 }
