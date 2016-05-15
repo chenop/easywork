@@ -21,7 +21,38 @@ var userSchema = new Schema({
     , fileName: String
     , skills: [String]
     , company: { type: Schema.Types.ObjectId, ref: 'Company'}
+}, {
+    toObject: {
+        virtuals: true
+    },
+    toJSON: {
+        virtuals: true
+    }
 });
+
+//userSchema
+//    .virtual('skills')
+//    .get(function () {
+//        return cvService.getCvs(this._id)
+//            .then(function(cvs) {
+//                var userSkills = [];
+//
+//                for (var i = 0; i < cvs.length; i++) {
+//                    var cv = cvs[i];
+//                    var skills = cv.skills;
+//
+//                    for (var j = 0; j < skills.length; j++) {
+//                        var skill = skills[j];
+//
+//                        if (!userSkills.contains(skill))
+//                            userSkills.$push(skill);
+//
+//                    }
+//                }
+//
+//                return userSkills;
+//            })
+//    });
 
 userSchema.methods.validPassword = function (pwd) {
     return ( this.password === pwd );

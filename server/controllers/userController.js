@@ -3,12 +3,8 @@
 var passport = require('passport')
     , User     = require('../models/user')
     , UserService = require('../services/userService')
-    , Cv       = require('../models/cv')
-    , Company  = require('../models/company')
     ;
 
-var rp = require('request-promise');
-var config = require('../config');
 
 /***********
  * Public
@@ -143,66 +139,6 @@ function register(req, res) {
             return res.json(500, err);
         }
     );
-}
-
-function analyzeCv(fileName, fileData) {
-
-    var formData = {
-        name: fileName,
-        file: fileData
-    }
-
-    var options = {
-        method: 'POST',
-        uri: config.docParserUrl,
-        formData: formData,
-        headers: {
-            'content-type': 'multipart/form-data' // Set automatically
-        }
-    };
-
-    return rp(options)
-        .then(function (body) {
-            if (body) {
-                var data = JSON.parse(body);
-                if (data) {
-                    return data.keywords;
-                }
-            }
-            return null;
-        })
-        .catch(function (err) {
-            console.log(err);
-        });
-}
-
-function upload(req, res) {
-    var userId = req.params.id;
-    var data = JSON.parse(req.body.data);
-    var fileName = data.fileName;
-    var fileData = data.data;
-
-    return UserService.getUser(userId)
-        .then(function (user) {
-
-            return analyzeCv(fileName, fileData)
-                .then(function (skills) {
-                    if (user === undefined || user == null) {
-                        //saveAnonymizeCv(fileData, skills);
-                        return;
-                    }
-
-                    user.cv = fileData;
-                    user.fileName = fileName;
-                    user.skills = skills;
-
-                    return UserService.updateUser(user)
-                        .then(function (user) {
-                            //saveCv(user, fileData, skills);
-                            return res.send(user.skills);
-                        });
-                });
-        });
 }
 
 function logout(req, res) {

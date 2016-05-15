@@ -12,7 +12,7 @@ var Company          = require('../models/company')
     , Jobs           = require('./jobController.js')
     , utils          = require('../utils/utils')
     , fs             = require('fs')
-    , googleApis     = require('../googleApis')
+    , googleApis     = require('../api/googleApis')
     , mailService     = require('../mail');
 
 module.exports = {

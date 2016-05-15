@@ -9,6 +9,7 @@ var express = require('express')
 	, passport = require('passport')
 	, userController = require('./server/controllers/userController')
 	, jobController = require('./server/controllers/jobController')
+	, cvController = require('./server/controllers/cvController')
 	, mail = require('./server/mail')
 	, companyController = require('./server/controllers/companyController')
 	, dataProxy = require('./server/controllers/dataProxy')
@@ -100,6 +101,11 @@ app.delete('/api/job/:id', jobController.deleteJob)
 app.get('*', function (req, res) {
 	res.sendFile(path.join(clientDir, 'index.html'))
 })
+
+// CVs
+app.get('/api/cv/:id', cvController.getCv)
+app.post('/api/cv', cvController.createCv)
+app.delete('/api/cv/:id', cvController.deleteCv)
 
 app.listen(app.get('port'), function () {
 	log("Express server listening on port " + app.get('port'));
