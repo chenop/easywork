@@ -33,7 +33,7 @@ function createCv(req, res) {
 }
 
 function getCv(req, res) {
-    var id = req.params.Id;
+    var id = req.params.id;
 
     return CvService.getCv(id)
         .then(function success(cv) {

@@ -12,6 +12,7 @@ var mongoose = require('mongoose');
 var CompanyModel = require('../server/models/company');
 var UserModel = require('../server/models/user');
 var JobModel = require('../server/models/job');
+var CvModel = require('../server/models/cv');
 
 // ensure the NODE_ENV is set to 'test'
 // this is helpful when you would like to change behavior when testing
@@ -34,7 +35,8 @@ beforeEach(function (done) {
         var promises = [
             CompanyModel.remove().exec(),
             UserModel.remove().exec(),
-            JobModel.remove().exec()
+            JobModel.remove().exec(),
+            CvModel.remove().exec()
         ];
 
         Promise.all(promises)
@@ -99,9 +101,19 @@ function createMockedCompanyPlainObject(name) {
     return newCompany;
 }
 
+function createMockedCvPlainObject(skills) {
+    var newCv = {
+        fileName: "cv.doc"
+        , skills: skills
+    }
+
+    return newCv;
+}
+
 module.exports = {
     createMockedUserPlainObject: createMockedUserPlainObject
     , createMockedJobPlainObject: createMockedJobPlainObject
     , createMockedCompanyPlainObject: createMockedCompanyPlainObject
+    , createMockedCvPlainObject: createMockedCvPlainObject
     , TIMEOUT: TIMEOUT
 }

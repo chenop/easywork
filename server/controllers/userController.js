@@ -17,7 +17,6 @@ module.exports = {
     , getUsers: getUsers
     , updateUser: updateUser
     , register: register
-    , upload: upload
     , deleteUser: deleteUser
     , deleteCV: deleteCV
 }

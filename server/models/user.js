@@ -17,7 +17,7 @@ var userSchema = new Schema({
     , experience: String
     , message: String
     , role: Object
-    , cv : Buffer // TODO should be array of CV
+    , cv : { type: Schema.Types.ObjectId, ref: 'Cv'} // TODO should be array of CV
     , fileName: String
     , skills: [String]
     , company: { type: Schema.Types.ObjectId, ref: 'Company'}

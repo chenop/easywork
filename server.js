@@ -104,8 +104,6 @@ app.get('*', function (req, res) {
 app.get('/api/cv/:id', cvController.getCv)
 app.post('/api/cv', cvController.createCv)
 app.delete('/api/cv/:id', cvController.deleteCv)
-app.post('/api/user/cv-upload/:id', userController.upload)
-app.post('/api/user/cv-delete/:id', userController.deleteCV)
 
 app.listen(app.get('port'), function () {
 	log("Express server listening on port " + app.get('port'));

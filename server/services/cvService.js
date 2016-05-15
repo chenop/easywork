@@ -10,6 +10,8 @@ var Cv = require('../models/cv');
 module.exports = {
     createCv: createCv
     , getCv: getCv
+    , getCvs: getCvs
+    , updateCv: updateCv
     , deleteCv: deleteCv
 }
 
@@ -35,6 +37,15 @@ function createCvInstance(cv) {
 
     return newCv;
 }
+
+function updateCv(cv) {
+    var cvInstance = createCvInstance(cv);
+    cvInstance._id = cv._id;
+
+    var upsertCv = cvInstance.toObject();
+    return Cv.findOneAndUpdate({'_id': cv._id}, upsertCv, {upsert: true, new: true}).exec();
+}
+
 
 function deleteCv(id) {
     return Cv.findById(id).exec()
