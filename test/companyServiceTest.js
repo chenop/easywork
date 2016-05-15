@@ -140,7 +140,7 @@ describe('Company service', function () {
     })
     describe("publish", function() {
         describe("Given a new created company", function () {
-            it.only("publish should be true by default unless it was set", function () {
+            it("publish should be true by default unless it was set", function () {
                 var mockCompany = utils.createMockedCompanyPlainObject("Toluna");
                 var createdCompany;
 
