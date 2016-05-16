@@ -121,11 +121,12 @@ angular.module('easywork')
                 event.preventDefault();
             }
 
-            // TODO delete the cv id not the activeUserId
-            var activeUserId = appManager.getActiveUserId();
-            if (!activeUserId)
+            // TODO delete the cv id not the activeUser
+            var activeUser = appManager.getActiveUser();
+            if (!activeUser)
                 return;
-            $http.delete('/api/cv/' + activeUserId)
+
+            $http.delete('/api/cv/' + activeUser.cv)
                 .success(function(user) {
                     $scope.user = user;
                 })

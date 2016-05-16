@@ -13,6 +13,7 @@ module.exports = {
     , deleteUser: deleteUser
     , getUser: getUser
     , getUsers: getUsers
+    , deleteCv: deleteCv
 }
 
 /***********
@@ -66,3 +67,10 @@ function getUsers() {
     return User.find().exec();
 }
 
+function deleteCv(userId) {
+    return getUser(userId)
+        .then(function(user) {
+            delete user.cv;
+            return updateUser(user)
+        });
+}

@@ -16,25 +16,26 @@ angular.module('easywork')
 
                 function OnCvDataChanged(fileName, fileData, skills) {
                     scope.data = {
-                            fileName: fileName,
-                            fileData: fileData,
-                            skills: skills
-                        };
-                    $localForage.setItem(userId, scope.data );
+                        user: userId,
+                        fileName: fileName,
+                        fileData: fileData,
+                        skills: skills
+                    };
+                    $localForage.setItem(userId, scope.data);
                 }
 
+                // TODO chen this part use the old parser - use the createCv and get the skills!
                 scope.onFileSelect = function ($files) {
                     var file = $files[0];
-                        cvParser.parseCV(file).
-                            then(function (skills) {
-                                var fileReader = new FileReader();
-                                fileReader.readAsDataURL(file); // Reading the file as base64
-                                fileReader.onload = function (e) {
-                                    scope.$apply(function () {
-                                        OnCvDataChanged(file.name,  e.target.result, skills);
-                                    });
-                                }
-                            })
+                    cvParser.parseCV(file).then(function (skills) {
+                        var fileReader = new FileReader();
+                        fileReader.readAsDataURL(file); // Reading the file as base64
+                        fileReader.onload = function (e) {
+                            scope.$apply(function () {
+                                OnCvDataChanged(file.name, e.target.result, skills);
+                            });
+                        }
+                    })
 
                 }
 

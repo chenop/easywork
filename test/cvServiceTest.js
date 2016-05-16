@@ -4,23 +4,30 @@
 'use strict';
 
 var CvService = require('../server/services/cvService');
+var UserService = require('../server/services/userService');
 var CvModel = require('../server/models/cv');
 var utils = require('./testUtils');
 var should = require('chai').should();
 
-describe('Cv service', function () {
+describe.only('Cv service', function () {
     this.timeout(utils.TIMEOUT);
     describe('CRUD operations', function () {
         describe('Create', function () {
             it('should return the CV after created', function () {
                 var newCv = utils.createMockedCvPlainObject(["GUI", "JavaScript"]);
+                var newUser = utils.createMockedUserPlainObject();
 
-                return CvService.createCv(newCv)
-                    .then(function (createdCv) {
-                        // verify that the returned cv is what we expect
-                        //createdCv.skills.should.not('Toluna');
-                        createdCv.fileName.should.equal('cv.doc');
-                    });
+                return UserService.createUser(newUser)
+                    .then(function(user) {
+                        newCv.user = user;
+                        return CvService.createCv(newCv)
+                            .then(function (createdCv) {
+                                // verify that the returned cv is what we expect
+                                //createdCv.skills.should.not('Toluna');
+                                createdCv.fileName.should.equal('cv.doc');
+                                createdCv.user.should.to.not.be.null;
+                            });
+                    })
             });
         });
 
