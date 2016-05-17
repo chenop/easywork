@@ -16,7 +16,7 @@ module.exports = {
 }
 
 function createCv(req, res) {
-    var cv = JSON.parse(req.body.data);
+    var cv = req.body.cv;
     var fileName = cv.fileName;
     var fileData = cv.data;
 

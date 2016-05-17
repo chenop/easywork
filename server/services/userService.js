@@ -43,6 +43,7 @@ function createUserInstance(user) {
             , experience: user.experience
             , message: user.message
             , skills: user.skills
+            , cv: user.cv
         }
     );
 

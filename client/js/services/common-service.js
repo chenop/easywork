@@ -12,7 +12,8 @@ angular.module('easywork')
             {
                 JOB: {value: 0, name: "job"},
                 COMPANY: {value: 1, name: "company"},
-                USER: {value: 2, name: "user"}
+                USER: {value: 2, name: "user"},
+                CV: {value: 3, name: "cv"}
             };
 
         function openYesNoModal(text, yesCallBack) {
