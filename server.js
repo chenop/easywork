@@ -96,14 +96,16 @@ app.get('/api/job/:id', jobController.getJob)
 app.post('/api/job', jobController.createJob)
 app.put('/api/job/:id', jobController.updateJob)
 app.delete('/api/job/:id', jobController.deleteJob)
-app.get('*', function (req, res) {
-	res.sendFile(path.join(clientDir, 'index.html'))
-})
 
 // CVs
+app.get('/api/cv/list', cvController.getCvs)
 app.get('/api/cv/:id', cvController.getCv)
 app.post('/api/cv', cvController.createCv)
 app.delete('/api/cv/:id', cvController.deleteCv)
+
+app.get('*', function (req, res) {
+	res.sendFile(path.join(clientDir, 'index.html'))
+})
 
 app.listen(app.get('port'), function () {
 	log("Express server listening on port " + app.get('port'));

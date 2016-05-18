@@ -60,10 +60,10 @@ angular.module('easywork')
 
         var getUsers = function() {
             return getEntities(common.CONTENT_TYPE.USER);
-                //.then(function(entities) {
-                //    users = entities;
-                //    return users;
-                //});;
+        }
+
+        var getCvs = function() {
+            return getEntities(common.CONTENT_TYPE.CV);
         }
 
         var getCompany = function (id) {
@@ -87,6 +87,10 @@ angular.module('easywork')
 
         var getUser = function(id) {
             return getEntity(common.CONTENT_TYPE.USER, id);
+        }
+
+        var getCv = function(id) {
+            return getEntity(common.CONTENT_TYPE.CV, id);
         }
 
         var createCompany = function(company) {
@@ -354,6 +358,8 @@ angular.module('easywork')
             // Cvs
             , createCv: createCv
             , deleteCv: deleteCv
+            , getCv: getCv
+            , getCvs: getCvs
 
             , getAllJobs: getAllJobs
             , prepareBase64ImgSrc: prepareBase64ImgSrc

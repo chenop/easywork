@@ -56,28 +56,33 @@ angular.module('easywork')
 
                 case common.CONTENT_TYPE.JOB.name:
                     getJobs().then(function(entites) {
-                        $scope.entities = entites;
-                        appManager.setCurrentContentType(common.CONTENT_TYPE.JOB);
-                        handleSelection(nextEntityIdToSelect);
+                        onEntitiesFetch(common.CONTENT_TYPE.JOB, entites, nextEntityIdToSelect);
                     });
                     break;
 
                 case common.CONTENT_TYPE.COMPANY.name:
                     getCompanies().then(function(entites) {
-                        $scope.entities = entites;
-                        appManager.setCurrentContentType(common.CONTENT_TYPE.COMPANY);
-                        handleSelection(nextEntityIdToSelect);
+                        onEntitiesFetch(common.CONTENT_TYPE.COMPANY, entites, nextEntityIdToSelect);
                     });
                     break;
 
                 case common.CONTENT_TYPE.USER.name:
                     getUsers().then(function(entites) {
-                        $scope.entities = entites;
-                        appManager.setCurrentContentType(common.CONTENT_TYPE.USER);
-                        handleSelection(nextEntityIdToSelect);
+                        onEntitiesFetch(common.CONTENT_TYPE.USER, entites, nextEntityIdToSelect);
+                    });
+                    break;
+                case common.CONTENT_TYPE.CV.name:
+                    getCvs().then(function(entites) {
+                        onEntitiesFetch(common.CONTENT_TYPE.CV, entites, nextEntityIdToSelect);
                     });
                     break;
             }
+        }
+
+        function onEntitiesFetch(entityType, entites, nextEntityIdToSelect) {
+            $scope.entities = entites;
+            appManager.setCurrentContentType(entityType);
+            handleSelection(nextEntityIdToSelect);
         }
 
         function getCompanies() {
@@ -96,6 +101,10 @@ angular.module('easywork')
 
         function getUsers() {
             return dataManager.getUsers();
+        };
+
+        function getCvs() {
+            return dataManager.getCvs();
         };
 
         $scope.$on('deleteEntityClicked', function (event, entity) {
@@ -160,6 +169,8 @@ angular.module('easywork')
         })
 
         $scope.getDisplayName = function(entity) {
+            if (entity.skills)
+                return entity._id;
             return entity.name ? entity.name : entity.email;
         }
    });

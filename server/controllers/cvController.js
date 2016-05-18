@@ -12,6 +12,7 @@ var docParserApi = require('../api/docParserApi');
 module.exports = {
     createCv: createCv
     , getCv: getCv
+    , getCvs: getCvs
     , deleteCv: deleteCv
 }
 
@@ -69,4 +70,15 @@ function deleteCv(req, res) {
                     }
                 );
         });
+}
+
+function getCvs(req, res) {
+    return CvService.getCvs()
+        .then(function success(Cvs) {
+            return res.send(Cvs);
+        },
+        function error(err) {
+            return res.json(500, err);
+        }
+    );
 }

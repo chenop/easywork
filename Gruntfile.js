@@ -71,6 +71,7 @@ module.exports = function (grunt) {
         , 'client/js/controllers/send-cv-dialog-controller.js'
         , 'client/js/controllers/yesNoModal-controller.js'
         , 'client/js/controllers/unsuscribe-controller.js'
+        , 'client/js/controllers/cv-controller.js'
 
         , 'client/js/services/app-manager-service.js'
         , 'client/js/controllers/login-controller.js'

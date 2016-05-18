@@ -1,8 +1,11 @@
 <div class="send-cv-container">
     <upload-cv user-id="userId" cv="cvData"></upload-cv>
-    <button class="btn btn-lg btn-default align-middle"
-            ng-click="close()">סגור</button>
-    <button class="btn btn-lg btn-primary align-middle"
-            ng-disabled="!isSendEnable()" ng-click="sendCV()">שלח קו"ח
-    </button>
+    <btn-group inline class="buttonsContainer">
+        <div class="btn btn-lg btn-default align-middle"
+                ng-click="close()">סגור
+        </div>
+        <div class="btn btn-lg btn-primary align-middle"
+                ng-disabled="!isSendEnable()" ng-click="sendCV()">שלח קו"ח
+        </div>
+    </btn-group>
 </div>

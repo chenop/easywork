@@ -38,6 +38,8 @@ angular.module('easywork')
                     return common.CONTENT_TYPE.JOB;
                 case common.CONTENT_TYPE.USER.name:
                     return common.CONTENT_TYPE.USER;
+                case common.CONTENT_TYPE.CV.name:
+                    return common.CONTENT_TYPE.CV;
             }
         }
     }

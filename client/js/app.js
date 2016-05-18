@@ -63,6 +63,11 @@ app.config(
                 templateUrl: "/views/users/user.html",
                 isDashboard: true
             })
+            .state('dashboard.list.cv', {
+                url: "/cv/:entityId",
+                templateUrl: "/views/cvs/cv.html",
+                isDashboard: true
+            })
             .state('dashboard.list.empty', {
                 url: "/list/empty",
                 templateUrl: "/views/admin/empty.html"

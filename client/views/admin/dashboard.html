@@ -23,6 +23,13 @@
                     <!--Users-->
                     <i class="glyphicon glyphicon-user"><div class="hidden-xs hidden-sm hidden-md dashboard-entity-type">משתמשים</div></i>
                 </button>
+                <button ng-class="{ 'active' : contentType.value == '3' }"
+                        ng-click="contentTypeSelected('cv')"
+                        access-level="admin" type="button" class="btn btn-default"
+                        data-toggle="tooltip" data-original-title="Cvs">
+                    <!--Users-->
+                    <i class="glyphicon glyphicon-file"><div class="hidden-xs hidden-sm hidden-md dashboard-entity-type">קו"ח</div></i>
+                </button>
             </div>
             <div class="col-sm-6 btn-group">
                 <button class="btn btn-primary"
