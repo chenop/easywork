@@ -1,10 +1,10 @@
 <div class="modal-body">
     <div class="row">
-        <div class="form-group" ng-class="{ 'has-error' : !data.skills}">
+        <div class="form-group" ng-class="{ 'has-error' : !cv.skills}">
             <label class="col-sm-3 control-label">קורות חיים</label>
 
             <div class="emphasize-border col-sm-9 btn btn-default" ng-file-select="onFileSelect($files)">
-                <div ng-show="data.skills" class="upload-file-skills align-left">
+                <div ng-show="cv.skills" class="upload-file-skills align-left">
                     <div class="col-sm-3">
                         <img class="center-element" style="max-height: 150px ; max-width: 150px;"
                              src="https://cdn0.iconfinder.com/data/icons/files-documents-outline/512/oYPS__file_document_CV_resume_resume_curriculum_vitae_sheet_paper_page-64.png"/>
@@ -16,12 +16,12 @@
                         Skills found:
                         <ul>
                             <li style="display: block" class="glyphicon glyphicon-star"
-                                ng-repeat="skill in data.skills">{{skill}}
+                                ng-repeat="skill in cv.skills">{{skill}}
                             </li>
                         </ul>
                     </div>
                 </div>
-                <div ng-show="!data.skills">
+                <div ng-show="!cv.skills">
                     <div class="col-sm-3">
                         <img style="max-height: 150px ; max-width: 150px"
                              src="https://cdn2.iconfinder.com/data/icons/picons-basic-2/57/basic2-036_cloud_upload-64.png"/>

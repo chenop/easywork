@@ -15,16 +15,15 @@ angular.module('easywork')
                 var userId = scope.userId();
 
                 function OnCvDataChanged(fileName, fileData, skills) {
-                    scope.data = {
+                    scope.cv = {
                         user: userId,
                         fileName: fileName,
                         fileData: fileData,
                         skills: skills
                     };
-                    $localForage.setItem(userId, scope.data);
+                    $localForage.setItem(userId, scope.cv);
                 }
 
-                // TODO chen this part use the old parser - use the createCv and get the skills!
                 scope.onFileSelect = function ($files) {
                     var file = $files[0];
                     var fileReader = new FileReader();
@@ -39,28 +38,21 @@ angular.module('easywork')
                         }
                         dataManager.createCv(cv)
                             .then(function(createdCv) {
-                                scope.data = createdCv.data;
-                                $localForage.setItem(userId, createdCv.data);
+                                scope.cv = createdCv.cv;
+                                $localForage.setItem(userId, createdCv.cv);
                             });
                     };
                     fileReader.readAsDataURL(file); // Reading the file as base64
                 }
 
                 scope.deleteCV = function (event) {
-                    OnCvDataChanged(null, null, null);
-
                     if (event) {
                         event.stopPropagation();
                         event.preventDefault();
                     }
 
-                    //var activeUserId = appManager.getActiveUserId();
-                    //if (!activeUserId)
-                    //    return;
-                    //$http.post('/api/user/cv-delete/' + activeUserId)
-                    //    .success(function(user) {
-                    //        $scope.user = user;
-                    //    });
+                    dataManager.deleteCv($scope.cv)
+                    $scope.cv = null;
                 }
 
             }

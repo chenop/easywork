@@ -117,6 +117,10 @@ angular.module('easywork')
             return deleteEntity(common.CONTENT_TYPE.USER, id);
         }
 
+         var deleteCv = function(id) {
+            return deleteEntity(common.CONTENT_TYPE.CV, id);
+        }
+
         var updateCompany = function(entity) {
             return updateEntity(common.CONTENT_TYPE.COMPANY, entity)
         }
@@ -349,8 +353,7 @@ angular.module('easywork')
 
             // Cvs
             , createCv: createCv
-            , createEntity: createEntity
-            , deleteEntity: deleteEntity
+            , deleteCv: deleteCv
 
             , getAllJobs: getAllJobs
             , prepareBase64ImgSrc: prepareBase64ImgSrc
