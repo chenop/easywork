@@ -7,26 +7,47 @@ angular.module('easywork')
         return {
             restrict: 'EA',
             scope: {
-                data: "=",
+                cv: "=",
                 userId: "&"
             },
             templateUrl: '/views/users/uploadCv.html',
             link: function (scope, element, attrs) {
+                scope.STATUS = {
+                    NO_CV: 0,
+                    UPLOADING_CV: 1,
+                    GOT_CV: 2
+                }
+
+                initCvData();
                 var userId = scope.userId();
 
-                function OnCvDataChanged(fileName, fileData, skills) {
-                    scope.cv = {
-                        user: userId,
-                        fileName: fileName,
-                        fileData: fileData,
-                        skills: skills
-                    };
+                function initCvData() {
+                    // todo if (isLoggedIn) {  $scope.cvData = user.cvData; return; };
+                    $localForage.getItem(scope.userId())
+                        .then(function (cv) {
+                            if (cv) {
+                                scope.cv = {
+                                    fileName: cv.fileName,
+                                    fileData: cv.fileData,
+                                    skills: cv.skills
+                                };
+                            }
+
+                            scope.status = (scope.cv) ? scope.STATUS.GOT_CV : scope.STATUS.NO_CV;
+                        });
+                }
+
+
+                function OnCvDataChanged(cv) {
+                    scope.cv = cv;
                     $localForage.setItem(userId, scope.cv);
+                    scope.status = (scope.cv) ? scope.STATUS.GOT_CV : scope.STATUS.NO_CV;
                 }
 
                 scope.onFileSelect = function ($files) {
                     var file = $files[0];
                     var fileReader = new FileReader();
+                    scope.status = scope.STATUS.UPLOADING_CV;
                     fileReader.onload = function (e) {
                         var fileName = file.name;
                         var fileData = e.target.result;
@@ -38,8 +59,7 @@ angular.module('easywork')
                         }
                         dataManager.createCv(cv)
                             .then(function(createdCv) {
-                                scope.cv = createdCv.cv;
-                                $localForage.setItem(userId, createdCv.cv);
+                                OnCvDataChanged(createdCv.data);
                             });
                     };
                     fileReader.readAsDataURL(file); // Reading the file as base64
@@ -51,8 +71,8 @@ angular.module('easywork')
                         event.preventDefault();
                     }
 
-                    dataManager.deleteCv($scope.cv)
-                    $scope.cv = null;
+                    dataManager.deleteCv(scope.cv)
+                    OnCvDataChanged(null);
                 }
 
             }
