@@ -68,7 +68,6 @@ angular.module('easywork')
                 data: {
                     userId: activeUserId,
                     fileData: fileData, // File as base64
-                    //skills: skills,
                     fileName: fileName
                 }
             }).progress(function (evt) {
