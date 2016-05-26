@@ -3,7 +3,7 @@
         <div class="form-group" ng-class="{ 'has-error' : !cv.skills}">
             <label class="col-sm-3 control-label">קורות חיים</label>
 
-            <div class="emphasize-border col-sm-9 btn btn-default" ng-file-select="onFileSelect($files)">
+            <div class="emphasize-border col-sm-9 btn btn-default" ngf-select="onFileSelect($file)">
                 <div ng-show="status === STATUS.GOT_CV" class="upload-file-skills align-left">
                     <div class="col-sm-3">
                         <i class="fa  fa-file-text fa-4x text-gray"></i>

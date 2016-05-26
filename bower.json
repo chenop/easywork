@@ -19,7 +19,7 @@
     "angular-ui-select2": "~0.0.4",
     "bootstrap-rtl": "latest",
     "json3": "~3.2.4",
-    "ng-file-upload": "~3",
+    "ng-file-upload": "latest",
     "jasny-bootstrap": "~3.1.0",
     "bootstrap-sass": "~3.3.3",
     "localforage": "latest",

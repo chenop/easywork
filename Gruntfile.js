@@ -17,7 +17,7 @@ module.exports = function (grunt) {
         'client/lib/jquery/dist/jquery.min.js'
         , 'client/lib/bootstrap-rtl/dist/js/html5shiv.js'
         , 'client/lib/bootstrap-rtl/dist/js/respond.min.js'
-        , 'client/lib/ng-file-upload/angular-file-upload-shim.min.js'
+        , 'client/lib/ng-file-upload/ng-file-upload-shim.min.js'
 
         // Angular
         , 'client/lib/angular/angular.js'
@@ -40,7 +40,7 @@ module.exports = function (grunt) {
         , 'client/lib/docx/docx.js'
 
         // File Upload - - danial.farid
-        , 'client/lib/ng-file-upload/angular-file-upload.js'
+        , 'client/lib/ng-file-upload/ng-file-upload.js'
 
         , 'client/lib/bootstrap-rtl/dist/js/holder.js'
 
@@ -72,16 +72,17 @@ module.exports = function (grunt) {
         , 'client/js/controllers/yesNoModal-controller.js'
         , 'client/js/controllers/unsuscribe-controller.js'
         , 'client/js/controllers/cv-controller.js'
-
-        , 'client/js/services/app-manager-service.js'
         , 'client/js/controllers/login-controller.js'
         , 'client/js/controllers/register-controller.js'
+
+        , 'client/js/services/app-manager-service.js'
         , 'client/js/services/data-manager-service.js'
         , 'client/js/services/auth-service.js'
         , 'client/js/services/mail-service.js'
         , 'client/js/services/cv-parser.js'
         , 'client/js/services/common-service.js'
         , 'client/js/services/utils-services.js'
+        , 'client/js/services/cv-service.js'
 
         , 'client/js/models/job.js'
         , 'client/js/models/modelTransformer.js'
@@ -179,7 +180,7 @@ module.exports = function (grunt) {
         watch: { // Watch for file changes
             scripts: {
                 files: ['client/js/**/*.js', 'client/views/**/*.html', 'client/css/**/*.css', 'client/dist/*.*'],
-                //tasks: ['default'],
+                tasks: ['dev'],
                 options: {
                     livereload: true,
                 },
@@ -261,7 +262,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-    grunt.registerTask('default', ['express:dev', 'open', 'watch']);
+    grunt.registerTask('default', ['express:dev', 'watch']);
     grunt.registerTask('dev', ['template', 'default']);
     grunt.registerTask('prod', ['clean', 'template', 'cssmin', 'ngAnnotate', 'uglify:prod']);
     // grunt.registerTask('runTemplate', ['clean', 'template']);

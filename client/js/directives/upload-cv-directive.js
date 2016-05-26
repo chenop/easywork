@@ -3,7 +3,7 @@
  */
 
 angular.module('easywork')
-    .directive('uploadCv', function (cvParser, dataManager, $upload, $localForage) {
+    .directive('uploadCv', function (cvService, dataManager, Upload, $localForage) {
         return {
             restrict: 'EA',
             scope: {
@@ -44,25 +44,11 @@ angular.module('easywork')
                     scope.status = (scope.cv) ? scope.STATUS.GOT_CV : scope.STATUS.NO_CV;
                 }
 
-                scope.onFileSelect = function ($files) {
-                    var file = $files[0];
-                    var fileReader = new FileReader();
-                    scope.status = scope.STATUS.UPLOADING_CV;
-                    fileReader.onload = function (e) {
-                        var fileName = file.name;
-                        var fileData = e.target.result;
-                        
-                        var cv = {
-                            user: userId,
-                            fileName: fileName,
-                            fileData: fileData,
-                        }
-                        dataManager.createCv(cv)
-                            .then(function(createdCv) {
-                                OnCvDataChanged(createdCv.data);
-                            });
-                    };
-                    fileReader.readAsDataURL(file); // Reading the file as base64
+                scope.onFileSelect = function (file) {
+                    cvService.uploadFile(file)
+                        .then(function(createdCv) {
+                            OnCvDataChanged(createdCv);
+                        });
                 }
 
                 scope.deleteCV = function (event) {

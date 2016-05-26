@@ -15,18 +15,15 @@ exports.sendMail = function (req, res) {
     var cvData = data.cvData;
     var companies = data.selectedCompanies;
 
-    saveCV(userId, cvData)
+    return UserController.getUser(userId)
         .then(function (user) {
-            return UserController.getUser(userId)
-                .then(function(user) {
-                    if (user) {
-                        sendUserCVToCompanies(user, companies, cvData);
-                        sendSummaryToUser(user, companies, cvData);
-                    } else {
-                        sendAnonymizeUserCVToCompanies(companies, cvData);
-                    }
-                })
-        });
+            if (user) {
+                sendUserCVToCompanies(user, companies, cvData);
+                sendSummaryToUser(user, companies, cvData);
+            } else {
+                sendAnonymizeUserCVToCompanies(companies, cvData);
+            }
+        })
 }
 
 function saveCV(userId, cvData) {

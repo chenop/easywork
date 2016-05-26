@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-	.factory('mailService', function ($http, authService, $upload) {
+	.factory('mailService', function ($http, authService, Upload) {
 
 		var sendMail = function (selectedCompanies, cvData) {
 			var activeUser = authService.getActiveUser();
@@ -20,25 +20,22 @@ angular.module('easywork')
 
             if (!activeUserId)
                 activeUserId = "";
-            var upload = $upload.upload({
-                url: '/api/sendMail/' + activeUserId, //upload.php script, node.js route, or servlet url
-                method: 'POST',
-                data: {
-                    cvData: cvData,
-                    selectedCompanies: selectedCompanies
-                }
-            }).progress(function (evt) {
+				return Upload.upload({
+					url: '/api/sendMail/' + activeUserId, //upload.php script, node.js route, or servlet url
+					method: 'POST',
+					data: {
+						cvData: cvData,
+						selectedCompanies: selectedCompanies
+					}
+				}).progress(function (evt) {
 //                 console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-            }).success(function (skills, status, headers, config) {
+				}).success(function (skills, status, headers, config) {
 //                 console.log("skills: " + skills);
-                return skills;
-            }).error(function (err) {
-                console.log("upload finish with err" + err);
-            });
-            return upload;
+					return skills;
+				}).error(function (err) {
+					console.log("upload finish with err" + err);
+				});
         }
-
-
 
         return {
 			sendMail: sendMail

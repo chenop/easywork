@@ -17,9 +17,11 @@ module.exports = {
 }
 
 function createCv(req, res) {
-    var cv = req.body.cv;
-    var fileName = cv.fileName;
-    var fileData = cv.data;
+    var file = req.files.file;
+    var cv = {
+        fileData: req.body.data
+        , fileName: file.originalname
+    }
 
     return docParserApi.analyzeCv(cv.fileName, cv.fileData)
         .then(function(skills) {
@@ -27,6 +29,9 @@ function createCv(req, res) {
             return CvService.createCv(cv);
         })
         .then(function(cv) {
+            if (!cv || !cv.user) // user is not defined, just return the cv
+                return cv;
+
             return UserService.getUser(cv.user)
                 .then(function(user) {
                     user.cv = cv;
