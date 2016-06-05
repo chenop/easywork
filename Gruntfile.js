@@ -41,6 +41,7 @@ module.exports = function (grunt) {
 
         // File Upload - - danial.farid
         , 'client/lib/ng-file-upload/ng-file-upload.js'
+        , 'client/lib/angular-file-saver/dist/angular-file-saver.bundle.js'
 
         , 'client/lib/bootstrap-rtl/dist/js/holder.js'
 

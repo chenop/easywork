@@ -2,7 +2,7 @@
 
 
 angular.module('easywork')
-    .controller('CompanyCtrl', function ($scope, $upload, $http, appManager, dataManager, $timeout, $state, $stateParams, $uibModal, debounce) {
+    .controller('CompanyCtrl', function ($scope, Upload, $http, appManager, dataManager, $timeout, $state, $stateParams, $uibModal, debounce) {
         function isDefined(value){return typeof value !== 'undefined';}
 
         $scope.publish = false;
@@ -50,7 +50,7 @@ angular.module('easywork')
             var fileReader = new FileReader();
             fileReader.readAsDataURL(file); // Reading the image as base64
             fileReader.onload = function (e) {
-                $scope.upload = $upload.upload({
+                $scope.upload = Upload.upload({
                     url: './api/company/logo-upload/' + $scope.company._id,
                     method: 'POST',
                     data: e.target.result // Image as base64

@@ -54,7 +54,7 @@ function getCompanies (req, res) {
             return res.send(companies);
         },
         function error(err) {
-            return res.json(500, err);
+            return res.status(500).json(err);
         }
     );
 };

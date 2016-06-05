@@ -79,8 +79,8 @@ function deleteCv(req, res) {
 
 function getCvs(req, res) {
     return CvService.getCvs()
-        .then(function success(Cvs) {
-            return res.send(Cvs);
+        .then(function success(cvs) {
+            return res.send(cvs);
         },
         function error(err) {
             return res.json(500, err);

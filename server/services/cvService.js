@@ -26,10 +26,14 @@ function createCvInstance(cv) {
         return new Cv();
     }
 
+    var fileType = cv.fileData.split(',')[0];
+    var fileData = cv.fileData.split(',')[1];
+
     var newCv = new Cv(
         {
             user: cv.user
-            , fileData: cv.fileData
+            , fileData: new Buffer(fileData, "base64")
+            , fileType: fileType
             , fileName: cv.fileName
             , skills: cv.skills
         }

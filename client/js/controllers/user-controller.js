@@ -2,7 +2,7 @@
 
 angular.module('easywork')
     .controller('userDetailsCtrl'
-    , function ($scope, $upload, $http, appManager, authService, $location, cvParser, dataManager, $timeout, $state, $stateParams, debounce) {
+    , function ($scope, Upload, $http, appManager, authService, $location, cvParser, dataManager, $timeout, $state, $stateParams, debounce) {
 
         appManager.setDisplaySearchBarInHeader(false);
         $scope.user = {};
@@ -62,7 +62,7 @@ angular.module('easywork')
          * @param activeUserId
          */
         function sendCVToServer(fileName, fileData, activeUserId) {
-            $scope.upload = $upload.upload({
+            $scope.upload = Upload.upload({
                 url: '/api/cv', //upload.php script, node.js route, or servlet url
                 method: 'POST',
                 data: {

@@ -12,6 +12,7 @@ var app = angular.module('easywork',
         , 'ngAnimate'
         , 'LocalForageModule'
         , 'toaster'
+        , 'ngFileSaver'
     ]
 );
 
