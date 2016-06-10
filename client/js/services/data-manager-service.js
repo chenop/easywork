@@ -90,7 +90,10 @@ angular.module('easywork')
         }
 
         var getCv = function(id) {
-            return getEntity(common.CONTENT_TYPE.CV, id);
+            return getEntity(common.CONTENT_TYPE.CV, id)
+                .then(function(result) {
+                    return result.data;
+                });
         }
 
         var createCompany = function(company) {

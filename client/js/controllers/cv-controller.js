@@ -2,7 +2,7 @@
  * Created by Chen.Oppenhaim on 5/18/2016.
  */
 
-angular.module('easywork').controller('cvDetailsCtrl', function ($scope, appManager, $stateParams, FileSaver, Blob) {
+angular.module('easywork').controller('cvDetailsCtrl', function ($scope, appManager, dataManager, $stateParams, FileSaver, Blob) {
     var selectedEntity = appManager.getSelectedEntity();
     var entityId = $stateParams.entityId;
     refreshUser(selectedEntity);
@@ -39,7 +39,10 @@ angular.module('easywork').controller('cvDetailsCtrl', function ($scope, appMana
     }
 
     $scope.downloadCv = function () {
-        var blob = b64toBlob(selectedEntity.fileDataBase64, selectedEntity.fileType);
-        FileSaver.saveAs(blob, selectedEntity.fileName);
+        dataManager.getCv(entityId)
+            .then(function(cv) {
+                var blob = b64toBlob(cv.fileDataBase64, cv.fileType);
+                FileSaver.saveAs(blob, cv.fileName);
+            })
     }
 });
