@@ -17,7 +17,7 @@ module.exports = function (grunt) {
         'client/lib/jquery/dist/jquery.min.js'
         , 'client/lib/bootstrap-rtl/dist/js/html5shiv.js'
         , 'client/lib/bootstrap-rtl/dist/js/respond.min.js'
-        , 'client/lib/ng-file-upload/ng-file-upload-shim.min.js'
+        //, 'client/lib/ng-file-upload/ng-file-upload-shim.min.js'
 
         // Angular
         , 'client/lib/angular/angular.js'
