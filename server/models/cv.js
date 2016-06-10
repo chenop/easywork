@@ -28,6 +28,8 @@ var cvSchema = new Schema({
 );
 
 cvSchema.virtual('fileDataBase64').get(function () {
+    if (!this.fileData)
+        return;
     return this.fileData.toString("base64");
 });
 

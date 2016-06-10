@@ -142,6 +142,9 @@ angular.module('easywork')
             return $http.get('/api/' + entityType.name + '/list')
                 .then(function(result) {
                     return result.data;
+                },
+                function(err) {
+                    console.log(err);
                 });
         }
 

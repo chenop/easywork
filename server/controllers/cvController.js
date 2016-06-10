@@ -5,6 +5,7 @@
 var CvService = require('../services/cvService')
 var UserService = require('../services/userService')
 var docParserApi = require('../api/docParserApi');
+var Cv = require('../models/cv');
 
 /***********
  * Public
@@ -83,7 +84,7 @@ function getCvs(req, res) {
             return res.send(cvs);
         },
         function error(err) {
-            return res.json(500, err);
+            return res.status(500).json(err);
         }
     );
 }

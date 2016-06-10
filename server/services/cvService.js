@@ -66,7 +66,7 @@ function getCv(cvId) {
 }
 
 function getCvs() {
-    return Cv.find({}).exec();
+    return Cv.find({}).select('-fileData -fileType -fileDataBase64').exec();
 }
 
 
