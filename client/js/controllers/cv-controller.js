@@ -2,10 +2,21 @@
  * Created by Chen.Oppenhaim on 5/18/2016.
  */
 
-angular.module('easywork').controller('cvDetailsCtrl', function ($scope, appManager, dataManager, $stateParams, FileSaver, Blob) {
+angular.module('easywork').controller('cvDetailsCtrl', function ($scope, appManager, dataManager, $stateParams, FileSaver, Blob, $sce) {
     var selectedEntity = appManager.getSelectedEntity();
     var entityId = $stateParams.entityId;
-    refreshUser(selectedEntity);
+
+    //dataManager.getCv(entityId)
+    //    .then(function(cv) {
+    //        var blob = b64toBlob(cv.fileDataBase64, cv.fileType);
+    //        //var blob = new Blob([(cv.fileData)], {type: cv.fileType});
+    //        //FileSaver.saveAs(blob, cv.fileName);
+    //        var fileURL = URL.createObjectURL(blob);
+    //        $scope.content = $sce.trustAsResourceUrl(fileURL);
+    //        $scope.cv = cv;
+    //    })
+
+    //refreshUser(selectedEntity);
 
     function refreshUser(selectedEntity) {
         if (selectedEntity == null)
@@ -43,6 +54,10 @@ angular.module('easywork').controller('cvDetailsCtrl', function ($scope, appMana
             .then(function(cv) {
                 var blob = b64toBlob(cv.fileDataBase64, cv.fileType);
                 FileSaver.saveAs(blob, cv.fileName);
+                //var blob = new Blob([(cv.fileData)], {type: cv.fileType});
+                //FileSaver.saveAs(blob, cv.fileName);
+                //var fileURL = URL.createObjectURL(blob);
+                //$scope.content = $sce.trustAsResourceUrl(fileURL);
             })
     }
 });

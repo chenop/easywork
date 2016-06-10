@@ -99,6 +99,7 @@ app.delete('/api/job/:id', jobController.deleteJob)
 
 // CVs
 app.get('/api/cv/list', cvController.getCvs)
+app.get('/api/cv/download/:id', cvController.getCvFile)
 app.get('/api/cv/:id', cvController.getCv)
 app.post('/api/cv', cvController.createCv)
 app.delete('/api/cv/:id', cvController.deleteCv)

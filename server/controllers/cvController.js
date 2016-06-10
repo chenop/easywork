@@ -13,6 +13,7 @@ var Cv = require('../models/cv');
 module.exports = {
     createCv: createCv
     , getCv: getCv
+    , getCvFile: getCvFile
     , getCvs: getCvs
     , deleteCv: deleteCv
 }
@@ -46,6 +47,21 @@ function createCv(req, res) {
         function error(err) {
             return res.json(500, err);
         });
+}
+
+function getCvFile(req, res) {
+    var id = req.params.id;
+
+    return CvService.getCv(id)
+        .then(function success(cv) {
+                res.set('Content-Disposition', 'attachment; filename=' + cv.fileName);
+                res.contentType(cv.fileType);
+                return res.send(cv.fileData);
+            },
+            function error(err) {
+                return res.json(500, err);
+            });
+
 }
 
 function getCv(req, res) {

@@ -1,5 +1,6 @@
 <div class="jumbotron" ng-controller="cvDetailsCtrl">
     <pre>{{cv.skills}}</pre>
     <button ng-click="downloadCv()">Download CV</button>
-    <pre>{{cv.data}}</pre>
+    <!--<object ng-show="content" data="{{content}}" type="{{cv.fileType}}" style="width: 100%; height: 400px;"></object>-->
+    <!--<iframe src="/api/cv/download/{{cv._id}}&embedded=true" style="width:600px; height:500px;" frameborder="0"></iframe>-->
 </div>

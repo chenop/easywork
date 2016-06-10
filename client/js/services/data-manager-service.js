@@ -96,6 +96,10 @@ angular.module('easywork')
                 });
         }
 
+        var getCvFile = function(id) {
+            return $http.get('/api/cv/download/' + id, {responseType:'arraybuffer'});
+        }
+
         var createCompany = function(company) {
             return createEntity(common.CONTENT_TYPE.COMPANY, {company: company});
         }
@@ -365,6 +369,7 @@ angular.module('easywork')
             , createCv: createCv
             , deleteCv: deleteCv
             , getCv: getCv
+            , getCvFile: getCvFile
             , getCvs: getCvs
 
             , getAllJobs: getAllJobs
