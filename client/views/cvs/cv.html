@@ -1,5 +1,10 @@
-<div class="jumbotron" ng-controller="cvDetailsCtrl">
-    <pre>{{cv.skills}}</pre>
-    <button ng-click="downloadCv()">Download CV</button>
-    <iframe ng-src={{trustSrc(url)}} style="width:600px; height:500px;" frameborder="0"></iframe>
+<div class="jumbotron cv-view-container" ng-controller="cvDetailsCtrl">
+    <h3>מיומנויות</h3>
+    <ul>
+        <li ng-repeat="skill in cv.skills">{{skill}}</li>
+    </ul>
+    <button class="btn btn-block btn-primary download-cv-btn" ng-click="downloadCv()">Download CV</button>
+    <div >
+        <iframe ng-src={{trustSrc(url)}} class="iframe" frameborder="0"></iframe>
+    </div>
 </div>
