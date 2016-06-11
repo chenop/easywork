@@ -5,18 +5,13 @@
 angular.module('easywork').controller('cvDetailsCtrl', function ($scope, appManager, dataManager, $stateParams, FileSaver, Blob, $sce) {
     var selectedEntity = appManager.getSelectedEntity();
     var entityId = $stateParams.entityId;
+    $scope.url = "http://docs.google.com/gview?url=http://easywork.herokuapp.com/api/cv/download/" + entityId + "&embedded=true";
 
-    //dataManager.getCv(entityId)
-    //    .then(function(cv) {
-    //        var blob = b64toBlob(cv.fileDataBase64, cv.fileType);
-    //        //var blob = new Blob([(cv.fileData)], {type: cv.fileType});
-    //        //FileSaver.saveAs(blob, cv.fileName);
-    //        var fileURL = URL.createObjectURL(blob);
-    //        $scope.content = $sce.trustAsResourceUrl(fileURL);
-    //        $scope.cv = cv;
-    //    })
+    $scope.trustSrc = function(src) {
+        return $sce.trustAsResourceUrl(src);
+    }
 
-    //refreshUser(selectedEntity);
+    refreshUser(selectedEntity);
 
     function refreshUser(selectedEntity) {
         if (selectedEntity == null)
