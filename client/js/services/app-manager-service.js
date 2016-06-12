@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-	.factory('appManager', function (authService, common, $uibModal, $rootScope, toaster, mailService) {
+	.factory('appManager', function (authService, common, $uibModal, $rootScope, toaster, mailService, dataManager) {
 
         var selectedCompanies = [];
         var selectedTechnologies = [];
@@ -10,7 +10,6 @@ angular.module('easywork')
 		var displaySearchBarInHeader = true;
         var _selectedEntity;
         var currentContentType = common.CONTENT_TYPE.COMPANY;
-        var default_message = 'Hi,\nI am interested in open positions in your company.\nContact information can be found in my CV which is attached.\n\nBest Regards,\n';
 
         $rootScope.$on('dataChanged', function (event, entity) {
             handleActiveUser(entity);
@@ -147,6 +146,49 @@ angular.module('easywork')
             });
         }
 
+        function createEmptyEntity(contentTypeName) {
+            var entity;
+
+            switch (contentTypeName) {
+
+                case common.CONTENT_TYPE.JOB.name:
+                    var company = appManager.getActiveCompanyId();
+                    entity = dataManager.createEmptyJob(company)
+                    return createJob(entity);
+                case common.CONTENT_TYPE.COMPANY.name:
+                    entity = dataManager.createEmptyCompany()
+                    entity.ownerId = appManager.getActiveUserId();
+                    return createCompany(entity);
+                case common.CONTENT_TYPE.USER.name:
+                    entity = dataManager.createEmptyUser()
+                    return createUser(entity);
+            }
+        }
+
+        function getRelevantEntityId(isDashboard, entityId){
+                    if (isDashboard) {
+                        var selectedEntity = getSelectedEntity();
+                        entityId = selectedEntity._id;
+                    } else {
+                        entityId = (!entityId) ? getActiveUserId() : entityId;
+                        }
+                        return entityId;
+                    }
+
+        function getRelevantEntity(isDashboard, entityId, contentTypeName) {
+            entityId = getRelevantEntityId(isDashboard, entityId);
+
+            switch (contentTypeName) {
+
+                case common.CONTENT_TYPE.JOB.name:
+                    return dataManager.getJob(entityId);
+                case common.CONTENT_TYPE.COMPANY.name:
+                    return dataManager.getCompany(entityId);
+                case common.CONTENT_TYPE.USER.name:
+                    return dataManager.getUser(entityId);
+            }
+        }
+
         return {
 			shouldDisplaySearchBarInHeader: shouldDisplaySearchBarInHeader
 			, setDisplaySearchBarInHeader: setDisplaySearchBarInHeader
@@ -163,12 +205,14 @@ angular.module('easywork')
             , setSelectedEntity: setSelectedEntity
             , selectedEntity: _selectedEntity
             , getSelectedEntity: getSelectedEntity
-            , defaultMessage: default_message
             , getIndexOf: getIndexOf
             , getCurrentContentType: getCurrentContentType
             , setCurrentContentType: setCurrentContentType
             , isUserDetailsCompleted : isUserDetailsCompleted
             , send: send
+            , getRelevantEntity: getRelevantEntity
+            , getRelevantEntityId: getRelevantEntityId
+            , createEmptyEntity: createEmptyEntity
         }
 	}
 );

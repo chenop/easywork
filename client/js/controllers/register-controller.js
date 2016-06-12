@@ -33,8 +33,8 @@ angular.module('easywork')
 
         }
     }])
-    .controller('registerCtrl', function ($scope, authService, appManager) {
-        var defaultMessage = appManager.defaultMessage;
+    .controller('registerCtrl', function ($scope, authService, common) {
+        var defaultMessage = common.DEFAULT_MESSAGE;
 
         var modIns = $scope.modIns;
         $scope.user = {};

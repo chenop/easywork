@@ -59,7 +59,7 @@ function createUser(req, res) {
 }
 
 function getUser(req, res) {
-    return UserService.getUser(req.body.id).
+    return UserService.getUser(req.params.id).
         then(function success(user) {
             return res.send(user);
         },

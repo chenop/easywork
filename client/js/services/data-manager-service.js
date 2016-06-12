@@ -3,7 +3,7 @@
  */
 
 angular.module('easywork')
-    .factory('dataManager', function ($http, common, $q, appManager, modelTransformer, Job) {
+    .factory('dataManager', function ($http, common, $q, modelTransformer, Job) {
         function isUndefined(value){return typeof value === 'undefined';}
         function isDefined(value){return typeof value !== 'undefined';}
         function isEmpty(value) {
@@ -82,11 +82,17 @@ angular.module('easywork')
         }
 
         var getJob = function(id) {
-            return getEntity(common.CONTENT_TYPE.JOB, id);
+            return getEntity(common.CONTENT_TYPE.JOB, id)
+                .then(function(result) {
+                    return result.data;
+                });
         }
 
         var getUser = function(id) {
-            return getEntity(common.CONTENT_TYPE.USER, id);
+            return getEntity(common.CONTENT_TYPE.USER, id)
+                .then(function(result) {
+                    return result.data;
+                });
         }
 
         var getCv = function(id) {
@@ -287,8 +293,7 @@ angular.module('easywork')
             return $http.get('/api/company/jobsBySkill/' + companyId + '/' + skill);
         }
 
-        function createEmptyJob() {
-            var company = appManager.getActiveCompanyId();
+        function createEmptyJob(company) {
             var job = {
                 name: "Untitled",
                 company: company,
@@ -311,13 +316,11 @@ angular.module('easywork')
                 logo: {}
             };
 
-            company.ownerId = appManager.getActiveUserId();
-
             return company;
         }
 
         function createEmptyUser() {
-            var defaultMessage = appManager.defaultMessage;
+            var defaultMessage = common.DEFAULT_MESSAGE;
             var user = {
                 name: "Untitled User",
                 username: '',
@@ -350,6 +353,7 @@ angular.module('easywork')
             , deleteCompany: deleteCompany
             , getCompanyLogo: getCompanyLogo
             , setPublish: setPublish
+            , createEmptyCompany: createEmptyCompany
 
             // Jobs
             , getJobs: getJobs
@@ -357,6 +361,7 @@ angular.module('easywork')
             , updateJob: updateJob
             , getJob: getJob
             , deleteJob: deleteJob
+            , createEmptyJob: createEmptyJob
 
             // Users
             , getUsers: getUsers
@@ -364,6 +369,7 @@ angular.module('easywork')
             , updateUser: updateUser
             , getUser: getUser
             , deleteUser: deleteUser
+            , createEmptyUser: createEmptyUser
 
             // Cvs
             , createCv: createCv

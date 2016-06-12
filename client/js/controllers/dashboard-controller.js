@@ -21,7 +21,7 @@ angular.module('easywork')
         $scope.select2Options = dataManager.getDashboardSelect2Options();
 
         $scope.addEntity = function() {
-            dataManager.createEmptyEntity($scope.contentType.name)
+            appManager.createEmptyEntity($scope.contentType.name)
                 .then(function (result) {
                     $state.go("dashboard.list", {
                         "contentTypeName": $scope.contentType.name

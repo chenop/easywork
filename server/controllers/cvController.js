@@ -23,6 +23,7 @@ function createCv(req, res) {
     var cv = {
         fileData: req.body.data
         , fileName: file.originalname
+        , userId: req.body.userId
     }
 
     return docParserApi.analyzeCv(cv.fileName, cv.fileData)

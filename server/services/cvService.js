@@ -31,7 +31,7 @@ function createCvInstance(cv) {
 
     var newCv = new Cv(
         {
-            user: cv.user
+            user: cv.userId
             , fileData: new Buffer(fileData, "base64")
             , fileType: fileType
             , fileName: cv.fileName

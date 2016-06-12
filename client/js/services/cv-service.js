@@ -4,7 +4,7 @@
 
 angular.module('easywork')
     .factory('cvService', function (Upload, $timeout) {
-        function uploadFile(file) {
+        function uploadFile(file, userId) {
             if (!file)
                 return Promise.reject();
 
@@ -12,7 +12,7 @@ angular.module('easywork')
                 .then(function (dataUrl) {
                     return Upload.upload({
                         url: 'api/cv',
-                        data: {file: file, data: dataUrl}
+                        data: {file: file, data: dataUrl, userId: userId}
                     }).then(function (response) {
                         return response.data;
                         //$timeout(function () {

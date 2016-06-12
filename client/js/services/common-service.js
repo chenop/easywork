@@ -3,6 +3,8 @@
 angular.module('easywork')
 	.factory('common', function ($uibModal) {
 
+        var DEFAULT_MESSAGE = 'Hi,\nI am interested in open positions in your company.\nContact information can be found in my CV which is attached.\n\nBest Regards,\n';
+
         var MODAL_RESULT = {
             YES: 0
             , NO: 1
@@ -41,5 +43,6 @@ angular.module('easywork')
             CONTENT_TYPE: CONTENT_TYPE
             , MODAL_RESULT: MODAL_RESULT
             , openYesNoModal: openYesNoModal
+            , DEFAULT_MESSAGE: DEFAULT_MESSAGE
 		}
 	});

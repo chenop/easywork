@@ -18,34 +18,42 @@ angular.module('easywork')
                     GOT_CV: 2
                 }
 
-                initCvData();
-                var userId = scope.userId();
+                initCvData(scope.userId());
 
-                function initCvData() {
+                function initCvData(userId) {
                     // todo if (isLoggedIn) {  $scope.cvData = user.cvData; return; };
-                    $localForage.getItem(scope.userId())
-                        .then(function (cv) {
-                            if (cv) {
-                                scope.cv = {
-                                    fileName: cv.fileName,
-                                    fileData: cv.fileData,
-                                    skills: cv.skills
-                                };
-                            }
 
-                            scope.status = (scope.cv) ? scope.STATUS.GOT_CV : scope.STATUS.NO_CV;
-                        });
+                    if (userId) {
+                        $localForage.getItem(userId)
+                                .then(function (cv) {
+                                if (cv) {
+                                    scope.cv = {
+                                        fileName: cv.fileName,
+                                        fileData: cv.fileData,
+                                        skills: cv.skills
+                                    };
+                                }
+
+                                scope.status = (scope.cv) ? scope.STATUS.GOT_CV : scope.STATUS.NO_CV;
+                            }, function error(err) {
+                                scope.status = scope.STATUS.NO_CV;
+                            });
+                    }
+                    else
+                        scope.status = scope.STATUS.NO_CV;
                 }
-
 
                 function OnCvDataChanged(cv) {
                     scope.cv = cv;
-                    $localForage.setItem(userId, scope.cv);
+                    var userId = scope.userId();
+                    if (userId)
+                        $localForage.setItem(userId, scope.cv);
                     scope.status = (scope.cv) ? scope.STATUS.GOT_CV : scope.STATUS.NO_CV;
                 }
 
                 scope.onFileSelect = function (file) {
-                    cvService.uploadFile(file)
+                    scope.status = scope.STATUS.UPLOADING_CV;
+                    cvService.uploadFile(file, scope.userId())
                         .then(function(createdCv) {
                             OnCvDataChanged(createdCv);
                         });

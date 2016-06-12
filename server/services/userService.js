@@ -61,7 +61,7 @@ function deleteUser(id) {
 }
 
 function getUser(userId) {
-    return User.findById(userId).exec();
+    return User.findById(userId).populate('cv').exec();
 }
 
 function getUsers() {
