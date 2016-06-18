@@ -5,7 +5,7 @@
 angular.module('easywork')
     .controller('SendCvDialogCtrl', function ($scope, $uibModalInstance, $localForage, userId) {
         $scope.modIns = $uibModalInstance;
-        $scope.userId = (!userId) ? "anonymous" : userId;
+        $scope.userId = userId;
 
         $scope.isSendEnable = function () {
             return $scope.cvData != null && $scope.cvData.fileName != null;

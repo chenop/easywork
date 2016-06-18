@@ -67,7 +67,7 @@ require('./server/pass.js')(passport, app, config.baseUrl);
 app.post('/api/login', userController.login)
 app.post('/api/logout', userController.logout)
 app.post('/api/register', userController.register)
-app.post('/api/sendMail', mail.sendMail)
+app.post('/api/sendMail/:id', mail.sendMail)
 app.get('/api/filtersData', dataProxy.getFiltersData)
 
 // Users

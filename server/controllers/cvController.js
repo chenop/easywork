@@ -37,6 +37,9 @@ function createCv(req, res) {
 
             return UserService.getUser(cv.user)
                 .then(function(user) {
+                    if (!user)
+                        return cv;
+
                     user.cv = cv;
                     UserService.updateUser(user);
                     return cv;

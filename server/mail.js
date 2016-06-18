@@ -6,12 +6,12 @@ var nodemailer = require("nodemailer")
     , path     = require('path')
     , Cv       = require('./models/cv')
 
-var ADMIN_ID = '53c927dae4b06ed9bccb4e52';
+var ADMIN_ID = '56a411350a9af9d038552082';
 
 exports.sendMail = function (req, res) {
     // create reusable transport method (opens pool of SMTP connections)
     var userId = req.params.id;
-    var data = JSON.parse(req.body.data);
+    var data = req.body;
     var cvData = data.cvData;
     var companies = data.selectedCompanies;
 
