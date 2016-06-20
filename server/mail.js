@@ -1,7 +1,7 @@
 'use strict';
 
 var nodemailer = require("nodemailer")
-    , User     = require('./models/user')
+    ,  mongoose = require('mongoose')
     , UserController     = require('./services/userService')
     , path     = require('path')
     , Cv       = require('./models/cv')
@@ -12,19 +12,33 @@ exports.sendMail = function (req, res) {
     // create reusable transport method (opens pool of SMTP connections)
     var userId = req.params.id;
     var data = req.body;
-    var cvData = data.cvData;
+    var cvData = data.cvData; // TODO chen Its seems file data does not contain the CV - check if we client send it right
     var companies = data.selectedCompanies;
 
-    return UserController.getUser(userId)
-        .then(function (user) {
-            if (user) {
-                sendUserCVToCompanies(user, companies, cvData);
-                sendSummaryToUser(user, companies, cvData);
-            } else {
-                sendAnonymizeUserCVToCompanies(companies, cvData);
-            }
-        })
+    if (isObjectId(userId)) {
+        return UserController.getUser(userId)
+            .then(function (user) {
+                    if (user) {
+                        sendUserCVToCompanies(user, companies, cvData);
+                        sendSummaryToUser(user, companies, cvData);
+                    } else {
+                        sendAnonymizeUserCVToCompanies(companies, cvData);
+                    }
+                },
+                function (err) {
+                    console.log(err);
+                    sendAnonymizeUserCVToCompanies(companies, cvData);
+                })
+    }
+    else {
+        sendAnonymizeUserCVToCompanies(companies, cvData);
+    }
 }
+
+function isObjectId(n) {
+    return mongoose.Types.ObjectId.isValid(n);
+}
+
 
 function saveCV(userId, cvData) {
     if (!userId) {

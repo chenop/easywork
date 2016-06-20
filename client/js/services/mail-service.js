@@ -18,23 +18,24 @@ angular.module('easywork')
          */
         function sendCVToServer(activeUserId, cvData, selectedCompanies) {
 
-            if (!activeUserId)
-                activeUserId = "";
-				return Upload.upload({
-					url: '/api/sendMail/' + activeUserId, //upload.php script, node.js route, or servlet url
-					method: 'POST',
-					data: {
-						cvData: cvData,
-						selectedCompanies: selectedCompanies
-					}
-				}).progress(function (evt) {
+			if (!activeUserId)
+				activeUserId = "anonymous";
+
+			return Upload.upload({
+				url: '/api/sendMail/' + activeUserId, //upload.php script, node.js route, or servlet url
+				method: 'POST',
+				data: {
+					cvData: cvData,
+					selectedCompanies: selectedCompanies
+				}
+			}).progress(function (evt) {
 //                 console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-				}).success(function (skills, status, headers, config) {
+			}).success(function (skills, status, headers, config) {
 //                 console.log("skills: " + skills);
-					return skills;
-				}).error(function (err) {
-					console.log("upload finish with err" + err);
-				});
+				return skills;
+			}).error(function (err) {
+				console.log("upload finish with err" + err);
+			});
         }
 
         return {
