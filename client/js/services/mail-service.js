@@ -21,6 +21,8 @@ angular.module('easywork')
 			if (!activeUserId)
 				activeUserId = "anonymous";
 
+			cvData.fileData = null;
+
 			return Upload.upload({
 				url: '/api/sendMail/' + activeUserId, //upload.php script, node.js route, or servlet url
 				method: 'POST',

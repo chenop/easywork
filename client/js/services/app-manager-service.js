@@ -110,8 +110,10 @@ angular.module('easywork')
             modalInstance.result.then(function (cvData) {
                 if (cvData) {
                     mailService.sendMail(selectedCompanies, cvData);
-                    if (callBack !== undefined)
-                        callBack();
+                    	//.then(function(result) {
+							if (callBack)
+                        		callBack();
+						//});
                 }
 
                 modalInstance.close();

@@ -13,25 +13,28 @@ exports.sendMail = function (req, res) {
     var userId = req.params.id;
     var data = req.body;
     var cvData = data.cvData; // TODO chen Its seems file data does not contain the CV - check if we client send it right
+
     var companies = data.selectedCompanies;
 
     if (isObjectId(userId)) {
         return UserController.getUser(userId)
             .then(function (user) {
                     if (user) {
-                        sendUserCVToCompanies(user, companies, cvData);
-                        sendSummaryToUser(user, companies, cvData);
+                        sendUserCVToCompanies(user, companies, cvData)
+                            .then(function() {
+                                return sendSummaryToUser(user, companies, cvData);
+                            });
                     } else {
-                        sendAnonymizeUserCVToCompanies(companies, cvData);
+                        return sendAnonymizeUserCVToCompanies(companies, cvData);
                     }
                 },
                 function (err) {
                     console.log(err);
-                    sendAnonymizeUserCVToCompanies(companies, cvData);
+                    return sendAnonymizeUserCVToCompanies(companies, cvData);
                 })
     }
     else {
-        sendAnonymizeUserCVToCompanies(companies, cvData);
+        return sendAnonymizeUserCVToCompanies(companies, cvData);
     }
 }
 
@@ -99,7 +102,7 @@ function calcToField(companies) {
 }
 
 function sendAnonymizeUserCVToCompanies(companies, cvData) {
-    sendUserCVToCompanies({name: "anonymous"}, companies, cvData);
+    return sendUserCVToCompanies({name: "anonymous"}, companies, cvData);
 }
 
 function concatCompaniesNames(companies) {
@@ -113,6 +116,7 @@ function concatCompaniesNames(companies) {
     return html;
 }
 
+// TODO CHEN need to reuse code
 function sendSummaryToUser(user, companies, cvData) {
     if (!user || !user.email)
         return;
@@ -142,7 +146,7 @@ function sendSummaryToUser(user, companies, cvData) {
         attachments: [
             {
                 filename: cvData.fileName,
-                path: cvData.fileData // data uri
+                content: new Buffer(cvData.fileDataBase64, 'base64')
             }
         ]
     }
@@ -172,7 +176,7 @@ function createMailOptions(subject, cvData) {
         mailOptions.attachments = [
             {
                 filename: cvData.fileName,
-                path: cvData.fileData // data uri
+                content: new Buffer(cvData.fileDataBase64, 'base64')
             }
         ];
     }
@@ -196,7 +200,7 @@ function createSmtpTransport() {
 }
 function sendMailViaSmtpTransport(smtpTransport, mailOptions) {
 // send mail with defined transport object
-    smtpTransport.sendMail(mailOptions, function (error, response) {
+    return smtpTransport.sendMail(mailOptions, function (error, response) {
         if (error) {
             console.log(error);
         } else {
@@ -219,7 +223,7 @@ function sendUserCVToCompanies(user, companies, cvData) {
         mailOptions.to = "chenop@gmail.com";// company.email;
         mailOptions.html = renderHtml(company._id);
 
-        sendMailViaSmtpTransport(smtpTransport, mailOptions);
+        return sendMailViaSmtpTransport(smtpTransport, mailOptions);
     }
 }
 

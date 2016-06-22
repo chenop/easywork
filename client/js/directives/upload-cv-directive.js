@@ -46,8 +46,9 @@ angular.module('easywork')
                 function OnCvDataChanged(cv) {
                     scope.cv = cv;
                     var userId = scope.userId();
-                    if (userId)
-                        $localForage.setItem(userId, scope.cv);
+                    userId = (!userId) ? "anonymous" : userId;
+                    
+                    $localForage.setItem(userId, scope.cv);
                     scope.status = (scope.cv) ? scope.STATUS.GOT_CV : scope.STATUS.NO_CV;
                 }
 
