@@ -16,21 +16,6 @@ var cvSchema = new Schema({
         , fileName: String
         , fileType: String
     }
-    ,
-    {
-        toObject: {
-            virtuals: true
-        },
-        toJSON: {
-            virtuals: true
-        }
-    }
 );
-
-//cvSchema.virtual('fileDataBase64').get(function () {
-//    if (!this.fileData)
-//        return;
-//    return this.fileData.toString("base64");
-//});
 
 module.exports = mongoose.model('Cv', cvSchema);

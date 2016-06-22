@@ -69,4 +69,3 @@ function getCvs() {
     return Cv.find({}).select('-fileData -fileType').exec();
 }
 
-

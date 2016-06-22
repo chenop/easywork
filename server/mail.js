@@ -91,7 +91,7 @@ function sendSummaryToUser(user, companies, cvData) {
         attachments: [
             {
                 filename: cvData.fileName,
-                content: new Buffer(cvData.fileData, 'base64')
+                content: convertBase64ToBuffer(cvData.fileData)
             }
         ]
     }
@@ -121,7 +121,7 @@ function createMailOptions(subject, cvData) {
         mailOptions.attachments = [
             {
                 filename: cvData.fileName,
-                content: new Buffer(cvData.fileData, 'base64')
+                content: convertBase64ToBuffer(cvData.fileData)
             }
         ];
     }
@@ -176,6 +176,10 @@ function renderHtml(companyId) {
     var unsuscribeLink = "http://localhost:3000/company/" + companyId + "/unsuscribe";
     html += '<span  style="font-size: xx-small; color: gray; "><br><br>Disclaimer:<br>This mail was send from http://www.easywork.co.il<br>This mail is not an advertisment.<br>If you would like to stop getting CVs from Easy-Work,<br>please <a href=' + unsuscribeLink + '>unsuscribe</a>.';
     return html;
+}
+
+function convertBase64ToBuffer(fileData) {
+    return new Buffer(fileData, 'base64');
 }
 
 exports.sendMailCompanyWasUnpublished = function(company) {
