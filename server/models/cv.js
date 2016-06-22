@@ -11,7 +11,7 @@ var mongoose = require('mongoose')
 
 var cvSchema = new Schema({
         user: {type: Schema.Types.ObjectId, ref: 'User'}
-        , fileData: Buffer
+        , fileData: String // Saving binary file data in base64 representation
         , skills: [String]
         , fileName: String
         , fileType: String
@@ -27,10 +27,10 @@ var cvSchema = new Schema({
     }
 );
 
-cvSchema.virtual('fileDataBase64').get(function () {
-    if (!this.fileData)
-        return;
-    return this.fileData.toString("base64");
-});
+//cvSchema.virtual('fileDataBase64').get(function () {
+//    if (!this.fileData)
+//        return;
+//    return this.fileData.toString("base64");
+//});
 
 module.exports = mongoose.model('Cv', cvSchema);

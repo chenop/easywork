@@ -32,7 +32,7 @@ function createCvInstance(cv) {
     var newCv = new Cv(
         {
             user: cv.userId
-            , fileData: new Buffer(fileData, "base64")
+            , fileData: fileData //new Buffer(fileData, "base64")
             , fileType: fileType
             , fileName: cv.fileName
             , skills: cv.skills
@@ -66,7 +66,7 @@ function getCv(cvId) {
 }
 
 function getCvs() {
-    return Cv.find({}).select('-fileData -fileType -fileDataBase64').exec();
+    return Cv.find({}).select('-fileData -fileType').exec();
 }
 
 
