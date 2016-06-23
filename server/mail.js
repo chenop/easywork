@@ -9,7 +9,7 @@ exports.sendMail = function (req) {
     // create reusable transport method (opens pool of SMTP connections)
     var userId = req.params.id;
     var data = req.body;
-    var cvData = data.cvData; // TODO chen Its seems file data does not contain the CV - check if we client send it right
+    var cvData = data.cvData;
 
     var companies = data.selectedCompanies;
 

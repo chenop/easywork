@@ -18,9 +18,12 @@ angular.module('easywork')
                     GOT_CV: 2
                 }
 
-                initCvData(scope.userId());
+                var userId = scope.userId();
+                userId = (!userId) ? "anonymous" : userId;
 
-                function initCvData(userId) {
+                initCvData();
+
+                function initCvData() {
                     // todo if (isLoggedIn) {  $scope.cvData = user.cvData; return; };
 
                     if (userId) {
@@ -45,16 +48,14 @@ angular.module('easywork')
 
                 function OnCvDataChanged(cv) {
                     scope.cv = cv;
-                    var userId = scope.userId();
-                    userId = (!userId) ? "anonymous" : userId;
-                    
+
                     $localForage.setItem(userId, scope.cv);
                     scope.status = (scope.cv) ? scope.STATUS.GOT_CV : scope.STATUS.NO_CV;
                 }
 
                 scope.onFileSelect = function (file) {
                     scope.status = scope.STATUS.UPLOADING_CV;
-                    cvService.uploadFile(file, scope.userId())
+                    cvService.uploadFile(file, userId)
                         .then(function(createdCv) {
                             OnCvDataChanged(createdCv);
                         });
