@@ -9,6 +9,8 @@
 
 //var config = require('../config');
 var mongoose = require('mongoose');
+var fs = require('fs');
+var mime = require('mime');
 var CompanyModel = require('../server/models/company');
 var UserModel = require('../server/models/user');
 var JobModel = require('../server/models/job');
@@ -102,8 +104,11 @@ function createMockedCompanyPlainObject(name) {
 }
 
 function createMockedCvPlainObject(skills) {
+    var buffer = fs.readFileSync('./test/cvs/test-cv.docx');
+    var fileType = mime.lookup('./test/cvs/test-cv.docx');
     var newCv = {
-        fileName: "cv.doc"
+        fileName: "test-cv.docx"
+        , fileData: fileType + ',' + buffer.toString('base64')
         , skills: skills
     }
 
