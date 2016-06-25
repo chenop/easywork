@@ -17,7 +17,7 @@
   ],
   "dependencies": {
     "angular-ui-select2": "~0.0.4",
-    "bootstrap-rtl": "latest",
+    "bootstrap-rtl": "^3.4.0",
     "json3": "~3.2.4",
     "ng-file-upload": "^12.0.4",
     "jasny-bootstrap": "~3.1.0",
