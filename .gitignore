@@ -1,5 +1,5 @@
 /.idea/watcherTasks.xml
-client/lib/
+#client/lib/
 .idea/workspace.xml
 .idea/tasks.xml
 client/index.html
