@@ -6,9 +6,8 @@ $icon-font-path: "../lib/bootstrap-sass/assets/fonts/bootstrap/";
 @import '../lib/bootstrap-rtl/dist/css/bootstrap-rtl.min.css.scss';
 
 // Font-awesome
-$fa-font-path: "../lib/components-font-awesome/fonts/";
-@import "../lib/components-font-awesome/scss/font-awesome";
-
+$fa-font-path: "../lib/font-awesome/fonts/";
+@import "../lib/font-awesome/scss/font-awesome";
 
 /* Colors */
 $base10: #483A3A;

@@ -8,7 +8,7 @@ module.exports = function (grunt) {
         //, 'client/lib/bootstrap-rtl/dist/css/bootstrap-rtl.css'
         'client/lib/select2/select2.css'
         , 'client/lib/angularjs-toaster/toaster.min.css'
-        , 'client/lib/components-font-awesome/css/font-awesome.min.css'
+        , 'client/lib/font-awesome/css/font-awesome.min.css'
         , 'client/css/style.css'
     ];
 
