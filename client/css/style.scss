@@ -3,7 +3,7 @@ $icon-font-path: "../lib/bootstrap-sass/assets/fonts/bootstrap/";
 @import '../lib/bootstrap-sass/assets/stylesheets/bootstrap';
 
 // Bootstrap rtl
-@import '../lib/bootstrap-rtl/dist/css/bootstrap-rtl.min.css';
+@import 'bootstrap-rtl.min.css.scss';
 
 // Font-awesome
 $fa-font-path: "../lib/font-awesome/fonts/";
@@ -215,7 +215,7 @@ textarea.cv-message {
 }
 
 #search-button {
-  margin: 58px 0px 0px 0px;
+  margin: 48px 0px 0px 0px;
   width: 149px;
   height: 49px;
 }
@@ -460,6 +460,8 @@ tr:hover button.action-button {
 
 .big-title {
   color: $font-color-on-light-background;
+  float: right;
+  margin-right: 3px;
 }
 
 .navbar-default .navbar-brand {

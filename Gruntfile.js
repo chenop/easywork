@@ -15,9 +15,8 @@ module.exports = function (grunt) {
     var vendorJsFiles = [
 
         'client/lib/jquery/dist/jquery.min.js'
-        , 'client/lib/bootstrap-rtl/dist/js/html5shiv.js'
-        , 'client/lib/bootstrap-rtl/dist/js/respond.min.js'
-        //, 'client/lib/ng-file-upload/ng-file-upload-shim.min.js'
+        //, 'client/lib/bootstrap-rtl/dist/js/html5shiv.js' // Remove - not needed (I think...)
+        //, 'client/lib/bootstrap-rtl/dist/js/respond.min.js' // Remove - not needed (I think...)
 
         // Angular
         , 'client/lib/angular/angular.js'
@@ -25,6 +24,7 @@ module.exports = function (grunt) {
         , 'client/lib/angular-animate/angular-animate.js'
         , 'client/lib/angular-sanitize/angular-sanitize.js'
         , 'client/lib/angular-messages/angular-messages.js'
+        , 'client/lib/bootstrap/dist/js/bootstrap.js'
         , 'client/lib/angular-bootstrap/ui-bootstrap-tpls.js'
         , 'client/lib/angular-ui-router/release/angular-ui-router.js'
 
@@ -264,7 +264,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
 
     grunt.registerTask('default', ['express:dev', 'watch']);
-    grunt.registerTask('dev', ['template', 'default']);
+    grunt.registerTask('dev', ['template']);
     grunt.registerTask('prod', ['clean', 'template', 'cssmin', 'ngAnnotate', 'uglify:prod']);
     // grunt.registerTask('runTemplate', ['clean', 'template']);
 };
