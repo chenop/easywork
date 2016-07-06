@@ -5820,7 +5820,8 @@ html {
   /* direction:rtl */ }
 
 body {
-  /* direction:rtl; */ }
+  direction:rtl;
+  }
 
 .flip.text-left {
   text-align: right; }
@@ -9396,6 +9397,9 @@ footer {
       direction: ltr;
       margin: 3px 5px 3px 5px; }
 
+.select2-results {
+  direction: rtl; }
+
 .selected {
   background-color: rgba(151, 173, 254, 0.44); }
 
@@ -9478,9 +9482,15 @@ textarea.cv-message {
   display: block; }
 
 #search-button {
-  margin: 48px 0px 0px 0px;
-  width: 149px;
-  height: 49px; }
+  height: 49px;
+  padding: 9px 42px;
+  font-size: 23px;
+  line-height: normal;
+  -webkit-border-radius: -34px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  margin-top: 47px;
+  }
 
 #small-search-button {
   padding: 0px 0px 0px 0px;
@@ -9661,8 +9671,9 @@ tr:hover button.action-button {
 
 .big-title {
   color: #DE564B;
-  float: right;
-  margin-right: 3px; }
+  /* float: right; */
+  /* margin-right: 3px; */
+  }
 
 .navbar-default .navbar-brand {
   color: #F5EEDB; }
@@ -9884,7 +9895,8 @@ header a, .caret {
   left: 0; }
 
 .select-all {
-  display: inline-block; }
+  display: inline-block;
+  }
   .select-all i {
     float: right;
     padding-top: 5px; }

@@ -110,7 +110,10 @@ footer {
       margin: 3px 5px 3px 5px;
     }
   }
+}
 
+.select2-results {
+  direction: rtl;
 }
 
 .selected {
@@ -215,9 +218,20 @@ textarea.cv-message {
 }
 
 #search-button {
-  margin: 48px 0px 0px 0px;
-  width: 149px;
+  //margin: 48px 0px 0px 0px;
+  //width: 149px;
+  //height: 49px;
+
   height: 49px;
+  padding: 9px 42px;
+  font-size: 23px;
+  line-height: normal;
+  -webkit-border-radius: -34px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  margin-top: 47px;
+}
+
 }
 
 #small-search-button {
@@ -460,7 +474,6 @@ tr:hover button.action-button {
 
 .big-title {
   color: $font-color-on-light-background;
-  float: right;
   margin-right: 3px;
 }
 
