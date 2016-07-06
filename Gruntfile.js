@@ -36,8 +36,8 @@ module.exports = function (grunt) {
         , 'client/lib/angularjs-toaster/toaster.js'
 
         // Parsing CVs
-        , 'client/lib/jszip/dist/jszip.js'
-        , 'client/lib/docx/docx.js'
+        //, 'client/lib/jszip/dist/jszip.js'
+        //, 'client/lib/docx/docx.js'
 
         // File Upload - - danial.farid
         , 'client/lib/ng-file-upload/ng-file-upload.js'
