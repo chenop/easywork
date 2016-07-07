@@ -9351,7 +9351,11 @@ body {
 
 .content {
   width: 100%;
-  position: relative; }
+  position: relative;
+  direction: rtl; }
+
+.navbar {
+  direction: rtl; }
 
 .view-container {
   margin-top: 150px;

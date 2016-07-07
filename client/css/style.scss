@@ -55,6 +55,11 @@ body {
 .content {
   width: 100%;
   position: relative;
+  direction: rtl;
+}
+
+.navbar {
+  direction: rtl;
 }
 
 .view-container {
