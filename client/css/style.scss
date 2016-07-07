@@ -63,6 +63,7 @@ body {
   padding: 40px;
   background-color: $base-60-light;
   border-radius: 6px;
+  direction: rtl;
 }
 
 footer {
@@ -229,7 +230,7 @@ textarea.cv-message {
   -webkit-border-radius: -34px;
   -moz-border-radius: 8px;
   border-radius: 8px;
-  margin-top: 57px;
+  margin-top: 47px;
 }
 
 #small-search-button {
@@ -473,6 +474,8 @@ tr:hover button.action-button {
 .big-title {
   color: $font-color-on-light-background;
   margin-right: 3px;
+  float:right;
+  display:block;
 }
 
 .navbar-default .navbar-brand {

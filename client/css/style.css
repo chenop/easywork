@@ -9358,7 +9358,8 @@ body {
   min-height: 400px;
   padding: 40px;
   background-color: #EAE1C0;
-  border-radius: 6px; }
+  border-radius: 6px;
+  direction: rtl; }
 
 footer {
   position: fixed;
@@ -9488,7 +9489,7 @@ textarea.cv-message {
   -webkit-border-radius: -34px;
   -moz-border-radius: 8px;
   border-radius: 8px;
-  margin-top: 57px; }
+  margin-top: 47px; }
 
 #small-search-button {
   padding: 0px 0px 0px 0px;
@@ -9669,7 +9670,9 @@ tr:hover button.action-button {
 
 .big-title {
   color: #DE564B;
-  margin-right: 3px; }
+  margin-right: 3px;
+  float: right;
+  display: block; }
 
 .navbar-default .navbar-brand {
   color: #F5EEDB; }
