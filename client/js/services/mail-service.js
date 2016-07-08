@@ -5,7 +5,7 @@ angular.module('easywork')
 
 		var sendMail = function (selectedCompanies, cvData) {
 			var activeUser = authService.getActiveUser();
-			var activeUserId = (activeUser) ? activeUser.id : null;
+			var activeUserId = (activeUser) ? activeUser._id : null;
 
             sendCVToServer(activeUserId, cvData, selectedCompanies);
 		}

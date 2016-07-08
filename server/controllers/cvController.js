@@ -5,7 +5,7 @@
 var CvService = require('../services/cvService')
 var UserService = require('../services/userService')
 var docParserApi = require('../api/docParserApi');
-var Cv = require('../models/cv');
+var ADMIN_USER_ID = "56a411350a9af9d038552082";
 
 /***********
  * Public
@@ -18,13 +18,21 @@ module.exports = {
     , deleteCv: deleteCv
 }
 
+var calcUser = function (userId) {
+    if (!userId || userId === "" || userId === "anonymous")
+        return ADMIN_USER_ID;
+
+    return userId;
+};
+
 function createCv(req, res) {
     var file = req.files.file;
+    var userId = calcUser(req.body.userId)
     var cv = {
         fileData: req.body.data
         , fileName: file.originalname
-        , userId: req.body.userId
-    }
+        , userId: userId
+    };
 
     return docParserApi.analyzeCv(cv.fileName, cv.fileData)
         .then(function(skills) {
