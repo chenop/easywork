@@ -17,10 +17,8 @@ exports.sendMail = function (req) {
         return UserController.getUser(userId)
             .then(function (user) {
                     if (user) {
-                        sendUserCVToCompanies(user, companies, cvData)
-                            .then(function() {
-                                return sendSummaryToUser(user, companies, cvData);
-                            });
+                        sendUserCVToCompanies(user, companies, cvData);
+                        sendSummaryToUser(user, companies, cvData);
                     } else {
                         return sendAnonymizeUserCVToCompanies(companies, cvData);
                     }
@@ -167,7 +165,7 @@ function sendUserCVToCompanies(user, companies, cvData) {
         mailOptions.to = "chenop@gmail.com";// company.email;
         mailOptions.html = renderHtml(company._id);
 
-        return sendMailViaSmtpTransport(smtpTransport, mailOptions);
+        sendMailViaSmtpTransport(smtpTransport, mailOptions);
     }
 }
 
