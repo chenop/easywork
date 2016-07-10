@@ -9,7 +9,7 @@ angular.module('easywork')
         {title: 'הרשמה', template: '/views/users/register.html', active:false}
     ];
 
-    $scope.tabs[selectedTab].active = true;
+    $scope.activeTab = selectedTab;
     $scope.modIns = $uibModalInstance;
 });
 
