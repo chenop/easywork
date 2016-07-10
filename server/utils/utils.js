@@ -51,10 +51,15 @@ function isUndefined (obj) {
     return !isDefined(obj);
 }
 
+function isEmptyArray(arr) {
+    return (Array.isArray(arr) && arr.length > 0);
+}
+
 module.exports = {
     getUniqueFileName: getUniqueFileName
     , getExtension: getExtension
     , getFileName: getFileName
     , isDefined: isDefined
     , isUndefined: isUndefined
+    , isEmptyArray: isEmptyArray
 }

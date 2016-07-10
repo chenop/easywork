@@ -2,6 +2,27 @@
 
 angular.module('easywork')
     // TOOD chen add async check to see thay email is available
+    .directive("isEmailExist", function(dataManager, $q) {
+
+        return {
+            restrict: "A",
+            require: "ngModel",
+            link: function(scope, element, attributes, ngModel) {
+
+                ngModel.$asyncValidators.isEmailExist = function(email) {
+                    var deferred = $q.defer();
+                    dataManager.isEmailExist(email)
+                        .then(function(result) {
+                            if (result.data)
+                                deferred.reject();
+                            else
+                                deferred.resolve();
+                        });
+                    return deferred.promise;
+                }
+            }
+        };
+    })
     .directive('ngMatch', ['$parse', function ($parse) {
 
         var directive = {
@@ -105,8 +126,12 @@ angular.module('easywork')
         }
 
         $scope.shouldDisable = function() {
-            return $scope.isEmpty($scope.user.email) || $scope.isEmpty($scope.user.password) || $scope.isEmpty($scope.user.verifyPassword) ||
-            !$scope.isEmpty($scope.user.password) && !$scope.isEmpty($scope.user.verifyPassword) && $scope.user.password !== $scope.user.verifyPassword;
+            return $scope.isEmpty($scope.user.email) ||
+                $scope.isEmpty($scope.user.password) ||
+                $scope.isEmpty($scope.user.verifyPassword) ||
+                !$scope.isEmpty($scope.user.password) &&
+                !$scope.isEmpty($scope.user.verifyPassword) &&
+                $scope.user.password !== $scope.user.verifyPassword;
         }
     }
 );

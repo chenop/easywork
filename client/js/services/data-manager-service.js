@@ -337,6 +337,13 @@ angular.module('easywork')
             return $http.post('/api/company/' + companyId + '/setPublish/' + publish);
         }
 
+        function isEmailExist(email) {
+            if (!email)
+                return false;
+
+            return $http.get('api/user/isEmailExist/' + email);
+        }
+
         return {
             getFiltersData: getFiltersData
             , getTechnologiesSelect2Options: getTechnologiesSelect2Options
@@ -382,6 +389,7 @@ angular.module('easywork')
             , prepareBase64ImgSrc: prepareBase64ImgSrc
             , createEmptyEntity: createEmptyEntity
             , getJobsBySkill: getJobsBySkill
+            , isEmailExist: isEmailExist
         }
     }
 );

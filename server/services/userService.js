@@ -14,6 +14,7 @@ module.exports = {
     , getUser: getUser
     , getUsers: getUsers
     , deleteCv: deleteCv
+    , findUserByEmail: findUserByEmail
 }
 
 /***********
@@ -74,4 +75,8 @@ function deleteCv(userId) {
             delete user.cv;
             return updateUser(user)
         });
+}
+
+function findUserByEmail(email) {
+    return User.findOne({email: email}).lean().exec();
 }

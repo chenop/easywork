@@ -22,7 +22,7 @@
 
             <div ng-class="{ 'has-error' : formRegister.email.$error.email }">
                 <input class="form-control login-input" name="email" ng-model="user.email" type="email"
-                       placeholder="דואר אלקטרוני" required>
+                       placeholder="דואר אלקטרוני" required is-email-exist>
             </div>
             <div ng-class="{ 'has-error' : formRegister.verifyPassword.$error.match}">
                 <input class="form-control login-input-middle-pass" name="password"
@@ -33,6 +33,7 @@
 
             <div ng-messages="formRegister.email.$error" class="has-error">
                 <div class="help-block" ng-message="email">כתובת דואר אלקטרוני שגויה</div>
+                <div class="help-block" ng-message="isEmailExist">דואר אלקטרוני כבר קיים במערכת</div>
             </div>
             <div ng-messages="formRegister.verifyPassword.$error" class="has-error">
                 <div class="help-block" ng-message="match">הסיסמאות אינן זהות</div>

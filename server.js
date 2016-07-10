@@ -76,6 +76,7 @@ app.get('/api/user/:id', userController.getUser)
 app.post('/api/user', userController.createUser)
 app.put('/api/user/:id', userController.updateUser)
 app.delete('/api/user/:id', userController.deleteUser)
+app.get('/api/user/isEmailExist/:email', userController.isEmailExist);
 
 // Companies
 app.get('/api/company/list', companyController.getCompanies)

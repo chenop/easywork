@@ -19,6 +19,7 @@ module.exports = {
     , register: register
     , deleteUser: deleteUser
     , deleteCV: deleteCV
+    , isEmailExist: isEmailExist
 }
 
 
@@ -110,34 +111,42 @@ function prepareCookie(res, user) {
 
 function register(req, res) {
     var role = (typeof req.body.role === 'undefined') ? 'jobSeeker' : req.body.role;
-    var user = new User(
-        {
-            //name: req.body.name,
-            //username: req.body.username,
-            role: role,
-            password: req.body.password,
-            //experience: req.body.experience,
-            email: req.body.email,
-            message: req.body.message
-            //fileName: req.body.fileName,
-            //cv: req.body.cv
-        }
-    );
+    var email = req.body.email;
 
-    return UserService.createUser(user).
-        then(function success(user) {
-            req.login(user, function (err) {
-                if (err) {
-                    return res.send(err);
+    return UserService.findUserByEmail(email)
+        .then(function (user) {
+
+            if (user)
+                return res.json(500, "Email already exists");
+
+            var user = new User(
+                {
+                    //name: req.body.name,
+                    //username: req.body.username,
+                    role: role,
+                    password: req.body.password,
+                    //experience: req.body.experience,
+                    email: email,
+                    message: req.body.message
+                    //fileName: req.body.fileName,
+                    //cv: req.body.cv
                 }
-                prepareCookie(res, user);
-                return res.send(user);
-            });
-        },
-        function error(err) {
-            return res.json(500, err);
-        }
-    );
+            );
+
+            return UserService.createUser(user).then(function success(user) {
+                    req.login(user, function (err) {
+                        if (err) {
+                            return res.send(err);
+                        }
+                        prepareCookie(res, user);
+                        return res.send(user);
+                    });
+                },
+                function error(err) {
+                    return res.json(500, err);
+                }
+            );
+        });
 }
 
 function logout(req, res) {
@@ -172,3 +181,17 @@ function deleteCV(req, res) {
 
 }
 
+function isEmailExist(req, res) {
+    var email = req.params.email;
+
+    if (!email)
+        return false;
+
+    return UserService.findUserByEmail(email)
+        .then(function success(user) {
+                return res.send(user);
+            },
+            function error(err) {
+                return res.json(500, err);
+            });
+}
