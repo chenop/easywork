@@ -72,7 +72,11 @@ angular.module('easywork')
                 return;
             }
             for (var i = 0; i < $scope.companies.length; i++) {
-                $scope.companies[i].selected = $scope.isSelectAll;
+                var company = $scope.companies[i];
+                if (!$scope.isRelevant(company))
+                    continue;
+
+                company.selected = $scope.isSelectAll;
             }
         }, true);
 
@@ -90,14 +94,15 @@ angular.module('easywork')
             if ((appManager.selectedAreas.length === 0) && (appManager.selectedTechnologies.length === 0))
                 return true;
 
-            var isAreasMatch = isAreaMatch(company);
-            var isTechMatch = (superbag(company.technologies, appManager.selectedTechnologies));
-            if (isAreasMatch && appManager.selectedTechnologies.length === 0)
-                return true;
-            if (isTechMatch && appManager.selectedAreas.length === 0)
-                return true;
+            return isAreaMatch(company);
+            //var isTechMatch = (superbag(company.technologies, appManager.selectedTechnologies));
 
-            return (isAreasMatch && isTechMatch);
+            //if (isAreasMatch && appManager.selectedTechnologies.length === 0)
+            //    return true;
+            //if (isTechMatch && appManager.selectedAreas.length === 0)
+            //    return true;
+            //
+            //return (isAreasMatch && isTechMatch);
         };
 
         // TODO - This check can be optimize - like sorting alphabetically or do hash-mapping of first letter (hash['i'] -> ['Intel']'.
