@@ -37,7 +37,8 @@ function updateUser(user) {
 function createUserInstance(user) {
     var newUser = new User(
         {
-            name: user.name
+            name: user.name,
+            password: user.password
             , username: user.username
             , role: user.role
             , email: user.email

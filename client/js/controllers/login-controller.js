@@ -34,18 +34,6 @@ angular.module('easywork')
             $scope.user.email = rememeberMeData.email;
         });
 
-        $scope.toggleRememberMe = function() {
-            var rememeberMeData = {
-                enable : $scope.rememeberMe
-            }
-
-            if ($scope.rememeberMe && $scope.user.email) {
-                rememeberMeData.email = $scope.user.email;
-            }
-
-            $localForage.setItem('rememeberMeData', rememeberMeData);
-        }
-
         $scope.hasError = function() {
             return true;//$scope.errorMessage != null;
         }
@@ -62,32 +50,46 @@ angular.module('easywork')
                 $scope.submit();
         };
 
-        $scope.submit = function () {
-            var user = {
-                username: $scope.user.email,
-                password: $scope.user.password
+        function handleRmemberMe() {
+            var rememeberMeData = {
+                enable: $scope.rememeberMe
             }
 
-            return authService.logIn(user)
-                .success(function () {
-                    if (modIns) {
-                        modIns.close(user.email);
-//                        console.log("login - modIns.close");
-                    }
-                    modIns = undefined; // Bug Fix - prevent from closing again the modal
-                    //$location.path('/');
-                    return user;
-                })
-                .error(function (err) {
-                    if ((err == undefined) || (err === "")) {
-                        $scope.errorMessage = SOMETHING_WENT_WRONG_MSG;
-                    }
-                    else {
-                        $scope.errorMessage = err.message;
-                    }
-                }
-            );
+            if ($scope.rememeberMe && $scope.user.email) {
+                rememeberMeData.email = $scope.user.email;
+            }
+
+            $localForage.setItem('rememeberMeData', rememeberMeData);
         }
+
+            $scope.submit = function () {
+                var user = {
+                    username: $scope.user.email,
+                    password: $scope.user.password
+                }
+
+                handleRmemberMe();
+
+                return authService.logIn(user)
+                    .success(function () {
+                        if (modIns) {
+                            modIns.close(user.email);
+//                        console.log("login - modIns.close");
+                        }
+                        modIns = undefined; // Bug Fix - prevent from closing again the modal
+                        //$location.path('/');
+                        return user;
+                    })
+                    .error(function (err) {
+                            if ((err == undefined) || (err === "")) {
+                                $scope.errorMessage = SOMETHING_WENT_WRONG_MSG;
+                            }
+                            else {
+                                $scope.errorMessage = err.message;
+                            }
+                        }
+                    );
+            }
 
         $scope.shouldDisable = function() {
             return $scope.isEmpty($scope.user.email) || $scope.isEmpty($scope.user.password)
