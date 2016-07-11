@@ -1,7 +1,6 @@
 'use strict';
 
 angular.module('easywork')
-    // TOOD chen add async check to see thay email is available
     .directive("isEmailExist", function(dataManager, $q) {
 
         return {
@@ -70,10 +69,6 @@ angular.module('easywork')
             width: 200,
             minimumResultsForSearch: -1 // Disable the search field in the combo box
         };
-
-        $scope.isPasswordsEqual = function () {
-            return $scope.user.password == $scope.user.verifyPassword;
-        }
 
         $scope.$watch('user.name', function (value) {
             if (value) {
