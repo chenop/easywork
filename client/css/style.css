@@ -9886,6 +9886,8 @@ header a, .caret {
 
 .send-cv-container {
   margin: 10px; }
+  .send-cv-container .terms-agree-checkbox {
+    direction: rtl; }
 
 .cv-button {
   margin-bottom: 15px; }

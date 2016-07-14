@@ -1,11 +1,23 @@
 <div class="send-cv-container">
     <upload-cv user-id="userId" cv="cvData"></upload-cv>
-    <btn-group inline class="buttonsContainer">
-        <div class="btn btn-lg btn-default align-middle"
-                ng-click="close()">סגור
+    <div class="cols-sm-12 terms-agree-checkbox">
+        <div class="checkbox">
+            <label><input type="checkbox" ng-model="termsAgree">
+                בלחיצה על "שלח קו"ח" הינך מסכים
+                <a ui-sref="terms_agreement" target="_blank">לתנאי השימוש</a>.
+            </label>
         </div>
-        <div class="btn btn-lg btn-primary align-middle"
-                ng-disabled="!isSendEnable()" ng-click="sendCV()">שלח קו"ח
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="btn btn-lg btn-primary align-middle"
+                 ng-disabled="!isSendEnable()" ng-click="sendCV()">שלח קו"ח
+            </div>
         </div>
-    </btn-group>
+        <div class="col-sm-6">
+            <div class="btn btn-lg btn-default align-middle"
+                 ng-click="close()">סגור
+            </div>
+        </div>
+    </div>
 </div>

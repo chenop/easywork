@@ -8,7 +8,7 @@ angular.module('easywork')
         $scope.userId = userId;
 
         $scope.isSendEnable = function () {
-            return $scope.cvData != null && $scope.cvData.fileName != null;
+            return $scope.cvData != null && $scope.cvData.fileName != null && $scope.termsAgree;
         }
 
         $scope.sendCV = function () {

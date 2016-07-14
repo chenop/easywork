@@ -752,6 +752,10 @@ header a, .caret {
 
 .send-cv-container {
   margin: 10px;
+
+  .terms-agree-checkbox {
+    direction: rtl;
+  }
 }
 
 .cv-button {

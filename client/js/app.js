@@ -86,6 +86,11 @@ app.config(
                 templateUrl: "/views/users/user.html",
                 isDashboard: false
             })
+            .state('terms_agreement', {
+                url: "/terms_agreement",
+                templateUrl: "/views/admin/terms-agreement.html",
+                isDashboard: false
+            })
             .state('register', {             // DEBUG ONLY
                 url: "/register",
                 templateUrl: "/views/users/register.html",
