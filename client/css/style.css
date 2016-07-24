@@ -9888,6 +9888,14 @@ header a, .caret {
   margin: 10px; }
   .send-cv-container .terms-agree-checkbox {
     direction: rtl; }
+    .send-cv-container .terms-agree-checkbox .radio, .send-cv-container .terms-agree-checkbox .checkbox {
+      margin-top: 0px; }
+  .send-cv-container .recommend-container {
+    margin-bottom: 10px; }
+    .send-cv-container .recommend-container .recommend-label-container {
+      display: inline-block; }
+    .send-cv-container .recommend-container .fb-like-container {
+      display: inline-block; }
 
 .cv-button {
   margin-bottom: 15px; }
@@ -9945,5 +9953,18 @@ header a, .caret {
 .cv-view-container .iframe {
   width: 100%;
   height: 600px; }
+
+.aboutus {
+  text-align: center;
+  font-size: 18px;
+  color: #6f6f6f;
+  margin-top: 28px;
+  direction: rtl; }
+
+.side-container {
+  float: left; }
+
+.fb-like-container {
+  display: inline-block; }
 
 /*# sourceMappingURL=style.css.map */

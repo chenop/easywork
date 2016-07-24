@@ -755,6 +755,19 @@ header a, .caret {
 
   .terms-agree-checkbox {
     direction: rtl;
+    .radio, .checkbox {
+      margin-top: 0px;
+    }
+  }
+
+  .recommend-container {
+    margin-bottom: 10px;
+    .recommend-label-container {
+      display: inline-block;
+    }
+    .fb-like-container {
+      display: inline-block;
+    }
   }
 }
 
@@ -835,4 +848,20 @@ header a, .caret {
     width: 100%;
     height: 600px;
   }
+}
+
+.aboutus {
+  text-align: center;
+  font-size: 18px;
+  color: #6f6f6f;
+  margin-top: 28px;
+  direction: rtl;
+}
+
+.side-container {
+  float:left;
+}
+
+.fb-like-container {
+  display: inline-block;
 }

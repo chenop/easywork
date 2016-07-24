@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en" ng-app="easywork">
 <head>
+    <!--<link rel="stylesheet" type="text/css" href="client/css/style.scss"/>-->
     <meta charset="utf-8">
     <title>עבודה קלה - שליחת קורות חיים</title>
     <base href="/"> <!--Needed for the $locationProvider.html5Mode-->
@@ -10,11 +11,31 @@
 </head>
 <body>
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/he_IL/sdk.js#xfbml=1&version=v2.7&appId=132870220109508";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
 <header ng-include="'./views/header.html'" class="navbar navbar-fixed-top ng-scope"></header>
 
 <div class="content">
     <div class="container">
         <div class="view-container" ui-view></div>
+    </div>
+</div>
+
+<div class="aboutus">
+    <div class="container">
+חזון "עבודה קלה" הוא לשים את מחפשי העבודה במרכז, וליצור עבורם חווית משתמש קלה ונוחה.
+    </div>
+    <div class="fb-like"
+         data-href="https://www.facebook.com/%D7%A2%D7%91%D7%95%D7%93%D7%94-%D7%A7%D7%9C%D7%94-%D7%9E%D7%A0%D7%95%D7%A2-%D7%9C%D7%A9%D7%9C%D7%99%D7%97%D7%AA-%D7%A7%D7%95%D7%A8%D7%95%D7%AA-%D7%97%D7%99%D7%99%D7%9D-200003024393/"
+         data-width="300" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="false">
     </div>
 </div>
 

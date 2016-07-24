@@ -1,13 +1,21 @@
 <div class="send-cv-container">
     <upload-cv user-id="userId" cv="cvData"></upload-cv>
-    <div class="cols-sm-12 terms-agree-checkbox">
-        <div class="checkbox">
-            <label><input type="checkbox" ng-model="termsAgree">
-                בלחיצה על "שלח קו"ח" הינך מסכים
-                <a ui-sref="terms_agreement" target="_blank">לתנאי השימוש</a>.
-            </label>
+        <div class="cols-sm-12 terms-agree-checkbox">
+                <div class="checkbox">
+                    <label><input type="checkbox" ng-model="termsAgree">
+                        בלחיצה על "שלח קו"ח" הינך מסכים
+                        <a ui-sref="terms_agreement" target="_blank">לתנאי השימוש</a>.
+                    </label>
+                </div>
+            <div class="recommend-container">
+                <div class="recommend-label-container">
+                    אם מצאת אתר זה יעיל אנא לחץ לייק
+                </div>
+                <div class="fb-like-container">
+                    <iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2F%25D7%25A2%25D7%2591%25D7%2595%25D7%2593%25D7%2594-%25D7%25A7%25D7%259C%25D7%2594-%25D7%259E%25D7%25A0%25D7%2595%25D7%25A2-%25D7%259C%25D7%25A9%25D7%259C%25D7%2599%25D7%2597%25D7%25AA-%25D7%25A7%25D7%2595%25D7%25A8%25D7%2595%25D7%25AA-%25D7%2597%25D7%2599%25D7%2599%25D7%259D-200003024393%2F%3Ffref%3Dts&width=72&layout=button_count&action=like&size=small&show_faces=false&share=false&height=21&appId=132870220109508" width="72" height="21" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+                </div>
+            </div>
         </div>
-    </div>
     <div class="row">
         <div class="col-sm-6">
             <div class="btn btn-lg btn-primary align-middle"

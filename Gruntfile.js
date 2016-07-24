@@ -180,7 +180,7 @@ module.exports = function (grunt) {
         },
         watch: { // Watch for file changes
             scripts: {
-                files: ['client/js/**/*.js', 'client/views/**/*.html', 'client/css/**/*.css', 'client/dist/*.*'],
+                files: ['client/index-tpl.html', 'client/js/**/*.js', 'client/views/**/*.html', 'client/css/**/*.css', 'client/dist/*.*'],
                 tasks: ['dev'],
                 options: {
                     livereload: true,
