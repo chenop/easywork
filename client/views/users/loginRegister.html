@@ -1,4 +1,4 @@
-<div class="modal-body" ng-keyup="hitEnter($event)">
+<div class="modal-body rtl-direction" ng-keyup="hitEnter($event)">
     <uib-tabset active="activeTab">
         <uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" >
             <div ng-include="tab.template"></div>

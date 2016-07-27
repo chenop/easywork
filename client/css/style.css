@@ -9967,4 +9967,7 @@ header a, .caret {
 .fb-like-container {
   display: inline-block; }
 
+.rtl-direction {
+  direction: rtl; }
+
 /*# sourceMappingURL=style.css.map */

@@ -390,6 +390,7 @@ angular.module('easywork')
             , createEmptyEntity: createEmptyEntity
             , getJobsBySkill: getJobsBySkill
             , isEmailExist: isEmailExist
+            , deleteEntity: deleteEntity
         }
     }
 );

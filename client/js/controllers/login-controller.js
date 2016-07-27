@@ -13,7 +13,7 @@ angular.module('easywork')
             }
         };
     })
-    .controller('loginCtrl', function ($scope, authService, $localForage) {
+    .controller('loginCtrl', function ($scope, authService, $localForage, loginRegisterService) {
 
         var SOMETHING_WENT_WRONG_MSG = "Oops, Something went wrong!";
         var modIns = $scope.modIns;
@@ -93,6 +93,10 @@ angular.module('easywork')
 
         $scope.shouldDisable = function() {
             return $scope.isEmpty($scope.user.email) || $scope.isEmpty($scope.user.password)
+        }
+
+        $scope.switchToRegister = function() {
+            loginRegisterService.changeTab(1);
         }
     }
 );

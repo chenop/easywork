@@ -84,6 +84,7 @@ module.exports = function (grunt) {
         , 'client/js/services/common-service.js'
         , 'client/js/services/utils-services.js'
         , 'client/js/services/cv-service.js'
+        , 'client/js/services/login-register-service.js'
 
         , 'client/js/models/job.js'
         , 'client/js/models/modelTransformer.js'
