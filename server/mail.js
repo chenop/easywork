@@ -162,7 +162,7 @@ function sendUserCVToCompanies(user, companies, cvData) {
 
         if (!company || !company.email)
             continue;
-        mailOptions.to = "chenop@gmail.com";// company.email;
+        mailOptions.to = company.email; // "chenop@gmail.com";
         mailOptions.html = renderHtml(company._id);
 
         sendMailViaSmtpTransport(smtpTransport, mailOptions);
