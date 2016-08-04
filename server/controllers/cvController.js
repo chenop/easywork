@@ -5,6 +5,7 @@
 var CvService = require('../services/cvService')
 var UserService = require('../services/userService')
 var docParserApi = require('../api/docParserApi');
+var utils = require('../utils/utils');
 var ADMIN_USER_ID = "56a411350a9af9d038552082";
 
 /***********
@@ -25,12 +26,28 @@ var calcUser = function (userId) {
     return userId;
 };
 
+function CalcFileName(originalname, ext) {
+    if (!utils.isEmpty(originalname))
+        return originalname;
+
+    return generateCurrentDate() + '.' + ext;
+}
+
+function generateCurrentDate() {
+    var d = new Date();
+    var curr_date = d.getDate();
+    var curr_month = d.getMonth() + 1; //Months are zero based
+    var curr_year = d.getFullYear();
+    return (curr_date + "-" + curr_month + "-" + curr_year);
+}
+
 function createCv(req, res) {
     var file = req.files.file;
-    var userId = calcUser(req.body.userId)
+    var userId = calcUser(req.body.userId);
+    var fileName = CalcFileName("", file.extension);
     var cv = {
         fileData: req.body.data
-        , fileName: file.originalname
+        , fileName: fileName
         , userId: userId
     };
 

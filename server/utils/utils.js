@@ -51,6 +51,10 @@ function isUndefined (obj) {
     return !isDefined(obj);
 }
 
+function isEmpty(text) {
+    return (!text || text.length === 0 || !text.trim());
+}
+
 function isEmptyArray(arr) {
     return (Array.isArray(arr) && arr.length > 0);
 }
@@ -62,4 +66,5 @@ module.exports = {
     , isDefined: isDefined
     , isUndefined: isUndefined
     , isEmptyArray: isEmptyArray
+    , isEmpty: isEmpty
 }
