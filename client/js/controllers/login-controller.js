@@ -16,12 +16,14 @@ angular.module('easywork')
     .controller('loginCtrl', function ($scope, authService, $localForage, loginRegisterService) {
 
         var SOMETHING_WENT_WRONG_MSG = "Oops, Something went wrong!";
+        var vm = this;
+
         var modIns = $scope.modIns;
-        $scope.user = {};
-        $scope.user.email = null;
-        $scope.user.password = null;
-        $scope.user.rememeberMe = null;
-        $scope.errorMessage = null;
+        vm.user = {};
+        vm.user.email = null;
+        vm.user.password = null;
+        vm.user.rememeberMe = null;
+        vm.errorMessage = null;
 
         $localForage.getItem('rememeberMeData').then(function(rememeberMeData) {
             if (!rememeberMeData)
@@ -30,42 +32,26 @@ angular.module('easywork')
             if (!rememeberMeData.enable)
                 return;
 
-            $scope.rememeberMe = rememeberMeData.enable;
-            $scope.user.email = rememeberMeData.email;
+            vm.rememeberMe = rememeberMeData.enable;
+            vm.user.email = rememeberMeData.email;
         });
-
-        $scope.hasError = function() {
-            return true;//$scope.errorMessage != null;
-        }
-        $scope.cancel = function () {
-            if (modIns) {
-                modIns.dismiss('canceled');
-//                console.log("login - modIns.close");
-            }
-            modIns = undefined; // Bug Fix - prevent from closing again the modal
-        }; // end cancel
-
-        $scope.hitEnter = function ($event) {
-            if (angular.equals($event.keyCode, 13) && !(angular.equals($scope.user.username, null) || angular.equals($scope.input.username, '')))
-                $scope.submit();
-        };
 
         function handleRmemberMe() {
             var rememeberMeData = {
-                enable: $scope.rememeberMe
+                enable: vm.rememeberMe
             }
 
-            if ($scope.rememeberMe && $scope.user.email) {
-                rememeberMeData.email = $scope.user.email;
+            if (vm.rememeberMe && vm.user.email) {
+                rememeberMeData.email = vm.user.email;
             }
 
             $localForage.setItem('rememeberMeData', rememeberMeData);
         }
 
-            $scope.submit = function () {
+            vm.submit = function () {
                 var user = {
-                    username: $scope.user.email,
-                    password: $scope.user.password
+                    username: vm.user.email,
+                    password: vm.user.password
                 }
 
                 handleRmemberMe();
@@ -82,20 +68,20 @@ angular.module('easywork')
                     })
                     .error(function (err) {
                             if ((err == undefined) || (err === "")) {
-                                $scope.errorMessage = SOMETHING_WENT_WRONG_MSG;
+                                vm.errorMessage = SOMETHING_WENT_WRONG_MSG;
                             }
                             else {
-                                $scope.errorMessage = err.message;
+                                vm.errorMessage = err.message;
                             }
                         }
                     );
             }
 
-        $scope.shouldDisable = function() {
-            return $scope.isEmpty($scope.user.email) || $scope.isEmpty($scope.user.password)
+        vm.shouldDisable = function() {
+            return $scope.isEmpty(vm.user.email) || $scope.isEmpty(vm.user.password)
         }
 
-        $scope.switchToRegister = function() {
+        vm.switchToRegister = function() {
             loginRegisterService.changeTab(1);
         }
     }
