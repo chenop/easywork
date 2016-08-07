@@ -169,7 +169,7 @@ angular.module('easywork')
         })
 
         $scope.getDisplayName = function(entity) {
-            if (entity.skills && Array.isArray(entity.skills) && entity.skills.length > 0)
+            if (entity.skills && Array.isArray(entity.skills))
                 return entity.fileName;
             return entity.name ? entity.name : entity.email;
         }

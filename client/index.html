@@ -6,7 +6,10 @@
     <title>עבודה קלה - שליחת קורות חיים</title>
     <base href="/"> <!--Needed for the $locationProvider.html5Mode-->
 
-	<link href="./dist/app.css" rel="stylesheet">
+	<link href="./lib/select2/select2.css" rel="stylesheet">
+	<link href="./lib/angularjs-toaster/toaster.min.css" rel="stylesheet">
+	<link href="./lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="./css/style.css" rel="stylesheet">
 
 
 </head>
@@ -40,9 +43,62 @@
     </div>
 </div>
 
-	<script type="text/javascript" src="./dist/vendors.js"></script>
+	<script type="text/javascript" src="./lib/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="./lib/angular/angular.js"></script>
+	<script type="text/javascript" src="./lib/angular-cookies/angular-cookies.js"></script>
+	<script type="text/javascript" src="./lib/angular-animate/angular-animate.js"></script>
+	<script type="text/javascript" src="./lib/angular-sanitize/angular-sanitize.js"></script>
+	<script type="text/javascript" src="./lib/angular-messages/angular-messages.js"></script>
+	<script type="text/javascript" src="./lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="./lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script type="text/javascript" src="./lib/angular-ui-router/release/angular-ui-router.js"></script>
+	<script type="text/javascript" src="./lib/select2/select2.js"></script>
+	<script type="text/javascript" src="./lib/angular-ui-select2/src/select2.js"></script>
+	<script type="text/javascript" src="./lib/angularjs-toaster/toaster.js"></script>
+	<script type="text/javascript" src="./lib/ng-file-upload/ng-file-upload.js"></script>
+	<script type="text/javascript" src="./lib/angular-file-saver/dist/angular-file-saver.bundle.js"></script>
+	<script type="text/javascript" src="./lib/bootstrap-rtl/dist/js/holder.js"></script>
+	<script type="text/javascript" src="./lib/localforage/dist/localforage.js"></script>
+	<script type="text/javascript" src="./lib/angular-localforage/dist/angular-localForage.js"></script>
 
-	<script type="text/javascript" src="./dist/app.js"></script>
+	<script type="text/javascript" src="./js/app.js"></script>
+	<script type="text/javascript" src="./js/routingConfig.js"></script>
+	<script type="text/javascript" src="./js/controllers/header-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/job-board-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/company-board-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/company-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/home-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/dashboard-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/dashboard-list-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/user-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/job-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/job-full-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/company-details-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/job-details-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/login-register-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/empty-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/logo-gallery-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/send-cv-dialog-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/yesNoModal-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/unsuscribe-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/cv-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/login-controller.js"></script>
+	<script type="text/javascript" src="./js/controllers/register-controller.js"></script>
+	<script type="text/javascript" src="./js/services/app-manager-service.js"></script>
+	<script type="text/javascript" src="./js/services/data-manager-service.js"></script>
+	<script type="text/javascript" src="./js/services/auth-service.js"></script>
+	<script type="text/javascript" src="./js/services/mail-service.js"></script>
+	<script type="text/javascript" src="./js/services/cv-parser.js"></script>
+	<script type="text/javascript" src="./js/services/common-service.js"></script>
+	<script type="text/javascript" src="./js/services/utils-services.js"></script>
+	<script type="text/javascript" src="./js/services/cv-service.js"></script>
+	<script type="text/javascript" src="./js/services/login-register-service.js"></script>
+	<script type="text/javascript" src="./js/models/job.js"></script>
+	<script type="text/javascript" src="./js/models/modelTransformer.js"></script>
+	<script type="text/javascript" src="./js/directives/directives.js"></script>
+	<script type="text/javascript" src="./js/directives/company-card.js"></script>
+	<script type="text/javascript" src="./js/directives/user-card.js"></script>
+	<script type="text/javascript" src="./js/directives/upload-cv-directive.js"></script>
 
 </body>
 </html>
