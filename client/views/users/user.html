@@ -11,7 +11,9 @@
             <input class="col-sm-9 form-control" type="email" ng-model="user.email" name="email" required="true"
                    placeholder="Your E-mail"/>
         </div>
-        <upload-cv user-id="userId" cv="cvData"></upload-cv>
+
+        <upload-cv user-id="userId" cv="cvData" ng-show="user.role === 'jobSeeker'"></upload-cv>
+
         <div class="form-group" ng-show="user.role === 'jobSeeker'">
             <label class="col-sm-3 control-label">כמה מילים על עצמך...</label>
             <textarea class="col-sm-9 form-control cv-message" ng-model="user.message"/>
@@ -44,8 +46,8 @@
 
             <div class="no-padding col-sm-9">
                 <div class="btn-group account-type" data-toggle="buttons-checkbox">
-                    <button ng-click="updateRole('jobSeeker')" type="button" class="btn btn-default" ng-model="user.role" btn-radio="'jobSeeker'">מועמד</button>
-                    <button ng-click="updateRole('jobProvider')"type="button" class="btn btn-default" ng-model="user.role" btn-radio="'jobProvider'">מעסיק</button>
+                    <button ng-click="updateRole('jobSeeker')" type="button" class="btn btn-default" ng-model="user.role" uib-btn-radio="'jobSeeker'">מועמד</button>
+                    <button ng-click="updateRole('jobProvider')"type="button" class="btn btn-default" ng-model="user.role" uib-btn-radio="'jobProvider'">מעסיק</button>
                 </div>
             </div>
         </div>

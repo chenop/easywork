@@ -62,7 +62,7 @@ function createCompanyInstance(company) {
 }
 
 function deleteCompany(id) {
-    return Company.findById(id).exec()
+    return Company.findById(id).lean().exec()
         .then(function (company) {
             if (company == undefined || company == null)
                 return;
@@ -72,7 +72,7 @@ function deleteCompany(id) {
 }
 
 function getCompany(companyId) {
-    return Company.findById(companyId).exec();
+    return Company.findById(companyId).lean().exec();
 }
 
 function getCompanies(showPublishOnly) {
@@ -81,17 +81,17 @@ function getCompanies(showPublishOnly) {
     if (utils.isDefined(showPublishOnly) && showPublishOnly === true)
         conditions = {publish: showPublishOnly};
 
-    return Company.find(conditions).exec();
+    return Company.find(conditions).lean().exec();
 }
 
 function deleteJob(companyId, jobId) {
-    return Company.update( {_id: companyId}, { $pull: {jobs: jobId } }).exec();
+    return Company.update( {_id: companyId}, { $pull: {jobs: jobId } }).lean().exec();
 }
 
 function addJob(company, job) {
-    return Company.update( {_id: company._id}, { $push: {jobs: job._id } } ).exec();
+    return Company.update( {_id: company._id}, { $push: {jobs: job._id } } ).lean().exec();
 }
 
 function setPublish(company, publish) {
-    return Company.update( {_id: company._id}, { publish: publish } ).exec();
+    return Company.update( {_id: company._id}, { publish: publish } ).lean().exec();
 }

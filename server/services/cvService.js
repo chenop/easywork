@@ -47,12 +47,12 @@ function updateCv(cv) {
     cvInstance._id = cv._id;
 
     var upsertCv = cvInstance.toObject();
-    return Cv.findOneAndUpdate({'_id': cv._id}, upsertCv, {upsert: true, new: true}).exec();
+    return Cv.findOneAndUpdate({'_id': cv._id}, upsertCv, {upsert: true, new: true}).lean().exec();
 }
 
 
 function deleteCv(id) {
-    return Cv.findById(id).exec()
+    return Cv.findById(id).lean().exec()
         .then(function (cv) {
             if (cv == undefined || cv == null)
                 return;
@@ -62,10 +62,10 @@ function deleteCv(id) {
 }
 
 function getCv(cvId) {
-    return Cv.findById(cvId).exec();
+    return Cv.findById(cvId).lean().exec();
 }
 
 function getCvs() {
-    return Cv.find({}).select('-fileData -fileType').exec();
+    return Cv.find({}).select('-fileData -fileType').lean().exec();
 }
 

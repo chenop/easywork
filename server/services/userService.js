@@ -31,7 +31,7 @@ function updateUser(user) {
     userInstance._id = user._id;
 
     var upsertUser = userInstance.toObject();
-    return User.findOneAndUpdate({'_id': user._id}, upsertUser, {upsert: true, new: true}).exec();
+    return User.findOneAndUpdate({'_id': user._id}, upsertUser, {upsert: true, new: true}).lean().exec();
 }
 
 function createUserInstance(user) {
@@ -53,7 +53,7 @@ function createUserInstance(user) {
 }
 
 function deleteUser(id) {
-    return User.findById(id).exec()
+    return User.findById(id).lean().exec()
         .then(function (user) {
             if (user == undefined || user == null)
                 return;
@@ -63,11 +63,11 @@ function deleteUser(id) {
 }
 
 function getUser(userId) {
-    return User.findById(userId).populate('cv').exec();
+    return User.findById(userId).populate('cv', '-fileData -fileType').lean().exec();
 }
 
 function getUsers() {
-    return User.find().exec();
+    return User.find().lean().exec();
 }
 
 function deleteCv(userId) {
@@ -79,5 +79,5 @@ function deleteCv(userId) {
 }
 
 function findUserByEmail(email) {
-    return User.findOne({email: email}).lean().exec();
+    return User.findOne({email: email}).lean().lean().exec();
 }

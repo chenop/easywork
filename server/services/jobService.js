@@ -29,7 +29,7 @@ function updateJob(job) {
     jobInstance._id = job._id;
 
     var upsertJob = jobInstance.toObject();
-    return Job.findOneAndUpdate({'code': job.code}, upsertJob, {upsert: true, new: true}).exec();
+    return Job.findOneAndUpdate({'code': job.code}, upsertJob, {upsert: true, new: true}).lean().exec();
 }
 
 function createJobInstance(job) {
@@ -47,7 +47,7 @@ function createJobInstance(job) {
 }
 
 function deleteJob(id) {
-    return Job.findById(id).exec()
+    return Job.findById(id).lean().exec()
         .then(function (job) {
             if (job == undefined || job == null)
                 return;
@@ -57,10 +57,10 @@ function deleteJob(id) {
 }
 
 function getJob(jobId) {
-    return Job.findById(jobId).exec();
+    return Job.findById(jobId).lean().exec();
 }
 
 function getJobs() {
-    return Job.find().exec();
+    return Job.find().lean().exec();
 }
 
