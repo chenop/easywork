@@ -7,25 +7,28 @@
  */
 
 var mongoose = require('mongoose')
-    , Schema = mongoose.Schema;
+	, Schema = mongoose.Schema;
 var common = require('../utils/common');
 
 var cvSchema = new Schema({
-        user: {type: Schema.Types.ObjectId, ref: 'User'}
-        , fileData: String // Saving binary file data in base64 representation
-        , skills: [String]
-        , fileName: String
-        , fileType: String
-    }
+		user: {type: Schema.Types.ObjectId, ref: 'User'}
+		, fileData: String // Saving binary file data in base64 representation
+		, skills: [String]
+		, fileName: String
+		, fileType: String
+	},
+	{
+		timestamps: true
+	}
 );
 
 
 cvSchema.virtual('contentType').get(function () {
-        return common.EContentType.CV;
+	return common.EContentType.CV;
 });
 
-cvSchema.set('toJSON', { virtuals: true });
-cvSchema.set('toObject', { virtuals: true });
+cvSchema.set('toJSON', {virtuals: true});
+cvSchema.set('toObject', {virtuals: true});
 
 
 module.exports = mongoose.model('Cv', cvSchema);

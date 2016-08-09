@@ -154,16 +154,16 @@ angular.module('easywork')
             switch (contentTypeName) {
 
                 case common.CONTENT_TYPE.JOB.name:
-                    var company = appManager.getActiveCompanyId();
+                    var company = getActiveCompanyId();
                     entity = dataManager.createEmptyJob(company)
-                    return createJob(entity);
+                    return dataManager.createJob(entity);
                 case common.CONTENT_TYPE.COMPANY.name:
                     entity = dataManager.createEmptyCompany()
-                    entity.ownerId = appManager.getActiveUserId();
-                    return createCompany(entity);
+                    entity.ownerId = getActiveUserId();
+                    return dataManager.createCompany(entity);
                 case common.CONTENT_TYPE.USER.name:
                     entity = dataManager.createEmptyUser()
-                    return createUser(entity);
+                    return dataManager.createUser(entity);
             }
         }
 
