@@ -52,13 +52,7 @@ function updateCv(cv) {
 
 
 function deleteCv(id) {
-    return Cv.findById(id).lean().exec()
-        .then(function (cv) {
-            if (cv == undefined || cv == null)
-                return;
-
-            return cv.remove();
-        });
+    return Cv.remove({_id: id}).exec();
 }
 
 function getCv(cvId) {

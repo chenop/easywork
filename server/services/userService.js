@@ -53,13 +53,7 @@ function createUserInstance(user) {
 }
 
 function deleteUser(id) {
-    return User.findById(id).lean().exec()
-        .then(function (user) {
-            if (user == undefined || user == null)
-                return;
-
-            return user.remove();
-        });
+    return User.remove({_id: id}).exec();
 }
 
 function getUser(userId) {

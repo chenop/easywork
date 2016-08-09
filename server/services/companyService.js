@@ -62,13 +62,7 @@ function createCompanyInstance(company) {
 }
 
 function deleteCompany(id) {
-    return Company.findById(id).lean().exec()
-        .then(function (company) {
-            if (company == undefined || company == null)
-                return;
-
-            return company.remove();
-        });
+    return Company.remove({_id: id}).exec();
 }
 
 function getCompany(companyId) {

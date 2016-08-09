@@ -47,13 +47,7 @@ function createJobInstance(job) {
 }
 
 function deleteJob(id) {
-    return Job.findById(id).lean().exec()
-        .then(function (job) {
-            if (job == undefined || job == null)
-                return;
-
-            return job.remove();
-        });
+    return Job.remove({_id: id}).exec();
 }
 
 function getJob(jobId) {
