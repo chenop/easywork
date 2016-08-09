@@ -8,7 +8,7 @@
 
         <div class="no-padding dashboard-list">
             <ul class="nav nav-pills nav-stacked">
-                <li ng-repeat="entity in entities | filter:searchStr" ng-class="{'active': isSelected(entity)}"
+                <li ng-repeat="entity in entities | filter:searchStr | orderBy : createdAt : true" ng-class="{'active': isSelected(entity)}"
                     ng-click="setSelected(entity, $index)">
                     <a>
                         {{getDisplayName(entity)}}
