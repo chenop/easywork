@@ -8,6 +8,7 @@
 
 var mongoose = require('mongoose')
     , Schema = mongoose.Schema;
+var common = require('../utils/common');
 
 var companySchema = new Schema({
     name: String
@@ -58,6 +59,13 @@ companySchema.methods.removeJob = function(jobIdToRemove) {
 companySchema.methods.addJob = function(jobId) {
     this.jobs.push(jobId)
 }
+
+companySchema.virtual('contentType').get(function () {
+    return common.EContentType.Company;
+});
+
+companySchema.set('toJSON', { virtuals: true });
+companySchema.set('toObject', { virtuals: true });
 
 var Company = mongoose.model('Company', companySchema);
 module.exports = Company;

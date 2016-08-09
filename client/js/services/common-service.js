@@ -10,6 +10,12 @@ angular.module('easywork')
             , NO: 1
         }
 
+        var EContentType = {
+            Job: 0
+            , Company: 1
+            , User: 2
+            , CV: 3
+        }
         var CONTENT_TYPE =
             {
                 JOB: {value: 0, name: "job"},
@@ -44,5 +50,6 @@ angular.module('easywork')
             , MODAL_RESULT: MODAL_RESULT
             , openYesNoModal: openYesNoModal
             , DEFAULT_MESSAGE: DEFAULT_MESSAGE
+            , EContentType: EContentType
 		}
 	});

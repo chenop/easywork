@@ -8,6 +8,7 @@
 
 var mongoose = require('mongoose')
     , Schema = mongoose.Schema;
+var common = require('../utils/common');
 
 var jobSchema = new Schema({
     name: String
@@ -19,5 +20,13 @@ var jobSchema = new Schema({
     ]
     , company: { type: Schema.Types.ObjectId, ref: 'Company'}
 });
+
+
+jobSchema.virtual('contentType').get(function () {
+    return common.EContentType.Job;
+});
+
+jobSchema.set('toJSON', { virtuals: true });
+jobSchema.set('toObject', { virtuals: true });
 
 module.exports = mongoose.model('Job', jobSchema);

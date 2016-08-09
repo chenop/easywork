@@ -73,8 +73,8 @@ function getJobs (req, res) {
 
     if (!companyId) {
         return JobService.getJobs()
-            .then(function success(job) {
-                return res.send(job);
+            .then(function success(jobs) {
+                return res.send(jobs);
             },
             function error(err) {
                 return res.json(500, err);

@@ -75,7 +75,7 @@ function getCompanies(showPublishOnly) {
     if (utils.isDefined(showPublishOnly) && showPublishOnly === true)
         conditions = {publish: showPublishOnly};
 
-    return Company.find(conditions).lean().exec();
+    return Company.find(conditions).exec();
 }
 
 function deleteJob(companyId, jobId) {

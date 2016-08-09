@@ -61,7 +61,7 @@ function getUser(userId) {
 }
 
 function getUsers() {
-    return User.find().lean().exec();
+    return User.find().exec();
 }
 
 function deleteCv(userId) {

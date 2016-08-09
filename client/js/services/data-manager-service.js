@@ -55,6 +55,9 @@ angular.module('easywork')
                 .then(function(result) {
                     jobs = result.data;
                     return jobs;
+                },
+                function(err1, err2) {
+                    console.log(err1);
                 });
         }
 

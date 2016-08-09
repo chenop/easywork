@@ -9,8 +9,11 @@
 var mongoose = require('mongoose')
     , Schema = mongoose.Schema;
 
+var common = require('../utils/common');
+
 var userSchema = new Schema({
-    email: String
+    type: {type:String,  default: this.modelName}
+    , email: String
     , name: String
     , username: String
     , password: String
@@ -21,13 +24,6 @@ var userSchema = new Schema({
     , fileName: String
     , skills: [String]
     , company: { type: Schema.Types.ObjectId, ref: 'Company'}
-}, {
-    toObject: {
-        virtuals: true
-    },
-    toJSON: {
-        virtuals: true
-    }
 });
 
 //userSchema
@@ -57,5 +53,13 @@ var userSchema = new Schema({
 userSchema.methods.validPassword = function (pwd) {
     return ( this.password === pwd );
 };
+
+
+userSchema.virtual('contentType').get(function () {
+    return common.EContentType.User;
+});
+
+userSchema.set('toJSON', { virtuals: true });
+userSchema.set('toObject', { virtuals: true });
 
 module.exports = mongoose.model('User', userSchema);

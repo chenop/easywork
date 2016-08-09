@@ -169,8 +169,16 @@ angular.module('easywork')
         })
 
         $scope.getDisplayName = function(entity) {
-            if (entity.skills && Array.isArray(entity.skills))
-                return entity.fileName;
-            return entity.name ? entity.name : entity.email;
+            switch (entity.contentType) {
+                case common.EContentType.Job:
+                case common.EContentType.Company:
+                case common.EContentType.User:
+                    return entity.name;
+                case common.EContentType.CV:
+                    return entity.fileName;
+            }
+            //if (entity.skills && Array.isArray(entity.skills))
+            //    return entity.fileName;
+            //return entity.name ? entity.name : entity.email;
         }
    });

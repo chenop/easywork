@@ -55,6 +55,6 @@ function getJob(jobId) {
 }
 
 function getJobs() {
-    return Job.find().lean().exec();
+    return Job.find().exec();
 }
 

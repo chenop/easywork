@@ -8,6 +8,7 @@
 
 var mongoose = require('mongoose')
     , Schema = mongoose.Schema;
+var common = require('../utils/common');
 
 var cvSchema = new Schema({
         user: {type: Schema.Types.ObjectId, ref: 'User'}
@@ -17,5 +18,14 @@ var cvSchema = new Schema({
         , fileType: String
     }
 );
+
+
+cvSchema.virtual('contentType').get(function () {
+        return common.EContentType.CV;
+});
+
+cvSchema.set('toJSON', { virtuals: true });
+cvSchema.set('toObject', { virtuals: true });
+
 
 module.exports = mongoose.model('Cv', cvSchema);
