@@ -13,7 +13,6 @@ var express = require('express')
 	, mail = require('./server/mail')
 	, companyController = require('./server/controllers/companyController')
 	, dataProxy = require('./server/controllers/dataProxy')
-    , morgan = require('morgan')
     , cookieParser = require('cookie-parser')
     , bodyParser = require('body-parser')
     , multer  = require('multer')
@@ -22,22 +21,18 @@ var express = require('express')
 	, mongoose = require('mongoose')
     , url = require('url')
     , config = require('./server/config')
+	, logger = require('./server/utils/logger')
 
 var app = express(); // comment
-var start = Date.now();
-
-var log = function (message) {
-	console.log("[" + (Date.now() - start) + "] " + message);
-};
 
 if (process.env.NODE_ENV === "development") {
     var errorhandler = require('errorhandler');
     app.use(errorhandler())
 }
 
-console.log("DB URL: " + config.dbUrl);
-console.log("BASE URL: " + config.baseUrl);
-console.log("DOC PARSER URL: " + config.docParserUrl);
+logger.info("DB URL: " + config.dbUrl);
+logger.info("BASE URL: " + config.baseUrl);
+logger.info("DOC PARSER URL: " + config.docParserUrl);
 mongoose.connect(config.dbUrl); // comment
 mongoose.connection.on('error', function(err, req, res, next)  {
     log("Cant connect to MongoDB - please verify that it was started.");
@@ -111,7 +106,7 @@ app.get('*', function (req, res) {
 })
 
 app.listen(app.get('port'), function () {
-	log("Express server listening on port " + app.get('port'));
+	logger.info("Express server listening on port " + app.get('port'));
 });
 
 module.exports = app;

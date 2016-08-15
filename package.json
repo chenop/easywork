@@ -36,7 +36,8 @@
     "passport-local": "~0.1.6",
     "q": "^1.0.1",
     "request-promise": "^2.0.1",
-    "should": "^8.2.0"
+    "should": "^8.2.0",
+    "winston": "^2.2.0"
   },
   "devDependencies": {
     "chai": "^3.4.1",
