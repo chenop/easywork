@@ -37,9 +37,6 @@ mongoose.connect(config.dbUrl); // comment
 mongoose.connection.on('error', function(err, req, res, next)  {
     log("Cant connect to MongoDB - please verify that it was started.");
 });
-//mongoose.connection.once('open', function callback() {
-//    log("Connected to db");
-//});
 
 var clientDir = path.join(__dirname, 'client')
 app.set('port', process.env.PORT || 3000)
