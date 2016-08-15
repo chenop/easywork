@@ -25,6 +25,7 @@ var express = require('express')
 
 var app = express(); // comment
 var start = Date.now();
+
 var log = function (message) {
 	console.log("[" + (Date.now() - start) + "] " + message);
 };

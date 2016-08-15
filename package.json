@@ -28,7 +28,6 @@
     "method-override": "^2.3.1",
     "mocha": "^2.3.4",
     "mongoose": "^4",
-    "morgan": "^1.4.1",
     "multer": "^0.1.7",
     "nodemailer": "^1",
     "passport": "~0.1.17",
@@ -47,7 +46,8 @@
   "scripts": {
     "start": "node server.js",
     "postinstall": "bower install && grunt prod",
-    "test": "set NODE_ENV=test &  mocha"
+    "test": "set NODE_ENV=test &  mocha",
+    "dev": "grunt dev --environment development"
   },
   "description": "Easywork: Building an App with AngularJS, Express andNode.js\r ============================================================",
   "main": "Gruntfile.js",
