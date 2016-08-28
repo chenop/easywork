@@ -44,7 +44,7 @@ function generateCurrentDate() {
 function createCv(req, res) {
     var file = req.files.file;
     var userId = calcUser(req.body.userId);
-    var fileName = CalcFileName("", file.extension);
+    var fileName = CalcFileName(file.originalname, file.extension);
     var cv = {
         fileData: req.body.data
         , fileName: fileName
