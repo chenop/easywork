@@ -27,6 +27,10 @@ cvSchema.virtual('contentType').get(function () {
 	return common.EContentType.CV;
 });
 
+cvSchema.methods.fullFileData = function () {
+	return this.fileType + "," + this.fileData;
+}
+
 cvSchema.set('toJSON', {virtuals: true});
 cvSchema.set('toObject', {virtuals: true});
 

@@ -17,6 +17,7 @@ module.exports = {
     , getCvFile: getCvFile
     , getCvs: getCvs
     , deleteCv: deleteCv
+    , analyzeExistingCv: analyzeExistingCv
 }
 
 var calcUser = function (userId) {
@@ -41,6 +42,48 @@ function generateCurrentDate() {
     return (curr_date + "-" + curr_month + "-" + curr_year);
 }
 
+function analyzeExistingCv(req, res) {
+    var cvId = req.params.id;
+
+    return CvService.getCv(cvId)
+        .then(function success(cv) {
+            var fullFileData = cv.fullFileData();
+                cv.fileData = fullFileData;
+                return analyzeAndSaveCv(cv)
+                    .then(function (updatedCv) {
+                        return res.send(updatedCv);
+                    });
+            },
+            function error(err) {
+                return res.json(500, err);
+            })
+}
+
+function analyzeAndSaveCv(cv) {
+    return docParserApi.analyzeCv(cv.fileName, cv.fileData)
+        .then(function (skills) {
+            cv.skills = skills;
+            if (utils.isDefined(cv._id))
+                return CvService.updateCv(cv);
+            else
+                return CvService.createCv(cv);
+        })
+        .then(function (cv) {
+            if (!cv || !cv.user) // user is not defined, just return the cv
+                return cv;
+
+            return UserService.getUser(cv.user)
+                .then(function (user) {
+                    if (!user)
+                        return cv;
+
+                    user.cv = cv;
+                    UserService.updateUser(user);
+                    return cv;
+                })
+        })
+}
+
 function createCv(req, res) {
     var file = req.files.file;
     var userId = calcUser(req.body.userId);
@@ -51,31 +94,13 @@ function createCv(req, res) {
         , userId: userId
     };
 
-    return docParserApi.analyzeCv(cv.fileName, cv.fileData)
-        .then(function(skills) {
-            cv.skills = skills;
-            return CvService.createCv(cv);
-        })
-        .then(function(cv) {
-            if (!cv || !cv.user) // user is not defined, just return the cv
-                return cv;
-
-            return UserService.getUser(cv.user)
-                .then(function(user) {
-                    if (!user)
-                        return cv;
-
-                    user.cv = cv;
-                    UserService.updateUser(user);
-                    return cv;
-                });
-        })
+    return analyzeAndSaveCv(cv)
         .then(function success(cv) {
-            return res.send(cv);
-        },
-        function error(err) {
-            return res.json(500, err);
-        });
+                return res.send(cv);
+            },
+            function error(err) {
+                return res.json(500, err);
+            });
 }
 
 function getCvFile(req, res) {
@@ -109,7 +134,7 @@ function deleteCv(req, res) {
     var id = req.params.id;
 
     return CvService.getCv(id)
-        .then(function(cv) {
+        .then(function (cv) {
             var userId = cv.user;
             UserService.deleteCv(userId);
             return CvService.deleteCv(id)
@@ -126,10 +151,10 @@ function deleteCv(req, res) {
 function getCvs(req, res) {
     return CvService.getCvs()
         .then(function success(cvs) {
-            return res.send(cvs);
-        },
-        function error(err) {
-            return res.status(500).json(err);
-        }
-    );
+                return res.send(cvs);
+            },
+            function error(err) {
+                return res.status(500).json(err);
+            }
+        );
 }

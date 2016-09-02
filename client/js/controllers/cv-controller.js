@@ -20,6 +20,15 @@ angular.module('easywork').controller('cvDetailsCtrl', function ($scope, appMana
         $scope.cv = selectedEntity;
     };
 
+    $scope.refreshSkills = function() {
+        $scope.isLoading = true;
+        dataManager.analyzeCv($scope.cv.id)
+            .then(function (cv) {
+                $scope.cv.skills = cv.skills;
+                $scope.isLoading = false;
+            })
+    }
+
     $scope.downloadCv = function () {
         dataManager.getCv(entityId)
             .then(function(cv) {

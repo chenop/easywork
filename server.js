@@ -97,6 +97,7 @@ app.get('/api/cv/download/:id', cvController.getCvFile)
 app.get('/api/cv/:id', cvController.getCv)
 app.post('/api/cv', cvController.createCv)
 app.delete('/api/cv/:id', cvController.deleteCv)
+app.put('/api/cv/analyzeCv/:id', cvController.analyzeExistingCv)
 
 app.get('*', function (req, res) {
 	res.sendFile(path.join(clientDir, 'index.html'))

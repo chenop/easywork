@@ -69,6 +69,20 @@ angular.module('easywork')
             return getEntities(common.CONTENT_TYPE.CV);
         }
 
+        function analyzeCv(cvId) {
+            if (!cvId)
+                return;
+
+            return $http.put('/api/' + common.CONTENT_TYPE.CV.name + '/analyzeCv/' + cvId)
+                .then(function(result) {
+                        return result.data;
+                    },
+                    function(err) {
+                        console.log("Error! " + err);
+                    });
+
+        }
+
         var getCompany = function (id) {
             return getEntity(common.CONTENT_TYPE.COMPANY, id)
                 .then(function (result) {                 // Get the logo
@@ -387,6 +401,7 @@ angular.module('easywork')
             , getCv: getCv
             , getCvFile: getCvFile
             , getCvs: getCvs
+            , analyzeCv: analyzeCv
 
             , getAllJobs: getAllJobs
             , prepareBase64ImgSrc: prepareBase64ImgSrc

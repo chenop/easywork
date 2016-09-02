@@ -9970,4 +9970,7 @@ header a, .caret {
 .rtl-direction {
   direction: rtl; }
 
+.refresh-skills {
+  display: inline-block; }
+
 /*# sourceMappingURL=style.css.map */

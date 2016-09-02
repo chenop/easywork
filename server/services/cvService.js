@@ -56,7 +56,7 @@ function deleteCv(id) {
 }
 
 function getCv(cvId) {
-    return Cv.findById(cvId).lean().exec();
+    return Cv.findById(cvId).exec();
 }
 
 function getCvs() {
