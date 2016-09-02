@@ -44,6 +44,10 @@ angular.module('easywork')
                     }
                     else
                         scope.status = scope.STATUS.NO_CV;
+
+                    scope.$watch('cv', function(value) {
+                        scope.cv = value;
+                    })
                 }
 
                 function OnCvDataChanged(cv) {
