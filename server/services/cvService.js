@@ -60,6 +60,6 @@ function getCv(cvId) {
 }
 
 function getCvs() {
-    return Cv.find({}).select('-fileData -fileType').exec();
+    return Cv.find({}).sort('-createdAt').select('-fileData -fileType').exec();
 }
 
