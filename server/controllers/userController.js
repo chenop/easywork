@@ -167,7 +167,7 @@ function deleteUser(req, res) {
         });
 }
 
-function deleteCV(req, res) {
+function deleteCV(req, res) { //commit
     return User.findById(req.params.id, function (err, user) {
         if (user === undefined || user == null)
             return;
