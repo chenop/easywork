@@ -172,8 +172,9 @@ angular.module('easywork')
             switch (entity.contentType) {
                 case common.EContentType.Job:
                 case common.EContentType.Company:
-                case common.EContentType.User:
                     return entity.name;
+                case common.EContentType.User:
+                    return entity.name || entity.email;
                 case common.EContentType.CV:
                     return entity.fileName;
             }
