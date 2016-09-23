@@ -33,6 +33,8 @@ if (process.env.NODE_ENV === "development") {
 logger.info("DB URL: " + config.dbUrl);
 logger.info("BASE URL: " + config.baseUrl);
 logger.info("DOC PARSER URL: " + config.docParserUrl);
+
+mongoose.Promise = global.Promise;
 mongoose.connect(config.dbUrl); // comment
 mongoose.connection.on('error', function(err, req, res, next)  {
     log("Cant connect to MongoDB - please verify that it was started.");
