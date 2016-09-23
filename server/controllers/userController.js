@@ -200,9 +200,9 @@ function isEmailExist(req, res) {
 function getCvByUserId(req, res) {
     return UserService.getCvByUserId(req.params.id)
         .then(function success(cv) {
-                    return res.send(cv);
-                })
-        .catch(function(err) {
-            return res.status(500).json(err);
-        });
+                return res.send(cv);
+            },
+            function error(err) {
+                return res.json(500, err);
+            });
 }
