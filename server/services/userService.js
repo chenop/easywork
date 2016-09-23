@@ -58,7 +58,7 @@ function deleteUser(id) {
 }
 
 function getUser(userId) {
-    return User.findById(userId).populate('cv', '-fileData -fileType').lean().exec();
+    return User.findById(userId).populate('cv', '-fileData -fileType').exec();
 }
 
 function getUsers() {
@@ -77,20 +77,11 @@ function findUserByEmail(email) {
     return User.findOne({email: email}).lean().lean().exec();
 }
 
-function getCvByUserId(req, res) {
-    // TODO Move it to service
-    return UserService.getUser(req.params.id)
-        .then(function success(user) {
-                return user.populate('cv').lean.exec()
-                    .then(function(cv) {
-                        return res.send(user);
-                    })
-                    .catch(function(err) {
-                        return res.status(500).json(err)
-                    })
-            },
-            function error(err) {
-                return res.status(500).json(err)
-            }
-        );
+function getCvByUserId(userId) {
+    return getUser(userId)
+        .then(function (user) {
+            if (!user.cv)
+                throw new Error("Cv was not found");
+            return user.cv;
+        });
 }

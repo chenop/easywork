@@ -72,7 +72,7 @@ app.post('/api/user', userController.createUser)
 app.put('/api/user/:id', userController.updateUser)
 app.delete('/api/user/:id', userController.deleteUser)
 app.get('/api/user/isEmailExist/:email', userController.isEmailExist);
-app.get('/api/cv/byUserId/:id', userController.getCvByUserId)
+app.get('/api/user/byUserId/:id', userController.getCvByUserId)
 
 // Companies
 app.get('/api/company/list', companyController.getCompanies)
@@ -83,8 +83,8 @@ app.delete('/api/company/:id', companyController.deleteCompany)
 app.post('/api/company/logo-upload/:id', companyController.upload)
 app.get('/api/company/logo/:id/:force', companyController.getCompanyLogo)
 app.get('/api/company/jobsBySkill/:id/:skill', companyController.getJobsBySkill);
-
 app.post('/api/company/:id/setPublish/:publish', companyController.setPublish);
+
 // Jobs
 app.get('/api/job/list/:id', jobController.getJobs)
 app.get('/api/job/list', jobController.getJobs)

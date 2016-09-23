@@ -8,6 +8,7 @@ var CvService = require('../server/services/cvService');
 var UserModel = require('../server/models/user');
 var utils = require('./testUtils');
 var should = require('chai').should();
+var expect = require('chai').expect;
 
 function createMockedUser() {
     var newUser = {
@@ -112,9 +113,10 @@ describe("Others", function () {
                         return createdUser.save();
                     })
                     .then(function(savedUser) {
-                        UserService.getCvByUserId(savedUser._id)
+                        return UserService.getCvByUserId(savedUser._id)
                             .then(function(cv) {
                                 cv.should.not.be.null;
+                                expect(cv.fileName).to.equal(newCv.fileName);
                             })
                     });
             })

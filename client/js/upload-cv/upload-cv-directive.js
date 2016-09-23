@@ -10,7 +10,7 @@ angular.module('easywork')
                 cv: "=",
                 userId: "&"
             },
-            templateUrl: '/views/users/uploadCv.html',
+            templateUrl: '/js/upload-cv/uploadCv.html',
             link: function (scope, element, attrs) {
                 scope.STATUS = {
                     NO_CV: 0,
@@ -38,7 +38,7 @@ angular.module('easywork')
                                 }
 
                                 scope.status = (scope.cv) ? scope.STATUS.GOT_CV : scope.STATUS.NO_CV;
-                            }, function error(err) {
+                            }).catch(function error(err) {
                                 scope.status = scope.STATUS.NO_CV;
                             });
                     }
@@ -46,6 +46,8 @@ angular.module('easywork')
                         scope.status = scope.STATUS.NO_CV;
 
                     scope.$watch('cv', function(value) {
+                        if (!value)
+                            return;
                         scope.cv = value;
                     })
                 }
