@@ -72,7 +72,7 @@ app.post('/api/user', userController.createUser)
 app.put('/api/user/:id', userController.updateUser)
 app.delete('/api/user/:id', userController.deleteUser)
 app.get('/api/user/isEmailExist/:email', userController.isEmailExist);
-app.get('/api/user/cvOnly/:id', userController.getCvByUserId)
+app.get('/api/user/byUserId/:id', userController.getCvByUserId)
 
 // Companies
 app.get('/api/company/list', companyController.getCompanies)
