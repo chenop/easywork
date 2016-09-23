@@ -362,7 +362,7 @@ angular.module('easywork')
         }
 
         function getCvByUserId(userId) {
-            return $http.get('/api/user/byUserId/' + userId)
+            return $http.get('/api/user/cvOnly/' + userId)
                 .then(function (result) {
                     return result.data;
                 });

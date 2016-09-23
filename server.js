@@ -34,7 +34,7 @@ logger.info("DB URL: " + config.dbUrl);
 logger.info("BASE URL: " + config.baseUrl);
 logger.info("DOC PARSER URL: " + config.docParserUrl);
 
-mongoose.Promise = global.Promise;
+//mongoose.Promise = global.Promise;
 mongoose.connect(config.dbUrl); // comment
 mongoose.connection.on('error', function(err, req, res, next)  {
     log("Cant connect to MongoDB - please verify that it was started.");
@@ -72,7 +72,7 @@ app.post('/api/user', userController.createUser)
 app.put('/api/user/:id', userController.updateUser)
 app.delete('/api/user/:id', userController.deleteUser)
 app.get('/api/user/isEmailExist/:email', userController.isEmailExist);
-app.get('/api/user/byUserId/:id', userController.getCvByUserId)
+app.get('/api/user/cvOnly/:id', userController.getCvByUserId)
 
 // Companies
 app.get('/api/company/list', companyController.getCompanies)
