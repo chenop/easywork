@@ -27,8 +27,8 @@ angular.module('easywork')
                     // todo if (isLoggedIn) {  $scope.cvData = user.cvData; return; };
 
                     if (userId) {
-                        $localForage.getItem(userId)
-                                .then(function (cv) {
+                        cvService.getCvByUserId(userId)
+                            .then(function(cv) {
                                 if (cv) {
                                     scope.cv = {
                                         fileName: cv.fileName,

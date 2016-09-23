@@ -361,6 +361,13 @@ angular.module('easywork')
             return $http.get('api/user/isEmailExist/' + email);
         }
 
+        function getCvByUserId(userId) {
+            return $http.get('/api/cv/byUserId/' + userId)
+                .then(function (cv) {
+                    return cv;
+                });
+        }
+
         return {
             getFiltersData: getFiltersData
             , getTechnologiesSelect2Options: getTechnologiesSelect2Options
@@ -402,6 +409,7 @@ angular.module('easywork')
             , getCvFile: getCvFile
             , getCvs: getCvs
             , analyzeCv: analyzeCv
+            , getCvByUserId: getCvByUserId
 
             , getAllJobs: getAllJobs
             , prepareBase64ImgSrc: prepareBase64ImgSrc

@@ -75,5 +75,5 @@ describe("User controller", function () {
                         });
                 })
         });
-    })
+    });
 });

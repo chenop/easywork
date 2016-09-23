@@ -15,6 +15,7 @@ module.exports = {
     , getUsers: getUsers
     , deleteCv: deleteCv
     , findUserByEmail: findUserByEmail
+    , getCvByUserId: getCvByUserId
 }
 
 /***********
@@ -74,4 +75,22 @@ function deleteCv(userId) {
 
 function findUserByEmail(email) {
     return User.findOne({email: email}).lean().lean().exec();
+}
+
+function getCvByUserId(req, res) {
+    // TODO Move it to service
+    return UserService.getUser(req.params.id)
+        .then(function success(user) {
+                return user.populate('cv').lean.exec()
+                    .then(function(cv) {
+                        return res.send(user);
+                    })
+                    .catch(function(err) {
+                        return res.status(500).json(err)
+                    })
+            },
+            function error(err) {
+                return res.status(500).json(err)
+            }
+        );
 }

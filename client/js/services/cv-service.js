@@ -3,7 +3,27 @@
  */
 
 angular.module('easywork')
-    .factory('cvService', function (Upload, $timeout) {
+    .factory('cvService', function (Upload, $localForage, dataManager) {
+
+        function getCvByUserId(userId) {
+            return $localForage.getItem(userId)
+                .then(function (cv) {
+                    if (cv)
+                        return cv;
+
+                    return dataManager.getCvByUserId(userId)
+                        .then(function(cv) {
+                            return cv;
+                        })
+                        .catch(function() {
+                            return Promise.reject();
+                        })
+                })
+                .catch(function() {
+                    return Promise.reject();
+                });
+        }
+
         function uploadFile(file, userId) {
             if (!file)
                 return Promise.reject();
@@ -55,6 +75,7 @@ angular.module('easywork')
         return {
             uploadFile: uploadFile
             , convertBase64ToBlob: convertBase64ToBlob
+            , getCvByUserId: getCvByUserId
         }
     });
 

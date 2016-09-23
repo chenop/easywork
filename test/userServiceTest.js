@@ -4,6 +4,7 @@
 'use strict';
 
 var UserService = require('../server/services/userService');
+var CvService = require('../server/services/cvService');
 var UserModel = require('../server/models/user');
 var utils = require('./testUtils');
 var should = require('chai').should();
@@ -94,5 +95,28 @@ describe('User service - Testing CRUD operations', function () {
                         count.should.equal(0);
                     }));
         });
+    });
+});
+
+describe("Others", function () {
+    it("getCvByUserId", function() {
+        var newCv = utils.createMockedCvPlainObject(["GUI", "JavaScript"]);
+        var newUser = utils.createMockedUserPlainObject(true);
+
+        return CvService.createCv(newCv)
+            .then(function(createdCv) {
+                return UserService.createUser(newUser)
+                    .then(function(createdUser) {
+                        createdUser.cv = createdCv;
+
+                        return createdUser.save();
+                    })
+                    .then(function(savedUser) {
+                        UserService.getCvByUserId(savedUser._id)
+                            .then(function(cv) {
+                                cv.should.not.be.null;
+                            })
+                    });
+            })
     });
 });
