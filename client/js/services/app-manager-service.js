@@ -170,7 +170,7 @@ angular.module('easywork')
         function getRelevantEntityId(isDashboard, entityId){
                     if (isDashboard) {
                         var selectedEntity = getSelectedEntity();
-                        entityId = selectedEntity._id;
+                        entityId = (!selectedEntity) ? entityId : selectedEntity._id;
                     } else {
                         entityId = (!entityId) ? getActiveUserId() : entityId;
                         }
