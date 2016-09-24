@@ -19,16 +19,17 @@
             <textarea class="col-sm-9 form-control cv-message" ng-model="user.message"/>
         </div>
 
-        <div class="form-group" access-level="admin">
-            <label class="col-sm-3 control-label">Role</label>
-            <!--<label class="col-sm-9">{{user.role}}</label>-->
-            <div class="experience">
-                <select ui-select2="select2Options" ng-model="user.role" ng-click="updateUser()">
-                    <option value=""></option>
-                    <option ng-repeat="role in userRoles" value="{{role}}">{{role}}</option>
-                </select>
-            </div>
-        </div>
+        <!--<div class="form-group" access-level="admin">-->
+            <!--<label class="col-sm-3 control-label">Role</label>-->
+            <!--&lt;!&ndash;<label class="col-sm-9">{{user.role}}</label>&ndash;&gt;-->
+            <!--<div class="experience">-->
+                <!--<select ui-select2="select2Options" ng-model="user.role" ng-click="updateUser()">-->
+                    <!--<option value=""></option>-->
+                    <!--<option ng-repeat="role in userRoles" value="{{role}}">{{role}}</option>-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</div>-->
+
         <div ng-show="user.role === 'jobProvider'" class="form-group" access-level="admin">
             <label class="col-sm-3 control-label">בעל חברה</label>
 
@@ -46,8 +47,9 @@
 
             <div class="no-padding col-sm-9">
                 <div class="btn-group account-type" data-toggle="buttons-checkbox">
-                    <button ng-click="updateRole('jobSeeker')" type="button" class="btn btn-default" ng-model="user.role" uib-btn-radio="'jobSeeker'">מועמד</button>
-                    <button ng-click="updateRole('jobProvider')"type="button" class="btn btn-default" ng-model="user.role" uib-btn-radio="'jobProvider'">מעסיק</button>
+                    <button ng-click="updateRole('jobSeeker')" type="button" class="btn btn-default" ng-disabled="!isAllowToSwitchRole(user, 'jobSeeker')" ng-model="user.role" uib-btn-radio="'jobSeeker'">מועמד</button>
+                    <button ng-click="updateRole('jobProvider')"type="button" class="btn btn-default" ng-disabled="!isAllowToSwitchRole(user, 'jobProvider')" ng-model="user.role" uib-btn-radio="'jobProvider'">מעסיק</button>
+                    <button ng-if="activeUser.role === 'admin'" ng-click="updateRole('admin')"type="button" class="btn btn-default"  ng-model="user.role" uib-btn-radio="'admin'">Admin</button>
                 </div>
             </div>
         </div>

@@ -3,7 +3,7 @@
  */
 
 angular.module('easywork')
-    .directive('uploadCv', function (cvService, dataManager, Upload, $localForage) {
+    .directive('uploadCv', function (cvService, dataManager, Upload, $localForage, utils) {
         return {
             restrict: 'EA',
             scope: {
@@ -11,6 +11,20 @@ angular.module('easywork')
                 userId: "&"
             },
             templateUrl: '/js/upload-cv/uploadCv.html',
+            controller : ["$scope", function($scope) {
+                $scope.isSkillsExists = function()  {
+                    if (!$scope.cv)
+                        return false;
+                    return !(utils.isEmptyArray($scope.cv.skills));
+                }
+
+                $scope.$watch('cv', function(value) {
+                    if (!value)
+                        return;
+                    $scope.cv = value;
+                })
+
+            }],
             link: function (scope, element, attrs) {
                 scope.STATUS = {
                     NO_CV: 0,
@@ -44,12 +58,6 @@ angular.module('easywork')
                     }
                     else
                         scope.status = scope.STATUS.NO_CV;
-
-                    scope.$watch('cv', function(value) {
-                        if (!value)
-                            return;
-                        scope.cv = value;
-                    })
                 }
 
                 function OnCvDataChanged(cv) {

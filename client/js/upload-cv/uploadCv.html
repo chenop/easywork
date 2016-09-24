@@ -12,7 +12,7 @@
                         </a>
                     </div>
                     <div class="col-sm-9 ">
-                        Skills found:
+                        {{isSkillsExists() ? "מיומניות שנמצאו" : "לא נמצאו מיומניויות"}}
                         <ul>
                             <li style="display: block" class="glyphicon glyphicon-star"
                                 ng-repeat="skill in cv.skills">{{skill}}

@@ -10,6 +10,7 @@ angular.module('easywork')
 
             $scope.userId = appManager.getRelevantEntityId($state.current.isDashboard, $stateParams.entityId);
 
+            $scope.activeUser= appManager.getActiveUser();
             appManager.getRelevantEntity($state.current.isDashboard, $scope.userId, common.CONTENT_TYPE.USER.name)
                 .then(function(user) {
                     refreshUser(user);
@@ -139,6 +140,10 @@ angular.module('easywork')
                 $scope.user.role = newRole;
                 appManager.setActiveUser($scope.user);
                 debounceUpdateUser();
+            }
+
+            $scope.isAllowToSwitchRole = function(currentUser, newRole) {
+                return (currentUser._id != appManager.getActiveUserId() || currentUser.role !== 'admin');
             }
         }
     );

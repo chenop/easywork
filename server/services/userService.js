@@ -80,8 +80,6 @@ function findUserByEmail(email) {
 function getCvByUserId(userId) {
     return getUser(userId)
         .then(function (user) {
-            if (!user.cv)
-                throw new Error("Cv was not found");
             return user.cv;
         });
 }
