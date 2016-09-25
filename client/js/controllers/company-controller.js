@@ -2,31 +2,22 @@
 
 
 angular.module('easywork')
-    .controller('CompanyCtrl', function ($scope, Upload, $http, appManager, dataManager, $timeout, $state, $stateParams, $uibModal, debounce) {
+    .controller('CompanyCtrl', function ($scope, Upload, $http, appManager, dataManager, $timeout, $state, $stateParams, $uibModal, debounce, common) {
         function isDefined(value){return typeof value !== 'undefined';}
 
         $scope.publish = false;
-        if ($state.current.isDashboard) {
-            // Basically we pass the entityId so the state will change and will have the update
-            // But we take the entity from the appManager (cause its cached)
-            var entityId = $stateParams.entityId;
 
-            var selectedEntity = appManager.getSelectedEntity();
-            refreshCompany(selectedEntity);
-        }
-        else {
-            var activeCompanyId = appManager.getActiveCompanyId();
-            dataManager.getCompany(activeCompanyId)
-                .then(function(company){
-                    $scope.company = company;
-                })
-        }
+        var companyId = appManager.getRelevantEntityId($state.current.isDashboard, $stateParams.entityId, common.CONTENT_TYPE.COMPANY.name);
+
+        appManager.getRelevantEntity($state.current.isDashboard, companyId, common.CONTENT_TYPE.COMPANY.name)
+            .then(function(company) {
+                refreshCompany(company);
+            })
 
         function refreshCompany(selectedEntity) {
             if (selectedEntity == null)
                 return;
             $scope.company = selectedEntity;
-            dataManager.getCompanyLogo(selectedEntity._id, $scope.company);
 
             $timeout(function () {
                 $('#companyName').select();

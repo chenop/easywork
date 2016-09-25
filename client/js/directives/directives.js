@@ -61,5 +61,13 @@ angular.module('easywork')
             }
         }
     }])
+    .directive('loading', [function() {
+        return {
+            return: 'E',
+            template: '<div id="loading-wrapper"><div id="spinner"><i class="fa fa-refresh fa-spin fa-4x"></i></div></div>',
+            link: function (scope, element, attrs) {
+            }
+        }
+    }])
 
 

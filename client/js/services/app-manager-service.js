@@ -10,6 +10,7 @@ angular.module('easywork')
 		var displaySearchBarInHeader = true;
         var _selectedEntity;
         var currentContentType = common.CONTENT_TYPE.COMPANY;
+        var loadingIndicatorVisibile = false;
 
         $rootScope.$on('dataChanged', function (event, entity) {
             handleActiveUser(entity);
@@ -167,28 +168,57 @@ angular.module('easywork')
             }
         }
 
-        function getRelevantEntityId(isDashboard, entityId){
-                    if (isDashboard) {
-                        var selectedEntity = getSelectedEntity();
-                        entityId = (!selectedEntity) ? entityId : selectedEntity._id;
-                    } else {
-                        entityId = (!entityId) ? getActiveUserId() : entityId;
-                        }
-                        return entityId;
+        function getRelevantEntityId(isDashboard, entityId, contentTypeName) {
+            if (isDashboard) {
+                var selectedEntity = getSelectedEntity();
+                entityId = (!selectedEntity) ? entityId : selectedEntity._id;
+            } else {
+                if (!entityId) {
+                    switch (contentTypeName) {
+                        case common.CONTENT_TYPE.USER.name:
+                            entityId = getActiveUserId();
+                            break;
+                        case common.CONTENT_TYPE.COMPANY.name:
+                            entityId = getActiveCompanyId();
+                            break;
                     }
+                }
+            }
+            return entityId;
+        }
+
 
         function getRelevantEntity(isDashboard, entityId, contentTypeName) {
-            entityId = getRelevantEntityId(isDashboard, entityId);
+            this.setLoadingIndicatorVisibility(true);
+            entityId = getRelevantEntityId(isDashboard, entityId, contentTypeName);
 
             switch (contentTypeName) {
 
                 case common.CONTENT_TYPE.JOB.name:
-                    return dataManager.getJob(entityId);
+                    return dataManager.getJob(entityId)
+                        .then(handleRelevantEntityResult);
                 case common.CONTENT_TYPE.COMPANY.name:
-                    return dataManager.getCompany(entityId);
+                    return dataManager.getCompany(entityId)
+                        .then(handleRelevantEntityResult);
+                    ;
                 case common.CONTENT_TYPE.USER.name:
-                    return dataManager.getUser(entityId);
+                    return dataManager.getUser(entityId)
+                        .then(handleRelevantEntityResult);
+                    ;
             }
+        }
+
+        function handleRelevantEntityResult(entity) {
+            setLoadingIndicatorVisibility(false);
+            return entity
+        };
+
+        function setLoadingIndicatorVisibility(visible) {
+            loadingIndicatorVisibile = visible;
+        }
+
+        function getLoadingIndicatorVisibility() {
+            return loadingIndicatorVisibile;
         }
 
         return {
@@ -215,6 +245,8 @@ angular.module('easywork')
             , getRelevantEntity: getRelevantEntity
             , getRelevantEntityId: getRelevantEntityId
             , createEmptyEntity: createEmptyEntity
+            , setLoadingIndicatorVisibility: setLoadingIndicatorVisibility
+            , getLoadingIndicatorVisibility: getLoadingIndicatorVisibility
         }
 	}
 );

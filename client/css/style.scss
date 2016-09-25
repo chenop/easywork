@@ -873,3 +873,17 @@ header a, .caret {
 .refresh-skills {
   display: inline-block;
 }
+
+#loading-wrapper {
+  text-align: center;
+  height: 300px;
+  position: relative;
+
+  #spinner {
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    opacity: 0.3;
+    margin-top: -50px; /* account for padding and border if not using box-sizing: border-box; */
+  }
+}

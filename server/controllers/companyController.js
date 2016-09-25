@@ -113,29 +113,28 @@ function upload (req, res) {
     });
 }
 
-function getCompanyLogo (req, res, next) {
+function getCompanyLogo(req, res, next) {
     var force = req.params.force;
 
-    return Company.findById(req.params.id, function (err, company) {
-        if (err)
-            throw err;
+    return CompanyService.getCompany(req.params.id)
+        .then(function (company) {
+                if (force || company.logo === undefined || company.logo.url === undefined || company.logo.url.length === 0) {
 
-        if (company === undefined || company == null) {
-            return res.send(false);
-        } else if (force || company.logo === undefined || company.logo.url === undefined || company.logo.url.length === 0) {
+                    return googleApis.fetchFirstImage(company.name + ' logo image', function (firstImageUrl) {
+                        if (firstImageUrl instanceof Error)
+                            return res.send(false);
 
-            return googleApis.fetchFirstImage(company.name + ' logo image', function (firstImageUrl) {
-                if (firstImageUrl instanceof Error)
-                    return res.send(false);
+                        company.logo.url = firstImageUrl;
+                        company.save(); // update local DB
+                        return res.send(firstImageUrl);
+                    })
+                }
 
-                company.logo.url = firstImageUrl;
-                company.save(); // update local DB
-                return res.send(firstImageUrl);
-            })
-        }
-
-        return res.send(company.logo.url);
-    });
+                return res.send(company.logo.url);
+            },
+            function error(err) {
+                return res.status(500).json(err);
+            });
 };
 
 function getJobsBySkill (req, res) {

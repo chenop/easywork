@@ -8,9 +8,9 @@ angular.module('easywork')
             $scope.user = {};
             $scope.user.skills = null;
 
+            $scope.activeUser= appManager.getActiveUser();
             $scope.userId = appManager.getRelevantEntityId($state.current.isDashboard, $stateParams.entityId);
 
-            $scope.activeUser= appManager.getActiveUser();
             appManager.getRelevantEntity($state.current.isDashboard, $scope.userId, common.CONTENT_TYPE.USER.name)
                 .then(function(user) {
                     refreshUser(user);
@@ -121,7 +121,6 @@ angular.module('easywork')
                     event.preventDefault();
                 }
 
-                // TODO delete the cv id not the activeUser
                 var activeUser = appManager.getActiveUser();
                 if (!activeUser)
                     return;

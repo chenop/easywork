@@ -1,5 +1,5 @@
-<div class="jumbotron" ng-controller="userDetailsCtrl">
-    <form name="form" class="form-horizontal align-center" ng-keyup="updateUser($event)" novalidate>
+<div class="" ng-controller="userDetailsCtrl">
+    <form ng-hide=isLoading name="form" class="jumbotron form-horizontal align-center" ng-keyup="updateUser($event)" novalidate>
         <div class="form-group" ng-class="{ 'has-error' : !user.name}">
             <label class="col-sm-3 control-label">שם</label>
             <input id="userName" class="col-sm-9 form-control" type="text" ng-model="user.name" name="name"

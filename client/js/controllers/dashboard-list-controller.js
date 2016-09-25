@@ -2,8 +2,13 @@ angular.module('easywork')
 	.controller('DashboardListCtrl', function ($scope, dataManager, appManager, common, $stateParams, $state) {
 		var contentTypeName = $stateParams.contentTypeName;
 		var selectedEntityId = $stateParams.selectedEntityId;
+		$scope.appManager = appManager;
+		$scope.isLoading = false;
 
 		refreshEntities(contentTypeName, selectedEntityId)
+		$scope.$watch('appManager.getLoadingIndicatorVisibility()', function(value) {
+			$scope.isLoading = value;
+		})
 
 		function setSelectedEntity(entity) {
 			if ($scope.entities != undefined && $scope.entities.length > 0) {

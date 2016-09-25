@@ -22,7 +22,10 @@
     </div>
 
     <div class="col-xs-12 col-sm-8">
-        <div ui-view></div>
-        <!--<div ng-include="getRelevantForm()"></div>-->
+        <div ng-show=isLoading>
+            <loading />
+        </div>
+
+        <div ng-hide=isLoading ui-view></div>
     </div>
 </div>
