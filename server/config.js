@@ -7,7 +7,7 @@ var TEST_DB_URL = "mongodb://chenop:selavi99@ds039185.mongolab.com:39185/heroku_
 var PRODUCTION_DB = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
 
 var LOCALHOST_ADDRESS = 'http://localhost:3000';
-var PRODUCTION_ADDRESS = 'http://easywork.herokuapp.com';
+var PRODUCTION_ADDRESS = 'http://www.easywork.co.il';
 
 var LOCALHOST_DOC_PARSER = 'http://localhost:8080/webapi/files/upload';
 var PRODUCTION_DOC_PARSER = 'http://doc-parser.herokuapp.com/webapi/files/upload';
