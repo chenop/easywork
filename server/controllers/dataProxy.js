@@ -44,7 +44,7 @@ exports.getFiltersData = function (req, res) {
 
     return SkillService.getSkills()
         .then(function(result) {
-            data.technologies = result;
+            data.skills = result;
             return res.send(data);
         });
 };

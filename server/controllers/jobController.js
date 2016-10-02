@@ -125,7 +125,7 @@ function updateCompanyAfterJobChange(company, jobId) {
 
             var mergedTechnologies = [];
             for (var i = 0; i < companyJobs.length; i++) {
-                mergedTechnologies.merge(companyJobs[i].technologies);
+                mergedTechnologies.merge(companyJobs[i].skills);
             }
 
             company.technologies = mergedTechnologies;
@@ -190,10 +190,10 @@ function updateJob (req, res) {
         var newCompany = req.body.company;
         var newTechnologies = req.body.technologies;
         var oldCompany = (job.company) ? job.company.toString() : null;
-        var oldTechnologies = job.technologies;
+        var oldTechnologies = job.skills;
 
         if (!isTechnologiesEquals(oldTechnologies, newTechnologies)) {
-            job.technologies = newTechnologies;
+            job.skills = newTechnologies;
         }
 
         if (isCompanyChanged(oldCompany, newCompany)) {
@@ -272,7 +272,7 @@ exports.getAllJobs = function(req, res) {
     if (req.params.id) {
         conditions.company = req.params.id;
     }
-    Job.find(conditions).select('company name description city technologies').populate('company').lean()
+    Job.find(conditions).select('company name description city skills').populate('company').lean()
         .exec(function (err, jobs) {
             if (err) {
                 console.log("error while trying to populate jobs:" + err);

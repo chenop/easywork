@@ -40,6 +40,7 @@ function createJobInstance(job) {
             , city: job.city
             , description: job.description
             , company: job.company
+            , skills: job.skills
         }
     );
 

@@ -15,7 +15,7 @@ var jobSchema = new Schema({
 		, code: String
 		, description: String
 		, city: String
-		, technologies: [
+		, skills: [
 			{type: String}
 		]
 		, company: {type: Schema.Types.ObjectId, ref: 'Company'}

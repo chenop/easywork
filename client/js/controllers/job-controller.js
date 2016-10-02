@@ -21,7 +21,7 @@ angular.module('easywork')
             refreshJob($scope.job);
             dataManager.getFiltersData()
                 .then(function (result) {
-                    $scope.technologies = result.data.technologies
+                    $scope.skills = result.data.skills
                 });
 
             dataManager.getCompanies().then(function(result) {
@@ -48,7 +48,7 @@ angular.module('easywork')
             }, 100);
         }
 
-        $scope.technologies_select2Options = {
+        $scope.skill_select2Options = {
             'multiple': true,
             'width': '83.33333%'
         };
@@ -76,18 +76,18 @@ angular.module('easywork')
         }
 
         $scope.isRelevant = function(user) {
-            if ($rootScope.isEmpty($scope.job.technologies))
+            if ($rootScope.isEmpty($scope.job.skills))
                 return true;
 
             var matchesCounter = 0;
 
-            for (var i = 0; i < $scope.job.technologies.length; i++) {
-                var skill = $scope.job.technologies[i];
+            for (var i = 0; i < $scope.job.skills.length; i++) {
+                var skill = $scope.job.skills[i];
 
                 if (user.skills && user.skills.contains(skill))
                     matchesCounter++;
             }
-            return (matchesCounter === $scope.job.technologies.length )
+            return (matchesCounter === $scope.job.skills.length )
         }
     }
 );
