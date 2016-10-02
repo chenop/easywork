@@ -75,6 +75,9 @@ angular.module('easywork')
             $scope.$emit('deleteEntityClicked', appManager.getSelectedEntity());
         }
 
+        // TODO continue from here - isRelevant?!?!? - should be done in server!!! are you fetching all users!!?!?!?!?
+        // TODO for every change in skills display the relevant users with limit!!!
+        // TODO Implement getCandidates(filter)
         $scope.isRelevant = function(user) {
             if ($rootScope.isEmpty($scope.job.skills))
                 return true;
