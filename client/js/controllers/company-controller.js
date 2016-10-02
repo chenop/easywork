@@ -24,16 +24,6 @@ angular.module('easywork')
             }, 100);
         }
 
-        dataManager.getFiltersData()
-            .then(function(result) {
-                $scope.technologies = result.data.technologies
-            });
-
-        $scope.technologies_select2Options = {
-            'multiple': true,
-            'width': '83.33333%'
-        };
-
         $scope.displayedImage = "holder.js/100%x100%";
 
         $scope.onImageSelect = function ($files) {

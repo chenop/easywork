@@ -17,7 +17,7 @@ angular.module('easywork')
         var filterData = null;
 
         // Optimizing filterData call
-        var getFiltersData = function () {
+        function getFiltersData() {
             if (!filterData) {
                 filterData = $http.get('/api/filtersData/')
                     .success(function (result) {

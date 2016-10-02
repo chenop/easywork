@@ -80,7 +80,6 @@ module.exports = function (grunt) {
         , 'client/js/services/data-manager-service.js'
         , 'client/js/services/auth-service.js'
         , 'client/js/services/mail-service.js'
-        , 'client/js/services/cv-parser.js'
         , 'client/js/services/common-service.js'
         , 'client/js/services/utils-services.js'
         , 'client/js/services/cv-service.js'

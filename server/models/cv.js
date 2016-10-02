@@ -34,5 +34,4 @@ cvSchema.methods.fullFileData = function () {
 cvSchema.set('toJSON', {virtuals: true});
 cvSchema.set('toObject', {virtuals: true});
 
-
 module.exports = mongoose.model('Cv', cvSchema);

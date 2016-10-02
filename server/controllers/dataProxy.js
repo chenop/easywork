@@ -2,6 +2,8 @@
  * Created by Chen on 06/03/14.
  */
 
+var SkillService = require('../services/skillService.ts');
+
 exports.getFiltersData = function (req, res) {
     var data = {
         areas: [
@@ -38,8 +40,12 @@ exports.getFiltersData = function (req, res) {
             , 'חדרה'
             , 'נתניה'
         ],
-        technologies: ['Java', 'C#', 'Web', 'UI', 'GUI', 'AngularJS', 'HTML', 'CSS', 'C++', 'JavaScript']
-    }
-    return res.send(data);
+    };
+
+    return SkillService.getSkills()
+        .then(function(result) {
+            data.technologies = result;
+            return res.send(data);
+        });
 };
 
