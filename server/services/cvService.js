@@ -59,7 +59,19 @@ function getCv(cvId) {
     return Cv.findById(cvId).exec();
 }
 
-function getCvs() {
-    return Cv.find({}).sort('-createdAt').select('-fileData -fileType').exec();
+var prepareFilter = function (filter) {
+    if (!filter)
+        return {};
+
+    if (!filter.skills)
+        throw new Error("Cannot find skills in filter");
+
+    return filter;
+
+};
+function getCvs(filter) {
+    var filter = prepareFilter(filter);
+
+    return Cv.find(filter).sort('-createdAt').select('-fileData -fileType');
 }
 

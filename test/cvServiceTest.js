@@ -55,19 +55,48 @@ describe('Cv service', function () {
                 var cv1 = utils.createMockedCvPlainObject(["GUI", "JavaScript"]);
                 var cv2 = utils.createMockedCvPlainObject(["Java", "Web"]);
 
-                return CvService.getCvs()
-                    .then(function(cvs) {
-                        return CvService.createCv(cv1)
-                            .then(function() {
-                                return CvService.createCv(cv2);
-                            })
-                            .then(CvService.getCvs)
-                            .then(function (cvs) {
-                                cvs.length.should.equal(2);
-                                done();
-                            });
+                return CvService.createCv(cv1)
+                    .then(CvService.createCv(cv2))
+                    .then(CvService.getCvs)
+                    .then(function (cvs) {
+                        cvs.length.should.equal(2);
+                        done();
+                    });
 
+            })
+
+            it('should get cvs by filter1', function (done) {
+                var cv1 = utils.createMockedCvPlainObject(["GUI", "JavaScript"]);
+                var cv2 = utils.createMockedCvPlainObject(["Java", "Web"]);
+                var cv3 = utils.createMockedCvPlainObject(["JavaScript", "C++"]);
+
+                return CvService.createCv(cv1)
+                    .then(CvService.createCv(cv2))
+                    .then(CvService.createCv(cv3))
+                    .then(function() {
+                        return CvService.getCvs({skills : "JavaScript"});
                     })
+                    .then(function (cvs) {
+                        cvs.length.should.equal(2);
+                        done();
+                    })
+            })
+
+            it('should get cvs by filter2', function (done) {
+                var cv1 = utils.createMockedCvPlainObject(["GUI", "JavaScript"]);
+                var cv2 = utils.createMockedCvPlainObject(["Java", "Web"]);
+                var cv3 = utils.createMockedCvPlainObject(["JavaScript", "C++"]);
+
+                return CvService.createCv(cv1)
+                    .then(CvService.createCv(cv2))
+                    .then(CvService.createCv(cv3))
+                    .then(function() {
+                        return CvService.getCvs({skills : ["GUI", "JavaScript"]});
+                    })
+                    .then(function (cvs) {
+                        cvs.length.should.equal(1);
+                        done();
+                    });
             })
         })
 

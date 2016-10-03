@@ -18,6 +18,7 @@ module.exports = {
     , getCvs: getCvs
     , deleteCv: deleteCv
     , analyzeExistingCv: analyzeExistingCv
+    , getCvsByFilter: getCvsByFilter
 }
 
 var calcUser = function (userId) {
@@ -150,6 +151,19 @@ function deleteCv(req, res) {
 
 function getCvs(req, res) {
     return CvService.getCvs()
+        .then(function success(cvs) {
+                return res.send(cvs);
+            },
+            function error(err) {
+                return res.status(500).json(err);
+            }
+        );
+}
+
+function getCvsByFilter(req, res) {
+    var filter = req.body,filter;
+
+    return CvService.getCvs(filter)
         .then(function success(cvs) {
                 return res.send(cvs);
             },
