@@ -9,7 +9,7 @@ var CvModel = require('../server/models/cv');
 var utils = require('./testUtils');
 var should = require('chai').should();
 
-describe('Cv service', function () {
+describe.only('Cv service', function () {
     this.timeout(utils.TIMEOUT);
     describe('CRUD operations', function () {
         describe('Create', function () {
@@ -56,8 +56,12 @@ describe('Cv service', function () {
                 var cv2 = utils.createMockedCvPlainObject(["Java", "Web"]);
 
                 return CvService.createCv(cv1)
-                    .then(CvService.createCv(cv2))
-                    .then(CvService.getCvs)
+                    .then(function() {
+                        return CvService.createCv(cv2)
+                    })
+                    .then(function() {
+                        return CvService.getCvs();
+                    })
                     .then(function (cvs) {
                         cvs.length.should.equal(2);
                         done();
@@ -71,8 +75,12 @@ describe('Cv service', function () {
                 var cv3 = utils.createMockedCvPlainObject(["JavaScript", "C++"]);
 
                 return CvService.createCv(cv1)
-                    .then(CvService.createCv(cv2))
-                    .then(CvService.createCv(cv3))
+                    .then(function() {
+                        return CvService.createCv(cv2);
+                    })
+                    .then(function() {
+                        return CvService.createCv(cv3);
+                    })
                     .then(function() {
                         return CvService.getCvs({skills : "JavaScript"});
                     })
@@ -88,8 +96,12 @@ describe('Cv service', function () {
                 var cv3 = utils.createMockedCvPlainObject(["JavaScript", "C++"]);
 
                 return CvService.createCv(cv1)
-                    .then(CvService.createCv(cv2))
-                    .then(CvService.createCv(cv3))
+                    .then(function() {
+                        return CvService.createCv(cv2);
+                    })
+                    .then(function() {
+                        return CvService.createCv(cv3);
+                    })
                     .then(function() {
                         return CvService.getCvs({skills : ["GUI", "JavaScript"]});
                     })

@@ -12,9 +12,22 @@ angular.module('easywork')
             },
             templateUrl: '/js/upload-cv/uploadCv.html',
             controller : ["$scope", function($scope) {
+                $scope.STATUS = {
+                    NO_CV: 0,
+                    UPLOADING_CV: 1,
+                    GOT_CV: 2
+                }
+
+                var userId = $scope.userId();
+                userId = (!userId) ? "anonymous" : userId;
+
+                initCvData();
+
                 $scope.isSkillsExists = function()  {
                     if (!$scope.cv)
                         return false;
+                                                    console.log("isSkillsExists - " + !(utils.isEmptyArray($scope.cv.skills)));
+
                     return !(utils.isEmptyArray($scope.cv.skills));
                 }
 
@@ -24,67 +37,57 @@ angular.module('easywork')
                     $scope.cv = value;
                 })
 
-            }],
-            link: function (scope, element, attrs) {
-                scope.STATUS = {
-                    NO_CV: 0,
-                    UPLOADING_CV: 1,
-                    GOT_CV: 2
-                }
-
-                var userId = scope.userId();
-                userId = (!userId) ? "anonymous" : userId;
-
-                initCvData();
-
                 function initCvData() {
                     // todo if (isLoggedIn) {  $scope.cvData = user.cvData; return; };
 
                     if (userId) {
                         cvService.getCvByUserId(userId)
-                            .then(function(cv) {
+                            .then(function (cv) {
+                                console.log(cv.skills);
                                 if (cv) {
-                                    scope.cv = {
+                                    $scope.cv = {
                                         fileName: cv.fileName,
                                         fileData: cv.fileData,
                                         skills: cv.skills
                                     };
                                 }
 
-                                scope.status = (scope.cv) ? scope.STATUS.GOT_CV : scope.STATUS.NO_CV;
-                            }).catch(function error(err) {
-                                scope.status = scope.STATUS.NO_CV;
+                                $scope.status = ($scope.cv) ? $scope.STATUS.GOT_CV : $scope.STATUS.NO_CV;
+                            })
+                            .catch(function error(err) {
+                                $scope.status = $scope.STATUS.NO_CV;
                             });
                     }
                     else
-                        scope.status = scope.STATUS.NO_CV;
+                        $scope.status = $scope.STATUS.NO_CV;
                 }
 
                 function OnCvDataChanged(cv) {
-                    scope.cv = cv;
+                    $scope.cv = cv;
 
-                    $localForage.setItem(userId, scope.cv);
-                    scope.status = (scope.cv) ? scope.STATUS.GOT_CV : scope.STATUS.NO_CV;
+                    $localForage.setItem(userId, $scope.cv);
+                    $scope.status = ($scope.cv) ? $scope.STATUS.GOT_CV : $scope.STATUS.NO_CV;
                 }
 
-                scope.onFileSelect = function (file) {
-                    scope.status = scope.STATUS.UPLOADING_CV;
+                $scope.onFileSelect = function (file) {
+                    $scope.status = $scope.STATUS.UPLOADING_CV;
                     cvService.uploadFile(file, userId)
                         .then(function(createdCv) {
                             OnCvDataChanged(createdCv);
                         });
                 }
 
-                scope.deleteCV = function (event) {
+                $scope.deleteCV = function (event) {
                     if (event) {
                         event.stopPropagation();
                         event.preventDefault();
                     }
 
-                    dataManager.deleteCv(scope.cv)
+                    dataManager.deleteCv($scope.cv)
                     OnCvDataChanged(null);
                 }
-
+            }],
+            link: function (scope, element, attrs) {
             }
         }
     })
