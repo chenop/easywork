@@ -9,7 +9,7 @@ var CvModel = require('../server/models/cv');
 var utils = require('./testUtils');
 var should = require('chai').should();
 
-describe.only('Cv service', function () {
+describe('Cv service', function () {
     this.timeout(utils.TIMEOUT);
     describe('CRUD operations', function () {
         describe('Create', function () {

@@ -100,7 +100,7 @@ describe('User service - Testing CRUD operations', function () {
 });
 
 describe("Others", function () {
-    it("getCvByUserId", function() {
+    it("getCvByUserId", function(done) {
         var newCv = utils.createMockedCvPlainObject(["GUI", "JavaScript"]);
         var newUser = utils.createMockedUserPlainObject(true);
 
@@ -117,6 +117,7 @@ describe("Others", function () {
                             .then(function(cv) {
                                 cv.should.not.be.null;
                                 expect(cv.fileName).to.equal(newCv.fileName);
+                                done();
                             })
                     });
             })
