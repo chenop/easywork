@@ -415,15 +415,6 @@ tr:hover button.action-button {
   padding-right: 5px;
 }
 
-.register-login {
-  width: inherit;
-  float: left;
-
-  a {
-    float: left;
-  }
-}
-
 .big-title {
   color: $font-color-on-light-background;
   margin-right: 3px;
@@ -838,58 +829,63 @@ header a, .caret {
   background: $header-background-color;
   border-color: $header-background-color;
 
-  .header-controller {
+  .header-controllers {
     width: 78%;
+    float: right;
     padding-right: 0px;
     margin-top: 5px;
 
-    .header-select {
+    .header-search-bar {
       width: 60%;
       padding-top: 6px;
       padding-right: 0px;
+      float: right;
+      display: inline-block;
     }
-  }
 
-  #small-search-button {
-    height: 39px;
-    width: 19%;
-    display: inline-block;
+    #send-button {
+      height: 39px;
+      width: 20%;
+      display: inline-block;
+      float: right;
+      padding: 5px 15px 0px 15px;
 
-    @media (min-width: 768px) {
-      &.btn-disabled {
+      @media (min-width: 768px) {
+        &.btn-disabled {
+          font-size: medium;
+        }
+        font-size: small;
+      }
+
+      @media (min-width: 992px) {
         font-size: medium;
       }
-      font-size: small;
     }
 
-    @media (min-width: 992px) {
-      font-size: medium;
-    }
-  }
+    .header-menu {
+      width: 20%;
+      float: left;
+      direction: ltr;
+      padding-left: 0;
 
-  .header-actions {
-    @media (min-width: 768px) {
-        padding: 5px 5px 5px 5px;
-    }
+      .header-actions {
+        padding-left: 20px;
+        padding-right: 20px;
+        padding-top: 10px;
 
-    @media (min-width: 992px) {
-        padding: 15px 5px 5px 5px;
-    }
-  }
+        .register-login {
+          text-align: center;
+          display: inline-block;
+          width: 49%;
 
-  .header-dropdown-menu {
-    float: left;
-    direction: ltr;
-    padding-top: 15px;
-    padding-left: 0;
+          &.login {
+            float: right;
+          }
 
-    a {
-      padding-right: 5px;
-    }
-
-    &.open {
-      a {
-        background-color: inherit;
+          &.register {
+            float: left;
+          }
+        }
       }
     }
   }

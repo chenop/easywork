@@ -8,70 +8,67 @@
                 </div>
             </div>
 
-            <div class="col-xs-8 header-controller">
-                <!--<div class="navbar-collapse">-->
-                    <!--<div class="row-fluid">-->
-                        <div ng-if="appManager.shouldDisplaySearchBarInHeader()">
-                            <div class="header-select">
-                                <ui-select multiple ng-model="appManager.selectedAreas">
-                                    <ui-select-match placeholder="בחר איזור">{{$item}}</ui-select-match>
-                                    <ui-select-choices repeat="area in areas" value="{{area}}">{{area}}</ui-select-choices>
-                                </ui-select>
-                            </div>
-
-                            <div id="small-search-button">
-                                <button class="btn btn-lg btn-block"
-
-                                        ng-click="send()"
-                                        ng-class="{'btn-disabled':shouldDisableSend(), 'btn-primary':!shouldDisableSend()}"
-                                        ng-disabled="shouldDisableSend()">{{sendButtonLabel}}
-                                </button>
-                            </div>
+            <div class="header-controllers">
+                    <div ng-if="appManager.shouldDisplaySearchBarInHeader()">
+                        <div class="header-search-bar">
+                            <ui-select multiple ng-model="appManager.selectedAreas">
+                                <ui-select-match placeholder="בחר איזור">{{$item}}</ui-select-match>
+                                <ui-select-choices repeat="area in areas" value="{{area}}">{{area}}</ui-select-choices>
+                            </ui-select>
                         </div>
+                        <div id="send-button">
+                            <button class="btn btn-block"
 
-                        <!-- Login or User menu -->
-                        <!--<div class="nav navbar-nav navbar-left no-padding col-sm-2 col-md-2">-->
-                            <div ng-if="!authService.isLoggedIn()">
-                                <div class="register-login row header-actions">
-                                    <div class="navbar-left">
-                                        <a href="#" ng-click="openRegisterDialog()">
-                                                הרשמה
-                                        </a>
-                                    </div>
-                                    <div class="navbar-left col-sm-12 col-md-6">
-                                        <a href="#" ng-click="openLoginDialog()">
-                                                כניסה
-                                        </a>
-                                    </div>
-                                </div>
+                                    ng-click="send()"
+                                    ng-class="{'btn-disabled':shouldDisableSend(), 'btn-primary':!shouldDisableSend()}"
+                                    ng-disabled="shouldDisableSend()">{{sendButtonLabel}}
+                            </button>
+                        </div>
+                    </div>
+
+
+                <!-- Login or User menu -->
+                <div class="header-menu">
+                    <div class="header-actions">
+                    <div ng-if="!authService.isLoggedIn()">
+                            <div class="register-login login">
+                                <a href="#" ng-click="openLoginDialog()">
+                                    כניסה
+                                </a>
                             </div>
-                            <div ng-if="authService.isLoggedIn()" class="row">
-                                <div uib-dropdown class="header-dropdown-menu">
-                                    <a href uib-dropdown-toggle>{{getDisplayName()}}</a><b class="caret"></b>
-                                    <ul class="dropdown-menu" aria-labelledby="simple-dropdown">
-                                        <li access-level="public">
-                                            <a ui-sref="user_details">My User Profile</a>
-                                        </li>
-                                        <li access-level="jobProvider">
-                                            <a ui-sref="my_company">My Company Profile</a>
-                                        </li>
-                                        <li access-level="jobProvider">
-                                            <a ui-sref="dashboard({contentTypeName: 'job'})">My Jobs</a>
-                                        </li>
-                                        <li access-level="admin">
-                                            <a ui-sref="dashboard({contentTypeName: 'company'})">Content Manager</a>
-                                        </li>
-                                        <li access-level="public" active-user="authService.getActiveUser()">
-                                            <a ui-sref="home" ng-click="logout()">Logout</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
+                            <div class="register-login register">
+                                <a href="#" ng-click="openRegisterDialog()">
+                                    הרשמה
+                                </a>
+                            </div>                        </div>
+                    <div ng-if="authService.isLoggedIn()" class="row">
+                        <div uib-dropdown>
+                            <a href uib-dropdown-toggle>{{getDisplayName()}}</a><b class="caret"></b>
+                            <ul class="dropdown-menu" aria-labelledby="simple-dropdown">
+                                <li access-level="public">
+                                    <a ui-sref="user_details">My User Profile</a>
+                                </li>
+                                <li access-level="jobProvider">
+                                    <a ui-sref="my_company">My Company Profile</a>
+                                </li>
+                                <li access-level="jobProvider">
+                                    <a ui-sref="dashboard({contentTypeName: 'job'})">My Jobs</a>
+                                </li>
+                                <li access-level="admin">
+                                    <a ui-sref="dashboard({contentTypeName: 'company'})">Content Manager</a>
+                                </li>
+                                <li access-level="public" active-user="authService.getActiveUser()">
+                                    <a ui-sref="home" ng-click="logout()">Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
             </div>
-            <!--/.nav-collapse -->
+
+            </div>
         </div>
 
     </div>
