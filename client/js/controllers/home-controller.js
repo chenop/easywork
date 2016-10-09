@@ -13,12 +13,9 @@ angular.module('easywork')
 
         dataManager.getFiltersData()
             .then(function(result) {
-                $scope.areas = result.data.areas
-                $scope.technologies = result.data.technologies
+                $scope.areas = result.data.areas;
+                $scope.technologies = result.data.technologies;
             });
-
-        $scope.technologies_select2Options = dataManager.getTechnologiesSelect2Options();
-        $scope.areas_select2Options = dataManager.getAreasSelect2Options();
 
         $scope.search = function () {
             $location.path('/company-board');

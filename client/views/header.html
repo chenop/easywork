@@ -1,4 +1,4 @@
-<div class="navbar navbar-default navbar-fixed-top header" ng-controller="HeaderController">
+<div id="header" class="navbar navbar-default navbar-fixed-top header" ng-controller="HeaderController">
     <div class="container">
         <div class="row-fluid">
             <div class="no-padding">
@@ -7,42 +7,21 @@
                         <b>עבודה קלה</b> - שליחת קורות חיים                    </a>
                 </div>
             </div>
-            <!--<div class="col-xs-2 navbar-collapse collapse">-->
-                <!--<button class="btn btn-default" style="margin-top: 10px" ng-click="publishJob()" access-level="jobProvider">-->
-                    <!--פרסם משרה-->
-                <!--</button>-->
-            <!--</div>-->
 
-            <div class="col-xs-8 no-padding">
-                <div class="navbar-collapse collapse">
-                    <div class="row-fluid">
+            <div class="col-xs-8 header-controller">
+                <!--<div class="navbar-collapse">-->
+                    <!--<div class="row-fluid">-->
                         <div ng-if="appManager.shouldDisplaySearchBarInHeader()">
-                            <div class="col-sm-8 col-md-8 no-padding">
-                                <div class="select2">
-                                    <select ui-select2="areas_select2Options" multiple
-                                            ng-model="appManager.selectedAreas"
-                                            data-placeholder="בחר איזור">
-                                        <option ng-repeat="area in areas" value="{{area}}">{{area}}
-                                        </option>
-                                    </select>
-                                </div>
+                            <div class="header-select">
+                                <ui-select multiple ng-model="appManager.selectedAreas">
+                                    <ui-select-match placeholder="בחר איזור">{{$item}}</ui-select-match>
+                                    <ui-select-choices repeat="area in areas" value="{{area}}">{{area}}</ui-select-choices>
+                                </ui-select>
                             </div>
 
-                            <!--<div class="col-sm-4 col-md-4 no-padding">-->
-                                <!--<div class="select2">-->
-                                    <!--<select ui-select2="technologies_select2Options" multiple-->
-                                            <!--ng-model="appManager.selectedTechnologies"-->
-                                            <!--data-placeholder="בחר טכנולוגיה">-->
-                                        <!--<option ng-repeat="technology in technologies" value="{{technology}}">-->
-                                            <!--{{technology}}-->
-                                        <!--</option>-->
-                                    <!--</select>-->
-                                <!--</div>-->
-                            <!--</div>-->
-
-                            <div class="col-sm-2 col-md-2 no-padding">
+                            <div id="small-search-button">
                                 <button class="btn btn-lg btn-block"
-                                        id="small-search-button"
+
                                         ng-click="send()"
                                         ng-class="{'btn-disabled':shouldDisableSend(), 'btn-primary':!shouldDisableSend()}"
                                         ng-disabled="shouldDisableSend()">{{sendButtonLabel}}
@@ -51,10 +30,10 @@
                         </div>
 
                         <!-- Login or User menu -->
-                        <div class="nav navbar-nav navbar-left no-padding col-sm-2 col-md-2">
+                        <!--<div class="nav navbar-nav navbar-left no-padding col-sm-2 col-md-2">-->
                             <div ng-if="!authService.isLoggedIn()">
                                 <div class="register-login row header-actions">
-                                    <div class="navbar-left col-sm-12 col-md-6">
+                                    <div class="navbar-left">
                                         <a href="#" ng-click="openRegisterDialog()">
                                                 הרשמה
                                         </a>
@@ -67,7 +46,7 @@
                                 </div>
                             </div>
                             <div ng-if="authService.isLoggedIn()" class="row">
-                                <div uib-dropdown>
+                                <div uib-dropdown class="header-dropdown-menu">
                                     <a href uib-dropdown-toggle>{{getDisplayName()}}</a><b class="caret"></b>
                                     <ul class="dropdown-menu" aria-labelledby="simple-dropdown">
                                         <li access-level="public">
@@ -88,9 +67,9 @@
                                     </ul>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
             </div>
             <!--/.nav-collapse -->
         </div>

@@ -21,11 +21,6 @@ $font-color-on-dark-background: $base60-lighter;
 $link-color: darken($base-60-light, 50%);
 $base60-darker: darken($base60-lighter, 20%);
 
-.header {
-  background: $header-background-color;
-  border-color: $header-background-color;
-}
-
 .col2 {
   background: #dcdae5;
 }
@@ -97,9 +92,9 @@ footer {
 }
 
 /* Overriding select2 settings */
-.select2 {
+.select {
   direction: rtl;
-  padding: 10px 5px 10px 5px;
+  padding-top: 8px;
 
   .select2-container {
     width: 100%;
@@ -235,13 +230,7 @@ textarea.cv-message {
   -webkit-border-radius: -34px;
   -moz-border-radius: 8px;
   border-radius: 8px;
-  margin-top: 47px;
-}
-
-#small-search-button {
-  padding: 0px 0px 0px 0px;
-  margin: 7px 5px 0px 0px;
-  height: 39px;
+  //margin-top: 47px;
 }
 
 .align-center {
@@ -271,47 +260,6 @@ textarea.cv-message {
   margin: 0 !important;
 }
 
-
-.navbar {
-  @media (min-width: 768px) {
-    .header-actions {
-      padding: 5px 5px 5px 5px;
-    }
-
-    #small-search-button {
-      &.btn-disabled {
-        font-size: medium;
-      }
-      font-size: small;
-    }
-
-  }
-
-  @media (min-width: 992px) {
-    .header-actions {
-      padding: 15px 5px 5px 5px;
-    }
-    #small-search-button {
-      font-size: medium;
-    }
-  }
-  .dropdown {
-    float: left;
-    direction: ltr;
-    padding-top: 15px;
-    padding-left: 0;
-
-    a {
-      padding-right: 5px;
-    }
-
-    &.open {
-      a {
-        background-color: inherit;
-      }
-    }
-  }
-}
 .ul {
   /*width: 100%;*/
   display: table;
@@ -479,8 +427,6 @@ tr:hover button.action-button {
 .big-title {
   color: $font-color-on-light-background;
   margin-right: 3px;
-  float:right;
-  display:block;
 }
 
 .navbar-default .navbar-brand {
@@ -885,5 +831,66 @@ header a, .caret {
     top: 50%;
     opacity: 0.3;
     margin-top: -50px; /* account for padding and border if not using box-sizing: border-box; */
+  }
+}
+
+#header {
+  background: $header-background-color;
+  border-color: $header-background-color;
+
+  .header-controller {
+    width: 78%;
+    padding-right: 0px;
+    margin-top: 5px;
+
+    .header-select {
+      width: 60%;
+      padding-top: 6px;
+      padding-right: 0px;
+    }
+  }
+
+  #small-search-button {
+    height: 39px;
+    width: 19%;
+    display: inline-block;
+
+    @media (min-width: 768px) {
+      &.btn-disabled {
+        font-size: medium;
+      }
+      font-size: small;
+    }
+
+    @media (min-width: 992px) {
+      font-size: medium;
+    }
+  }
+
+  .header-actions {
+    @media (min-width: 768px) {
+        padding: 5px 5px 5px 5px;
+    }
+
+    @media (min-width: 992px) {
+        padding: 15px 5px 5px 5px;
+    }
+  }
+
+  .header-dropdown-menu {
+    float: left;
+    direction: ltr;
+    padding-top: 15px;
+    padding-left: 0;
+
+    a {
+      padding-right: 5px;
+    }
+
+    &.open {
+      a {
+        background-color: inherit;
+      }
+    }
   }
 }
