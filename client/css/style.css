@@ -9925,10 +9925,21 @@ header a, .caret {
 #header {
   background: #483A3A;
   border-color: #483A3A; }
+  #header .navbar-brand {
+    float: right; }
+    @media (max-width: 767px) {
+      #header .navbar-brand .header-slogan {
+        display: none; } }
+    @media (min-width: 768px) {
+      #header .navbar-brand .header-slogan {
+        display: inline-block; } }
   #header .header-controllers {
     float: right;
     padding-right: 0px;
     margin-top: 5px; }
+    @media (max-width: 768px) {
+      #header .header-controllers {
+        width: 82%; } }
     @media (min-width: 768px) {
       #header .header-controllers {
         width: 66%; } }
@@ -9939,16 +9950,26 @@ header a, .caret {
       #header .header-controllers {
         width: 78%; } }
     #header .header-controllers .header-search-bar {
-      width: 59%;
       padding-top: 4px;
       padding-right: 0px;
       float: right;
       display: inline-block; }
+      @media (max-width: 767px) {
+        #header .header-controllers .header-search-bar {
+          width: 70%; } }
+      @media (min-width: 768px) {
+        #header .header-controllers .header-search-bar {
+          width: 59%; } }
     #header .header-controllers #send-button {
       height: 39px;
       display: inline-block;
       float: right;
       padding: 4px 15px 0px 15px; }
+      @media (max-width: 767px) {
+        #header .header-controllers #send-button {
+          width: 22%; }
+          #header .header-controllers #send-button.btn-disabled {
+            font-size: medium; } }
       @media (min-width: 768px) {
         #header .header-controllers #send-button {
           width: 33%; }
@@ -9996,7 +10017,7 @@ header a, .caret {
                 float: left; } }
       #header .header-controllers .header-menu .header-actions .dropdown-container {
         /** Dropdown animation **/ }
-        @media (min-width: 768px) {
+        @media (max-width: 991px) {
           #header .header-controllers .header-menu .header-actions .dropdown-container {
             padding-top: 6px; } }
         @media (min-width: 992px) {
@@ -10007,6 +10028,7 @@ header a, .caret {
           visibility: visible; }
         #header .header-controllers .header-menu .header-actions .dropdown-container .dropdown-menu {
           right: inherit;
+          float: left;
           /** Dropdown animation **/
           display: block;
           opacity: 0;
@@ -10018,13 +10040,13 @@ header a, .caret {
         #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
           padding-left: 5px;
           display: inline-block; }
-          @media (min-width: 768px) {
+          @media (max-width: 991px) {
             #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
               display: none; } }
           @media (min-width: 992px) {
             #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
               display: inline-block; } }
-        @media (min-width: 768px) {
+        @media (max-width: 991px) {
           #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .fa-bars {
             font-size: 2em; } }
         @media (min-width: 992px) {
