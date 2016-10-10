@@ -9946,12 +9946,20 @@ header a, .caret {
   background: #483A3A;
   border-color: #483A3A; }
   #header .header-controllers {
-    width: 78%;
     float: right;
     padding-right: 0px;
     margin-top: 5px; }
+    @media (min-width: 768px) {
+      #header .header-controllers {
+        width: 66%; } }
+    @media (min-width: 992px) {
+      #header .header-controllers {
+        width: 73%; } }
+    @media (min-width: 1200px) {
+      #header .header-controllers {
+        width: 78%; } }
     #header .header-controllers .header-search-bar {
-      width: 60%;
+      width: 59%;
       padding-top: 6px;
       padding-right: 0px;
       float: right;
@@ -9963,29 +9971,30 @@ header a, .caret {
       float: right;
       padding: 5px 15px 0px 15px; }
       @media (min-width: 768px) {
-        #header .header-controllers #send-button {
-          font-size: small; }
-          #header .header-controllers #send-button.btn-disabled {
-            font-size: medium; } }
+        #header .header-controllers #send-button.btn-disabled {
+          font-size: medium; } }
       @media (min-width: 992px) {
         #header .header-controllers #send-button {
           font-size: medium; } }
     #header .header-controllers .header-menu {
-      width: 20%;
+      width: 21%;
       float: left;
       direction: ltr;
       padding-left: 0; }
       #header .header-controllers .header-menu .header-actions {
-        padding-left: 20px;
-        padding-right: 20px;
         padding-top: 10px; }
-        #header .header-controllers .header-menu .header-actions .register-login {
-          text-align: center;
-          display: inline-block;
-          width: 49%; }
-          #header .header-controllers .header-menu .header-actions .register-login.login {
-            float: right; }
-          #header .header-controllers .header-menu .header-actions .register-login.register {
-            float: left; }
+        #header .header-controllers .header-menu .header-actions .register-login-container {
+          padding-left: 20px;
+          padding-right: 20px; }
+          #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common {
+            text-align: center;
+            display: inline-block;
+            width: 49%; }
+            #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common.login {
+              float: right; }
+            #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common.register {
+              float: left; }
+        #header .header-controllers .header-menu .header-actions .dropdown-container .fa-bars {
+          color: #F5EEDB; }
 
 /*# sourceMappingURL=style.css.map */
