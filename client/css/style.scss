@@ -200,18 +200,6 @@ textarea.cv-message {
 	direction: ltr;
 }
 
-#next-button {
-	height: 446px;
-	border-top-left-radius: 40px;
-	border-bottom-left-radius: 40px;
-}
-
-#prev-button {
-	height: 446px;
-	border-top-right-radius: 40px;
-	border-bottom-right-radius: 40px;
-}
-
 .center-element {
 	float: none;
 	margin: 0 auto;
@@ -219,10 +207,6 @@ textarea.cv-message {
 }
 
 #search-button {
-	//margin: 48px 0px 0px 0px;
-	//width: 149px;
-	//height: 49px;
-
 	height: 49px;
 	padding: 10px 50px;
 	font-size: 23px;
@@ -230,7 +214,6 @@ textarea.cv-message {
 	-webkit-border-radius: -34px;
 	-moz-border-radius: 8px;
 	border-radius: 8px;
-	//margin-top: 47px;
 }
 
 .align-center {
@@ -312,14 +295,6 @@ ul li {
 	vertical-align: middle;
 	border-top: 1px solid;
 	border-color: lighten($header-background-color, 50%);
-}
-
-td button.action-button {
-	opacity: 0;
-}
-
-tr:hover button.action-button {
-	opacity: 1;
 }
 
 .modal-content {
@@ -443,26 +418,29 @@ header a, .caret {
 	color: $font-color-on-dark-background;
 }
 
+/** Overwrite btn-primary settings **/
 .btn-primary {
 	color: #fff;
 	background-color: $base30-1;
 	border-color: $base30-1;
-}
 
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.open .dropdown-toggle.btn-primary {
-	color: #fff;
-	background-color: darken($base30-1, 20%);
-	border-color: darken($base30-1, 20%);
-}
+	transition: all 0.3s ease 0s;
 
-.btn-primary.disabled, .btn-primary[disabled], fieldset[disabled] .btn-primary, .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus, .btn-primary.disabled:active, .btn-primary[disabled]:active, fieldset[disabled] .btn-primary:active, .btn-primary.disabled.active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary.active {
-	color: #fff;
-	background-color: $base30-1;
-	border-color: $base30-1;
+	&:hover, &:focus, &:active, &.open, &.dropdown-toggle.btn-primary {
+		color: #fff;
+		background-color: darken($base30-1, 20%);
+		border-color: darken($base30-1, 20%);
+	}
+
+	&.disabled, &[disabled], fieldset[disabled],
+	&.disabled:hover, &[disabled]:hover, fieldset[disabled] &:hover,
+	&.disabled:focus, &[disabled]:focus, fieldset[disabled] &:focus,
+	&.disabled:active, &[disabled]:active, fieldset[disabled] &:active,
+	&.disabled.active, &[disabled].active, fieldset[disabled] &.active {
+		color: #fff;
+		background-color: $base30-1;
+		border-color: $base30-1;
+	}
 }
 
 .details-title {
@@ -708,10 +686,6 @@ header a, .caret {
 	}
 }
 
-.cv-button {
-	margin-bottom: 15px;
-}
-
 .toast-top-center {
 	top: 80px;
 	margin-left: auto;
@@ -937,8 +911,23 @@ header a, .caret {
 						padding-top: 10px;
 					}
 
+					/** Dropdown animation **/
+					.open > .dropdown-menu {
+						opacity: 1;
+						visibility: visible;
+					}
+
 					.dropdown-menu {
 						right:inherit;
+
+						/** Dropdown animation **/
+						display: block;
+						opacity: 0;
+						visibility: hidden;
+						-webkit-transition: opacity 500ms ease, visibility 500ms ease;
+						-moz-transition: opacity 500ms ease, visibility 500ms ease;
+						-o-transition: opacity 500ms ease, visibility 500ms ease;
+						transition: opacity 500ms ease, visibility 500ms ease;
 					}
 					.display-name {
 						.display-name-text {

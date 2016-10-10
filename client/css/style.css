@@ -9466,16 +9466,6 @@ textarea.cv-message {
   height: 150px;
   direction: ltr; }
 
-#next-button {
-  height: 446px;
-  border-top-left-radius: 40px;
-  border-bottom-left-radius: 40px; }
-
-#prev-button {
-  height: 446px;
-  border-top-right-radius: 40px;
-  border-bottom-right-radius: 40px; }
-
 .center-element {
   float: none;
   margin: 0 auto;
@@ -9552,12 +9542,6 @@ ul li {
   vertical-align: middle;
   border-top: 1px solid;
   border-color: #c7baba; }
-
-td button.action-button {
-  opacity: 0; }
-
-tr:hover button.action-button {
-  opacity: 1; }
 
 .modal-content {
   width: 90%;
@@ -9656,24 +9640,20 @@ a:focus {
 header a, .caret {
   color: #F5EEDB; }
 
+/** Overwrite btn-primary settings **/
 .btn-primary {
   color: #fff;
   background-color: #8FB98B;
-  border-color: #8FB98B; }
-
-.btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.open .dropdown-toggle.btn-primary {
-  color: #fff;
-  background-color: #588a54;
-  border-color: #588a54; }
-
-.btn-primary.disabled, .btn-primary[disabled], fieldset[disabled] .btn-primary, .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus, .btn-primary.disabled:active, .btn-primary[disabled]:active, fieldset[disabled] .btn-primary:active, .btn-primary.disabled.active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary.active {
-  color: #fff;
-  background-color: #8FB98B;
-  border-color: #8FB98B; }
+  border-color: #8FB98B;
+  transition: all 0.3s ease 0s; }
+  .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.open, .btn-primary.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #588a54;
+    border-color: #588a54; }
+  .btn-primary.disabled, .btn-primary[disabled], .btn-primary fieldset[disabled], .btn-primary.disabled:hover, .btn-primary[disabled]:hover, fieldset[disabled] .btn-primary:hover, .btn-primary.disabled:focus, .btn-primary[disabled]:focus, fieldset[disabled] .btn-primary:focus, .btn-primary.disabled:active, .btn-primary[disabled]:active, fieldset[disabled] .btn-primary:active, .btn-primary.disabled.active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary.active {
+    color: #fff;
+    background-color: #8FB98B;
+    border-color: #8FB98B; }
 
 .details-title {
   height: 130px;
@@ -9857,9 +9837,6 @@ header a, .caret {
     .send-cv-container .recommend-container .fb-like-container {
       display: inline-block; }
 
-.cv-button {
-  margin-bottom: 15px; }
-
 .toast-top-center {
   top: 80px;
   margin-left: auto;
@@ -10017,30 +9994,43 @@ header a, .caret {
                 float: right; }
               #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common.register {
                 float: left; } }
-      @media (min-width: 768px) {
-        #header .header-controllers .header-menu .header-actions .dropdown-container {
-          padding-top: 6px; } }
-      @media (min-width: 992px) {
-        #header .header-controllers .header-menu .header-actions .dropdown-container {
-          padding-top: 10px; } }
-      #header .header-controllers .header-menu .header-actions .dropdown-container .dropdown-menu {
-        right: inherit; }
-      #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
-        padding-left: 5px;
-        display: inline-block; }
+      #header .header-controllers .header-menu .header-actions .dropdown-container {
+        /** Dropdown animation **/ }
         @media (min-width: 768px) {
-          #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
-            display: none; } }
+          #header .header-controllers .header-menu .header-actions .dropdown-container {
+            padding-top: 6px; } }
         @media (min-width: 992px) {
-          #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
-            display: inline-block; } }
-      @media (min-width: 768px) {
-        #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .fa-bars {
-          font-size: 2em; } }
-      @media (min-width: 992px) {
-        #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .fa-bars {
-          font-size: 1em; } }
-      #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text:hover + .fa-bars {
-        color: #483A3A; }
+          #header .header-controllers .header-menu .header-actions .dropdown-container {
+            padding-top: 10px; } }
+        #header .header-controllers .header-menu .header-actions .dropdown-container .open > .dropdown-menu {
+          opacity: 1;
+          visibility: visible; }
+        #header .header-controllers .header-menu .header-actions .dropdown-container .dropdown-menu {
+          right: inherit;
+          /** Dropdown animation **/
+          display: block;
+          opacity: 0;
+          visibility: hidden;
+          -webkit-transition: opacity 500ms ease, visibility 500ms ease;
+          -moz-transition: opacity 500ms ease, visibility 500ms ease;
+          -o-transition: opacity 500ms ease, visibility 500ms ease;
+          transition: opacity 500ms ease, visibility 500ms ease; }
+        #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
+          padding-left: 5px;
+          display: inline-block; }
+          @media (min-width: 768px) {
+            #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
+              display: none; } }
+          @media (min-width: 992px) {
+            #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
+              display: inline-block; } }
+        @media (min-width: 768px) {
+          #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .fa-bars {
+            font-size: 2em; } }
+        @media (min-width: 992px) {
+          #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .fa-bars {
+            font-size: 1em; } }
+        #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text:hover + .fa-bars {
+          color: #483A3A; }
 
 /*# sourceMappingURL=style.css.map */
