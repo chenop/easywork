@@ -8,7 +8,7 @@
 
             <ui-select multiple ng-model="appManager.selectedAreas">
                 <ui-select-match placeholder="בחר איזור">{{$item}}</ui-select-match>
-                <ui-select-choices repeat="area in areas" value="{{area}}">{{area}}</ui-select-choices>
+                <ui-select-choices repeat="area in areas | filter: $select.search" value="{{area}}">{{area}}</ui-select-choices>
             </ui-select>
         </div>
 
