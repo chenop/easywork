@@ -8,7 +8,7 @@ var app = angular.module('easywork',
         , 'ui.router'
         , 'ngCookies'
         , 'ngFileUpload'
-        , 'ui.select2'
+        , 'ui.select'
         , 'ngAnimate'
         , 'LocalForageModule'
         , 'toaster'

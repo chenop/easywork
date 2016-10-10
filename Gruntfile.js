@@ -6,7 +6,7 @@ module.exports = function (grunt) {
     var cssFiles = [
         //'client/lib/bootstrap/dist/css/bootstrap.min.css'
         //, 'client/lib/bootstrap-rtl/dist/css/bootstrap-rtl.css'
-        'client/lib/select2/select2.css'
+        'client/lib/angular-ui-select/dist/select.css'
         , 'client/lib/angularjs-toaster/toaster.min.css'
         , 'client/lib/font-awesome/css/font-awesome.min.css'
         , 'client/css/style.css'
@@ -29,8 +29,7 @@ module.exports = function (grunt) {
         , 'client/lib/angular-ui-router/release/angular-ui-router.js'
 
         // Ui-Select2
-        , 'client/lib/select2/select2.js'
-        , 'client/lib/angular-ui-select2/src/select2.js'
+        , 'client/lib/angular-ui-select/dist/select.js'
 
         // Toaster
         , 'client/lib/angularjs-toaster/toaster.js'

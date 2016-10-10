@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
- * Bootstrap v3.3.7 (http://getbootstrap.com)
- * Copyright 2011-2016 Twitter, Inc.
+ * Bootstrap v3.3.6 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1089,6 +1089,7 @@ a {
     color: #23527c;
     text-decoration: underline; }
   a:focus {
+    outline: thin dotted;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
 
@@ -2427,6 +2428,7 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
+  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px; }
 
@@ -2889,6 +2891,7 @@ select[multiple].input-lg,
   -ms-user-select: none;
   user-select: none; }
   .btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus {
+    outline: thin dotted;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
   .btn:hover, .btn:focus, .btn.focus {
@@ -9322,10 +9325,6 @@ th {
   clip: auto; }
 
 /* Colors */
-.header {
-  background: #483A3A;
-  border-color: #483A3A; }
-
 .col2 {
   background: #dcdae5; }
 
@@ -9384,16 +9383,16 @@ footer {
   /*text-align: center;*/ }
 
 /* Overriding select2 settings */
-.select2 {
+.select {
   direction: rtl;
-  padding: 10px 5px 10px 5px; }
-  .select2 .select2-container {
+  padding-top: 8px; }
+  .select .select2-container {
     width: 100%; }
-    .select2 .select2-container .select2-container-multi .select2-choices {
+    .select .select2-container .select2-container-multi .select2-choices {
       border: 1px solid #ccc;
       border-radius: 4px;
       background: white; }
-    .select2 .select2-container .select2-search-choice {
+    .select .select2-container .select2-search-choice {
       float: right;
       direction: ltr;
       margin: 3px 5px 3px 5px; }
@@ -9489,13 +9488,7 @@ textarea.cv-message {
   line-height: normal;
   -webkit-border-radius: -34px;
   -moz-border-radius: 8px;
-  border-radius: 8px;
-  margin-top: 47px; }
-
-#small-search-button {
-  padding: 0px 0px 0px 0px;
-  margin: 7px 5px 0px 0px;
-  height: 39px; }
+  border-radius: 8px; }
 
 .align-center {
   text-align: center;
@@ -9517,28 +9510,6 @@ textarea.cv-message {
 .no-padding {
   padding: 0 !important;
   margin: 0 !important; }
-
-@media (min-width: 768px) {
-  .navbar .header-actions {
-    padding: 5px 5px 5px 5px; }
-  .navbar #small-search-button {
-    font-size: small; }
-    .navbar #small-search-button.btn-disabled {
-      font-size: medium; } }
-@media (min-width: 992px) {
-  .navbar .header-actions {
-    padding: 15px 5px 5px 5px; }
-  .navbar #small-search-button {
-    font-size: medium; } }
-.navbar .dropdown {
-  float: left;
-  direction: ltr;
-  padding-top: 15px;
-  padding-left: 0; }
-  .navbar .dropdown a {
-    padding-right: 5px; }
-  .navbar .dropdown.open a {
-    background-color: inherit; }
 
 .ul {
   /*width: 100%;*/
@@ -9663,17 +9634,9 @@ tr:hover button.action-button {
   padding-top: 7px;
   padding-right: 5px; }
 
-.register-login {
-  width: inherit;
-  float: left; }
-  .register-login a {
-    float: left; }
-
 .big-title {
   color: #DE564B;
-  margin-right: 3px;
-  float: right;
-  display: block; }
+  margin-right: 3px; }
 
 .navbar-default .navbar-brand {
   color: #F5EEDB; }
@@ -9981,5 +9944,103 @@ header a, .caret {
     opacity: 0.3;
     margin-top: -50px;
     /* account for padding and border if not using box-sizing: border-box; */ }
+
+#header {
+  background: #483A3A;
+  border-color: #483A3A; }
+  #header .header-controllers {
+    float: right;
+    padding-right: 0px;
+    margin-top: 5px; }
+    @media (min-width: 768px) {
+      #header .header-controllers {
+        width: 66%; } }
+    @media (min-width: 992px) {
+      #header .header-controllers {
+        width: 73%; } }
+    @media (min-width: 1200px) {
+      #header .header-controllers {
+        width: 78%; } }
+    #header .header-controllers .header-search-bar {
+      width: 59%;
+      padding-top: 4px;
+      padding-right: 0px;
+      float: right;
+      display: inline-block; }
+    #header .header-controllers #send-button {
+      height: 39px;
+      display: inline-block;
+      float: right;
+      padding: 4px 15px 0px 15px; }
+      @media (min-width: 768px) {
+        #header .header-controllers #send-button {
+          width: 33%; }
+          #header .header-controllers #send-button.btn-disabled {
+            font-size: medium; } }
+      @media (min-width: 992px) {
+        #header .header-controllers #send-button {
+          font-size: medium;
+          width: 20%; } }
+    #header .header-controllers .header-menu {
+      float: left;
+      direction: ltr;
+      padding-left: 0; }
+      @media (min-width: 768px) {
+        #header .header-controllers .header-menu {
+          width: 8%; } }
+      @media (min-width: 992px) {
+        #header .header-controllers .header-menu {
+          width: 21%; } }
+      #header .header-controllers .header-menu .header-actions .register-login-container {
+        padding-left: 20px;
+        padding-right: 20px; }
+        @media (min-width: 768px) {
+          #header .header-controllers .header-menu .header-actions .register-login-container {
+            padding-top: 2px; } }
+        @media (min-width: 992px) {
+          #header .header-controllers .header-menu .header-actions .register-login-container {
+            padding-top: 10px; } }
+        #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common {
+          text-align: center;
+          display: inline-block; }
+          @media (min-width: 768px) {
+            #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common {
+              width: inherit; }
+              #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common.login {
+                float: left; }
+              #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common.register {
+                float: left; } }
+          @media (min-width: 992px) {
+            #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common {
+              width: 49%; }
+              #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common.login {
+                float: right; }
+              #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common.register {
+                float: left; } }
+      @media (min-width: 768px) {
+        #header .header-controllers .header-menu .header-actions .dropdown-container {
+          padding-top: 6px; } }
+      @media (min-width: 992px) {
+        #header .header-controllers .header-menu .header-actions .dropdown-container {
+          padding-top: 10px; } }
+      #header .header-controllers .header-menu .header-actions .dropdown-container .dropdown-menu {
+        right: inherit; }
+      #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
+        padding-left: 5px;
+        display: inline-block; }
+        @media (min-width: 768px) {
+          #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
+            display: none; } }
+        @media (min-width: 992px) {
+          #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
+            display: inline-block; } }
+      @media (min-width: 768px) {
+        #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .fa-bars {
+          font-size: 2em; } }
+      @media (min-width: 992px) {
+        #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .fa-bars {
+          font-size: 1em; } }
+      #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text:hover + .fa-bars {
+        color: #483A3A; }
 
 /*# sourceMappingURL=style.css.map */

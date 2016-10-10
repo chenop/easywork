@@ -1,43 +1,21 @@
 <div data-ng-controller="homeCtrl">
 
-    <!--<div class="row">-->
-    <!--<div class="col-md-12">-->
-    <!---->
-    <!--</div>-->
-    <!--</div>-->
-
     <!-- Controls-->
-    <div class="row-fluid">
-        <div class="col-sm-8">
-            <h3 class="big-title">איזור</h3>
+    <h3 class="big-title">איזור</h3>
 
-            <div class="select2">
-                <select ui-select2="areas_select2Options" multiple ng-model="appManager.selectedAreas"
-                        data-placeholder="בחר איזור">
-                    <option ng-repeat="area in areas" value="{{area}}">{{area}}</option>
-                </select>
+    <div class="row">
+        <div class="col-sm-8 select">
+
+            <ui-select multiple ng-model="appManager.selectedAreas">
+                <ui-select-match placeholder="בחר איזור">{{$item}}</ui-select-match>
+                <ui-select-choices repeat="area in areas" value="{{area}}">{{area}}</ui-select-choices>
+            </ui-select>
         </div>
-        </div>
 
-        <!--<div class="col-sm-4">-->
-            <!--<h3 class="big-title">טכנולוגיות</h3>-->
-
-            <!--<div class="select2">-->
-                <!--<select ui-select2="technologies_select2Options" multiple ng-model="appManager.selectedTechnologies"-->
-                        <!--data-placeholder="בחר טכנולוגיה">-->
-                    <!--<option ng-repeat="technology in technologies" value="{{technology}}">{{technology}}</option>-->
-                <!--</select>-->
-            <!--</div>-->
-        <!--</div>-->
-
-        <div class="col-sm-2">
-            <!--<button class="btn btn-lg searchButton" id="search-button" ng-click="search()"-->
-                    <!--ng-class="{'btn-disabled':disableSend, 'btn-primary':!disableSend}"-->
-                    <!--ng-disabled="disableSend">{{searchButtonLabel}}-->
-            <!--</button>-->
+        <div class="col-sm-4">
             <a ui-sref="company-board" class="btn btn-lg searchButton" id="search-button" ng-click="search()"
-                    ng-class="{'btn-disabled':disableSend, 'btn-primary':!disableSend}"
-                    ng-disabled="disableSend">{{searchButtonLabel}}
+               ng-class="{'btn-disabled':disableSend, 'btn-primary':!disableSend}"
+               ng-disabled="disableSend">{{searchButtonLabel}}
             </a>
         </div>
     </div>
