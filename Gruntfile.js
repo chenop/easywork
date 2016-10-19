@@ -9,6 +9,7 @@ module.exports = function (grunt) {
         'client/lib/angular-ui-select/dist/select.css'
         , 'client/lib/angularjs-toaster/toaster.min.css'
         , 'client/lib/font-awesome/css/font-awesome.min.css'
+        , 'client/lib/feedback-directive/dist/feedback.css'
         , 'client/css/style.css'
     ];
 
@@ -34,9 +35,8 @@ module.exports = function (grunt) {
         // Toaster
         , 'client/lib/angularjs-toaster/toaster.js'
 
-        // Parsing CVs
-        //, 'client/lib/jszip/dist/jszip.js'
-        //, 'client/lib/docx/docx.js'
+        // feedback-directive
+        , 'client/lib/feedback-directive/dist/feedback.js'
 
         // File Upload - - danial.farid
         , 'client/lib/ng-file-upload/ng-file-upload.js'
@@ -54,6 +54,7 @@ module.exports = function (grunt) {
 
         , 'client/js/routingConfig.js'
         , 'client/js/controllers/header-controller.js'
+        , 'client/js/controllers/footer-controller.js'
         , 'client/js/controllers/job-board-controller.js'
         , 'client/js/controllers/company-board-controller.js'
         , 'client/js/controllers/company-controller.js'

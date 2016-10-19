@@ -368,6 +368,10 @@ angular.module('easywork')
                 });
         }
 
+        function sendFeedback(data) {
+            return $http.post('/api/feedback', data);
+        }
+
         return {
             getFiltersData: getFiltersData
             , getTechnologiesSelect2Options: getTechnologiesSelect2Options
@@ -416,7 +420,8 @@ angular.module('easywork')
             , createEmptyEntity: createEmptyEntity
             , getJobsBySkill: getJobsBySkill
             , isEmailExist: isEmailExist
-            , deleteEntity: deleteEntity
+            , deleteEntity: deleteEntity,
+            sendFeedback: sendFeedback
         }
     }
 );
