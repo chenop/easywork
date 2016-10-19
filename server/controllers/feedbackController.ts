@@ -3,6 +3,7 @@
  */
 
 var mailService     = require('../mail');
+
 /***********
  * Public
  ***********/
