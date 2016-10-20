@@ -70,7 +70,7 @@ function sendSummaryToUser(user, companies, cvData) {
         //	user: "chenop@gmail.com",
         //	pass: "[my gmail pass]"
         //}
-        host: "mail.easywork.co.il", // hostname
+        host: "mail.easywork.tempurl.co.il", // hostname
         port: 25, // port for secure SMTP
         auth: {
             user: "webmaster@easywork.co.il",
@@ -132,7 +132,7 @@ function createSmtpTransport() {
         //	user: "chenop@gmail.com",
         //	pass: "[my gmail pass]"
         //}
-        host: "mail.easywork.co.il", // hostname
+        host: "mail.easywork.tempurl.co.il", // hostname
         port: 25, // port for secure SMTP
         auth: {
             user: "webmaster@easywork.co.il",
@@ -141,15 +141,13 @@ function createSmtpTransport() {
     });
 }
 function sendMailViaSmtpTransport(smtpTransport, mailOptions) {
-// send mail with defined transport object
+    // send mail with defined transport object
     return smtpTransport.sendMail(mailOptions, function (error, response) {
         if (error) {
             console.log(error);
         } else {
             console.log("Message sent: " + response.message);
         }
-
-        //smtpTransport.close(); // shut down the connection pool, no more messages
     });
 }
 function sendUserCVToCompanies(user, companies, cvData) {
@@ -187,5 +185,20 @@ exports.sendMailCompanyWasUnpublished = function(company) {
     mailOptions.to = "chenop@gmail.com";// company.email;
 
     sendMailViaSmtpTransport(smtpTransport, mailOptions);
+}
 
+exports.sendFeedbackMail = function(data) {
+    var mailOptions = createMailOptions('New feedback!');
+
+    if (data.email)
+        mailOptions.from = data.email;
+
+    if (data.content)
+        mailOptions.html = data.content;
+
+    var smtpTransport = createSmtpTransport();
+
+    mailOptions.to = "chenop@gmail.com";// company.email;
+
+    sendMailViaSmtpTransport(smtpTransport, mailOptions);
 }

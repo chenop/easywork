@@ -20,7 +20,6 @@
     "bootstrap-rtl": "^3.4.0",
     "json3": "~3.2.4",
     "ng-file-upload": "^12.0.4",
-    "jasny-bootstrap": "~3.1.0",
     "bootstrap-sass": "~3.3.3",
     "localforage": "latest",
     "angular-localforage": "~1.2.3",
@@ -29,13 +28,14 @@
     "angular-animate": "~1.4.7",
     "angular": "^1.5.8",
     "angular-cookies": "~1.4.7",
-    "angular-sanitize": "~1.4.7",
     "angular-messages": "~1.4.7",
     "angular-ui-router": "~0.2.15",
     "bootstrap": "~3.3.5",
-    "jquery": "~2.1.4",
+    "jquery": "~3",
     "font-awesome": "fontawesome#^4.6.3",
-    "angular-file-saver": "^1.1.1"
+    "angular-file-saver": "^1.1.1",
+    "feedback-directive": "*",
+    "angular-ui-bootstrap": "^2.2.0"
   },
   "resolutions": {
     "angular": ">=1"

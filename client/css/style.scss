@@ -66,21 +66,6 @@ body {
 	direction: rtl;
 }
 
-footer {
-	position: fixed;
-	left: 0px;
-	bottom: 0px;
-	height: 30px;
-	width: 100%;
-	background: #ddd;
-	-webkit-box-shadow: 0 8px 6px 6px black;
-	-moz-box-shadow: 0 8px 6px 6px black;
-	box-shadow: 0 8px 6px 6px black;
-	p {
-		padding: 5px 0 12px 10px;
-	}
-}
-
 .navlist li {
 	display: inline;
 	list-style-type: none;
@@ -182,17 +167,6 @@ footer {
 
 .table-hover > tbody > tr:hover > td {
 	background-color: rgba(54, 25, 25, 0.1);
-}
-
-.form {
-	border: 2px solid white;
-	border-radius: 10px;
-	box-shadow: 0 0 3px #AAA;
-	width: 150px;
-	background: #CCC;
-	margin: 10px auto;
-	padding: 10px;
-	overflow: auto;
 }
 
 textarea.cv-message {

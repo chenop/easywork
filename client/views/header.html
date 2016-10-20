@@ -41,16 +41,11 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="dropdown-container" ng-if="authService.isLoggedIn()">
-                            <div uib-dropdown>
-
-                                <a href uib-dropdown-toggle>
-                                    <div class="display-name">
-                                        <i class="fa fa-bars"></i>
-                                        <div class="display-name-text">{{getDisplayName()}}</div>
-                                    </div>
-                                </a>
-                                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                        <div ng-if="authService.isLoggedIn()">
+                            <div uib-dropdown class="dropdown-container">
+                                <i class="fa fa-bars"></i>
+                                <a href uib-dropdown-toggle>{{getDisplayName()}}</a>
+                                <ul  class="dropdown-menu" aria-labelledby="simple-dropdown">
                                     <li access-level="public">
                                         <a ui-sref="user_details">My User Profile</a>
                                     </li>

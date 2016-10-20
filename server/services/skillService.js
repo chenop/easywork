@@ -33,13 +33,12 @@ function getSkills() {
         },
     ]).exec()
         .then(function (result) {
-			// Extract the skills array
-	        if (!Array.isArray(result)
-	            || utils.isEmptyArray(result)
-	            || utils.isUndefined(result[0].skills)) {
-	            return Promise.reject();
-	        }
-	        return result[0].skills;
+        if (!Array.isArray(result)
+            || utils.isEmptyArray(result)
+            || utils.isUndefined(result[0].skills)) {
+            return Promise.reject();
+        }
+        return result[0].skills;
     });
 }
 //# sourceMappingURL=skillService.js.map
