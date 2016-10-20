@@ -15,10 +15,11 @@ module.exports = {
  * Private
  ***********/
 function sendFeedback(req, res) {
-    var data = req.body.dataset;
+    var data = req.body.data;
 
     if (!data.content)
         return; // todo write error to log
 
     mailService.sendFeedbackMail(data);
+    return res.send("success");
 }

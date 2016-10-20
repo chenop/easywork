@@ -13,6 +13,7 @@ var app = angular.module('easywork',
         , 'LocalForageModule'
         , 'toaster'
         , 'ngFileSaver'
+        , 'feedback.module'
     ]
 );
 

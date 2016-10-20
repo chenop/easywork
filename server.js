@@ -39,7 +39,7 @@ logger.info("DOC PARSER URL: " + config.docParserUrl);
 //mongoose.Promise = global.Promise;
 mongoose.connect(config.dbUrl); // comment
 mongoose.connection.on('error', function(err, req, res, next)  {
-    log("Cant connect to MongoDB - please verify that it was started.");
+	logger.error("Cant connect to MongoDB - please verify that it was started.");
 });
 
 var clientDir = path.join(__dirname, 'client')
@@ -103,7 +103,7 @@ app.get('/api/cv/:id', cvController.getCv)
 app.post('/api/cv', cvController.createCv)
 app.delete('/api/cv/:id', cvController.deleteCv)
 app.put('/api/cv/analyzeCv/:id', cvController.analyzeExistingCv)
-app.post('api/feedback', feedbackController.sendFeedback)
+app.post('/api/feedback', feedbackController.sendFeedback)
 
 app.get('*', function (req, res) {
 	res.sendFile(path.join(clientDir, 'index.html'))

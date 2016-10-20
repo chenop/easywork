@@ -70,7 +70,7 @@ function sendSummaryToUser(user, companies, cvData) {
         //	user: "chenop@gmail.com",
         //	pass: "[my gmail pass]"
         //}
-        host: "mail.easywork.co.il", // hostname
+        host: "mail.easywork.tempurl.co.il", // hostname
         port: 25, // port for secure SMTP
         auth: {
             user: "webmaster@easywork.co.il",
@@ -132,7 +132,7 @@ function createSmtpTransport() {
         //	user: "chenop@gmail.com",
         //	pass: "[my gmail pass]"
         //}
-        host: "mail.easywork.co.il", // hostname
+        host: "mail.easywork.tempurl.co.il", // hostname
         port: 25, // port for secure SMTP
         auth: {
             user: "webmaster@easywork.co.il",
@@ -194,7 +194,7 @@ exports.sendFeedbackMail = function(data) {
         mailOptions.from = data.email;
 
     if (data.content)
-        mailOptions.text = data.content;
+        mailOptions.html = data.content;
 
     var smtpTransport = createSmtpTransport();
 

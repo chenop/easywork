@@ -369,7 +369,7 @@ angular.module('easywork')
         }
 
         function sendFeedback(data) {
-            return $http.post('/api/feedback', data);
+            return $http.post('/api/feedback', {data: data});
         }
 
         return {
