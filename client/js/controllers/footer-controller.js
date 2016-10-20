@@ -6,6 +6,6 @@ angular.module('easywork')
 	.controller('FooterController', function ($scope, dataManager, toaster) {
 		$scope.sendFeedback = function(data) {
 			dataManager.sendFeedback(data);
-			toaster.pop('success', "ΰπηπε ξεγιν μκ ςμ δξωεα!");
+			toaster.pop('success', "ΧΧ Χ—Χ Χ• ΧΧ•Χ“Χ™Χ ΧΧ ΧΆΧ Χ”ΧΧ©Χ•Χ‘!");
 		}
 	});
