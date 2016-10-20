@@ -23,6 +23,8 @@
 
 <header ng-include="'./views/header.html'" class="navbar navbar-fixed-top ng-scope"></header>
 
+<toaster-container toaster-options="{'time-out': 3000, 'position-class': 'toast-top-center', 'animation-class': 'toast-top-center'}"></toaster-container>
+
 <div class="content">
     <div class="container">
         <div class="view-container" ui-view></div>
