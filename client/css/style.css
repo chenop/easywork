@@ -9495,6 +9495,10 @@ ul li {
 .jumbotron-toolbar {
   margin: 0px 15px 10px 0px; }
 
+#home-view .ui-select-container {
+  height: 34px;
+  margin-top: 8px; }
+
 #job-view .image-container {
   max-height: 150px;
   max-width: 200px; }
@@ -9890,111 +9894,113 @@ header a, .caret {
     margin-top: -50px;
     /* account for padding and border if not using box-sizing: border-box; */ }
 
-#header {
+#header-view {
   background: #483A3A;
   border-color: #483A3A; }
-  #header .navbar-brand {
+  #header-view .ui-select-container {
+    height: 33px; }
+  #header-view .navbar-brand {
     float: right; }
     @media (max-width: 767px) {
-      #header .navbar-brand .header-slogan {
+      #header-view .navbar-brand .header-slogan {
         display: none; } }
     @media (min-width: 768px) {
-      #header .navbar-brand .header-slogan {
+      #header-view .navbar-brand .header-slogan {
         display: inline-block; } }
-  #header .header-controllers {
+  #header-view .header-controllers {
     float: right;
     padding-right: 0px;
     margin-top: 5px; }
     @media (max-width: 768px) {
-      #header .header-controllers {
+      #header-view .header-controllers {
         width: 82%; } }
     @media (min-width: 768px) {
-      #header .header-controllers {
+      #header-view .header-controllers {
         width: 66%; } }
     @media (min-width: 992px) {
-      #header .header-controllers {
+      #header-view .header-controllers {
         width: 73%; } }
     @media (min-width: 1200px) {
-      #header .header-controllers {
+      #header-view .header-controllers {
         width: 78%; } }
-    #header .header-controllers .header-search-bar {
+    #header-view .header-controllers .header-search-bar {
       padding-top: 4px;
       padding-right: 0px;
       float: right;
       display: inline-block; }
       @media (max-width: 767px) {
-        #header .header-controllers .header-search-bar {
+        #header-view .header-controllers .header-search-bar {
           width: 70%; } }
       @media (min-width: 768px) {
-        #header .header-controllers .header-search-bar {
+        #header-view .header-controllers .header-search-bar {
           width: 59%; } }
-    #header .header-controllers #send-button {
+    #header-view .header-controllers #send-button {
       height: 39px;
       display: inline-block;
       float: right;
       padding: 4px 15px 0px 15px; }
       @media (max-width: 767px) {
-        #header .header-controllers #send-button {
+        #header-view .header-controllers #send-button {
           width: 22%; }
-          #header .header-controllers #send-button.btn-disabled {
+          #header-view .header-controllers #send-button.btn-disabled {
             font-size: medium; } }
       @media (min-width: 768px) {
-        #header .header-controllers #send-button {
+        #header-view .header-controllers #send-button {
           width: 33%; }
-          #header .header-controllers #send-button.btn-disabled {
+          #header-view .header-controllers #send-button.btn-disabled {
             font-size: medium; } }
       @media (min-width: 992px) {
-        #header .header-controllers #send-button {
+        #header-view .header-controllers #send-button {
           font-size: medium;
           width: 20%; } }
-    #header .header-controllers .header-menu {
+    #header-view .header-controllers .header-menu {
       float: left;
       direction: ltr;
       padding-left: 0; }
       @media (min-width: 768px) {
-        #header .header-controllers .header-menu {
+        #header-view .header-controllers .header-menu {
           width: 8%; } }
       @media (min-width: 992px) {
-        #header .header-controllers .header-menu {
+        #header-view .header-controllers .header-menu {
           width: 21%; } }
-      #header .header-controllers .header-menu .header-actions .register-login-container {
+      #header-view .header-controllers .header-menu .header-actions .register-login-container {
         padding-left: 20px;
         padding-right: 20px; }
         @media (min-width: 768px) {
-          #header .header-controllers .header-menu .header-actions .register-login-container {
+          #header-view .header-controllers .header-menu .header-actions .register-login-container {
             padding-top: 2px; } }
         @media (min-width: 992px) {
-          #header .header-controllers .header-menu .header-actions .register-login-container {
+          #header-view .header-controllers .header-menu .header-actions .register-login-container {
             padding-top: 10px; } }
-        #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common {
+        #header-view .header-controllers .header-menu .header-actions .register-login-container .register-login-common {
           text-align: center;
           display: inline-block; }
           @media (min-width: 768px) {
-            #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common {
+            #header-view .header-controllers .header-menu .header-actions .register-login-container .register-login-common {
               width: inherit; }
-              #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common.login {
+              #header-view .header-controllers .header-menu .header-actions .register-login-container .register-login-common.login {
                 float: left; }
-              #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common.register {
+              #header-view .header-controllers .header-menu .header-actions .register-login-container .register-login-common.register {
                 float: left; } }
           @media (min-width: 992px) {
-            #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common {
+            #header-view .header-controllers .header-menu .header-actions .register-login-container .register-login-common {
               width: 49%; }
-              #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common.login {
+              #header-view .header-controllers .header-menu .header-actions .register-login-container .register-login-common.login {
                 float: right; }
-              #header .header-controllers .header-menu .header-actions .register-login-container .register-login-common.register {
+              #header-view .header-controllers .header-menu .header-actions .register-login-container .register-login-common.register {
                 float: left; } }
-      #header .header-controllers .header-menu .header-actions .dropdown-container {
+      #header-view .header-controllers .header-menu .header-actions .dropdown-container {
         /** Dropdown animation **/ }
         @media (max-width: 991px) {
-          #header .header-controllers .header-menu .header-actions .dropdown-container {
+          #header-view .header-controllers .header-menu .header-actions .dropdown-container {
             padding-top: 6px; } }
         @media (min-width: 992px) {
-          #header .header-controllers .header-menu .header-actions .dropdown-container {
+          #header-view .header-controllers .header-menu .header-actions .dropdown-container {
             padding-top: 10px; } }
-        #header .header-controllers .header-menu .header-actions .dropdown-container .open > .dropdown-menu {
+        #header-view .header-controllers .header-menu .header-actions .dropdown-container .open > .dropdown-menu {
           opacity: 1;
           visibility: visible; }
-        #header .header-controllers .header-menu .header-actions .dropdown-container .dropdown-menu {
+        #header-view .header-controllers .header-menu .header-actions .dropdown-container .dropdown-menu {
           right: inherit;
           float: left;
           /** Dropdown animation **/
@@ -10005,22 +10011,22 @@ header a, .caret {
           -moz-transition: opacity 500ms ease, visibility 500ms ease;
           -o-transition: opacity 500ms ease, visibility 500ms ease;
           transition: opacity 500ms ease, visibility 500ms ease; }
-        #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
+        #header-view .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
           padding-left: 5px;
           display: inline-block; }
           @media (max-width: 991px) {
-            #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
+            #header-view .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
               display: none; } }
           @media (min-width: 992px) {
-            #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
+            #header-view .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
               display: inline-block; } }
         @media (max-width: 991px) {
-          #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .fa-bars {
+          #header-view .header-controllers .header-menu .header-actions .dropdown-container .display-name .fa-bars {
             font-size: 2em; } }
         @media (min-width: 992px) {
-          #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .fa-bars {
+          #header-view .header-controllers .header-menu .header-actions .dropdown-container .display-name .fa-bars {
             font-size: 1em; } }
-        #header .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text:hover + .fa-bars {
+        #header-view .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text:hover + .fa-bars {
           color: #483A3A; }
 
 /*# sourceMappingURL=style.css.map */

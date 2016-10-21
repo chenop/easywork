@@ -240,6 +240,13 @@ ul li {
 	margin: 0px 15px 10px 0px;
 }
 
+#home-view {
+	.ui-select-container {
+		height: 34px;
+		margin-top: 8px;
+	}
+}
+
 #job-view {
 	.image-container {
 		max-height: 150px;
@@ -768,9 +775,13 @@ header a, .caret {
 	}
 }
 
-#header {
+#header-view {
 	background: $header-background-color;
 	border-color: $header-background-color;
+
+	.ui-select-container {
+		height: 33px;
+	}
 
 	.navbar-brand {
 		float: right;
