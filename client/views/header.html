@@ -41,25 +41,24 @@
                                 </a>
                             </div>
                         </div>
-                        <div ng-if="authService.isLoggedIn()">
-                            <div uib-dropdown class="dropdown-container">
-                                <i class="fa fa-bars"></i>
-                                <a href uib-dropdown-toggle>{{getDisplayName()}}</a>
-                                <ul  class="dropdown-menu" aria-labelledby="simple-dropdown">
+                        <div class="dropdown-container" ng-if="authService.isLoggedIn()">
+                            <div uib-dropdown>
+                                <a href uib-dropdown-toggle><div class="display-name"><i class="fa fa-bars"></i><div class="display-name-text">{{getDisplayName()}}</div></div></a>
+                                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
                                     <li access-level="public">
-                                        <a ui-sref="user_details">My User Profile</a>
+                                        <a ui-sref="user_details">הפרופיל שלי</a>
                                     </li>
                                     <li access-level="jobProvider">
-                                        <a ui-sref="my_company">My Company Profile</a>
+                                        <a ui-sref="my_company">החברה שלי</a>
                                     </li>
                                     <li access-level="jobProvider">
-                                        <a ui-sref="dashboard({contentTypeName: 'job'})">My Jobs</a>
+                                        <a ui-sref="dashboard({contentTypeName: 'job'})">משרות</a>
                                     </li>
                                     <li access-level="admin">
-                                        <a ui-sref="dashboard({contentTypeName: 'company'})">Content Manager</a>
+                                        <a ui-sref="dashboard({contentTypeName: 'company'})">מנהל תוכן</a>
                                     </li>
                                     <li access-level="public" active-user="authService.getActiveUser()">
-                                        <a ui-sref="home" ng-click="logout()">Logout</a>
+                                        <a ui-sref="home" ng-click="logout()">יציאה</a>
                                     </li>
                                 </ul>
                             </div>
