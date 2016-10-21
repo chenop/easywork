@@ -26,11 +26,17 @@ angular.module('easywork')
 
             dataManager.getCompanies().then(function(result) {
                 $scope.companies = result;
-            });
 
-            if ($scope.job && $scope.job.company) {
-                $scope.jobCompanyId = $scope.job.company;
-            }
+                if ($scope.job) {
+                    var filteredArray = $scope.companies.filter(function (company) {
+                        return company._id === $scope.job.company;
+                    });
+
+                    if (filteredArray.length === 1) {
+                        $scope.jobCompany = filteredArray[0];
+                    }
+                }
+            });
 
             dataManager.getUsers()
                 .then(function(users) {
@@ -48,18 +54,8 @@ angular.module('easywork')
             }, 100);
         }
 
-        $scope.skill_select2Options = {
-            'multiple': true,
-            'width': '83.33333%'
-        };
-
-        $scope.select2Options = {
-            width: '83.33333%',
-            minimumResultsForSearch: -1 // Disable the search field in the combo box
-        };
-
         var debounceUpdateJob = debounce(function() {
-            $scope.job.company = $scope.jobCompanyId; // Update the selected company;
+            $scope.job.company = $scope.jobCompany._id; // Update the selected company;
             return dataManager.updateJob($scope.job)
                 .success(function (entity) {
                     $scope.$emit('dataChanged', entity);

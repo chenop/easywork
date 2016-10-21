@@ -49,7 +49,7 @@ companySchema.methods.mergeTechnologies = function (jobs) {
 
 	var mergedTechnologies = [];
 	for (var i = 0; i < jobs.length; i++) {
-		mergedTechnologies = mergedTechnologies.merge(jobs[i].technologies);
+		mergedTechnologies = mergedTechnologies.merge(jobs[i].skills);
 	}
 
 	this.technologies = mergedTechnologies;

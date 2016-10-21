@@ -1,4 +1,4 @@
-<div class="jumbotron" ng-controller="JobCtrl">
+<div class="jumbotron" id="job-view" ng-controller="JobCtrl">
     <div class="row">
         <form name="form" class="form-horizontal align-center" ng-keyup="updateJob($event)" novalidate>
             <div class="form-group">
@@ -9,17 +9,11 @@
 
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="cTechnologies">כישורים</label>
-                <div class="col-sm-10 select2">
-                    <select  id="cTechnologies"
-                            ui-select2="skills_select2Options"
-                            multiple
-                            ng-model="job.skills"
-                            ng-click="updateJob()"
-                            data-placeholder="מילות מפתח שהיית שמח למצוא בקורות חיים של המועמד">
-                        <option ng-repeat="skill in skills" value="{{skill}}">
-                            {{skill}}
-                        </option>
-                    </select>
+                <div class="col-sm-10 no-horizontal-padding">
+                    <ui-select multiple ng-model="job.skills" ng-click="updateJob()">
+                        <ui-select-match placeholder="מילות מפתח שהיית שמח למצוא בקורות חיים של המועמד">{{$item}}</ui-select-match>
+                        <ui-select-choices repeat="skill in skills" value="{{skill}}">{{skill}}</ui-select-choices>
+                    </ui-select>
                 </div>
             </div>
 
@@ -44,11 +38,10 @@
 
             <div class="form-group" access-level="admin">
                 <label class="col-sm-2 control-label">חברה</label>
-                <select ui-select2="select2Options" ng-model="jobCompanyId" ng-click="updateJob()">
-                    <option ng-selected="{{jobCompanyId === company._id}}" ng-repeat="company in companies"
-                            value="{{company._id}}">{{company.name}}
-                    </option>
-                </select>
+                <ui-select ng-model="$parent.jobCompany" ng-click="updateJob()"> <!-- using $parent - https://github.com/angular-ui/ui-select/issues/18 -->
+                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="company in companies">{{company.name}}</ui-select-choices>
+                </ui-select>
                 <div>
                     <img class="image-container" ng-src="{{logoUrl}}"></img>
                 </div>

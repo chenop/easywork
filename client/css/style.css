@@ -9367,23 +9367,6 @@ body {
   /*text-align: center;*/ }
 
 /* Overriding select2 settings */
-.select {
-  direction: rtl;
-  padding-top: 8px; }
-  .select .select2-container {
-    width: 100%; }
-    .select .select2-container .select2-container-multi .select2-choices {
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background: white; }
-    .select .select2-container .select2-search-choice {
-      float: right;
-      direction: ltr;
-      margin: 3px 5px 3px 5px; }
-
-.select2-results {
-  direction: rtl; }
-
 .selected {
   background-color: rgba(151, 173, 254, 0.44); }
 
@@ -9475,6 +9458,10 @@ textarea.cv-message {
   padding: 0 !important;
   margin: 0 !important; }
 
+.no-horizontal-padding {
+  padding-right: 0px;
+  padding-left: 0px; }
+
 .ul {
   /*width: 100%;*/
   display: table;
@@ -9508,9 +9495,16 @@ ul li {
 .jumbotron-toolbar {
   margin: 0px 15px 10px 0px; }
 
-.image-container {
+#job-view .image-container {
   max-height: 150px;
   max-width: 200px; }
+#job-view .ui-select-container {
+  min-height: 34px; }
+  #job-view .ui-select-container input {
+    float: right;
+    padding-right: 12px; }
+  #job-view .ui-select-container .ui-select-match {
+    float: right; }
 
 .table > tbody > tr > td {
   vertical-align: middle;
