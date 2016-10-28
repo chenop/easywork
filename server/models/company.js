@@ -45,21 +45,13 @@ var companySchema = new Schema({
 	}
 );
 
-companySchema.methods.mergeTechnologies = function (jobs) {
-
-	var mergedTechnologies = [];
-	for (var i = 0; i < jobs.length; i++) {
-		mergedTechnologies = mergedTechnologies.merge(jobs[i].skills);
-	}
-
-	this.technologies = mergedTechnologies;
-}
-
+// TODO should be delete
 companySchema.methods.removeJob = function (jobIdToRemove) {
 	var jobIndex = this.jobs.indexOf(jobIdToRemove);
 	this.jobs.splice(jobIndex, 1);
 }
 
+// TODO should be delete
 companySchema.methods.addJob = function (jobId) {
 	this.jobs.push(jobId)
 }

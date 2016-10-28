@@ -13,6 +13,7 @@ module.exports = {
     , deleteJob: deleteJob
     , getJob: getJob
     , getJobs: getJobs
+    , getCompanyNeededSkills: getCompanyNeededSkills
 }
 
 /***********
@@ -57,5 +58,21 @@ function getJob(jobId) {
 
 function getJobs() {
     return Job.find().exec();
+}
+
+function getCompanyNeededSkills(companyId) {
+    return Job.find({company: companyId}).lean().exec()
+        .then(function (jobs) {
+            var skills = [];
+            for (var i = 0; i < jobs.length; i++) {
+                var job = jobs[i];
+                if (job.skills && job.skills.length > 0) {
+                    skills = skills.concat(job.skills.filter(function (item) { // concatenating all jobs skills and filter duplications
+                        return skills.indexOf(item) < 0;
+                    }));
+                }
+            }
+            return skills;
+        })
 }
 

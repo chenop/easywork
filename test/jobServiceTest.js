@@ -4,6 +4,7 @@
 'use strict';
 
 var JobService = require('../server/services/jobService');
+var CompanyService = require('../server/services/companyService');
 var JobModel = require('../server/models/job');
 var utils = require('./testUtils');
 var should = require('chai').should;
@@ -61,6 +62,35 @@ describe('Job service - Testing CRUD operations', function () {
                 .then(function (jobs) {
                     expect(jobs.length).to.equal(2);
                     done();
+                });
+        })
+
+        it('should get skills by companyId', function(done) {
+            var mockedJob1 = utils.createMockedJobPlainObject('job1');
+            var mockedJob2 = utils.createMockedJobPlainObject('job2');
+            var mockedCompany = utils.createMockedCompanyPlainObject('company');
+
+            return CompanyService.createCompany(mockedCompany)
+                .then(function(createdCompany) {
+                    return JobService.createJob(mockedJob1)
+                        .then(function(createdJob1) {
+                            createdJob1.company = createdCompany;
+                            return createdJob1.save();
+                        })
+                        .then(function () {
+                            return JobService.createJob(mockedJob2)
+                                .then(function(createdJob2) {
+                                    createdJob2.company = createdCompany;
+                                    return createdJob2.save();
+                                })
+                        })
+                        .then(function () {
+                            return JobService.getCompanyNeededSkills(createdCompany._id);
+                        })
+                        .then(function (skills) {
+                            expect(skills.length).to.equal(1);
+                            done();
+                        });
                 });
         })
     })

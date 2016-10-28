@@ -83,6 +83,7 @@ function createMockedJobPlainObject(name) {
         , code: "111222"
         , city: "Haifa"
         , description: "Job of my dreams"
+        , skills: ["AngularJS"]
     };
 }
 

@@ -9,6 +9,7 @@
 var Company          = require('../models/company')
     , User           = require('../models/user')
     , CompanyService = require('../services/companyService')
+    , JobService = require('../services/jobService')
     , Jobs           = require('./jobController.js')
     , utils          = require('../utils/utils')
     , fs             = require('fs')
@@ -60,8 +61,15 @@ function getCompanies (req, res) {
 };
 
 function getCompany(req, res) {
-    return CompanyService.getCompany(req.params.id).
-        then(function success(company) {
+    return CompanyService.getCompany(req.params.id)
+        .then(function(company) {
+            return JobService.getCompanyNeededSkills(company._id)
+                .then(function(skills) {
+                    company.skills = skills;
+                    return company;
+                })
+        })
+        .then(function success(company) {
             return res.send(company);
         },
         function error(err) {
