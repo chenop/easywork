@@ -249,45 +249,6 @@ angular.module('easywork')
             };
         }
 
-        var collectJobs = function () {
-            var users = getUsers();
-            var allJobs = [];
-            users.for(function(user) {
-                if (user.role !== "jobProvider") {
-                    return;
-                }
-            })
-        };
-
-        var getAllJobs = function(companyId) {
-            //var deferred = $q.defer();
-            //if (jobs !== null) {
-            //    deferred.resolve(jobs);
-            //    return deferred.promise;
-            //}
-
-
-            var allJobsUrl = '/api/allJobs';
-            if (companyId) {
-                allJobsUrl += '/' +companyId;
-            }
-
-            return $http.get(allJobsUrl)
-                .then(function(result) {
-                    var jobs = modelTransformer.transform(result.data, Job);
-                    //jobs = result.data;
-                    return jobs;
-                });
-        }
-
-        var getAllCompanies = function() {
-            var allCompanies = [];
-            return $http.get('/api/allCompanies')
-                .error(function(err){
-                    console.log("err: " + err);
-                });
-        }
-
         function createEmptyEntity(contentTypeName) {
             var entity;
 
@@ -415,7 +376,6 @@ angular.module('easywork')
             , analyzeCv: analyzeCv
             , getCvByUserId: getCvByUserId
 
-            , getAllJobs: getAllJobs
             , prepareBase64ImgSrc: prepareBase64ImgSrc
             , createEmptyEntity: createEmptyEntity
             , getJobsBySkill: getJobsBySkill
