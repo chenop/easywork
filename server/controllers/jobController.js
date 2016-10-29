@@ -36,19 +36,6 @@ function createJob(req, res) {
 	newJob.company = company; // set the company on the job
 
 	return JobService.createJob(newJob)
-		.then(function (jobCreated) {
-			if (!company)
-				return jobCreated;
-
-			// TODO company is only a job attribute
-			return CompanyService.getCompany(company)
-				.then(function (companyFetched) {
-					return CompanyService.addJob(companyFetched, jobCreated)
-						.then(function () {
-							return jobCreated;
-						});
-				})
-		})
 		.then(function success(job) {
 				return res.send(job);
 			},
@@ -82,9 +69,10 @@ function getJobs(req, res) {
 				});
 	}
 	else {
-		return CompanyService.getCompany(companyId)
-			.then(function success(company) {
-					return res.send(company.jobs)
+		// Got companyId --> got jobs of this company only
+		return JobService.getJobs(companyId)
+			.then(function success(jobs) {
+					return res.send(jobs)
 				},
 				function error(err) {
 					return res.json(500, err);
@@ -97,9 +85,6 @@ function deleteJob(req, res) {
 	var jobId = req.params.id;
 
 	return JobService.getJob(jobId)
-		.then(function (job) {
-			return CompanyService.deleteJob(job.company, job._id)
-		})
 		.then(function () {
 			return JobService.deleteJob(jobId);
 		})
@@ -174,68 +159,16 @@ function updateJob(id, newJob, callBack) {
 }
 
 function updateJob(req, res) {
-	return Job.findById(req.params.id, function (err, job) {
-		if (job === undefined || job == null)
-			return;
+	var job = req.body;
 
-		// Update job with new data
-		job.name = req.body.name;
-		job.code = req.body.code;
-		job.city = req.body.city;
-		job.description = req.body.description;
-
-		var newCompany = req.body.company;
-		var newSkills = req.body.skills;
-		var oldCompany = (job.company) ? job.company.toString() : null;
-		var oldSkills = job.skills;
-
-		if (!oldSkills.equals(newSkills)) {
-			job.skills = newSkills;
+	return JobService.updateJob(job).
+	then(function success(job) {
+			return res.send(job);
+		},
+		function error(err) {
+			return res.json(500, err);
 		}
-
-		// TODO Should not be relevant
-		if (isCompanyChanged(oldCompany, newCompany)) {
-			// TODO chen the following update of companies need to be done in Company - only event should be fired from here
-			Company.findById(oldCompany, function (err, company) {
-				if (company === undefined || company == null)
-					return;
-
-				if (err)
-					return console.log(err);
-
-				company.removeJob(job._id);
-
-				Job.find({'_id': {$in: company.jobs}}, function (err, jobs) {
-					company.save();
-				})
-			});
-
-			return Company.findById(newCompany, function (err, company) {
-				if (company === undefined || company == null) {
-					job.company = null;
-					return job.save();
-				}
-
-				if (err)
-					return console.log(err);
-
-				company.addJob(job._id);
-				Job.find({'_id': {$in: company.jobs}}, function (err, jobs) {
-					company.save();
-				})
-
-				// Saving the new company
-				job.company = company;
-
-				// New company we need to job.save() it
-				return saveJob(job, res);
-
-			});
-		}
-		else {
-			return saveJob(job, res);
-		}
-	});
+	);
 };
 
 function saveJob(job, res) {

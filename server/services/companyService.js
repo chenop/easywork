@@ -15,8 +15,6 @@ module.exports = {
     , deleteCompany: deleteCompany
     , getCompany: getCompany
     , getCompanies: getCompanies
-    , deleteJob: deleteJob
-    , addJob: addJob
     , setPublish: setPublish
 }
 
@@ -76,14 +74,6 @@ function getCompanies(showPublishOnly) {
         conditions = {publish: showPublishOnly};
 
     return Company.find(conditions).exec();
-}
-
-function deleteJob(companyId, jobId) {
-    return Company.update( {_id: companyId}, { $pull: {jobs: jobId } }).lean().exec();
-}
-
-function addJob(company, job) {
-    return Company.update( {_id: company._id}, { $push: {jobs: job._id } } ).lean().exec();
 }
 
 function setPublish(company, publish) {

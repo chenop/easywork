@@ -3,7 +3,7 @@
  */
 
 var Job     = require('../models/job')
-
+const utils = require('../utils/utils');
 /***********
  * Public
  ***********/
@@ -30,7 +30,7 @@ function updateJob(job) {
     jobInstance._id = job._id;
 
     var upsertJob = jobInstance.toObject();
-    return Job.findOneAndUpdate({'code': job.code}, upsertJob, {upsert: true, new: true}).lean().exec();
+    return Job.findOneAndUpdate({'_id': job._id}, upsertJob, {upsert: true, new: true}).lean().exec();
 }
 
 function createJobInstance(job) {
@@ -56,8 +56,12 @@ function getJob(jobId) {
     return Job.findById(jobId).lean().exec();
 }
 
-function getJobs() {
-    return Job.find().exec();
+function getJobs(companyId) {
+    var conditions = {};
+
+    if (utils.isDefined(companyId))
+        conditions = {"company" : companyId}
+    return Job.find(conditions).exec();
 }
 
 function getCompanyNeededSkills(companyId) {

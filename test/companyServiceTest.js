@@ -105,39 +105,7 @@ describe('Company service', function () {
             });
         });
     });
-    describe("Add & Delete Job - Given a company and a jobId", function () {
-        it('should add & delete a job successfully', function () {
-            var mockCompany = utils.createMockedCompanyPlainObject("Toluna");
-            var mockJob = utils.createMockedJobPlainObject("job");
-            var createdCompany;
-            var createdJob;
 
-            return CompanyService.createCompany(mockCompany)
-                .then(function (company) {
-                    createdCompany = company;
-                    return JobService.createJob(mockJob);
-                })
-                .then(function (job) {
-                    createdJob = job;
-                    return CompanyService.addJob(createdCompany, createdJob);
-                })
-                .then(function () {
-                    return CompanyService.getCompany(createdCompany);
-                })
-                .then(function (fetchedCompany) {
-                    fetchedCompany.jobs.should.not.empty;
-                    fetchedCompany.jobs.should.have.length(1);
-
-                    return CompanyService.deleteJob(fetchedCompany._id, createdJob._id);
-                })
-                .then(function () {
-                    return CompanyService.getCompany(createdCompany);
-                })
-                .then(function (fetchedCompany) {
-                    fetchedCompany.jobs.should.empty;
-                })
-        })
-    })
     describe("publish", function() {
         describe("Given a company", function () {
             it("setPublish(company, false) should un-publish company", function () {

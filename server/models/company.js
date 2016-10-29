@@ -26,35 +26,17 @@ var companySchema = new Schema({
 		]
 		, city: String
 		, email: String
-		, technologies: [
-			{
-				type: String,
-				jobs: [{type: Schema.Types.ObjectId, ref: 'Job'}] // TODO this is the solution... now maintain that...
-			}
-		]
 		, logo: {
 			data: Buffer,
 			url: String
 		}
 		, owner: {type: Schema.Types.ObjectId, ref: 'User'}
-		, jobs: [{type: Schema.Types.ObjectId, ref: 'Job'}]
 		, publish: {type: Boolean, default: true}
 	},
 	{
 		timestamps: true
 	}
 );
-
-// TODO should be delete
-companySchema.methods.removeJob = function (jobIdToRemove) {
-	var jobIndex = this.jobs.indexOf(jobIdToRemove);
-	this.jobs.splice(jobIndex, 1);
-}
-
-// TODO should be delete
-companySchema.methods.addJob = function (jobId) {
-	this.jobs.push(jobId)
-}
 
 companySchema.virtual('contentType').get(function () {
 	return common.EContentType.Company;

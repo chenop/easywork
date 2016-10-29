@@ -65,6 +65,35 @@ describe('Job service - Testing CRUD operations', function () {
                 });
         })
 
+        it('should get jobs of a specific company', function (done) {
+            var mockTolunaJob = utils.createMockedJobPlainObject('Toluna job');
+            var mockIntelJob = utils.createMockedJobPlainObject('Intel job');
+            var mockTolunaCompany = utils.createMockedCompanyPlainObject('Toluna');
+            var mockIntelCompany = utils.createMockedCompanyPlainObject('Intel');
+            var tolunaCompany;
+
+            return CompanyService.createCompany(mockTolunaCompany)
+                .then(function(createdCompany) {
+                    mockTolunaJob.company = createdCompany;
+                    tolunaCompany = createdCompany;
+                    return JobService.createJob(mockTolunaJob);
+                })
+                .then(function(tolunaJob) {
+                    return CompanyService.createCompany(mockIntelCompany)
+                })
+                .then(function(createdCompany) {
+                    mockIntelJob.company = createdCompany;
+                    return JobService.createJob(mockIntelJob);
+                })
+                .then(function (intelJob) {
+                    return JobService.getJobs(tolunaCompany);
+                })
+                .then(function (jobs) {
+                    expect(jobs.length).to.equal(1);
+                    done();
+                });
+        })
+
         it('should get skills by companyId', function(done) {
             var mockedJob1 = utils.createMockedJobPlainObject('job1');
             var mockedJob2 = utils.createMockedJobPlainObject('job2');
