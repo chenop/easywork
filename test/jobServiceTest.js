@@ -124,7 +124,7 @@ describe('Job service - Testing CRUD operations', function () {
         })
 
 
-        it.only('should get all companies and their skills', function(done) {
+        it('should get all companies and their skills', function(done) {
             var mockedJob1 = utils.createMockedJobPlainObject('job1', ["GUI", "Java"]);
             var mockedJob2 = utils.createMockedJobPlainObject('job2', ["Web"]);
             var mockedJob3 = utils.createMockedJobPlainObject('job3', ["Ruby"]);
