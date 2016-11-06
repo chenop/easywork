@@ -14,6 +14,8 @@ module.exports = {
     , getJob: getJob
     , getJobs: getJobs
     , getCompanyNeededSkills: getCompanyNeededSkills
+    , getCompaniesNeededSkills: getCompaniesNeededSkills
+    ,getJobsByCompanyAndSkill: getJobsByCompanyAndSkill
 }
 
 /***********
@@ -64,6 +66,12 @@ function getJobs(companyId) {
     return Job.find(conditions).exec();
 }
 
+function concatSkills(skills, job) {
+    skills = skills.concat(job.skills.filter(function (item) { // concatenating all jobs skills and filter duplications
+            return skills.indexOf(item) < 0;
+        }));
+    return skills;
+}
 function getCompanyNeededSkills(companyId) {
     return Job.find({company: companyId}).lean().exec()
         .then(function (jobs) {
@@ -71,12 +79,36 @@ function getCompanyNeededSkills(companyId) {
             for (var i = 0; i < jobs.length; i++) {
                 var job = jobs[i];
                 if (job.skills && job.skills.length > 0) {
-                    skills = skills.concat(job.skills.filter(function (item) { // concatenating all jobs skills and filter duplications
-                        return skills.indexOf(item) < 0;
-                    }));
+                    skills = concatSkills(skills, job);
                 }
             }
             return skills;
         })
 }
 
+function getCompaniesNeededSkills() {
+    var companies = {};
+    return Job.find().exec()
+        .then(function(jobs) {
+            jobs.forEach(function(job) {
+                if (job && job.company && job.skills) {
+                    if (!companies[job.company.toString()])
+                        companies[job.company.toString()] = job.skills;
+                    else {
+                        var skills = companies[job.company.toString()];
+                        companies[job.company.toString()] = concatSkills(skills, job);
+                    }
+
+                }
+            })
+            return companies;
+        })
+}
+
+function getJobsByCompanyAndSkill(company, skill) {
+    return Job.find({
+        company: company,
+        skills: skill
+    }).lean().exec();
+
+}

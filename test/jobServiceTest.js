@@ -122,6 +122,103 @@ describe('Job service - Testing CRUD operations', function () {
                         });
                 });
         })
+
+
+        it.only('should get all companies and their skills', function(done) {
+            var mockedJob1 = utils.createMockedJobPlainObject('job1', ["GUI", "Java"]);
+            var mockedJob2 = utils.createMockedJobPlainObject('job2', ["Web"]);
+            var mockedJob3 = utils.createMockedJobPlainObject('job3', ["Ruby"]);
+            var mockedCompany1 = utils.createMockedCompanyPlainObject('company1');
+            var mockedCompany2 = utils.createMockedCompanyPlainObject('company2');
+
+            // Create company1 and job1
+            return CompanyService.createCompany(mockedCompany1)
+                .then(function(createdCompany) {
+                    return JobService.createJob(mockedJob1)
+                        .then(function (createdJob1) {
+                            createdJob1.company = createdCompany;
+                            return createdJob1.save();
+                        })
+                })
+                .then(function () {
+                    // Create company2 and job2
+                    return CompanyService.createCompany(mockedCompany2)
+                        .then(function (createdCompany) {
+                            return JobService.createJob(mockedJob2)
+                                .then(function (createdJob2) {
+                                    createdJob2.company = createdCompany;
+                                    return createdJob2.save();
+                                })
+                                .then(function() {
+                                    return JobService.createJob(mockedJob3)
+                                        .then(function (createdJob3) {
+                                            createdJob3.company = createdCompany;
+                                            return createdJob3.save();
+                                        })
+                                })
+                        })
+                })
+                .then(function () {
+                    return JobService.getCompaniesNeededSkills();
+                })
+                .then(function (companiesMap) {
+                    expect(Object.keys(companiesMap).length).to.equal(2);
+                    done();
+                });
+        })
+
+        it('should get jobs by company and skills', function(done) {
+            var mockedJob1 = utils.createMockedJobPlainObject('job1', ["GUI", "Java"]);
+            var mockedJob2 = utils.createMockedJobPlainObject('job2', ["Java"]);
+            var mockedJob3 = utils.createMockedJobPlainObject('job3', ["Java", "SQL"]);
+            var mockedCompany1 = utils.createMockedCompanyPlainObject('company1');
+            var mockedCompany2 = utils.createMockedCompanyPlainObject('company2');
+            var skill = "Java";
+            var company1;
+            var company2;
+
+            // Create company1 and job1
+            return CompanyService.createCompany(mockedCompany1)
+                .then(function(createdCompany) {
+                    company1 = createdCompany;
+                    return JobService.createJob(mockedJob1)
+                        .then(function (createdJob1) {
+                            createdJob1.company = createdCompany;
+                            return createdJob1.save();
+                        })
+                })
+                .then(function () {
+                    // Create company2 and job2
+                    return CompanyService.createCompany(mockedCompany2)
+                        .then(function (createdCompany) {
+                            company2 = createdCompany;
+                            return JobService.createJob(mockedJob2)
+                                .then(function (createdJob2) {
+                                    createdJob2.company = createdCompany;
+                                    return createdJob2.save();
+                                })
+                                .then(function() {
+                                    return JobService.createJob(mockedJob3)
+                                        .then(function (createdJob3) {
+                                            createdJob3.company = createdCompany;
+                                            return createdJob3.save();
+                                        })
+                                })
+                        })
+                })
+                .then(function () {
+                    return JobService.getJobsByCompanyAndSkill(company1, skill);
+                })
+                .then(function (jobs) {
+                    expect(jobs.length).to.equal(1);
+                    return JobService.getJobsByCompanyAndSkill(company2, skill);
+                })
+                .then(function (jobs) {
+                    expect(jobs.length).to.equal(2);
+                    done();
+                });
+        })
+
     })
 
     describe('Update', function () {

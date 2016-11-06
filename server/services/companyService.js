@@ -73,7 +73,7 @@ function getCompanies(showPublishOnly) {
     if (utils.isDefined(showPublishOnly) && showPublishOnly === true)
         conditions = {publish: showPublishOnly};
 
-    return Company.find(conditions).exec();
+    return Company.find(conditions).lean().exec();
 }
 
 function setPublish(company, publish) {

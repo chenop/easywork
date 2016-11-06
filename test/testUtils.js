@@ -27,12 +27,14 @@ var TIMEOUT = 20000;
 beforeEach(function (done) {
     this.timeout(TIMEOUT);
 
+    // First try to empty database - very slow
     //mongoose.connect(config.dbUrl, function () {
     //    mongoose.connection.db.dropDatabase(function () {
     //        done();
     //    })
     //});
 
+    // Second try to empty database - faster
     function clearDB() {
         var promises = [
             CompanyModel.remove().exec(),
@@ -72,18 +74,17 @@ function createMockedUserPlainObject() {
         , username: "chenop"
         , password: "123456"
         , role: "JobSeeker"
-        //, skills: {"GUI", "AngularJS"}
     };
     return newUser;
 }
 
-function createMockedJobPlainObject(name) {
+function createMockedJobPlainObject(name, skills) {
     return {
         name: name
         , code: "111222"
         , city: "Haifa"
         , description: "Job of my dreams"
-        , skills: ["AngularJS"]
+        , skills: (!skills) ? ["AngularJS"] : skills
     };
 }
 

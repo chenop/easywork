@@ -22,6 +22,7 @@ module.exports = {
 	, getJobs: getJobs
 	, updateJob: updateJob
 	, deleteJob: deleteJob
+	, getJobsByCompanyAndSkill: getJobsByCompanyAndSkill
 }
 
 /**
@@ -100,11 +101,23 @@ function updateJob(req, res) {
 	var job = req.body;
 
 	return JobService.updateJob(job).
-	then(function success(job) {
+		then(function success(job) {
 			return res.send(job);
 		},
 		function error(err) {
 			return res.json(500, err);
-		}
-	);
-};
+		});
+}
+
+function getJobsByCompanyAndSkill (req, res) {
+	var companyId = req.params.companyId;
+	var skill = req.params.skill;
+
+	return JobService.getJobsByCompanyAndSkill(companyId, skill)
+		.then(function success(jobs) {
+			return res.send(jobs);
+		},
+		function error(err) {
+			return res.json(500, err);
+		});
+}

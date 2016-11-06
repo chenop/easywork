@@ -1,4 +1,4 @@
-if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development'
+if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development, '
 
 // To enable sending mail
 // https://stackoverflow.com/questions/20433287/node-js-request-cert-has-expired/20497028#20497028
@@ -22,7 +22,9 @@ var express = require('express')
 	, mongoose = require('mongoose')
     , url = require('url')
     , config = require('./server/config')
-	, logger = require('./server/utils/logger')
+	, logger = require('./server/utils/logger');
+
+require('heroku-self-ping')(config.baseUrl);
 
 var app = express(); // comment
 
@@ -83,7 +85,6 @@ app.put('/api/company/:id', companyController.updateCompany)
 app.delete('/api/company/:id', companyController.deleteCompany)
 app.post('/api/company/logo-upload/:id', companyController.upload)
 app.get('/api/company/logo/:id/:force', companyController.getCompanyLogo)
-app.get('/api/company/jobsBySkill/:id/:skill', companyController.getJobsBySkill);
 app.post('/api/company/:id/setPublish/:publish', companyController.setPublish);
 
 // Jobs
@@ -93,8 +94,9 @@ app.get('/api/job/list', jobController.getJobs)
 app.get('/api/job/:id', jobController.getJob)
 app.post('/api/job', jobController.createJob)
 app.put('/api/job/:id', jobController.updateJob)
-
 app.delete('/api/job/:id', jobController.deleteJob)
+app.get('/api/job/jobsBySkill/:companyId/:skill', jobController.getJobsByCompanyAndSkill);
+
 // CVs
 app.get('/api/cv/list', cvController.getCvs)
 app.get('/api/cv/download/:id', cvController.getCvFile)

@@ -23,7 +23,6 @@ module.exports = {
     , updateCompany: updateCompany
     , upload: upload
     , deleteCompany: deleteCompany
-    , getJobsBySkill: getJobsBySkill
     , getCompanyLogo: getCompanyLogo
     , setPublish: setPublish
 }
@@ -50,8 +49,23 @@ function createCompany(req, res) {
 function getCompanies (req, res) {
     var showPublishOnly = Boolean(req.query.showPublishOnly);
 
-    return CompanyService.getCompanies(showPublishOnly).
-        then(function success(companies) {
+    return CompanyService.getCompanies(showPublishOnly)
+        .then(function(companies) {
+
+            return JobService.getCompaniesNeededSkills()
+                .then(function (companiesSkillsMap) {
+                    if (!companiesSkillsMap || Object.keys(companiesSkillsMap).length === 0)
+                        return companies;
+
+                    companies.forEach(function (company) {
+                        if (companiesSkillsMap[company._id])
+                            company.skills = companiesSkillsMap[company._id];
+                        });
+
+                    return companies;
+                });
+        })
+        .then(function success(companies) {
             return res.send(companies);
         },
         function error(err) {
@@ -144,22 +158,6 @@ function getCompanyLogo(req, res, next) {
                 return res.status(500).json(err);
             });
 };
-
-function getJobsBySkill (req, res) {
-    var companyId = req.params.id;
-    var skill = req.params.skill;
-
-    return Jobs.getJobsByCompanyId(companyId)
-        .then(function (jobs) {
-            var relevantJobs = [];
-            jobs.forEach(function (job) {
-                if (job.technologies.indexOf(skill) >= 0) {
-                    relevantJobs.push(job);
-                }
-            });
-            return res.send(relevantJobs);
-        });
-}
 
 function setPublish(req, res) {
     var companyId = req.params.id;

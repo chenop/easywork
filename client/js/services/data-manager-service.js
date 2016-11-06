@@ -267,8 +267,11 @@ angular.module('easywork')
 
         }
 
-        function getJobsBySkill(skill, companyId) {
-            return $http.get('/api/company/jobsBySkill/' + companyId + '/' + skill);
+        function getJobsByCompanyAndSkill(skill, companyId) {
+            return $http.get('/api/job/jobsBySkill/' + companyId + '/' + skill)
+                .then(function(result) {
+                    return result.data;
+                });
         }
 
         function createEmptyJob(company) {
@@ -378,7 +381,7 @@ angular.module('easywork')
 
             , prepareBase64ImgSrc: prepareBase64ImgSrc
             , createEmptyEntity: createEmptyEntity
-            , getJobsBySkill: getJobsBySkill
+            , getJobsByCompanyAndSkill: getJobsByCompanyAndSkill
             , isEmailExist: isEmailExist
             , deleteEntity: deleteEntity,
             sendFeedback: sendFeedback
