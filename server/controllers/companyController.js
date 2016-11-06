@@ -59,7 +59,7 @@ function getCompanies (req, res) {
 
                     companies.forEach(function (company) {
                         if (companiesSkillsMap[company._id])
-                            company.skills = companiesSkillsMap[company._id];
+                            company._doc.skills = companiesSkillsMap[company._id];
                         });
 
                     return companies;

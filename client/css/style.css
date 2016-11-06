@@ -9509,6 +9509,10 @@ ul li {
     padding-right: 12px; }
   #job-view .ui-select-container .ui-select-match {
     float: right; }
+    #job-view .ui-select-container .ui-select-match.company-selector {
+      width: 100%; }
+    #job-view .ui-select-container .ui-select-match .ui-select-toggle {
+      text-align: right; }
 
 .table > tbody > tr > td {
   vertical-align: middle;

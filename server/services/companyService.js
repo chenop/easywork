@@ -64,7 +64,7 @@ function deleteCompany(id) {
 }
 
 function getCompany(companyId) {
-    return Company.findById(companyId).lean().exec();
+    return Company.findById(companyId).exec();
 }
 
 function getCompanies(showPublishOnly) {
@@ -73,7 +73,7 @@ function getCompanies(showPublishOnly) {
     if (utils.isDefined(showPublishOnly) && showPublishOnly === true)
         conditions = {publish: showPublishOnly};
 
-    return Company.find(conditions).lean().exec();
+    return Company.find(conditions).exec();
 }
 
 function setPublish(company, publish) {

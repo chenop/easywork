@@ -55,6 +55,9 @@ angular.module('easywork')
         }
 
         var debounceUpdateJob = debounce(function() {
+            if (!$scope.jobCompany || !$scope.jobCompany._id)
+                return;
+
             $scope.job.company = $scope.jobCompany._id; // Update the selected company;
             return dataManager.updateJob($scope.job)
                 .success(function (entity) {

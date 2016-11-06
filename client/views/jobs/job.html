@@ -12,7 +12,7 @@
                 <div class="col-sm-10 no-horizontal-padding">
                     <ui-select multiple ng-model="job.skills" ng-click="updateJob()">
                         <ui-select-match placeholder="מילות מפתח שהיית שמח למצוא בקורות חיים של המועמד">{{$item}}</ui-select-match>
-                        <ui-select-choices repeat="skill in skills" value="{{skill}}">{{skill}}</ui-select-choices>
+                        <ui-select-choices repeat="skill in skills | filter: $select.search" value="{{skill}}">{{skill}}</ui-select-choices>
                     </ui-select>
                 </div>
             </div>
@@ -38,9 +38,9 @@
 
             <div class="form-group" access-level="admin">
                 <label class="col-sm-2 control-label">חברה</label>
-                <ui-select ng-model="$parent.jobCompany" ng-click="updateJob()"> <!-- using $parent - https://github.com/angular-ui/ui-select/issues/18 -->
-                    <ui-select-match>{{$select.selected.name}}</ui-select-match>
-                    <ui-select-choices repeat="company in companies">{{company.name}}</ui-select-choices>
+                <ui-select class="col-sm-10 no-horizontal-padding" ng-model="$parent.jobCompany" ng-click="updateJob()"> <!-- using $parent - https://github.com/angular-ui/ui-select/issues/18 -->
+                    <ui-select-match class="company-selector">{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="company in companies | filter: {name: $select.search}">{{company.name}}</ui-select-choices>
                 </ui-select>
                 <div>
                     <img class="image-container" ng-src="{{logoUrl}}"></img>
