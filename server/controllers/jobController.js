@@ -33,8 +33,6 @@ module.exports = {
  */
 function createJob(req, res) {
 	var newJob = req.body.job;
-	var company = req.body.company;
-	newJob.company = company; // set the company on the job
 
 	return JobService.createJob(newJob)
 		.then(function success(job) {
