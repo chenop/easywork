@@ -22,9 +22,11 @@ describe("Job controller", function () {
                 .end(function (err, rs) {
                     var job = utils.createMockedJobPlainObject("job");
                     var createdCompany = rs.body;
+
+                    job.company = createdCompany;
                     // Create a Job
                     server.post("/api/job")
-                        .send({company: createdCompany, job: job})
+                        .send({job: job})
                         .end(function (err, res) {
 
                             // Get all company's jobs
@@ -45,10 +47,13 @@ describe("Job controller", function () {
             server.post("/api/company")
                 .send(utils.createMockedCompanyPlainObject("Toluna"))
                 .end(function (err, res) {
-                    var returnedCompany = res.body;
+                    var createdCompany = res.body;
+
+					var job = utils.createMockedJobPlainObject("Chen");
+                    job.company = createdCompany;
 
                     server.post("/api/job")
-                        .send({job: utils.createMockedJobPlainObject("Chen"), company: returnedCompany})
+                        .send({job: job})
                         //.expect("Content-type", /json/)
                         //.expect(200) // THis is HTTP response
                         .end(function (err, res) {
