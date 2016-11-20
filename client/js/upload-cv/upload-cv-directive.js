@@ -26,7 +26,6 @@ angular.module('easywork')
                 $scope.isSkillsExists = function()  {
                     if (!$scope.cv)
                         return false;
-                                                    console.log("isSkillsExists - " + !(utils.isEmptyArray($scope.cv.skills)));
 
                     return !(utils.isEmptyArray($scope.cv.skills));
                 }

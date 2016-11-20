@@ -15,35 +15,6 @@ angular.module('easywork')
 
         init();
 
-        function init() {
-            var entityId = $stateParams.entityId;
-            $scope.job = appManager.getSelectedEntity();
-            refreshJob($scope.job);
-            dataManager.getFiltersData()
-                .then(function (result) {
-                    $scope.skills = result.data.skills
-                });
-
-            dataManager.getCompanies().then(function(result) {
-                $scope.companies = result;
-
-                if ($scope.job) {
-                    var filteredArray = $scope.companies.filter(function (company) {
-                        return company._id === $scope.job.company;
-                    });
-
-                    if (filteredArray.length === 1) {
-                        $scope.jobCompany = filteredArray[0];
-                    }
-                }
-            });
-
-            dataManager.getUsers()
-                .then(function(users) {
-                   $scope.users = users;
-                });
-        }
-
         function refreshJob(selectedEntity) {
             if (selectedEntity == null)
                 return;
@@ -60,11 +31,15 @@ angular.module('easywork')
 
             $scope.job.company = $scope.jobCompany._id; // Update the selected company;
             return dataManager.updateJob($scope.job)
-                .success(function (entity) {
+                .then(function (entity) {
                     $scope.$emit('dataChanged', entity);
                 });
         }, 300, false);
 
+        $scope.updateSkill = function() {
+            $scope.updateJob();
+            getCvs();
+        }
         $scope.updateJob = function () {
             debounceUpdateJob();
         }
@@ -74,23 +49,56 @@ angular.module('easywork')
             $scope.$emit('deleteEntityClicked', appManager.getSelectedEntity());
         }
 
-        // TODO continue from here - isRelevant?!?!? - should be done in server!!! are you fetching all users!!?!?!?!?
-        // TODO for every change in skills display the relevant users with limit!!!
-        // TODO Implement getCandidates(filter)
-        $scope.isRelevant = function(user) {
-            if ($rootScope.isEmpty($scope.job.skills))
-                return true;
-
-            var matchesCounter = 0;
-
-            for (var i = 0; i < $scope.job.skills.length; i++) {
-                var skill = $scope.job.skills[i];
-
-                if (user.skills && user.skills.contains(skill))
-                    matchesCounter++;
+        function getCvs() {
+            if (!$scope.job || !$scope.job.skills || $scope.job.skills.length === 0) {
+                $scope.candidateTitle = "אין מועמדים";
+                return;
             }
-            return (matchesCounter === $scope.job.skills.length )
+
+            $scope.candidateTitle = "המתן...";
+            return dataManager.getCvs($scope.job.skills)
+                .then(function (cvs) {
+                    if (!cvs || cvs.length === 0) {
+                        $scope.candidateTitle = "אין מועמדים";
+                        cvs = {};
+                    }
+                    else
+                        $scope.candidateTitle = "מועמדים " + cvs.length;
+                    $scope.cvs = cvs;
+                });
         }
+
+        function init() {
+            $scope.job = appManager.getSelectedEntity();
+            refreshJob($scope.job);
+            dataManager.getFiltersData()
+                .then(function (result) {
+                    $scope.skills = result.data.skills
+                });
+
+            dataManager.getCompanies()
+                .then(function (result) {
+                    $scope.companies = result;
+
+                    if ($scope.job) {
+                        var filteredArray = $scope.companies.filter(function (company) {
+                            return company._id === $scope.job.company;
+                        });
+
+                        if (filteredArray.length === 1) {
+                            $scope.jobCompany = filteredArray[0];
+                        }
+                    }
+                });
+
+            dataManager.getUsers()
+                .then(function(users) {
+                    $scope.users = users;
+                });
+
+            getCvs();
+        }
+
     }
 );
 

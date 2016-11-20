@@ -3,7 +3,7 @@
         <i ng-class="{'glyphicon glyphicon-unchecked': !user.selected, 'glyphicon glyphicon-check' : user.selected}"></i>
     </div>
     <div class="col-xs-4">
-        <a ng-href="{{user.site|linkFixer}}" stop-propagation target="_blank" class="user-card-header">{{::user.name}}</a>
+        <a ng-href="{{user.site|linkFixer}}" stop-propagation target="_blank" class="user-card-header">{{::user.fileName}}</a>
     </div>
     <div class="col-xs-7" style="direction: ltr">
         <span ng-repeat="requiredSkill in user.skills" class="skill">

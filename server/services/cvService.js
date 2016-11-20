@@ -63,15 +63,12 @@ var prepareFilter = function (filter) {
     if (!filter)
         return {};
 
-    if (!filter.skills)
-        throw new Error("Cannot find skills in filter");
-
     return filter;
 
 };
 function getCvs(filter) {
     var filter = prepareFilter(filter);
 
-    return Cv.find(filter).sort('-createdAt').select('-fileData -fileType');
+    return Cv.find({skills : {"$in" : filter.skills}}).sort('-createdAt').select('-fileData -fileType');
 }
 

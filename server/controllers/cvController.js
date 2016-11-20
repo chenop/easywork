@@ -150,7 +150,17 @@ function deleteCv(req, res) {
 }
 
 function getCvs(req, res) {
-    return CvService.getCvs()
+    var filter = {};
+
+    var skills = req.query.skills;
+
+    if (!Array.isArray(skills))
+        skills = [].concat(skills);
+
+    if (skills && skills.length > 0)
+        filter.skills = skills;
+
+    return CvService.getCvs(filter)
         .then(function success(cvs) {
                 return res.send(cvs);
             },

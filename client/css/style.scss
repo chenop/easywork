@@ -112,10 +112,11 @@ body {
   border-radius: 50%;
 }
 
-.address, .technology, .skill {
+.skill {
   max-height: 10px;
   padding-right: 15px;
   float: left;
+  padding-bottom: 19px;
 }
 
 .skill-tag {
@@ -248,6 +249,9 @@ ul li {
 }
 
 #job-view {
+  .tab-content {
+    padding-top: 20px;
+  }
   .image-container {
     max-height: 150px;
     max-width: 200px;

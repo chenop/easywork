@@ -65,8 +65,21 @@ angular.module('easywork')
             return getEntities(common.CONTENT_TYPE.USER);
         }
 
-        var getCvs = function() {
-            return getEntities(common.CONTENT_TYPE.CV);
+        var getCvs = function(skills) {
+            var url = '/api/cv/list';
+            var filter = {};
+
+            if (isDefined(skills) && skills.length > 0) {
+                filter.skills = skills;
+            }
+            return $http({
+                url: url,
+                method: "GET",
+                params: filter
+            })
+            .then(function(result) {
+                return result.data;
+            });
         }
 
         function analyzeCv(cvId) {

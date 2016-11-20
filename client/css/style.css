@@ -9393,10 +9393,11 @@ body {
 .round-logo {
   border-radius: 50%; }
 
-.address, .technology, .skill {
+.skill {
   max-height: 10px;
   padding-right: 15px;
-  float: left; }
+  float: left;
+  padding-bottom: 19px; }
 
 .skill-tag {
   color: orange; }
@@ -9499,6 +9500,8 @@ ul li {
   height: 34px;
   margin-top: 8px; }
 
+#job-view .tab-content {
+  padding-top: 20px; }
 #job-view .image-container {
   max-height: 150px;
   max-width: 200px; }
