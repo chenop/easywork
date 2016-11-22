@@ -59,6 +59,10 @@ function isEmptyArray(arr) {
     return (Array.isArray(arr) && arr.length === 0);
 }
 
+function isString(elm) {
+    return typeof elm === 'string' || elm instanceof String;
+}
+
 module.exports = {
     getUniqueFileName: getUniqueFileName
     , getExtension: getExtension
@@ -67,4 +71,5 @@ module.exports = {
     , isUndefined: isUndefined
     , isEmptyArray: isEmptyArray
     , isEmpty: isEmpty
+    , isString: isString
 }

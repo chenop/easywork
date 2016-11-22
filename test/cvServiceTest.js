@@ -103,7 +103,7 @@ describe('Cv service', function () {
                         return CvService.createCv(cv3);
                     })
                     .then(function() {
-                        return CvService.getCvs({skills : ["GUI", "JavaScript"]});
+                        return CvService.getCvs({skills : ["GUI", "JavaScript"], operator: CvService.BoolOperator.AND});
                     })
                     .then(function (cvs) {
                         cvs.length.should.equal(1);

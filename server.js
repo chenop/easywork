@@ -52,7 +52,7 @@ app.use(multer());
 app.use(cookieParser());
 app.use(methodOverride());
 app.use(session({
-    secret: 'zipori'
+    secret: config.secret
     , resave: false
     , saveUninitialized: true
 }))

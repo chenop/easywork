@@ -16,6 +16,8 @@ if (!module.exports.dbUrl)
     init();
 
 function init() {
+    module.exports.secret = 'zipori';
+
     switch (process.env.NODE_ENV) {
         case "production" : {
             logger.info("Production Mode!")
