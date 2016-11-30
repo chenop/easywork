@@ -50,23 +50,22 @@ angular.module('easywork')
 
             vm.submit = function () {
                 var user = {
-                    username: vm.user.email,
+                    email: vm.user.email,
                     password: vm.user.password
                 }
 
                 handleRmemberMe();
 
                 return authService.logIn(user)
-                    .success(function () {
+                    .then(function () {
                         if (modIns) {
-                            modIns.close(user.email);
-//                        console.log("login - modIns.close");
+                            modIns.close(user.username);
                         }
                         modIns = undefined; // Bug Fix - prevent from closing again the modal
                         //$location.path('/');
                         return user;
-                    })
-                    .error(function (err) {
+                    }
+                    , function (err) {
                             if ((err == undefined) || (err === "")) {
                                 vm.errorMessage = SOMETHING_WENT_WRONG_MSG;
                             }

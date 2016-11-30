@@ -5,10 +5,15 @@ var SEND_BUTTON_STR = 'שלח';
 angular.module('easywork')
     .controller('HeaderController', function ($scope, authService, appManager, dataManager, $uibModal, $location, common) {
         $scope.isError = false;
-        $scope.user = authService.getActiveUser();
         $scope.authService = authService;
         $scope.dataManager = dataManager;
         $scope.appManager = appManager;
+        $scope.user = authService.getActiveUser();
+
+        $scope.$watch('authService.getActiveUser()', function(value) {
+            console.log("active was changed!", value);
+            $scope.user = value;
+        })
 
         dataManager.getFiltersData()
             .then(function(result) {
@@ -17,22 +22,9 @@ angular.module('easywork')
             });
 
         $scope.getDisplayName = function() {
-            var activeUser = authService.getActiveUser();
-            return activeUser.name ? activeUser.name : activeUser.email;
+            console.log("getDisplayName");
+            return $scope.user.name ? $scope.user.name : $scope.user.email;
         }
-
-        var openUserDetailsDialog = function (callBack) {
-            var modalInstance = $uibModal.open({
-                templateUrl: '/views/users/user.html'
-            });
-
-            modalInstance.result.then(function (username) {
-                if (callBack !== undefined)
-                    callBack();
-            }, function () {
-                console.log('Modal dismissed at: ' + new Date());
-            });
-        };
 
         $scope.send = function () {
             appManager.send();
@@ -57,11 +49,13 @@ angular.module('easywork')
                 }
             });
 
-            modalInstance.result.then(function (username) {
-                console.log('User: ' + username + ' has been registered');
-            }, function () {
-                console.log('Modal dismissed at: ' + new Date());
-            });
+            modalInstance.result
+                .then(function (username) {
+                        console.log('User: ' + username + ' has been registered');
+                    },
+                    function () {
+                        console.log('Modal dismissed at: ' + new Date());
+                    });
         }
 
         $scope.openRegisterDialog = function () {
@@ -82,7 +76,7 @@ angular.module('easywork')
 
         $scope.logout = function () {
             authService.logOut()
-                .success(function () {
+                .then(function () {
                     $location.path('/');
                 });
         }

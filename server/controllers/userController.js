@@ -4,7 +4,7 @@ var passport = require('passport')
     , User     = require('../models/user')
     , UserService = require('../services/userService')
     ;
-
+var AuthService = require('../services/authService');
 
 /***********
  * Public
@@ -17,6 +17,7 @@ module.exports = {
     , getUsers: getUsers
     , updateUser: updateUser
     , register: register
+    , authenticate: authenticate
     , deleteUser: deleteUser
     , deleteCV: deleteCV
     , isEmailExist: isEmailExist
@@ -24,21 +25,26 @@ module.exports = {
 }
 
 
+function prepareValidUserResponse(res, user) {
+    return res.send(
+        {
+            user: user,
+            token: AuthService.encode(user)
+        });
+}
+
 function login(req, res, next) {
     passport.authenticate('local', function (err, user, info) {
-        var error = err || info;
-        if (error) {
-            return res.json(401, error);
-        }
-        req.logIn(user, function (err) {
-            if (err) {
-                return res.send(err);
+            var error = err || info;
+            if (error) {
+                return res.status(401).json(error);
             }
-            prepareCookie(res, user);
-            return res.send(user);
-
-        });
-    })(req, res, next);
+            if (!user) {
+                return res.status(401).json({ status: 'error', code: 'unauthorized' });
+            } else {
+                return prepareValidUserResponse(res, user);
+            }
+        }, {session: false})(req, res, next);
 }
 
 /**
@@ -118,41 +124,30 @@ function register(req, res) {
         .then(function (user) {
 
             if (user)
-                return res.json(500, "Email already exists");
+                return res.send(500, "Email already exists");
 
             var user = new User(
                 {
-                    //name: req.body.name,
-                    //username: req.body.username,
                     role: role,
                     password: req.body.password,
-                    //experience: req.body.experience,
                     email: email,
                     message: req.body.message
-                    //fileName: req.body.fileName,
-                    //cv: req.body.cv
                 }
             );
 
-            return UserService.createUser(user).then(function success(user) {
-                    req.login(user, function (err) {
-                        if (err) {
-                            return res.send(err);
-                        }
-                        prepareCookie(res, user);
-                        return res.send(user);
-                    });
+            return UserService.createUser(user)
+                .then(function success(user) {
+                    return prepareValidUserResponse(res, user);
                 },
                 function error(err) {
-                    return res.json(500, err);
+                    return res.send(500, err);
                 }
             );
         });
 }
 
 function logout(req, res) {
-    res.clearCookie('activeUser');
-    req.logout();
+    req.logout(); // Does not do anything in our case - but for consistency...
     res.json("logout");
 }
 
@@ -205,4 +200,11 @@ function getCvByUserId(req, res) {
             function error(err) {
                 return res.json(500, err);
             });
+}
+
+function authenticate(req, res) {
+    var token = req.params.token;
+
+    var decoded = AuthService.decode(token);
+    return res.send(decoded);
 }

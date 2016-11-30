@@ -27,7 +27,7 @@ describe("Company controller", function () {
                         .send(company)
                         .end(function (err, res) {
 
-                            server.get("/api/company/list")
+                            server.get("/public/company/list")
                                 .expect("Content-type", /json/)
                                 .expect(200) // THis is HTTP response
                                 .end(function (err, res) {

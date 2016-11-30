@@ -95,19 +95,17 @@ angular.module('easywork')
             var user = $scope.user;
 
             authService.register(user)
-                .success(function () {
-                    if (modIns) {
-                        modIns.close(user.username);
-//                        console.log("login - modIns.close");
+                .then(function () {
+                        if (modIns) {
+                            modIns.close(user.email);
+                        }
+                        modIns = undefined; // Bug Fix - prevent from closing again the modal
                     }
-                    modIns = undefined; // Bug Fix - prevent from closing again the modal
-                }
-            ).error(
-                function (err) {
-                    $scope.err = err;
-                    console.log(err);
-                }
-            );
+                    , function (err) {
+                        $scope.err = err;
+                        console.log(err);
+                    }
+                );
         }
 
         $scope.onFileSelect = function ($files) {

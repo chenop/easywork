@@ -6,27 +6,17 @@
 var UserService = require('../server/services/userService');
 var CvService = require('../server/services/cvService');
 var UserModel = require('../server/models/user');
+var config = require('../server/config');
+var jwt  = require('jsonwebtoken');
 var utils = require('./testUtils');
 var should = require('chai').should();
 var expect = require('chai').expect;
-
-function createMockedUser() {
-    var newUser = {
-        email: 'chenop@gmail.com'
-        , name: "Chen"
-        , username: "chenop"
-        , password: "123456"
-        , role: "JobSeeker"
-        //, skills: {"GUI", "AngularJS"}
-    };
-    return newUser;
-}
 
 describe('User service - Testing CRUD operations', function () {
     this.timeout(utils.TIMEOUT);
     describe('Create', function () {
         it('should return the user after created', function () {
-            var newUser = createMockedUser();
+            var newUser = utils.createMockedUserPlainObject();
 
             return UserService.createUser(newUser)
                 .then(function (createdUser) {
@@ -39,7 +29,7 @@ describe('User service - Testing CRUD operations', function () {
 
     describe('Read', function () {
         it('should get user', function (done) {
-            var newUser = createMockedUser();
+            var newUser = utils.createMockedUserPlainObject();
 
             return UserService.createUser(newUser)
                 .then(function(createdUser) {
@@ -61,7 +51,7 @@ describe('User service - Testing CRUD operations', function () {
 
     describe('Update', function () {
         it('should return the updated user', function () {
-            var newUser = createMockedUser();
+            var newUser = utils.createMockedUserPlainObject();
 
             // First cal to create
             return UserService.createUser(newUser)
@@ -85,7 +75,7 @@ describe('User service - Testing CRUD operations', function () {
 
     describe('Delete', function () {
         it('should not found the deleted user', function () {
-            var newUser = createMockedUser();
+            var newUser = utils.createMockedUserPlainObject();
 
             return UserService.createUser(newUser)
                 .then(function(createUser) {
@@ -122,4 +112,17 @@ describe("Others", function () {
                     });
             })
     });
+
+    it("authenticate", function(done) {
+        function prepareToken(user) {
+            return jwt.sign(user, config.secret);
+        }
+
+        var user = utils.createMockedUserPlainObject();
+        var token = prepareToken(user);
+
+        var decoded = jwt.verify(token, config.secret);
+        decoded.should.not.be.null;
+        done();
+    })
 });

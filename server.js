@@ -1,4 +1,4 @@
-if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development, '
+if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development'
 
 // To enable sending mail
 // https://stackoverflow.com/questions/20433287/node-js-request-cert-has-expired/20497028#20497028
@@ -24,6 +24,8 @@ var express = require('express')
     , config = require('./server/config')
 	, logger = require('./server/utils/logger');
 
+var ejwt = require('express-jwt');
+
 require('heroku-self-ping')(config.baseUrl);
 
 var app = express(); // comment
@@ -46,31 +48,35 @@ mongoose.connection.on('error', function(err, req, res, next)  {
 var clientDir = path.join(__dirname, 'client')
 app.set('port', process.env.PORT || 3000)
 
+// Get our request parameters
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 app.use(multer());
 app.use(cookieParser());
-app.use(methodOverride());
-app.use(session({
+app.use(methodOverride()); // TODO What it is doing?
+app.use(session({ // TODO Do we still need this?
     secret: config.secret
     , resave: false
     , saveUninitialized: true
 }))
 app.use(passport.initialize());
-app.use(passport.session());
+app.use('/api/user/list', ejwt({secret: config.secret}));
+//app.use(passport.session());
 app.use(express.static(clientDir));
 
 require('./server/pass.js')(passport, app, config.baseUrl);
 
-app.post('/api/login', userController.login)
-app.post('/api/logout', userController.logout)
-app.post('/api/register', userController.register)
-app.post('/api/sendMail/:id', mail.sendMail)
-app.get('/api/filtersData', dataProxy.getFiltersData)
+app.post('/public/login', userController.login)
+app.post('/public/logout', userController.logout)
+app.post('/public/register', userController.register)
+app.get('/public/authenticate/:token', userController.authenticate)
+app.post('/public/sendMail/:id', mail.sendMail)
+app.get('/public/filtersData', dataProxy.getFiltersData)
 
 // Users
 app.get('/api/user/list', userController.getUsers)
-app.get('/api/user/:id', userController.getUser)
+app.get('/public/user/:id', userController.getUser)
 app.post('/api/user', userController.createUser)
 app.put('/api/user/:id', userController.updateUser)
 app.delete('/api/user/:id', userController.deleteUser)
@@ -78,8 +84,8 @@ app.get('/api/user/isEmailExist/:email', userController.isEmailExist);
 app.get('/api/user/byUserId/:id', userController.getCvByUserId)
 
 // Companies
-app.get('/api/company/list', companyController.getCompanies)
-app.get('/api/company/:id', companyController.getCompany)
+app.get('/public/company/list', companyController.getCompanies)
+app.get('/public/company/:id', companyController.getCompany)
 app.post('/api/company', companyController.createCompany)
 app.put('/api/company/:id', companyController.updateCompany)
 app.delete('/api/company/:id', companyController.deleteCompany)
@@ -88,10 +94,9 @@ app.get('/api/company/logo/:id/:force', companyController.getCompanyLogo)
 app.post('/api/company/:id/setPublish/:publish', companyController.setPublish);
 
 // Jobs
-app.get('/api/job/list/:id', jobController.getJobs)
-app.get('/api/job/list', jobController.getJobs)
-//app.get('/api/allJobs/:id', jobs.getAllJobs)
-app.get('/api/job/:id', jobController.getJob)
+app.get('/public/job/list/:id', jobController.getJobs)
+app.get('/public/job/list', jobController.getJobs)
+app.get('/public/job/:id', jobController.getJob)
 app.post('/api/job', jobController.createJob)
 app.put('/api/job/:id', jobController.updateJob)
 app.delete('/api/job/:id', jobController.deleteJob)
@@ -100,12 +105,19 @@ app.get('/api/job/jobsBySkill/:companyId/:skill', jobController.getJobsByCompany
 // CVs
 app.get('/api/cv/list', cvController.getCvs)
 app.get('/api/cv/download/:id', cvController.getCvFile)
-app.get('/api/cv/:id', cvController.getCv)
+app.get('/public/cv/:id', cvController.getCv)
 app.get('/api/cv/filter', cvController.getCvsByFilter)
-app.post('/api/cv', cvController.createCv)
+app.post('/public/cv', cvController.createCv)
 app.delete('/api/cv/:id', cvController.deleteCv)
-app.put('/api/cv/analyzeCv/:id', cvController.analyzeExistingCv)
-app.post('/api/feedback', feedbackController.sendFeedback)
+app.put('/public/cv/analyzeCv/:id', cvController.analyzeExistingCv)
+app.post('/public/' +
+	'', feedbackController.sendFeedback)
+
+app.use(function (err, req, res, next) {
+	 if (err.name === 'UnauthorizedError') {
+		res.status(401).send('[Error] - invalid token, message: ' + err.message);
+	}
+});
 
 app.get('*', function (req, res) {
 	res.sendFile(path.join(clientDir, 'index.html'))

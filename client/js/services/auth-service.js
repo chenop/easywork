@@ -3,27 +3,49 @@
 /* Services */
 
 angular.module('easywork')
-    .factory('authService', function ($http, $cookies, $rootScope, $localForage) {
+    .factory('authService', function ($http, $rootScope, $localForage, $q, apiHelper) {
 
-        var cookieActiveUser = $cookies.get('activeUser');
-        var accessLevels = routingConfig.accessLevels
-            , userRoles = routingConfig.userRoles
-            , ANONYMOUS = {username: '', role: "public"}
-            , activeUser = (!cookieActiveUser) ? ANONYMOUS : JSON.parse(cookieActiveUser);
+        var accessLevels = routingConfig.accessLevels;
+        var userRoles = routingConfig.userRoles;
+        var ANONYMOUS = {username: '', role: "public"};
+        var activeUser;
 
-        $rootScope.$watch(function() { return $cookies.get('activeUser'); }, function(newValue) {
-            if (!newValue)
-                return;
+        function isValidUser(user) {
+            return user && user !== ANONYMOUS;
+        }
 
-            setActiveUser(JSON.parse(newValue));
-        });
+        $localForage.getItem('activeUser')
+            .then(function (user) {
+                if (user === activeUser)
+                    return;
+
+                if (isValidUser(user) && !isValidUser(activeUser)) {
+                    activeUser = user;
+                    return;
+                }
+
+                if (!isValidUser(user) && isValidUser(activeUser)) {
+                    return;
+                }
+
+                if (!isValidUser(user) && !isValidUser(activeUser)) {
+                    activeUser = ANONYMOUS;
+                    return;
+                }
+
+                if (isValidUser(user) && isValidUser(activeUser)) {
+                    return;
+                }
+            });
 
         function setActiveUser(user) {
             if (!user)
                 return;
 
-            angular.extend(activeUser, user); // Shallow copy - just switch the references
-            $localForage.setItem('activeUser', user);
+            $localForage.setItem('activeUser', user)
+                .then(function(user) {
+                    activeUser = user;
+                });
         }
 
         var isAuthorize = function(accessLevel, role) {
@@ -37,56 +59,73 @@ angular.module('easywork')
             return accessLevels[accessLevel].bitMask & userRoles[role].bitMask;
         }
 
-        var isLoggedIn = function (user) {
+        function isLoggedIn(user) {
             if (user === undefined) {
                 user = activeUser;
             }
+
+            if (!user || !(user.role))
+                return false;
+
             return user.role !== userRoles.public.title;
         };
 
-        var getActiveUser = function () {
-            return activeUser;
+        function getActiveUser() {
+            return (!activeUser) ? ANONYMOUS : activeUser;
         }
 
-        var register = function (user) {
+        function register(user) {
 
-            return $http({
-                method: 'POST',
-                url: '/api/register',
-                data: user
-            }).success(function(user) {
-                setActiveUser(user);
-                return user;
-            });
-        };
+            return apiHelper.post(true, 'register', user)
+                .then(function (result) {
+                    setActiveUser(result.data.user);
+                    return user;
+                });
+        }
 
-        var logIn = function (user) {
+        function login(user) {
 
-            return $http({
-                method: 'POST',
-                url: '/api/login',
-                data: user
-            }).success(function(user) {
-                setActiveUser(user);
-            });
-        };
-
-        var logOut = function () {
-            return $http.get("/logout")
-                .success(function() {
-                    setActiveUser(ANONYMOUS);
-                    $localForage.removeItem('activeUser');
-                    $cookies.put('activeUser', JSON.stringify(ANONYMOUS));
+            return apiHelper.post(true, 'login', user)
+                .then(function (result) {
+                    setActiveUser(result.data.user);
                 });
         };
 
+        function logout() {
+            $localForage.removeItem('token');
+            setActiveUser(ANONYMOUS);
+            if (activeUser) {
+                return apiHelper.post(true, 'logout', activeUser);
+            }
+        };
+
+        function handleNewToken(token) {
+            if (!token)
+                return;
+
+            $localForage.setItem('token', token);
+            
+            // add jwt token to auth header for all requests made by the $http service
+            $http.defaults.headers.common.Authorization = token;
+
+            // Fetch activeUser
+            apiHelper.get(true, "authenticate/" + token)
+                .then(function (result) {
+                    activeUser = result.data;
+                });
+        }
+
+        function getToken() {
+            return $localForage.getItem('token');
+        }
         return {
             register: register
-            , logIn: logIn
-            , logOut: logOut
+            , logIn: login
+            , logOut: logout
             , isLoggedIn: isLoggedIn
             , isAuthorize: isAuthorize
             , getActiveUser: getActiveUser
             , setActiveUser: setActiveUser
+            , handleNewToken: handleNewToken
         }
     });

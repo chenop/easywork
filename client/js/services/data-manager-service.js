@@ -3,7 +3,7 @@
  */
 
 angular.module('easywork')
-    .factory('dataManager', function ($http, common, $q, modelTransformer, Job) {
+    .factory('dataManager', function ($http, common, $q, apiHelper) {
         function isUndefined(value){return typeof value === 'undefined';}
         function isDefined(value){return typeof value !== 'undefined';}
         function isEmpty(value) {
@@ -19,7 +19,7 @@ angular.module('easywork')
         // Optimizing filterData call
         function getFiltersData() {
             if (!filterData) {
-                filterData = $http.get('/api/filtersData/')
+                filterData = apiHelper.get(true, 'filtersData/')
                     .success(function (result) {
                         return result;
                     }
@@ -35,23 +35,19 @@ angular.module('easywork')
             if (isDefined(showPublishOnly) && showPublishOnly === true)
                 params = {showPublishOnly: showPublishOnly};
 
-            return $http({
-                url: "/api/company/list"
-                , method: "GET"
-                , params: params
-                })
+            return apiHelper.get(true, "company/list", {params: params})
                 .then(function(result) {
                     return result.data;
                 });
         }
 
         var getJobs = function(companyId) {
-            var url = '/api/job/list';
+            var url = 'job/list';
 
             if (companyId)
                 url +=  "/" + companyId;
 
-            return $http.get(url)
+            return apiHelper.get(true, url)
                 .then(function(result) {
                     jobs = result.data;
                     return jobs;
@@ -66,27 +62,23 @@ angular.module('easywork')
         }
 
         var getCvs = function(skills) {
-            var url = '/api/cv/list';
+            var url = 'cv/list';
             var filter = {};
 
             if (isDefined(skills) && skills.length > 0) {
                 filter.skills = skills;
             }
-            return $http({
-                url: url,
-                method: "GET",
-                params: filter
-            })
-            .then(function(result) {
-                return result.data;
-            });
+            return apiHelper.get(false, url, {params: filter})
+                .then(function (result) {
+                    return result.data;
+                });
         }
 
         function analyzeCv(cvId) {
             if (!cvId)
                 return;
 
-            return $http.put('/api/' + common.CONTENT_TYPE.CV.name + '/analyzeCv/' + cvId)
+            return apiHelper.put(true, common.CONTENT_TYPE.CV.name + '/analyzeCv/' + cvId)
                 .then(function(result) {
                         return result.data;
                     },
@@ -133,7 +125,7 @@ angular.module('easywork')
         }
 
         var getCvFile = function(id) {
-            return $http.get('/api/cv/download/' + id, {responseType:'arraybuffer'});
+            return apiHelper.get(false, 'cv/download/' + id, {responseType:'arraybuffer'});
         }
 
         var createCompany = function(company) {
@@ -149,7 +141,7 @@ angular.module('easywork')
         }
 
         var createCv = function(cv) {
-            return createEntity(common.CONTENT_TYPE.CV, {cv: cv});
+            return apiHelper.post(true, common.CONTENT_TYPE.CV.name, cv);
         }
 
         var deleteCompany = function(id) {
@@ -182,7 +174,7 @@ angular.module('easywork')
 
         // Entities
         var getEntities = function(entityType) {
-            return $http.get('/api/' + entityType.name + '/list')
+            return apiHelper.get(false, entityType.name + '/list')
                 .then(function(result) {
                     return result.data;
                 },
@@ -194,21 +186,21 @@ angular.module('easywork')
         var getEntity = function(entityType, id) {
             if (id == undefined)
                 return;
-            return $http.get('/api/' + entityType.name +'/' + id);
+            return apiHelper.get(true, entityType.name +'/' + id);
         }
 
         var createEntity = function(entityType, entity) {
-             return $http.post('/api/' + entityType.name, entity);
+             return apiHelper.post(false, entityType.name, entity);
         }
 
         var deleteEntity = function(entityType, id) {
             if (id == undefined)
                 return;
-            return $http.delete('/api/' + entityType.name + '/' + id);
+            return apiHelper.remove(false, entityType.name + '/' + id);
         }
 
         var updateEntity = function(entityType, entity) {
-            return $http.put('/api/' + entityType.name + '/' + entity._id, entity);
+            return apiHelper.put(false, entityType.name + '/' + entity._id, entity);
         }
 
         var getCompanyLogo = function (id, company, force) {
@@ -219,7 +211,7 @@ angular.module('easywork')
                 deferred.resolve(company.logo.url);
                 return deferred.promise;
             }
-            return $http.get('/api/company/logo/' + id + '/' + force)
+            return apiHelper.get(false, 'company/logo/' + id + '/' + force)
                 .then(function (result) {
                     if (result.data) {
                         setLogo(company, result.data);
@@ -281,7 +273,7 @@ angular.module('easywork')
         }
 
         function getJobsByCompanyAndSkill(skill, companyId) {
-            return $http.get('/api/job/jobsBySkill/' + companyId + '/' + skill)
+            return apiHelper.get(false, 'job/jobsBySkill/' + companyId + '/' + skill)
                 .then(function(result) {
                     return result.data;
                 });
@@ -328,25 +320,25 @@ angular.module('easywork')
         }
 
         function setPublish(companyId, publish) {
-            return $http.post('/api/company/' + companyId + '/setPublish/' + publish);
+            return apiHelper.post(false, 'company/' + companyId + '/setPublish/' + publish);
         }
 
         function isEmailExist(email) {
             if (!email)
                 return false;
 
-            return $http.get('api/user/isEmailExist/' + email);
+            return apiHelper.get(false, 'user/isEmailExist/' + email);
         }
 
         function getCvByUserId(userId) {
-            return $http.get('/api/user/byUserId/' + userId)
+            return apiHelper.get(false, 'user/byUserId/' + userId)
                 .then(function (result) {
                     return result.data;
                 });
         }
 
         function sendFeedback(data) {
-            return $http.post('/api/feedback', {data: data});
+            return apiHelper.post(true, 'feedback', {data: data});
         }
 
         return {

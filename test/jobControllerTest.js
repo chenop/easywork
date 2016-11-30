@@ -30,7 +30,7 @@ describe("Job controller", function () {
                         .end(function (err, res) {
 
                             // Get all company's jobs
-                            server.get("/api/job/list/" + createdCompany._id)
+                            server.get("/public/job/list/" + createdCompany._id)
                                 .expect("Content-type", /json/)
                                 .expect(200) // THis is HTTP response
                                 .end(function (err, res) {

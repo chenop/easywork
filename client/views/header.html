@@ -29,7 +29,7 @@
                 <!-- Login or User menu -->
                 <div class="header-menu">
                     <div class="header-actions">
-                        <div class="register-login-container" ng-if="!authService.isLoggedIn()">
+                        <div class="register-login-container" ng-if="!authService.isLoggedIn(user)">
                             <div class="register-login-common login">
                                 <a href="#" ng-click="openLoginDialog()">
                                     כניסה
@@ -41,7 +41,7 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="dropdown-container" ng-if="authService.isLoggedIn()">
+                        <div class="dropdown-container" ng-if="authService.isLoggedIn(user)">
                             <div uib-dropdown>
                                 <a href uib-dropdown-toggle><div class="display-name"><i class="fa fa-bars"></i><div class="display-name-text">{{getDisplayName()}}</div></div></a>
                                 <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">

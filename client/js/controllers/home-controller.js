@@ -3,9 +3,10 @@
 var SEARCH_BUTTON_STR = 'חפש';
 
 angular.module('easywork')
-    .controller('homeCtrl', ['$scope', '$http', '$location', 'appManager', 'dataManager',
-    function ($scope, $http, $location, appManager, dataManager) {
+    .controller('homeCtrl', function ($scope, $http, $location, appManager, dataManager, $stateParams, authService ) {
         appManager.setDisplaySearchBarInHeader(false);
+        if ($stateParams.token)
+            authService.handleNewToken($stateParams.token);
 
         $scope.dataManager = dataManager;
         $scope.appManager = appManager;
@@ -21,6 +22,6 @@ angular.module('easywork')
             $location.path('/company-board');
         }
     }
-]);
+);
 
 

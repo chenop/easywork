@@ -76,6 +76,7 @@ module.exports = function (grunt) {
         , 'client/js/controllers/login-controller.js'
         , 'client/js/controllers/register-controller.js'
 
+        , 'client/js/services/api-helper-service.js'
         , 'client/js/services/app-manager-service.js'
         , 'client/js/services/data-manager-service.js'
         , 'client/js/services/auth-service.js'

@@ -12,17 +12,6 @@ angular.module('easywork')
         var currentContentType = common.CONTENT_TYPE.COMPANY;
         var loadingIndicatorVisibile = false;
 
-        $rootScope.$on('dataChanged', function (event, entity) {
-            handleActiveUser(entity);
-        })
-
-        var handleActiveUser = function(entity) {
-            var activeUser = getActiveUser();
-            if (activeUser._id === entity._id) {
-                setActiveUser(entity);
-            }
-        }
-
         var getSelectedCompaniesCount = function() {
             return selectedCompanies.length;
         }
@@ -44,10 +33,10 @@ angular.module('easywork')
 		}
 
         var getActiveUserId = function() {
-            var activeUser = getActiveUser();
-            if (activeUser !== undefined) {
+	        var activeUser = getActiveUser();
+            if (activeUser)
                 return activeUser._id;
-            }
+
         }
 
         var getActiveUser = function() {
@@ -91,34 +80,27 @@ angular.module('easywork')
             currentContentType = contentType;
         }
 
-        function isUserDetailsCompleted() {
-            var user = getActiveUser();
-            return (user.name && user.email && user.fileName);
-        }
-
         function sendCVDialog(callBack) {
-            var modalInstance = $uibModal.open({
-                templateUrl: '/views/users/sendCvDialog.html',
-                controller: 'SendCvDialogCtrl',
-                resolve: {
-                    userId: function() {
-                        return getActiveUserId()
-                    }
-                }
+                    var modalInstance = $uibModal.open({
+                        templateUrl: '/views/users/sendCvDialog.html',
+                        controller: 'SendCvDialogCtrl',
+                        resolve: {
+                            userId: function() {
+                                return getActiveUserId()
+                            }
+                        }
 
-            });
+                    });
 
-            modalInstance.result.then(function (cvData) {
-                if (cvData) {
-                    mailService.sendMail(selectedCompanies, cvData);
-                    	//.then(function(result) {
-							if (callBack)
-                        		callBack();
-						//});
-                }
+                    modalInstance.result.then(function (cvData) {
+                        if (cvData) {
+                            mailService.sendMail(selectedCompanies, cvData);
+                            if (callBack)
+                                callBack();
+                        }
 
-                modalInstance.close();
-            });
+                        modalInstance.close();
+                    });
         }
 
         function send() {
@@ -240,7 +222,6 @@ angular.module('easywork')
             , getIndexOf: getIndexOf
             , getCurrentContentType: getCurrentContentType
             , setCurrentContentType: setCurrentContentType
-            , isUserDetailsCompleted : isUserDetailsCompleted
             , send: send
             , getRelevantEntity: getRelevantEntity
             , getRelevantEntityId: getRelevantEntityId

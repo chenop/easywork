@@ -183,8 +183,5 @@ angular.module('easywork')
 				case common.EContentType.CV:
 					return entity.fileName;
 			}
-			//if (entity.skills && Array.isArray(entity.skills))
-			//    return entity.fileName;
-			//return entity.name ? entity.name : entity.email;
 		}
 	});

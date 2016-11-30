@@ -42,7 +42,6 @@ angular.module('easywork')
                     if (userId) {
                         cvService.getCvByUserId(userId)
                             .then(function (cv) {
-                                console.log(cv.skills);
                                 if (cv) {
                                     $scope.cv = {
                                         fileName: cv.fileName,

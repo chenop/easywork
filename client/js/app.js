@@ -26,7 +26,7 @@ app.config(
         // Now set up the states
         $stateProvider
             .state('home', {
-                url: "/home",
+                url: "/home?token",
                 templateUrl: "/views/home.html"
             })
             .state('login', {
