@@ -3,49 +3,21 @@
 /* Services */
 
 angular.module('easywork')
-    .factory('authService', function ($http, $rootScope, $localForage, $q, apiHelper) {
+    .factory('authService', function ($http, $rootScope, localStorageService, $q, apiHelper) {
 
         var accessLevels = routingConfig.accessLevels;
         var userRoles = routingConfig.userRoles;
         var ANONYMOUS = {username: '', role: "public"};
         var activeUser;
 
-        function isValidUser(user) {
-            return user && user !== ANONYMOUS;
-        }
-
-        $localForage.getItem('activeUser')
-            .then(function (user) {
-                if (user === activeUser)
-                    return;
-
-                if (isValidUser(user) && !isValidUser(activeUser)) {
-                    activeUser = user;
-                    return;
-                }
-
-                if (!isValidUser(user) && isValidUser(activeUser)) {
-                    return;
-                }
-
-                if (!isValidUser(user) && !isValidUser(activeUser)) {
-                    activeUser = ANONYMOUS;
-                    return;
-                }
-
-                if (isValidUser(user) && isValidUser(activeUser)) {
-                    return;
-                }
-            });
+        activeUser = localStorageService.get('activeUser') || ANONYMOUS;
 
         function setActiveUser(user) {
             if (!user)
                 return;
 
-            $localForage.setItem('activeUser', user)
-                .then(function(user) {
-                    activeUser = user;
-                });
+            localStorageService.set('activeUser', user);
+            activeUser = user;
         }
 
         var isAuthorize = function(accessLevel, role) {
@@ -88,44 +60,48 @@ angular.module('easywork')
             return apiHelper.post(true, 'login', user)
                 .then(function (result) {
                     setActiveUser(result.data.user);
+                    if (result.data.token)
+                        handleNewToken(result.data.token);
                 });
         };
 
         function logout() {
-            $localForage.removeItem('token');
-            setActiveUser(ANONYMOUS);
+            localStorageService.remove('token');
             if (activeUser) {
-                return apiHelper.post(true, 'logout', activeUser);
+                apiHelper.post(true, 'logout', activeUser);
             }
+
+            setActiveUser(ANONYMOUS);
         };
 
-        function handleNewToken(token) {
+        function handleNewToken(token, shouldFetchActiveUser) {
             if (!token)
                 return;
 
-            $localForage.setItem('token', token);
+            localStorageService.set('token', token);
             
-            // add jwt token to auth header for all requests made by the $http service
-            $http.defaults.headers.common.Authorization = token;
-
-            // Fetch activeUser
-            apiHelper.get(true, "authenticate/" + token)
-                .then(function (result) {
-                    activeUser = result.data;
-                });
+            if (shouldFetchActiveUser) {
+                // Fetch activeUser
+                apiHelper.get(true, "authenticate/" + token)
+                    .then(function (result) {
+                        setActiveUser(result.data);
+                    });
+            }
         }
 
         function getToken() {
-            return $localForage.getItem('token');
+            return localStorageService.get('token');
         }
+
         return {
             register: register
             , logIn: login
-            , logOut: logout
+            , logout: logout
             , isLoggedIn: isLoggedIn
             , isAuthorize: isAuthorize
             , getActiveUser: getActiveUser
             , setActiveUser: setActiveUser
             , handleNewToken: handleNewToken
+            , getToken: getToken
         }
     });

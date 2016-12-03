@@ -1,5 +1,5 @@
 angular.module('easywork')
-	.controller('DashboardListCtrl', function ($scope, dataManager, appManager, common, $stateParams, $state) {
+	.controller('DashboardListCtrl', function ($scope, dataManager, appManager, common, $stateParams, $state, utils) {
 		var contentTypeName = $stateParams.contentTypeName;
 		var selectedEntityId = $stateParams.selectedEntityId;
 		$scope.appManager = appManager;
@@ -23,7 +23,7 @@ angular.module('easywork')
 
 		function handleSelection(entityId) {
 			var contentType = appManager.getCurrentContentType();
-			if ($scope.entities.length === 0) {
+			if (utils.isUndefined($scope.entities) || $scope.entities.length === 0) {
 				$state.go("dashboard.list.empty");
 			}
 			else if (entityId === '-1') {

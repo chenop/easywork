@@ -37,7 +37,21 @@ angular.module('easywork')
 			return (Array.isArray(arr) && arr.length == 0);
 		}
 
+		function isUndefined(value){return typeof value === 'undefined';}
+		function isDefined (value){return typeof value !== 'undefined';}
+		function isEmpty(value) {
+			if (Array.isArray(value)) {
+				return (value.length == 0)
+			}
+			else { // primitive or single object
+				return isUndefined(value) || value === '' || value === null || value !== value;
+			}
+		}
+
 		return {
 			isEmptyArray: isEmptyArray
+			, isUndefined: isUndefined
+			, isDefined: isDefined
+			, isEmpty: isEmpty
 		}
 	});

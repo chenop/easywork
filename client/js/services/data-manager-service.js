@@ -3,12 +3,7 @@
  */
 
 angular.module('easywork')
-    .factory('dataManager', function ($http, common, $q, apiHelper) {
-        function isUndefined(value){return typeof value === 'undefined';}
-        function isDefined(value){return typeof value !== 'undefined';}
-        function isEmpty(value) {
-            return isUndefined(value) || value === '' || value === null || value !== value;
-        };
+    .factory('dataManager', function ($http, common, utils, $q, apiHelper) {
 
         var jobs = null;
         var companies = null;
@@ -32,7 +27,7 @@ angular.module('easywork')
         var getCompanies = function(showPublishOnly) {
             var params = {};
 
-            if (isDefined(showPublishOnly) && showPublishOnly === true)
+            if (utils.isDefined(showPublishOnly) && showPublishOnly === true)
                 params = {showPublishOnly: showPublishOnly};
 
             return apiHelper.get(true, "company/list", {params: params})
@@ -65,7 +60,7 @@ angular.module('easywork')
             var url = 'cv/list';
             var filter = {};
 
-            if (isDefined(skills) && skills.length > 0) {
+            if (utils.isDefined(skills) && skills.length > 0) {
                 filter.skills = skills;
             }
             return apiHelper.get(false, url, {params: filter})
@@ -177,9 +172,6 @@ angular.module('easywork')
             return apiHelper.get(false, entityType.name + '/list')
                 .then(function(result) {
                     return result.data;
-                },
-                function(err) {
-                    console.log(err);
                 });
         }
 
@@ -205,9 +197,9 @@ angular.module('easywork')
 
         var getCompanyLogo = function (id, company, force) {
             var deferred = $q.defer();
-            force = isDefined(force) ? force : false;
+            force = utils.isDefined(force) ? force : false;
             // Check if logo is cached
-            if (!force && !isEmpty(company) && !isEmpty(company.logo) && !isEmpty(company.logo.url)) {
+            if (!force && !utils.isEmpty(company) && !utils.isEmpty(company.logo) && !utils.isEmpty(company.logo.url)) {
                 deferred.resolve(company.logo.url);
                 return deferred.promise;
             }

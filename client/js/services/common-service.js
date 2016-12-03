@@ -45,10 +45,35 @@ angular.module('easywork')
             });
         }
 
-		return {
+        function openErrorModal(text) {
+            var modalInstance = $uibModal.open({
+                templateUrl: '/views/error.html',
+                controller: function ($scope, text, $uibModalInstance) {
+                    $scope.status = text.status;
+                    $scope.message = text.data;
+
+                    $scope.close = function() {
+                        $uibModalInstance.close();
+                    }
+                },
+                size: 'sm',
+                resolve: {
+                    text: function () {
+                        return text;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (result) {
+            }, function () {
+            });
+        }
+
+        return {
             CONTENT_TYPE: CONTENT_TYPE
             , MODAL_RESULT: MODAL_RESULT
             , openYesNoModal: openYesNoModal
+            , openErrorModal: openErrorModal
             , DEFAULT_MESSAGE: DEFAULT_MESSAGE
             , EContentType: EContentType
 		}

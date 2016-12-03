@@ -61,7 +61,7 @@ function createUser(req, res) {
             return res.send(user);
         },
         function error(err) {
-            return res.json(500, err);
+            return res.status(500).json(err);
         }
     );
 }
@@ -83,7 +83,7 @@ function getUsers(req, res) {
             return res.send(users);
         },
         function error(err) {
-            return res.json(500, err);
+            return res.status(500).json(err);
         }
     );
 }
@@ -97,7 +97,7 @@ function updateUser(req, res) {
             return res.send(user);
         },
         function error(err) {
-            return res.json(500, err);
+            return res.status(500).json(err);
         }
     );
 };
@@ -159,7 +159,7 @@ function deleteUser(req, res) {
             return res.send(user);
         },
         function error(err) {
-            return res.json(500, err);
+            return res.status(500).json(err);
         });
 }
 
@@ -188,7 +188,7 @@ function isEmailExist(req, res) {
                 return res.send(user);
             },
             function error(err) {
-                return res.json(500, err);
+                return res.status(500).json(err);
             });
 }
 
@@ -198,7 +198,7 @@ function getCvByUserId(req, res) {
                 return res.send(cv);
             },
             function error(err) {
-                return res.json(500, err);
+                return res.status(500).json(err);
             });
 }
 

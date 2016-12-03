@@ -18,7 +18,6 @@ var express = require('express')
     , bodyParser = require('body-parser')
     , multer  = require('multer')
     , methodOverride = require('method-override')
-    , session = require('express-session')
 	, mongoose = require('mongoose')
     , url = require('url')
     , config = require('./server/config')
@@ -54,15 +53,10 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 app.use(multer());
 app.use(cookieParser());
+
 app.use(methodOverride()); // TODO What it is doing?
-app.use(session({ // TODO Do we still need this?
-    secret: config.secret
-    , resave: false
-    , saveUninitialized: true
-}))
 app.use(passport.initialize());
-app.use('/api/user/list', ejwt({secret: config.secret}));
-//app.use(passport.session());
+app.use('/api', ejwt({secret: config.secret}));
 app.use(express.static(clientDir));
 
 require('./server/pass.js')(passport, app, config.baseUrl);

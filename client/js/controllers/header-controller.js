@@ -11,7 +11,6 @@ angular.module('easywork')
         $scope.user = authService.getActiveUser();
 
         $scope.$watch('authService.getActiveUser()', function(value) {
-            console.log("active was changed!", value);
             $scope.user = value;
         })
 
@@ -22,7 +21,6 @@ angular.module('easywork')
             });
 
         $scope.getDisplayName = function() {
-            console.log("getDisplayName");
             return $scope.user.name ? $scope.user.name : $scope.user.email;
         }
 
@@ -75,10 +73,8 @@ angular.module('easywork')
         $scope.areas_select2Options = dataManager.getAreasSelect2Options();
 
         $scope.logout = function () {
-            authService.logOut()
-                .then(function () {
-                    $location.path('/');
-                });
+            authService.logout();
+            $location.path('/');
         }
 
         $scope.$watch('appManager.getSelectedCompanies()', function () {

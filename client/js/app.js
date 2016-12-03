@@ -11,6 +11,7 @@ var app = angular.module('easywork',
         , 'ui.select'
         , 'ngAnimate'
         , 'LocalForageModule'
+        , 'LocalStorageModule'
         , 'toaster'
         , 'ngFileSaver'
         , 'feedback.module'
@@ -104,67 +105,9 @@ app.config(
             })
 
         $locationProvider.html5Mode(true).hashPrefix('!')
-    }
+    })
 
-//        //================================================
-//        // Add an interceptor for AJAX errors
-//        //================================================
-//        $httpProvider.responseInterceptors.push(function ($q, $location) {
-//            return function (promise) {
-//                return promise.then(
-//                    // Success: just return the response
-//                    function (response) {
-//                        return response;
-//                    },
-//                    // Error: check the error status to get only the 401
-//                    function (response) {
-//                        if (response.status === 401) {
-//                            $location.url('/login');
-//                        }
-//                        return $q.reject(response);
-//                    }
-//                );
-//            }
-//        });
-//
-//        //================================================
-//        // Add an interceptor for handling session time out - redirect to login when access denied
-//        //================================================
-//        $httpProvider.interceptors.push(function ($rootScope, $q, $location) {
-//            return {
-//                'responseError': function (response) {
-//                    if ((response.status === 401 || response.status === 403) && $location.path() !== '/login') {
-//                        $location.path('/login');
-//                    }
-//                    return $q.reject(response);
-//                }
-//            };
-//        });
-//    }
-//]
-)
-    .run(function ($rootScope, $location, authService) {
-        $rootScope.$on('$routeChangeStart', function (event, next, current) {
-            // We need the path component of `next`. We can either process `next` and
-            // spit out its path component, or simply use $location.path(). I go with
-            // the latter.
-//            var nextPath = $location.path();
-//            var nextRoute = $route.routes[nextPath]
-//
-//            console.log(nextRoute.access); // There you go!
-
-// ---------------------------------------------------------------
-
-            if (!authService.isAuthorize(next.access)) {
-                console.log("Seems like you tried accessing a route you don't have access to...");
-                event.preventDefault();
-                if (!authService.isLoggedIn()) {
-                    $location.path("/login");
-                }
-                else
-                    $location.path("/");//go('user.home');
-            }
-        });
+    .run(function ($rootScope) {
         $rootScope.isUndefined = function(value){return typeof value === 'undefined';}
         $rootScope.isDefined = function(value){return typeof value !== 'undefined';}
         $rootScope.isEmpty = function(value) {
@@ -186,5 +129,28 @@ app.config(
             return array;
         }
 
-    });
+    })
+    .config(function ($httpProvider) {
+        $httpProvider.interceptors.push('AuthInterceptor');
+    })
+    .factory('AuthInterceptor', [ '$q', '$location', 'localStorageService', '$injector',
+        function ($q, $location, localStorageService, $injector) {
+            return {
+                'request': function (config) {
 
+                    if (localStorageService.get('token')) {
+                        config.headers.authorization = 'Bearer ' + localStorageService.get('token');
+                    }
+                    return config || $q.when(config);
+                },
+                responseError: function(error) {
+
+                    console.log("Found responseError: ", error);
+                    var common = $injector.get('common');
+
+                    common.openErrorModal(error);
+                    $location.path('/');
+                    return $q.reject(error);
+                }
+            }
+        }]);

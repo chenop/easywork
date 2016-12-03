@@ -56,7 +56,7 @@ function analyzeExistingCv(req, res) {
                     });
             },
             function error(err) {
-                return res.json(500, err);
+                return res.status(500).json(err);
             })
 }
 
@@ -100,7 +100,7 @@ function createCv(req, res) {
                 return res.send(cv);
             },
             function error(err) {
-                return res.json(500, err);
+                return res.status(500).json(err);
             });
 }
 
@@ -114,7 +114,7 @@ function getCvFile(req, res) {
                 return res.send(new Buffer(cv.fileData, 'base64')); // TODO Chen check what is the usage - need to convert to Buffer?
             },
             function error(err) {
-                return res.json(500, err);
+                return res.status(500).json(err);
             });
 
 }
@@ -127,7 +127,7 @@ function getCv(req, res) {
                 return res.send(cv);
             },
             function error(err) {
-                return res.json(500, err);
+                return res.status(500).json(err);
             });
 }
 
@@ -143,7 +143,7 @@ function deleteCv(req, res) {
                         return res.send(cv);
                     },
                     function error(err) {
-                        return res.json(500, err);
+                        return res.status(500).json(err);
                     }
                 );
         });

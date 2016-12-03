@@ -6,7 +6,7 @@ angular.module('easywork')
     .controller('homeCtrl', function ($scope, $http, $location, appManager, dataManager, $stateParams, authService ) {
         appManager.setDisplaySearchBarInHeader(false);
         if ($stateParams.token)
-            authService.handleNewToken($stateParams.token);
+            authService.handleNewToken($stateParams.token, true);
 
         $scope.dataManager = dataManager;
         $scope.appManager = appManager;

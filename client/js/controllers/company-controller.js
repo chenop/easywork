@@ -3,8 +3,6 @@
 
 angular.module('easywork')
     .controller('CompanyCtrl', function ($scope, Upload, $http, appManager, dataManager, $timeout, $state, $stateParams, $uibModal, debounce, common) {
-        function isDefined(value){return typeof value !== 'undefined';}
-
         $scope.publish = false;
 
         var companyId = appManager.getRelevantEntityId($state.current.isDashboard, $stateParams.entityId, common.CONTENT_TYPE.COMPANY.name);

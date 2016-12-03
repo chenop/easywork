@@ -45,6 +45,7 @@ module.exports = function (grunt) {
         , 'client/lib/bootstrap-rtl/dist/js/holder.js'
 
         // localForage
+        , 'client/lib/angular-local-storage/dist/angular-local-storage.js'
         , 'client/lib/localforage/dist/localforage.js'
         , 'client/lib/angular-localforage/dist/angular-localForage.js'
     ];

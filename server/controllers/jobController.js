@@ -39,7 +39,7 @@ function createJob(req, res) {
 				return res.send(job);
 			},
 			function error(err) {
-				return res.json(500, err);
+				return res.status(500).json(err);
 			});
 };
 
@@ -51,7 +51,7 @@ function getJob(req, res) {
 				return res.send(job);
 			},
 			function error(err) {
-				return res.json(500, err);
+				return res.status(500).json(err);
 			});
 }
 
@@ -64,7 +64,7 @@ function getJobs(req, res) {
 					return res.send(jobs);
 				},
 				function error(err) {
-					return res.json(500, err);
+					return res.status(500).json(err);
 				});
 	}
 	else {
@@ -74,7 +74,7 @@ function getJobs(req, res) {
 					return res.send(jobs)
 				},
 				function error(err) {
-					return res.json(500, err);
+					return res.status(500).json(err);
 				}
 			);
 	}
@@ -91,7 +91,7 @@ function deleteJob(req, res) {
 				return res.send(job);
 			},
 			function error(err) {
-				return res.json(500, err);
+				return res.status(500).json(err);
 			});
 }
 
@@ -103,7 +103,7 @@ function updateJob(req, res) {
 			return res.send(job);
 		},
 		function error(err) {
-			return res.json(500, err);
+			return res.status(500).json(err);
 		});
 }
 
@@ -116,6 +116,6 @@ function getJobsByCompanyAndSkill (req, res) {
 			return res.send(jobs);
 		},
 		function error(err) {
-			return res.json(500, err);
+			return res.status(500).json(err);
 		});
 }

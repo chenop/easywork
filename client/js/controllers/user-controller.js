@@ -9,7 +9,7 @@ angular.module('easywork')
             $scope.user.skills = null;
 
             $scope.activeUser= appManager.getActiveUser();
-            $scope.userId = appManager.getRelevantEntityId($state.current.isDashboard, $stateParams.entityId);
+            $scope.userId = appManager.getRelevantEntityId($state.current.isDashboard, $stateParams.entityId, common.CONTENT_TYPE.USER.name);
 
             appManager.getRelevantEntity($state.current.isDashboard, $scope.userId, common.CONTENT_TYPE.USER.name)
                 .then(function(user) {
