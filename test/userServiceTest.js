@@ -64,7 +64,7 @@ describe('User service - Testing CRUD operations', function () {
                             // verify that the returned user is what we expect
                             updatedUser.name.should.equal('Chen Update');
 
-                            return UserModel.count().exec()
+                            return UserModel.count({role: "JobSeeker"}).exec()
                                 .then(function (count) {
                                     count.should.equal(1);
                                 })

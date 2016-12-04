@@ -12,12 +12,25 @@ var server = supertest.agent(app);
 describe("Job controller", function () {
     this.timeout(utils.TIMEOUT);
 
+    var token = null;
     describe("HTTP Verbs", function () {
+        before("login", function(done) {
+            return server.post("/public/login")
+                .send(utils.getAdminUser())
+                .end(function(err, res) {
+                    if (err)
+                        done(err);
+
+                    token = res.body.token;
+                    done();
+                })
+        })
         it("GET", function (done) {
             var company = utils.createMockedCompanyPlainObject("toluna");
 
             // Create the company
             server.post("/api/company")
+                .set('Authorization', 'Bearer ' + token)
                 .send(company)
                 .end(function (err, rs) {
                     var job = utils.createMockedJobPlainObject("job");
@@ -26,6 +39,7 @@ describe("Job controller", function () {
                     job.company = createdCompany;
                     // Create a Job
                     server.post("/api/job")
+                        .set('Authorization', 'Bearer ' + token)
                         .send({job: job})
                         .end(function (err, res) {
 
@@ -45,6 +59,7 @@ describe("Job controller", function () {
         });
         it("POST - with company", function (done) {
             server.post("/api/company")
+                .set('Authorization', 'Bearer ' + token)
                 .send(utils.createMockedCompanyPlainObject("Toluna"))
                 .end(function (err, res) {
                     var createdCompany = res.body;
@@ -53,9 +68,8 @@ describe("Job controller", function () {
                     job.company = createdCompany;
 
                     server.post("/api/job")
+                        .set('Authorization', 'Bearer ' + token)
                         .send({job: job})
-                        //.expect("Content-type", /json/)
-                        //.expect(200) // THis is HTTP response
                         .end(function (err, res) {
                             // HTTP status should be 200
                             res.status.should.equal(200);
@@ -71,9 +85,8 @@ describe("Job controller", function () {
         });
         it("POST - without company", function (done) {
             server.post("/api/job")
+                .set('Authorization', 'Bearer ' + token)
                 .send({job: utils.createMockedJobPlainObject("Chen")})
-                //.expect("Content-type", /json/)
-                //.expect(200) // THis is HTTP response
                 .end(function (err, res) {
                     // HTTP status should be 200
                     res.status.should.equal(200);
@@ -91,18 +104,21 @@ describe("Job controller", function () {
 
             // Create the company
             server.post("/api/company")
+                .set('Authorization', 'Bearer ' + token)
                 .send(company)
                 .end(function (err, rs) {
                     var job = utils.createMockedJobPlainObject("job");
                     var createdCompany = rs.body;
                     // Create a Job
                     server.post("/api/job")
+                        .set('Authorization', 'Bearer ' + token)
                         .send({company: createdCompany, job: job})
                         .end(function (err, res) {
                             var createdJob = res.body;
 
                             // Delete a job
                             server.delete("/api/job/" + createdJob._id)
+                                .set('Authorization', 'Bearer ' + token)
                                 .send({company: createdCompany})
                                 .expect("Content-type", /json/)
                                 .expect(200) // THis is HTTP response
@@ -111,6 +127,7 @@ describe("Job controller", function () {
                                     res.status.should.equal(200);
 
                                     server.get("/api/job")
+                                        .set('Authorization', 'Bearer ' + token)
                                         .send(createdJob._id)
                                         .expect("Content-type", /json/)
                                         .expect(200) // THis is HTTP response

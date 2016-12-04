@@ -16,6 +16,8 @@ var UserModel = require('../server/models/user');
 var JobModel = require('../server/models/job');
 var CvModel = require('../server/models/cv');
 
+var UserService = require('../server/services/userService');
+
 // ensure the NODE_ENV is set to 'test'
 // this is helpful when you would like to change behavior when testing
 console.log("process.env.NODE_ENV: " + process.env.NODE_ENV);
@@ -45,6 +47,7 @@ beforeEach(function (done) {
 
         Promise.all(promises)
             .then(function () {
+                createAdminUser();
                 done();
             })
     }
@@ -66,6 +69,16 @@ afterEach(function (done) {
     mongoose.disconnect();
     return done();
 });
+
+function getAdminUser() {
+    return {
+        email: 'tester@gmail.com',
+        password: "123456"
+    };
+}
+function createAdminUser() {
+    UserService.createUser(getAdminUser())
+}
 
 function createMockedUserPlainObject() {
     var newUser = {
@@ -123,4 +136,5 @@ module.exports = {
     , createMockedCompanyPlainObject: createMockedCompanyPlainObject
     , createMockedCvPlainObject: createMockedCvPlainObject
     , TIMEOUT: TIMEOUT
+    , getAdminUser: getAdminUser
 }

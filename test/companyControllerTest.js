@@ -11,10 +11,23 @@ var server = supertest.agent(app);
 
 describe("Company controller", function () {
     this.timeout(utils.TIMEOUT);
+    var token = null;
 
     describe("HTTP Verbs", function () {
+        before("login", function(done) {
+            return server.post("/public/login")
+                .send(utils.getAdminUser())
+                .end(function(err, res) {
+                    if (err)
+                        done(err);
+
+                    token = res.body.token;
+                    done();
+                })
+        })
         it("GET", function (done) {
             server.post("/api/user")
+                .set('Authorization', 'Bearer ' + token)
                 .send(utils.createMockedUserPlainObject())
                 .end(function (err, res) {
                     if (err)
@@ -24,6 +37,7 @@ describe("Company controller", function () {
                     company.owner = res.body;
 
                     server.post("/api/company")
+                        .set('Authorization', 'Bearer ' + token)
                         .send(company)
                         .end(function (err, res) {
 
@@ -42,6 +56,7 @@ describe("Company controller", function () {
         });
         it("POST", function (done) {
             server.post("/api/company")
+                .set('Authorization', 'Bearer ' + token)
                 .send(utils.createMockedCompanyPlainObject("Toluna"))
                 .expect("Content-type", /json/)
                 .expect(200) // THis is HTTP response
@@ -57,17 +72,19 @@ describe("Company controller", function () {
         });
         it("DELETE", function (done) {
             server.post("/api/company")
+                .set('Authorization', 'Bearer ' + token)
                 .send(utils.createMockedCompanyPlainObject())
                 .end(function (err, res) {
                     var returnedCompany = res.body;
 
                     server.delete("/api/company/" + returnedCompany._id)
-
+                        .set('Authorization', 'Bearer ' + token)
                         .expect("Content-type", /json/)
                         .expect(200) // THis is HTTP response
                         .end(function (err, res) {
 
                             server.get("/api/company")
+                                .set('Authorization', 'Bearer ' + token)
                                 .send(returnedCompany.id)
                                 .expect("Content-type", /json/)
                                 .expect(200) // THis is HTTP response
