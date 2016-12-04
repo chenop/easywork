@@ -150,15 +150,17 @@ function deleteCv(req, res) {
 }
 
 function getCvs(req, res) {
-    var filter = {};
+    var filter = null;
 
     var skills = req.query.skills;
 
-    if (!Array.isArray(skills))
+    if (utils.isDefined(skills) && !Array.isArray(skills))
         skills = [].concat(skills);
 
-    if (skills && skills.length > 0)
+    if (skills && skills.length > 0) {
+        filter = {};
         filter.skills = skills;
+    }
 
     return CvService.getCvs(filter)
         .then(function success(cvs) {
