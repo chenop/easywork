@@ -14,7 +14,7 @@ describe("Company controller", function () {
     var token = null;
 
     describe("HTTP Verbs", function () {
-        before("login", function(done) {
+        beforeEach("login", function(done) {
             return server.post("/public/login")
                 .send(utils.getAdminUser())
                 .end(function(err, res) {
