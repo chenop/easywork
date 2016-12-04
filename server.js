@@ -54,7 +54,7 @@ app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(multer());
 app.use(cookieParser());
 
-app.use(methodOverride()); // TODO What it is doing?
+app.use(methodOverride()); // Lets you use HTTP verbs such as PUT or DELETE
 app.use(passport.initialize());
 app.use('/api', ejwt({secret: config.secret}));
 app.use(express.static(clientDir));

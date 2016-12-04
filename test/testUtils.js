@@ -47,9 +47,11 @@ beforeEach(function (done) {
 
         Promise.all(promises)
             .then(function () {
-                createAdminUser();
-                done();
+                return createAdminUser();
             })
+            .then(function() {
+                done();
+            });
     }
 
     if (mongoose.connection.readyState === 0) {
@@ -73,6 +75,7 @@ afterEach(function (done) {
 function getAdminUser() {
     return {
         email: 'tester@gmail.com',
+        role: 'admin',
         password: "123456"
     };
 }
