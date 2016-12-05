@@ -13,7 +13,7 @@ angular.module('easywork')
             }
         };
     })
-    .controller('loginCtrl', function ($scope, authService, $localForage, loginRegisterService) {
+    .controller('loginCtrl', function ($scope, authService, $localForage, loginRegisterService, utils) {
 
         var SOMETHING_WENT_WRONG_MSG = "Oops, Something went wrong!";
         var vm = this;
@@ -77,7 +77,7 @@ angular.module('easywork')
             }
 
         vm.shouldDisable = function() {
-            return $scope.isEmpty(vm.user.email) || $scope.isEmpty(vm.user.password)
+            return utils.isEmpty(vm.user.email) || utils.isEmpty(vm.user.password)
         }
 
         vm.switchToRegister = function() {

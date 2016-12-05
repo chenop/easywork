@@ -48,10 +48,22 @@ angular.module('easywork')
 			}
 		}
 
+		function removeObject(array, object) {
+			if ($rootScope.isEmpty(array))
+				return array;
+
+			var index = array.indexOf(object);
+			if (index !== -1) {
+				array.splice(index, 1);
+			}
+			return array;
+		}
+
 		return {
 			isEmptyArray: isEmptyArray
 			, isUndefined: isUndefined
 			, isDefined: isDefined
 			, isEmpty: isEmpty
+			, removeObject: removeObject
 		}
 	});

@@ -142,7 +142,7 @@ angular.module('easywork')
 			common.openYesNoModal("האם אתה בטוח?", function () {
 				var contentType = appManager.getCurrentContentType();
 				var nextEntityToSelect = prepareNextEntityToSelect(index);
-				$scope.removeObject($scope.entities, entity);
+				utils.removeObject($scope.entities, entity);
 
 				handleSelection(nextEntityToSelect._id);
 				dataManager.deleteEntity(contentType, entity._id);

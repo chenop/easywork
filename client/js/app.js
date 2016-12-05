@@ -106,30 +106,6 @@ app.config(
 
         $locationProvider.html5Mode(true).hashPrefix('!')
     })
-
-    .run(function ($rootScope) {
-        $rootScope.isUndefined = function(value){return typeof value === 'undefined';}
-        $rootScope.isDefined = function(value){return typeof value !== 'undefined';}
-        $rootScope.isEmpty = function(value) {
-            if (Array.isArray(value)) {
-                return (value.length == 0)
-            }
-            else { // primitive or single object
-                return $rootScope.isUndefined(value) || value === '' || value === null || value !== value;
-            }
-        };
-        $rootScope.removeObject = function(array, object) {
-            if ($rootScope.isEmpty(array))
-                return array;
-
-            var index = array.indexOf(object);
-            if (index !== -1) {
-                array.splice(index, 1);
-            }
-            return array;
-        }
-
-    })
     .config(function ($httpProvider) {
         $httpProvider.interceptors.push('AuthInterceptor');
     })

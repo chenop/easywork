@@ -5,7 +5,7 @@
 angular.module('easywork').controller('cvDetailsCtrl', function ($scope, appManager, dataManager, $stateParams, FileSaver, Blob, $sce, cvService) {
     var selectedEntity = appManager.getSelectedEntity();
     var entityId = $stateParams.entityId;
-    $scope.url = "http://docs.google.com/gview?url=http://easywork.herokuapp.com/api/cv/download/" + entityId + "&embedded=true";
+    $scope.url = "http://docs.google.com/gview?url=http://www.easyworkco.il/api/cv/download/" + entityId + "&embedded=true";
 
     $scope.trustSrc = function(src) {
         return $sce.trustAsResourceUrl(src);

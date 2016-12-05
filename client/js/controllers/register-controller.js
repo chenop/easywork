@@ -22,7 +22,7 @@ angular.module('easywork')
             }
         };
     })
-    .directive('ngMatch', ['$parse', function ($parse) {
+    .directive('ngMatch', function ($parse) {
 
         var directive = {
             link: link,
@@ -52,8 +52,8 @@ angular.module('easywork')
             });
 
         }
-    }])
-    .controller('registerCtrl', function ($scope, authService, common) {
+    })
+    .controller('registerCtrl', function ($scope, authService, common, utils) {
         var defaultMessage = common.DEFAULT_MESSAGE;
 
         var modIns = $scope.modIns;
@@ -119,11 +119,11 @@ angular.module('easywork')
         }
 
         $scope.shouldDisable = function() {
-            return $scope.isEmpty($scope.user.email) ||
-                $scope.isEmpty($scope.user.password) ||
-                $scope.isEmpty($scope.user.verifyPassword) ||
-                !$scope.isEmpty($scope.user.password) &&
-                !$scope.isEmpty($scope.user.verifyPassword) &&
+            return utils.isEmpty($scope.user.email) ||
+                utils.isEmpty($scope.user.password) ||
+                utils.isEmpty($scope.user.verifyPassword) ||
+                !utils.isEmpty($scope.user.password) &&
+                !utils.isEmpty($scope.user.verifyPassword) &&
                 $scope.user.password !== $scope.user.verifyPassword;
         }
     }

@@ -26,17 +26,17 @@ angular.module('easywork')
             });
         }
     })
-    .controller('CompaniesBoardCtrl', function ($scope, $http, mailService, dataManager, appManager, $uibModal) {
+    .controller('CompaniesBoardCtrl', function ($scope, $http, mailService, dataManager, appManager, $uibModal, utils) {
         var prepareFormattedLocation = function (location) {
-            if (!$scope.isEmpty(location.street) && !$scope.isEmpty(location.city)) {
+            if (!utils.isEmpty(location.street) && !utils.isEmpty(location.city)) {
                 return (location.street + ", " + location.city);
             }
 
-            if (!$scope.isEmpty(location.city)) {
+            if (!utils.isEmpty(location.city)) {
                 return location.city;
             }
 
-            if (!$scope.isEmpty(location.street)) {
+            if (!utils.isEmpty(location.street)) {
                 return location.street;
             }
         };
