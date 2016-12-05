@@ -49,7 +49,7 @@ angular.module('easywork')
 		}
 
 		function removeObject(array, object) {
-			if ($rootScope.isEmpty(array))
+			if (isEmpty(array))
 				return array;
 
 			var index = array.indexOf(object);

@@ -23,7 +23,7 @@ angular.module('easywork')
 			return $http.put(prefix(isPublic) + url, data);
 		}
 
-		function remove(isPublic, url) {
+		function delete1(isPublic, url) {
 			return $http.delete(prefix(isPublic) + url);
 		}
 
@@ -31,7 +31,7 @@ angular.module('easywork')
 			get: get
 			, post: post
 			, put: put
-			, remote: remove
+			, delete1: delete1
 		}
 	});
 

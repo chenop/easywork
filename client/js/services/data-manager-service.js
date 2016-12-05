@@ -188,7 +188,7 @@ angular.module('easywork')
         var deleteEntity = function(entityType, id) {
             if (id == undefined)
                 return;
-            return apiHelper.remove(false, entityType.name + '/' + id);
+            return apiHelper.delete1(false, entityType.name + '/' + id);
         }
 
         var updateEntity = function(entityType, entity) {
