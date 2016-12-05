@@ -3,25 +3,20 @@
  */
 
 angular.module('easywork')
-    .factory('cvService', function (Upload, $localForage, dataManager) {
+    .factory('cvService', function (Upload, localStorageService, dataManager) {
 
         function getCvByUserId(userId) {
-            return $localForage.getItem(userId)
-                .then(function (cv) {
-                    if (cv)
-                        return cv;
+            var cv = localStorageService.get(userId)
+            if (cv)
+                return cv;
 
-                    return dataManager.getCvByUserId(userId)
-                        .then(function(cv) {
-                            return cv;
-                        })
-                        .catch(function() {
-                            return Promise.reject();
-                        })
+            return dataManager.getCvByUserId(userId)
+                .then(function(cv) {
+                    return cv;
                 })
                 .catch(function() {
                     return Promise.reject();
-                });
+                })
         }
 
         function uploadFile(file, userId) {

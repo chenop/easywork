@@ -10,7 +10,6 @@ var app = angular.module('easywork',
         , 'ngFileUpload'
         , 'ui.select'
         , 'ngAnimate'
-        , 'LocalForageModule'
         , 'LocalStorageModule'
         , 'toaster'
         , 'ngFileSaver'

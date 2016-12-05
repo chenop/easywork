@@ -3,7 +3,7 @@
  */
 
 angular.module('easywork')
-    .controller('SendCvDialogCtrl', function ($scope, $uibModalInstance, $localForage, userId) {
+    .controller('SendCvDialogCtrl', function ($scope, $uibModalInstance, userId) {
         $scope.modIns = $uibModalInstance;
         $scope.userId = userId;
 

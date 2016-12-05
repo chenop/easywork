@@ -3,7 +3,7 @@
  */
 
 angular.module('easywork')
-    .directive('uploadCv', function (cvService, dataManager, Upload, $localForage, utils) {
+    .directive('uploadCv', function (cvService, dataManager, Upload, localStorageService, utils) {
         return {
             restrict: 'EA',
             scope: {
@@ -63,7 +63,7 @@ angular.module('easywork')
                 function OnCvDataChanged(cv) {
                     $scope.cv = cv;
 
-                    $localForage.setItem(userId, $scope.cv);
+                    localStorageService.set(userId, $scope.cv);
                     $scope.status = ($scope.cv) ? $scope.STATUS.GOT_CV : $scope.STATUS.NO_CV;
                 }
 

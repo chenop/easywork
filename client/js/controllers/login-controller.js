@@ -13,7 +13,7 @@ angular.module('easywork')
             }
         };
     })
-    .controller('loginCtrl', function ($scope, authService, $localForage, loginRegisterService, utils) {
+    .controller('loginCtrl', function ($scope, authService, localStorageService, loginRegisterService, utils) {
 
         var SOMETHING_WENT_WRONG_MSG = "Oops, Something went wrong!";
         var vm = this;
@@ -25,16 +25,15 @@ angular.module('easywork')
         vm.user.rememeberMe = null;
         vm.errorMessage = null;
 
-        $localForage.getItem('rememeberMeData').then(function(rememeberMeData) {
-            if (!rememeberMeData)
-                return;
+        var rememeberMeData = localStorageService.get('rememeberMeData');
+        if (!rememeberMeData)
+            return;
 
-            if (!rememeberMeData.enable)
-                return;
+        if (!rememeberMeData.enable)
+            return;
 
-            vm.rememeberMe = rememeberMeData.enable;
-            vm.user.email = rememeberMeData.email;
-        });
+        vm.rememeberMe = rememeberMeData.enable;
+        vm.user.email = rememeberMeData.email;
 
         function handleRmemberMe() {
             var rememeberMeData = {
@@ -45,7 +44,7 @@ angular.module('easywork')
                 rememeberMeData.email = vm.user.email;
             }
 
-            $localForage.setItem('rememeberMeData', rememeberMeData);
+            localStorageService.set('rememeberMeData', rememeberMeData);
         }
 
             vm.submit = function () {
