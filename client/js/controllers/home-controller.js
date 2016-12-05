@@ -1,6 +1,6 @@
 'use strict';
 
-var SEARCH_BUTTON_STR = 'חפש';
+var SEARCH_BUTTON_STR = 'חפש חברות';
 
 angular.module('easywork')
     .controller('homeCtrl', function ($scope, $http, $location, appManager, dataManager, $stateParams, authService ) {
