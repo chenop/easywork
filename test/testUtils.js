@@ -74,13 +74,27 @@ afterEach(function (done) {
 
 function getAdminUser() {
     return {
-        email: 'tester@gmail.com',
+        email: 'admin@gmail.com',
         role: 'admin',
         password: "123456"
     };
 }
+
+function getJobProviderUser() {
+    return {
+        email: 'jobProvider@gmail.com',
+        role: 'jobProvider',
+        password: "123456"
+    };
+}
+
 function createAdminUser() {
-    UserService.createUser(getAdminUser())
+    var promises = [
+        UserService.createUser(getAdminUser()),
+        UserService.createUser(getJobProviderUser())
+    ];
+
+    return Promise.all(promises);
 }
 
 function createMockedUserPlainObject() {
@@ -140,4 +154,5 @@ module.exports = {
     , createMockedCvPlainObject: createMockedCvPlainObject
     , TIMEOUT: TIMEOUT
     , getAdminUser: getAdminUser
+    , getJobProviderUser: getJobProviderUser
 }

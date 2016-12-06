@@ -69,7 +69,7 @@ app.post('/public/sendMail/:id', mail.sendMail)
 app.get('/public/filtersData', dataProxy.getFiltersData)
 
 // Users
-app.get('/api/user/list', userController.getUsers)
+app.get('/api/user/list', adminOnly, userController.getUsers)
 app.get('/public/user/:id', userController.getUser)
 app.post('/api/user', userController.createUser)
 app.put('/api/user/:id', userController.updateUser)
@@ -111,6 +111,9 @@ app.use(function (err, req, res, next) {
 	 if (err.name === 'UnauthorizedError') {
 		res.status(401).send('[Error] - invalid token, message: ' + err.message);
 	}
+	else if (err.name === 'PermissionError') {
+		 res.status(401).send('[Error] - Permission denied!');
+	 }
 });
 
 app.get('*', function (req, res) {
@@ -122,3 +125,23 @@ app.listen(app.get('port'), function () {
 });
 
 module.exports = app;
+
+function PermissionError () {
+	Error.call(this, error.message);
+	Error.captureStackTrace(this, this.constructor);
+	this.name = "PermissionDenied";
+	this.status = 401;
+}
+
+function isAdmin (user) {
+	if (!user || !user.role)
+		return false;
+
+	return user.role === 'admin';
+}
+
+function adminOnly(req, res, next) {
+	var user = req.user;
+
+	return next(isAdmin(user) ? null : PermissionError)
+}
