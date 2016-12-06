@@ -98,7 +98,7 @@ app.get('/api/job/jobsBySkill/:companyId/:skill', jobController.getJobsByCompany
 
 // CVs
 app.get('/api/cv/list', cvController.getCvs)
-app.get('/api/cv/download/:id', cvController.getCvFile)
+app.get('/public/cv/download/:id', cvController.getCvFile)
 app.get('/public/cv/:id', cvController.getCv)
 app.get('/api/cv/filter', cvController.getCvsByFilter)
 app.post('/public/cv', cvController.createCv)
