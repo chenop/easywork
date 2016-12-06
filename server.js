@@ -71,9 +71,9 @@ app.get('/public/filtersData', dataProxy.getFiltersData)
 // Users
 app.get('/api/user/list', adminOnly, userController.getUsers)
 app.get('/public/user/:id', userController.getUser)
-app.post('/api/user', userController.createUser)
-app.put('/api/user/:id', userController.updateUser)
-app.delete('/api/user/:id', userController.deleteUser)
+app.post('/api/user', adminOnly, userController.createUser)
+app.put('/api/user/:id', adminOnly, userController.updateUser)
+app.delete('/api/user/:id', adminOnly, userController.deleteUser)
 app.get('/api/user/isEmailExist/:email', userController.isEmailExist);
 app.get('/api/user/byUserId/:id', userController.getCvByUserId)
 
@@ -85,7 +85,7 @@ app.put('/api/company/:id', companyController.updateCompany)
 app.delete('/api/company/:id', companyController.deleteCompany)
 app.post('/api/company/logo-upload/:id', companyController.upload)
 app.get('/api/company/logo/:id/:force', companyController.getCompanyLogo)
-app.post('/api/company/:id/setPublish/:publish', companyController.setPublish);
+app.post('/api/company/:id/setPublish/:publish', adminOnly, companyController.setPublish);
 
 // Jobs
 app.get('/public/job/list/:id', jobController.getJobs)
