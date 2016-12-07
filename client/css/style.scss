@@ -472,7 +472,10 @@ header a, .caret {
     label {
       font-size: 16px;
       font-weight: normal;
-      padding-right: 9px;
+      input {
+        margin-left: 9px;
+
+      }
       color: #909090;
     }
   }
