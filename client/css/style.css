@@ -9667,11 +9667,9 @@ header a, .caret {
     .form-signin .checkbox-container label {
       font-size: 16px;
       font-weight: normal;
-      color: #909090;
-      }
+      color: #909090; }
       .form-signin .checkbox-container label input {
-        margin-left: 9px;
-        }
+        margin-left: 9px; }
   .form-signin .login-button {
     width: 100%;
     display: block;

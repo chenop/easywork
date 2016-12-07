@@ -72,7 +72,7 @@ app.get('/public/filtersData', dataProxy.getFiltersData)
 app.get('/api/user/list', adminOnly, userController.getUsers)
 app.get('/public/user/:id', userController.getUser)
 app.post('/api/user', adminOnly, userController.createUser)
-app.put('/api/user/:id', adminOnly, userController.updateUser)
+app.put('/api/user/:id', userController.updateUser)
 app.delete('/api/user/:id', adminOnly, userController.deleteUser)
 app.get('/api/user/isEmailExist/:email', userController.isEmailExist);
 app.get('/api/user/byUserId/:id', userController.getCvByUserId)
