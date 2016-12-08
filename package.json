@@ -1,5 +1,5 @@
 {
-  "name": "easywork-AngularJS-NodeJS",
+  "name": "easywork",
   "private": true,
   "version": "0.0.1",
   "engines": {
@@ -56,12 +56,12 @@
   "main": "Gruntfile.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chenop/easywork-AngularJS-NodeJS.git"
+    "url": "https://github.com/chenop/easywork.git"
   },
   "author": "Chen Oppenhaim",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/chenop/easywork-AngularJS-NodeJS/issues"
+    "url": "https://github.com/chenop/easywork/issues"
   },
-  "homepage": "https://github.com/chenop/easywork-AngularJS-NodeJS"
+  "homepage": "https://github.com/chenop/easywork"
 }
