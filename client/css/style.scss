@@ -279,6 +279,13 @@ ul li {
   }
 }
 
+#company-view {
+  .image-container {
+    max-height: 150px;
+    max-width: 200px;
+  }
+}
+
 .table > tbody > tr > td {
   vertical-align: middle;
   border-top: 1px solid;
