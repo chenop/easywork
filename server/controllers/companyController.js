@@ -79,6 +79,7 @@ function getCompany(req, res) {
         .then(function(company) {
             return JobService.getCompanyNeededSkills(company._id)
                 .then(function(skills) {
+                    company = company.toObject();
                     company.skills = skills;
                     return company;
                 })
