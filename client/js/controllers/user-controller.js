@@ -19,6 +19,8 @@ angular.module('easywork')
             function initCvData(cvData, userId) {
                 $scope.cvData = cvData;
                 $scope.userId = userId;
+
+                $scope.cvs = [cvData];
             }
 
             function refreshUser(selectedEntity) {
@@ -64,7 +66,7 @@ angular.module('easywork')
              */
             function sendCVToServer(fileName, fileData, activeUserId) {
                 $scope.upload = Upload.upload({
-                    url: '/api/cv', //upload.php script, node.js route, or servlet url
+                    url: '/public/cv', //upload.php script, node.js route, or servlet url
                     method: 'POST',
                     data: {
                         userId: activeUserId,

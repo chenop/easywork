@@ -993,3 +993,39 @@ header a, .caret {
     }
   }
 }
+
+.cvs {
+  //display: flex;
+
+  .radio {
+    display: block;
+    text-align: right;
+  }
+  .cv-selected {
+  }
+
+  .cv-name {
+    text-align: right;
+  }
+
+  .cv-skills{
+    direction: rtl;
+  }
+
+  .cv-delete{
+  }
+
+  .animate-show {
+    -webkit-transition: all linear 0.2s;
+    transition: all linear 0.2s;
+    opacity: 1;
+  }
+
+  .animate-show.ng-hide-add,
+  .animate-show.ng-hide-remove {
+    display: inline-block !important;
+  }
+  .animate-show.ng-hide {
+    opacity: 0;
+  }
+}

@@ -2,26 +2,26 @@
  * Created by Chen on 01/05/2015.
  */
 angular.module('easywork')
-    .directive('userCard', function () {
+    .directive('cvCard', function () {
         return {
             restrict: 'E',
             scope: {
-                user: '='
+                cv: '='
             },
-            templateUrl: '/views/users/user-card.html',
+            templateUrl: '/views/cvs/cv-card.html',
             link: function (scope, element, attrs) {
             }
         }
     })
-    .directive('userSkillTag', function (dataManager) {
+    .directive('cvSkillTag', function (dataManager) {
         return {
             restrict: 'E',
             scope: {
                 requiredSkill: '=',
-                user: '='
+                cv: '='
             },
             controller: function($scope, $uibModal) {
             },
-            template: '<span class="skill-tag"><i class="glyphicon glyphicon-tag skill-icon"></i>{{::requiredSkill}}</span>'
+            template: '<span class="skill-tag"><i class="glyphicon glyphicon-tag skill-icon"></i><span style="margin-right: 5px">{{::requiredSkill}}</span></span>'
         }
     })

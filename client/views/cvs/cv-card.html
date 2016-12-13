@@ -6,8 +6,8 @@
         <a ng-href="{{user.site|linkFixer}}" stop-propagation target="_blank" class="user-card-header">{{::user.fileName}}</a>
     </div>
     <div class="col-xs-7" style="direction: ltr">
-        <span ng-repeat="requiredSkill in user.skills" class="skill">
-            <user-skill-tag required-skill="requiredSkill"/>
+        <span ng-repeat="requiredSkill in cv.skills" class="skill">
+            <cv-skill-tag required-skill="requiredSkill"/>
         </span>
     </div>
 </div>

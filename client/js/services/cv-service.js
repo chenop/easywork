@@ -6,6 +6,21 @@ angular.module('easywork')
     .factory('cvService', function (Upload, localStorageService, dataManager) {
 
         function getCvByUserId(userId) {
+            return Promise.resolve([
+                {
+                    fileName: "Chen-Oppenhaim(new).doc",
+                    skills: ["SQL", "AngularJS", "JavaScript", "CSS", "OOP"]
+                },
+                {
+                    fileName: "Chen(GUI).doc",
+                    skills: ["Java", "Swing"]
+                },
+                {
+                    fileName: "ovadia.doc",
+                    skills: []
+                }
+            ]);
+
             var cv = localStorageService.get(userId)
             if (cv)
                 return cv;
@@ -26,7 +41,7 @@ angular.module('easywork')
             return Upload.base64DataUrl(file)
                 .then(function (dataUrl) {
                     return Upload.upload({
-                        url: 'api/cv',
+                        url: 'public/cv',
                         data: {file: file, data: dataUrl, userId: userId}
                     }).then(function (response) {
                         return response.data;

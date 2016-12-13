@@ -1,57 +1,79 @@
 <div class="" ng-controller="userDetailsCtrl">
-    <form ng-hide=isLoading name="form" class="jumbotron form-horizontal align-center" ng-keyup="updateUser($event)" novalidate>
-        <div class="form-group" ng-class="{ 'has-error' : !user.name}">
-            <label class="col-sm-3 control-label">שם</label>
-            <input id="userName" class="col-sm-9 form-control" type="text" ng-model="user.name" name="name"
-                   placeholder="Your name"/>
-        </div>
+    <uib-tabset>
+        <uib-tab heading="פרטי משתמש">
 
-        <div class="form-group" ng-class="{ 'has-error' : form.email.$error.email || !user.email}">
-            <label class="col-sm-3 control-label">דואר אלקטרוני</label>
-            <input class="col-sm-9 form-control" type="email" ng-model="user.email" name="email" required="true"
-                   placeholder="Your E-mail"/>
-        </div>
-
-        <upload-cv user-id="userId" cv="cvData" ng-show="user.role === 'jobSeeker'"></upload-cv>
-
-        <div class="form-group" ng-show="user.role === 'jobSeeker'">
-            <label class="col-sm-3 control-label">כמה מילים על עצמך...</label>
-            <textarea class="col-sm-9 form-control cv-message" ng-model="user.message"/>
-        </div>
-
-        <!--<div class="form-group" access-level="admin">-->
-            <!--<label class="col-sm-3 control-label">Role</label>-->
-            <!--&lt;!&ndash;<label class="col-sm-9">{{user.role}}</label>&ndash;&gt;-->
-            <!--<div class="experience">-->
-                <!--<select ui-select2="select2Options" ng-model="user.role" ng-click="updateUser()">-->
-                    <!--<option value=""></option>-->
-                    <!--<option ng-repeat="role in userRoles" value="{{role}}">{{role}}</option>-->
-                <!--</select>-->
-            <!--</div>-->
-        <!--</div>-->
-
-        <div ng-show="user.role === 'jobProvider'" class="form-group" access-level="admin">
-            <label class="col-sm-3 control-label">בעל חברה</label>
-
-            <div class="experience">
-                <select ui-select2="select2Options" ng-model="user.company" ng-click="updateUser()">
-                    <option ng-selected="{{user.company == company._id}}" ng-repeat="company in companies"
-                            value="{{company._id}}">{{company.name}}
-                    </option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group" access-level="public">
-            <label class="col-sm-3 control-label">סוג חשבון</label>
-
-            <div class="no-padding col-sm-9">
-                <div class="btn-group account-type" data-toggle="buttons-checkbox">
-                    <button ng-click="updateRole('jobSeeker')" type="button" class="btn btn-default" ng-disabled="!isAllowToSwitchRole(user, 'jobSeeker')" ng-model="user.role" uib-btn-radio="'jobSeeker'">מועמד</button>
-                    <button ng-click="updateRole('jobProvider')"type="button" class="btn btn-default" ng-disabled="!isAllowToSwitchRole(user, 'jobProvider')" ng-model="user.role" uib-btn-radio="'jobProvider'">מעסיק</button>
-                    <button ng-if="activeUser.role === 'admin'" ng-click="updateRole('admin')"type="button" class="btn btn-default"  ng-model="user.role" uib-btn-radio="'admin'">Admin</button>
+            <form ng-hide=isLoading name="form" class="jumbotron form-horizontal align-center" ng-keyup="updateUser($event)" novalidate>
+                <div class="form-group" ng-class="{ 'has-error' : !user.name}">
+                    <label class="col-sm-3 control-label">שם</label>
+                    <input id="userName" class="col-sm-9 form-control" type="text" ng-model="user.name" name="name"
+                           placeholder="Your name"/>
                 </div>
+
+                <div class="form-group" ng-class="{ 'has-error' : form.email.$error.email || !user.email}">
+                    <label class="col-sm-3 control-label">דואר אלקטרוני</label>
+                    <input class="col-sm-9 form-control" type="email" ng-model="user.email" name="email" required="true"
+                           placeholder="Your E-mail"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">קורות חיים</label>
+
+                    <div class="col-sm-9">
+                        <cvs mode="0"></cvs>
+                    </div>
+                </div>
+                <!--<upload-cv user-id="userId" cv="cvData" ng-show="user.role === 'jobSeeker'"></upload-cv>-->
+
+
+                <div class="form-group" ng-show="user.role === 'jobSeeker'">
+                    <label class="col-sm-3 control-label">כמה מילים על עצמך...</label>
+                    <textarea class="col-sm-9 form-control cv-message" ng-model="user.message"/>
+                </div>
+
+                <!--<div class="form-group" access-level="admin">-->
+                <!--<label class="col-sm-3 control-label">Role</label>-->
+                <!--&lt;!&ndash;<label class="col-sm-9">{{user.role}}</label>&ndash;&gt;-->
+                <!--<div class="experience">-->
+                <!--<select ui-select2="select2Options" ng-model="user.role" ng-click="updateUser()">-->
+                <!--<option value=""></option>-->
+                <!--<option ng-repeat="role in userRoles" value="{{role}}">{{role}}</option>-->
+                <!--</select>-->
+                <!--</div>-->
+                <!--</div>-->
+
+                <div ng-show="user.role === 'jobProvider'" class="form-group" access-level="admin">
+                    <label class="col-sm-3 control-label">בעל חברה</label>
+
+                    <div class="experience">
+                        <select ui-select2="select2Options" ng-model="user.company" ng-click="updateUser()">
+                            <option ng-selected="{{user.company == company._id}}" ng-repeat="company in companies"
+                                    value="{{company._id}}">{{company.name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group" access-level="public">
+                    <label class="col-sm-3 control-label">סוג חשבון</label>
+
+                    <div class="no-padding col-sm-9">
+                        <div class="btn-group account-type" data-toggle="buttons-checkbox">
+                            <button ng-click="updateRole('jobSeeker')" type="button" class="btn btn-default" ng-disabled="!isAllowToSwitchRole(user, 'jobSeeker')" ng-model="user.role"
+                                    uib-btn-radio="'jobSeeker'">מועמד
+                            </button>
+                            <button ng-click="updateRole('jobProvider')" type="button" class="btn btn-default" ng-disabled="!isAllowToSwitchRole(user, 'jobProvider')" ng-model="user.role"
+                                    uib-btn-radio="'jobProvider'">מעסיק
+                            </button>
+                            <button ng-if="activeUser.role === 'admin'" ng-click="updateRole('admin')" type="button" class="btn btn-default" ng-model="user.role" uib-btn-radio="'admin'">Admin</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </uib-tab>
+        <uib-tab heading="קורות חיים">
+            <div ng-repeat="cv in cvs">
+                <cv-card cv="cv""/>
             </div>
-        </div>
-    </form>
+        </uib-tab>
+    </uib-tabset>
 </div>
