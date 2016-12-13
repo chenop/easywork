@@ -1,18 +1,16 @@
 <div class="cvs">
-    <div ng-repeat="cv in cvs" class="row radio" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
-        <label>
-            <input type="radio" ng-model="selectedCv.name" ng-value="cv.fileName" />
-            <!--<div class="col-sm-1 cv-selected">-->
-                <!--<i class="fa fa-circle-o text-gray"></i>-->
-            <!--</div>-->
-            <!--<div class="col-sm-10 no-horizontal-padding cv-name">-->
+    <div ng-repeat="cv in cvs" class="radio row" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">
+        <label class="col-sm-12">
+            <input type="radio" ng-model="$parent.selectedCv" ng-value="cv" /> <!-- Using $parent since ng-repeat creates a new scope... -->
+            <div class="col-sm-10 no-horizontal-padding cv-name">
                 {{cv.fileName}}
-            <!--</div>-->
-            <!--<div class="col-sm-1 cv-delete animate-show" ng-show="displayTrash">-->
-                <!--<i class="fa fa-trash-o text-gray"></i>-->
-            <!--</div>-->
+            </div>
+            <div class="col-sm-1 cv-delete animate-show" ng-show="displayTrash">
+                <i class="fa fa-trash-o"></i>
+            </div>
         </label>
     </div>
+    <!--<pre>cv: {{selectedCv.fileName}}</pre>-->
     <div class="row no-horizontal-padding">
         <div class="col-sm-3 no-horizontal-padding align-right grey">מיומנויות:</div>
         <div class="col-sm-9">
