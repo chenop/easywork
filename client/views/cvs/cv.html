@@ -15,7 +15,7 @@
         <li ng-repeat="skill in cv.skills">{{skill}}</li>
     </ul>
     <button class="btn btn-block btn-primary download-cv-btn" ng-click="downloadCv()">Download CV</button>
-    <div >
+    <div>
         <iframe ng-src={{trustSrc(url)}} class="iframe" frameborder="0"></iframe>
     </div>
 </div>

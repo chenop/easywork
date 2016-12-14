@@ -3,21 +3,24 @@
  */
 
 angular.module('easywork')
-    .factory('cvService', function (Upload, localStorageService, dataManager) {
+    .factory('cvService', function (Upload, localStorageService, dataManager, $uibModal) {
 
         function getCvByUserId(userId) {
             return Promise.resolve([
                 {
                     fileName: "Chen-Oppenhaim(new).doc",
-                    skills: ["SQL", "AngularJS", "JavaScript", "CSS", "OOP"]
+                    skills: ["SQL", "AngularJS", "JavaScript", "CSS", "OOP"],
+                    id: "5839d381086b68040041d523"
                 },
                 {
                     fileName: "Chen(GUI).doc",
-                    skills: ["Java", "Swing"]
+                    skills: ["Java", "Swing"],
+                    id: "5839d381086b68040041d523"
                 },
                 {
                     fileName: "ovadia.doc",
-                    skills: []
+                    skills: [],
+                    id: "5839d381086b68040041d523"
                 }
             ]);
 
@@ -82,10 +85,31 @@ angular.module('easywork')
             return blob;
         }
 
+        function showCvDialog(cv) {
+            $uibModal.open({
+                templateUrl: '/js/cvs/cv-popup.html',
+                controller: function($scope, $sce, cv) {
+                    $scope.url = "http://docs.google.com/gview?url=http://www.easywork.co.il/public/cv/download/" + cv.id + "&embedded=true";
+                    $scope.cv = cv;
+
+                    $scope.trustSrc = function(src) {
+                        return $sce.trustAsResourceUrl(src);
+                    }
+
+                },
+                resolve: {
+                    cv: function() {
+                        return cv;
+                    }
+                }
+            });
+        }
+
         return {
             uploadFile: uploadFile
             , convertBase64ToBlob: convertBase64ToBlob
             , getCvByUserId: getCvByUserId
+            , showCvDialog: showCvDialog
         }
     });
 

@@ -39,6 +39,10 @@ angular.module('easywork')
                         });
                 }
 
+                $scope.displayCv = function(cv) {
+                    cvService.showCvDialog(cv);
+                }
+
                 $scope.isSkillsExists = function(cv) {
                     if (utils.isUndefined(cv) || utils.isUndefined(cv.skills))
                         return false;

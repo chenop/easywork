@@ -72,7 +72,7 @@ angular.module('easywork')
             }
 
             setActiveUser(ANONYMOUS);
-        };
+        }
 
         function handleNewToken(token, shouldFetchActiveUser) {
             if (!token)
