@@ -3,7 +3,7 @@
         <div class="cols-sm-12 terms-agree-checkbox">
                 <div class="checkbox">
                     <label><input type="checkbox" ng-model="termsAgree">
-                        בלחיצה על "שלח קו"ח" הינך מסכים
+הנני מסכים
                         <a ui-sref="terms_agreement" target="_blank">לתנאי השימוש</a>.
                     </label>
                 </div>
@@ -18,14 +18,14 @@
         </div>
     <div class="row">
         <div class="col-sm-6">
-            <div class="btn btn-lg btn-primary align-middle"
+            <button class="btn btn-block btn-lg btn-primary align-middle"
                  ng-disabled="!isSendEnable()" ng-click="sendCV()">שלח קו"ח
-            </div>
+            </button>
         </div>
         <div class="col-sm-6">
-            <div class="btn btn-lg btn-default align-middle"
+            <button class="btn btn-block btn-lg btn-default align-middle"
                  ng-click="close()">סגור
-            </div>
+            </button>
         </div>
     </div>
 </div>
