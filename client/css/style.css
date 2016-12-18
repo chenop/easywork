@@ -10018,14 +10018,12 @@ header a, .caret {
         #header-view .header-controllers .header-menu .header-actions .dropdown-container .dropdown-menu {
           right: inherit;
           float: left;
-          /** Dropdown animation **/
           display: block;
-          opacity: 0;
-          visibility: hidden;
-          -webkit-transition: opacity 500ms ease, visibility 500ms ease;
-          -moz-transition: opacity 500ms ease, visibility 500ms ease;
-          -o-transition: opacity 500ms ease, visibility 500ms ease;
-          transition: opacity 500ms ease, visibility 500ms ease; }
+          visibility: hidden; }
+          #header-view .header-controllers .header-menu .header-actions .dropdown-container .dropdown-menu li > a {
+            transition: background-color 0.5s cubic-bezier(0, 0, 0.2, 1); }
+            #header-view .header-controllers .header-menu .header-actions .dropdown-container .dropdown-menu li > a:hover {
+              background-color: #F5EEDB; }
         #header-view .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
           padding-left: 5px;
           display: inline-block; }

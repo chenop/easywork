@@ -950,14 +950,15 @@ header a, .caret {
             right: inherit;
             float: left;
 
-            /** Dropdown animation **/
             display: block;
-            opacity: 0;
             visibility: hidden;
-            -webkit-transition: opacity 500ms ease, visibility 500ms ease;
-            -moz-transition: opacity 500ms ease, visibility 500ms ease;
-            -o-transition: opacity 500ms ease, visibility 500ms ease;
-            transition: opacity 500ms ease, visibility 500ms ease;
+
+            li > a {
+              transition: background-color 0.5s cubic-bezier(0, 0, 0.2, 1) ;
+              &:hover {
+                background-color: $base60-lighter;
+              }
+            }
           }
           .display-name {
             .display-name-text {
