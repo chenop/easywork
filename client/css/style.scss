@@ -293,8 +293,8 @@ ul li {
 }
 
 .modal-content {
-  width: 90%;
-  min-width: 100px;
+  width: 100%;
+  min-width: 90px;
   background-color: $base-60-light;
 }
 
@@ -322,28 +322,8 @@ ul li {
   display: table-cell;
 }
 
-.fileUpload {
-  input.upload {
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 0;
-    padding: 0;
-    font-size: 20px;
-    cursor: pointer;
-    opacity: 0;
-    filter: alpha(opacity=0);
-    float: right;
-  }
-}
-
 .upload-file-name {
   padding-top: 10px;
-  text-align: left;
-}
-
-.upload-file-skills {
-  padding-top: 20px;
   text-align: left;
 }
 
@@ -580,11 +560,6 @@ header a, .caret {
   border-color: #3b5a7c;
 }
 
-.emphasize-border {
-  padding: 10px;
-
-}
-
 .import-cv-box {
   float: right;
   //padding: 10px;
@@ -653,6 +628,36 @@ header a, .caret {
 
 .transition-animation.ng-enter-active {
   opacity: 1;
+}
+
+#upload-cv-view {
+  .emphasize-border {
+    padding: 10px;
+    margin: 0 auto;
+    display: block;
+
+    .file-upload {
+
+      .file-upload-text {
+        text-align: right;
+        padding-top:12px;
+      }
+
+      input.upload {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        float: right;
+      }
+    }
+  }
+
 }
 
 .has-error {

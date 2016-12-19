@@ -1,24 +1,21 @@
-<div class="modal-body">
+<div id="upload-cv-view">
     <div class="row">
-        <div class="form-group" ng-class="{ 'has-error' : !cv.skills}">
-            <label class="col-sm-3 control-label">קורות חיים</label>
-
-            <div class="emphasize-border col-sm-9 btn btn-default" ngf-select="onFileSelect($file)">
-                <div ng-show="status === STATUS.GOT_CV" class="upload-file-skills align-left">
-                    <div class="col-sm-3">
-                        <i class="fa  fa-file-text fa-4x text-gray"></i>
+            <div class="emphasize-border col-sm-12 btn btn-default" ngf-select="onFileSelect($file)">
+                <div ng-show="status === STATUS.GOT_CV" class="align-left">
+                    <div class="col-sm-12">
+                        <i class="fa fa-file-text fa-4x text-gray"></i>
                         <a class="align-center delete-cv" ng-click="deleteCV($event)">
                             מחק קוח
                         </a>
                     </div>
-                    <div class="col-sm-9 ">
-                        {{isSkillsExists() ? "מיומניות שנמצאו" : "לא נמצאו מיומניויות"}}
-                        <ul>
-                            <li style="display: block" class="glyphicon glyphicon-star"
-                                ng-repeat="skill in cv.skills">{{skill}}
-                            </li>
-                        </ul>
-                    </div>
+                    <!--<div class="col-sm-9 ">-->
+                        <!--{{isSkillsExists() ? "מיומניות שנמצאו" : "לא נמצאו מיומניויות"}}-->
+                        <!--<ul>-->
+                            <!--<li style="display: block" class="glyphicon glyphicon-star"-->
+                                <!--ng-repeat="skill in cv.skills">{{skill}}-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</div>-->
                 </div>
                 <div ng-show="status === STATUS.UPLOADING_CV">
                     <div class="col-sm-12">
@@ -27,17 +24,16 @@
                 </div>
                 <div ng-show="status === STATUS.NO_CV">
                     <div class="col-sm-3">
-                        <i class="fa fa-cloud-upload fa-4x"></i>
+                        <i class="fa fa-cloud-upload fa-3x"></i>
                     </div>
                     <div class="col-sm-9 ">
-                        <div class="import-cv-box fileUpload">
-                            <Div>לחץ להעלאת קו"ח</Div>
+                        <div class="file-upload">
+                            <div class="file-upload-text">לחץ להעלאת קו"ח</div>
                             <input type="file" class="upload"/>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </div>
 
