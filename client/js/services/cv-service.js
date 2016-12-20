@@ -8,7 +8,7 @@ angular.module('easywork')
         function getCvByUserId(userId) {
             var cv = localStorageService.get(userId)
             if (cv)
-                return cv;
+                return Promise.resolve(cv);
 
             return dataManager.getCvByUserId(userId)
                 .then(function(cv) {

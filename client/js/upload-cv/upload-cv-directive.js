@@ -18,8 +18,10 @@ angular.module('easywork')
                     GOT_CV: 2
                 }
 
+                var ANONYMOUS = "anonymous";
+
                 var userId = $scope.userId();
-                userId = (!userId) ? "anonymous" : userId;
+                userId = (!userId) ? ANONYMOUS : userId;
 
                 initCvData();
 
@@ -39,7 +41,7 @@ angular.module('easywork')
                 function initCvData() {
                     // todo if (isLoggedIn) {  $scope.cvData = user.cvData; return; };
 
-                    if (userId) {
+                    if (isValidUserId(userId)) {
                         cvService.getCvByUserId(userId)
                             .then(function (cv) {
                                 if (cv) {
@@ -58,6 +60,10 @@ angular.module('easywork')
                     }
                     else
                         $scope.status = $scope.STATUS.NO_CV;
+                }
+
+                function isValidUserId(userId) {
+                    return (!utils.isEmpty(userId) && userId !== ANONYMOUS);
                 }
 
                 function OnCvDataChanged(cv) {

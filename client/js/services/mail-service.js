@@ -16,13 +16,15 @@ angular.module('easywork')
          * @param skills
          * @param activeUserId
          */
-        function sendCVToServer(activeUserId, cvData, selectedCompanies) {
+        function sendCVToServer(activeUserId, cvData, selectedCompanies, utils) {
 
-			if (!activeUserId)
-				activeUserId = "anonymous";
+	        var url = '/public/sendMail/';
+
+	        if (!utils.isEmpty(activeUserId))
+				url += activeUserId;
 
 			return Upload.upload({
-				url: '/public/sendMail/' + activeUserId, //upload.php script, node.js route, or servlet url
+				url: url,
 				method: 'POST',
 				data: {
 					cvData: cvData,

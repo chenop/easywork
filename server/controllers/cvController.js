@@ -22,7 +22,7 @@ module.exports = {
 }
 
 var calcUser = function (userId) {
-    if (!userId || userId === "" || userId === "anonymous")
+    if (utils.isEmpty(userId) || userId === "anonymous")
         return ADMIN_USER_ID;
 
     return userId;
