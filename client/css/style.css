@@ -9855,11 +9855,19 @@ header a, .caret {
         margin-top: 0px; }
     .send-cv-container .send-cv-content .recommend-container {
       margin-bottom: 10px;
-      text-align: center; }
+      display: table;
+      table-layout: fixed;
+      width: 65%; }
       .send-cv-container .send-cv-content .recommend-container .recommend-label-container {
-        display: inline-block; }
+        display: table-cell;
+        vertical-align: middle;
+        text-align: left;
+        width: 70%; }
       .send-cv-container .send-cv-content .recommend-container .fb-like-container {
-        display: inline-block; }
+        display: table-cell;
+        vertical-align: middle;
+        padding-top: 5px;
+        width: 3%; }
 
 .toast-top-center {
   top: 80px;

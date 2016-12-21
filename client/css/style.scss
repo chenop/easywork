@@ -734,12 +734,22 @@ header a, .caret {
 
     .recommend-container {
       margin-bottom: 10px;
-      text-align: center;
+      display: table;
+      table-layout: fixed;
+      width: 65%;
+
       .recommend-label-container {
-        display: inline-block;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: left;
+        width:70%;
       }
+
       .fb-like-container {
-        display: inline-block;
+        display: table-cell;
+        vertical-align: middle;
+        padding-top: 5px;
+        width:35%;
       }
     }
   }
