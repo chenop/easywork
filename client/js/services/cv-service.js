@@ -3,20 +3,29 @@
  */
 
 angular.module('easywork')
-    .factory('cvService', function (Upload, localStorageService, dataManager) {
+    .constant('ANONYMOUS', "anonymous")
+    .factory('cvService', function (Upload, localStorageService, dataManager, ANONYMOUS) {
 
         function getCvByUserId(userId) {
             var cv = localStorageService.get(userId)
             if (cv)
                 return Promise.resolve(cv);
 
+            if (!isValidUserId(userId)) {
+                return Promise.reject();
+            }
+
             return dataManager.getCvByUserId(userId)
-                .then(function(cv) {
+                .then(function (cv) {
                     return cv;
                 })
-                .catch(function() {
+                .catch(function () {
                     return Promise.reject();
                 })
+        }
+
+        function isValidUserId(userId) {
+            return (!utils.isEmpty(userId) && userId !== ANONYMOUS);
         }
 
         function uploadFile(file, userId) {

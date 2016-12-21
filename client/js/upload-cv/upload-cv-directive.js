@@ -3,7 +3,7 @@
  */
 
 angular.module('easywork')
-    .directive('uploadCv', function (cvService, dataManager, Upload, localStorageService, utils) {
+    .directive('uploadCv', function (cvService, dataManager, Upload, localStorageService, utils, ANONYMOUS) {
         return {
             restrict: 'EA',
             scope: {
@@ -17,8 +17,6 @@ angular.module('easywork')
                     UPLOADING_CV: 1,
                     GOT_CV: 2
                 }
-
-                var ANONYMOUS = "anonymous";
 
                 var userId = $scope.userId();
                 userId = (!userId) ? ANONYMOUS : userId;
@@ -41,29 +39,21 @@ angular.module('easywork')
                 function initCvData() {
                     // todo if (isLoggedIn) {  $scope.cvData = user.cvData; return; };
 
-                    if (isValidUserId(userId)) {
-                        cvService.getCvByUserId(userId)
-                            .then(function (cv) {
-                                if (cv) {
-                                    $scope.cv = {
-                                        fileName: cv.fileName,
-                                        fileData: cv.fileData,
-                                        skills: cv.skills
-                                    };
-                                }
+                    cvService.getCvByUserId(userId)
+                        .then(function (cv) {
+                            if (cv) {
+                                $scope.cv = {
+                                    fileName: cv.fileName,
+                                    fileData: cv.fileData,
+                                    skills: cv.skills
+                                };
+                            }
 
-                                $scope.status = ($scope.cv) ? $scope.STATUS.GOT_CV : $scope.STATUS.NO_CV;
-                            })
-                            .catch(function error(err) {
-                                $scope.status = $scope.STATUS.NO_CV;
-                            });
-                    }
-                    else
-                        $scope.status = $scope.STATUS.NO_CV;
-                }
-
-                function isValidUserId(userId) {
-                    return (!utils.isEmpty(userId) && userId !== ANONYMOUS);
+                            $scope.status = ($scope.cv) ? $scope.STATUS.GOT_CV : $scope.STATUS.NO_CV;
+                        })
+                        .catch(function error(err) {
+                            $scope.status = $scope.STATUS.NO_CV;
+                        });
                 }
 
                 function OnCvDataChanged(cv) {
