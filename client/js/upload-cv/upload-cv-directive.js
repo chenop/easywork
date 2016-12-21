@@ -74,21 +74,16 @@ angular.module('easywork')
                 }
 
                 $scope.onFileSelect = function (file) {
+                    if (!file) {
+                        $scope.status = $scope.STATUS.NO_CV;
+                        return;
+                    }
+
                     $scope.status = $scope.STATUS.UPLOADING_CV;
                     cvService.uploadFile(file, userId)
                         .then(function(createdCv) {
                             OnCvDataChanged(createdCv);
                         });
-                }
-
-                $scope.deleteCV = function (event) {
-                    if (event) {
-                        event.stopPropagation();
-                        event.preventDefault();
-                    }
-
-                    dataManager.deleteCv($scope.cv)
-                    OnCvDataChanged(null);
                 }
             }],
             link: function (scope, element, attrs) {

@@ -115,22 +115,6 @@ angular.module('easywork')
                 $scope.$emit('deleteEntityClicked', appManager.getSelectedEntity());
             }
 
-            $scope.deleteCV = function (event) {
-                if (event) {
-                    event.stopPropagation();
-                    event.preventDefault();
-                }
-
-                var activeUser = appManager.getActiveUser();
-                if (!activeUser)
-                    return;
-
-                $http.delete('/api/cv/' + activeUser.cv)
-                    .success(function (user) {
-                        $scope.user = user;
-                    })
-            }
-
             $scope.updateRole = function (newRole) {
                 if (!$scope.user) {
                     return;

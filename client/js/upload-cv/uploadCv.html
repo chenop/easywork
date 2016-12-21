@@ -1,39 +1,33 @@
 <div id="upload-cv-view">
-    <div class="row">
-            <div class="emphasize-border col-sm-12 btn btn-default" ngf-select="onFileSelect($file)">
-                <div ng-show="status === STATUS.GOT_CV" class="align-left">
-                    <div class="col-sm-12">
-                        <i class="fa fa-file-text fa-4x text-gray"></i>
-                        <a class="align-center delete-cv" ng-click="deleteCV($event)">
-                            מחק קוח
-                        </a>
-                    </div>
-                    <!--<div class="col-sm-9 ">-->
-                        <!--{{isSkillsExists() ? "מיומניות שנמצאו" : "לא נמצאו מיומניויות"}}-->
-                        <!--<ul>-->
-                            <!--<li style="display: block" class="glyphicon glyphicon-star"-->
-                                <!--ng-repeat="skill in cv.skills">{{skill}}-->
-                            <!--</li>-->
-                        <!--</ul>-->
-                    <!--</div>-->
-                </div>
-                <div ng-show="status === STATUS.UPLOADING_CV">
-                    <div class="col-sm-12">
-                        <i class="fa fa-spinner fa-pulse fa-4x"></i>
-                    </div>
-                </div>
-                <div ng-show="status === STATUS.NO_CV">
-                    <div class="col-sm-3">
-                        <i class="fa fa-cloud-upload fa-3x"></i>
-                    </div>
-                    <div class="col-sm-9 ">
-                        <div class="file-upload">
-                            <div class="file-upload-text">לחץ להעלאת קו"ח</div>
-                            <input type="file" class="upload"/>
-                        </div>
-                    </div>
-                </div>
+    <div class="upload-area btn btn-default" ngf-select="onFileSelect($file)">
+        <div ng-show="status === STATUS.GOT_CV" id="got-cv">
+            <div class="icon">
+                <i class="fa fa-file-text fa-2x"></i>
             </div>
+            <div class="got-cv-file-name">
+                {{cv.fileName}}
+            </div>
+            <div class="got-cv-update">
+                <div class="file-upload-text">עדכן קו"ח</div>
+                <input type="file" class="upload"/>
+            </div>
+        </div>
+
+        <div ng-show="status === STATUS.UPLOADING_CV" id="uploading-cv">
+            <div class="icon">
+                <i class="fa fa-spinner fa-pulse fa-3x"></i>
+            </div>
+        </div>
+
+        <div ng-show="status === STATUS.NO_CV" id="no-cv">
+            <div class="file-upload">
+                <div class="file-upload-text">לחץ להעלאת קו"ח</div>
+                <input type="file" class="upload"/>
+            </div>
+            <div class="icon">
+                <i class="fa fa-cloud-upload fa-3x"></i>
+            </div>
+        </div>
     </div>
 </div>
 

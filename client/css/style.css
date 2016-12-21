@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
- * Bootstrap v3.3.6 (http://getbootstrap.com)
- * Copyright 2011-2015 Twitter, Inc.
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1089,7 +1089,6 @@ a {
     color: #23527c;
     text-decoration: underline; }
   a:focus {
-    outline: thin dotted;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
 
@@ -2428,7 +2427,6 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px; }
 
@@ -2891,7 +2889,6 @@ select[multiple].input-lg,
   -ms-user-select: none;
   user-select: none; }
   .btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus {
-    outline: thin dotted;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
   .btn:hover, .btn:focus, .btn.focus {
@@ -9788,14 +9785,49 @@ header a, .caret {
 .transition-animation.ng-enter-active {
   opacity: 1; }
 
-#upload-cv-view .emphasize-border {
-  padding: 10px;
-  margin: 0 auto;
-  display: block; }
-  #upload-cv-view .emphasize-border .file-upload .file-upload-text {
-    text-align: right;
-    padding-top: 12px; }
-  #upload-cv-view .emphasize-border .file-upload input.upload {
+#upload-cv-view .upload-area {
+  padding: 15px 10px 15px 10px;
+  display: table;
+  height: 75px;
+  width: 100%; }
+  #upload-cv-view .upload-area #got-cv {
+    display: table-row;
+    vertical-align: middle;
+    table-layout: fixed; }
+    #upload-cv-view .upload-area #got-cv .icon {
+      width: 15%;
+      display: table-cell;
+      vertical-align: middle; }
+    #upload-cv-view .upload-area #got-cv .got-cv-file-name {
+      width: 55%;
+      display: table-cell;
+      text-align: left;
+      vertical-align: middle; }
+    #upload-cv-view .upload-area #got-cv .got-cv-update {
+      display: table-cell;
+      text-align: right;
+      vertical-align: middle;
+      width: 40%;
+      padding-right: 15px; }
+  #upload-cv-view .upload-area #uploading-cv {
+    display: table-row;
+    vertical-align: middle;
+    table-layout: fixed; }
+  #upload-cv-view .upload-area #no-cv {
+    display: table-row;
+    vertical-align: middle;
+    table-layout: fixed; }
+    #upload-cv-view .upload-area #no-cv .icon {
+      width: 15%;
+      display: table-cell;
+      vertical-align: middle; }
+    #upload-cv-view .upload-area #no-cv .file-upload {
+      width: 85%;
+      display: table-cell;
+      vertical-align: middle; }
+  #upload-cv-view .upload-area .file-upload-text {
+    text-align: right; }
+  #upload-cv-view .upload-area input.upload {
     position: absolute;
     top: 0;
     right: 0;
@@ -9807,22 +9839,27 @@ header a, .caret {
     filter: alpha(opacity=0);
     float: right; }
 
-.has-error .emphasize-border {
+.has-error .upload-area {
   border-color: #a94442;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075); }
 
 .send-cv-container {
   margin: 10px; }
-  .send-cv-container .terms-agree-checkbox {
-    direction: rtl; }
-    .send-cv-container .terms-agree-checkbox .radio, .send-cv-container .terms-agree-checkbox .checkbox {
-      margin-top: 0px; }
-  .send-cv-container .recommend-container {
-    margin-bottom: 10px; }
-    .send-cv-container .recommend-container .recommend-label-container {
-      display: inline-block; }
-    .send-cv-container .recommend-container .fb-like-container {
-      display: inline-block; }
+  .send-cv-container .send-cv-content {
+    margin: 0px 50px 0px 50px; }
+    .send-cv-container .send-cv-content .terms-agree-checkbox {
+      direction: rtl;
+      margin-top: 10px;
+      margin-bottom: 10px; }
+      .send-cv-container .send-cv-content .terms-agree-checkbox .radio, .send-cv-container .send-cv-content .terms-agree-checkbox .checkbox {
+        margin-top: 0px; }
+    .send-cv-container .send-cv-content .recommend-container {
+      margin-bottom: 10px;
+      text-align: center; }
+      .send-cv-container .send-cv-content .recommend-container .recommend-label-container {
+        display: inline-block; }
+      .send-cv-container .send-cv-content .recommend-container .fb-like-container {
+        display: inline-block; }
 
 .toast-top-center {
   top: 80px;
@@ -9868,9 +9905,6 @@ header a, .caret {
   float: left;
   margin-top: 10px;
   margin-left: 5px; }
-
-.delete-cv {
-  padding-right: 13px; }
 
 .cv-view-container .download-cv-btn {
   margin-bottom: 10px; }

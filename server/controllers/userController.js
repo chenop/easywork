@@ -163,6 +163,7 @@ function deleteUser(req, res) {
         });
 }
 
+// This one cannot be working - leaving here cause one day I might fix it
 function deleteCV(req, res) { //commit
     return User.findById(req.params.id, function (err, user) {
         if (user === undefined || user == null)

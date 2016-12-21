@@ -26,7 +26,7 @@ angular.module('easywork')
             return Upload.base64DataUrl(file)
                 .then(function (dataUrl) {
                     return Upload.upload({
-                        url: 'api/cv',
+                        url: 'public/cv',
                         data: {file: file, data: dataUrl, userId: userId}
                     }).then(function (response) {
                         return response.data;
