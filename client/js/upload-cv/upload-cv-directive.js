@@ -2,6 +2,7 @@
  * Created by Chen.Oppenhaim on 8/14/2015.
  */
 
+//
 angular.module('easywork')
     .directive('uploadCv', function (cvService, dataManager, Upload, localStorageService, utils, ANONYMOUS) {
         return {
