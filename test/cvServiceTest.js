@@ -4,6 +4,7 @@
 'use strict';
 
 var CvService = require('../server/services/cvService');
+var SkillService = require('../server/services/skillService.ts');
 var UserService = require('../server/services/userService');
 var CvModel = require('../server/models/cv');
 var utils = require('./testUtils');
@@ -103,7 +104,7 @@ describe('Cv service', function () {
                         return CvService.createCv(cv3);
                     })
                     .then(function() {
-                        return CvService.getCvs({skills : ["GUI", "JavaScript"], operator: CvService.BoolOperator.AND});
+                        return CvService.getCvs({skills : ["GUI", "JavaScript"], operator: SkillService.BoolOperator.AND});
                     })
                     .then(function (cvs) {
                         cvs.length.should.equal(1);

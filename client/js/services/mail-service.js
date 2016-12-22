@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-	.factory('mailService', function ($http, authService, Upload) {
+	.factory('mailService', function ($http, authService, Upload, utils) {
 
 		var sendMail = function (selectedCompanies, cvData) {
 			var activeUser = authService.getActiveUser();
@@ -16,7 +16,7 @@ angular.module('easywork')
          * @param skills
          * @param activeUserId
          */
-        function sendCVToServer(activeUserId, cvData, selectedCompanies, utils) {
+        function sendCVToServer(activeUserId, cvData, selectedCompanies) {
 
 	        var url = '/public/sendMail/';
 

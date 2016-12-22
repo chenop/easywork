@@ -4,11 +4,7 @@
 
 var Cv = require('../models/cv');
 var utils = require('../utils/utils');
-
-var BoolOperator = {
-	OR: 0,
-	AND: 1
-}
+var SkillService = require('./skillService.ts');
 
 function createCv(cv) {
 	var cvInstance = createCvInstance(cv);
@@ -54,35 +50,8 @@ function getCv(cvId) {
 	return Cv.findById(cvId).exec();
 }
 
-var prepareFilter = function (filter) {
-	if (!filter)
-		return {};
-
-	if (!filter.operator)
-		filter.operator = BoolOperator.OR;
-
-	if (filter.skills) {
-		if (filter.operator === BoolOperator.OR) {
-			if (Array.isArray(filter.skills)) {
-				filter = {skills: {"$in": filter.skills}};
-			}
-
-			if (utils.isString(filter.skills)) {
-				filter = {skills: {"$in": [filter.skills]}};
-			}
-		}
-		else { // AND
-			filter = {
-				skills: filter.skills
-			}
-		}
-	}
-
-	return filter;
-}
-
 function getCvs(filter) {
-	var filter = prepareFilter(filter);
+	var filter = SkillService.prepareSkillsFilter(filter);
 
 	return Cv.find(filter).sort('-createdAt').select('-fileData -fileType');
 }
@@ -96,5 +65,4 @@ module.exports = {
 	, getCvs: getCvs
 	, updateCv: updateCv
 	, deleteCv: deleteCv
-	, BoolOperator: BoolOperator
 }

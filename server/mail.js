@@ -4,6 +4,7 @@ var nodemailer = require("nodemailer")
     ,  mongoose = require('mongoose')
     , UserController     = require('./services/userService')
     , path     = require('path')
+	, AppManager = require('./appManager')
 
 exports.sendMail = function (req) {
     // create reusable transport method (opens pool of SMTP connections)
@@ -11,8 +12,9 @@ exports.sendMail = function (req) {
     var data = req.body;
     var cvData = data.cvData;
 
-    var companies = data.selectedCompanies;
+    var companies = AppManager.filterCompanies(data.selectedCompanies, cvData);
 
+	return;
     if (isObjectId(userId)) {
         return UserController.getUser(userId)
             .then(function (user) {

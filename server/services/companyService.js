@@ -3,7 +3,7 @@
  */
 
 var Company          = require('../models/company');
-var UserService = require('../services/userService');
+var SkillService = require('../services/skillService.ts');
 const utils          = require('../utils/utils');
 
 /***********
@@ -16,6 +16,8 @@ module.exports = {
     , getCompany: getCompany
     , getCompanies: getCompanies
     , setPublish: setPublish
+	, getCompaniesAllowAllCvs: getCompaniesAllowAllCvs
+	, getCompaniesRelevantToSkills: getCompaniesRelevantToSkills
 }
 
 /***********
@@ -78,4 +80,39 @@ function getCompanies(showPublishOnly) {
 
 function setPublish(company, publish) {
     return Company.update( {_id: company._id}, { publish: publish } ).lean().exec();
+}
+
+function buildIdArray(companies) {
+	var ids = [];
+	companies.forEach(function(company) {
+		if (!company.id)
+			return;
+
+		ids.push(mongoose.Types.ObjectId(company.id));
+	})
+
+	return ids;
+}
+function getCompaniesAllowAllCvs(companies) {
+	if (utils.isEmptyArray(companies))
+		return null;
+
+	var companiesIdArray = buildIdArray(companies);
+
+	return Company.find({
+		shouldFilterCvs: false
+		, '_id': {$in: companiesIdArray}
+	}).exec();
+}
+
+function getCompaniesRelevantToSkills(companies, skills) {
+	if (utils.isEmptyArray(companies))
+		return null;
+
+	var filter = SkillService.prepareSkillsFilter({ skills: skills});
+
+	return Company.find({shouldFilterCvs: true}).exec();
+
+
+
 }
