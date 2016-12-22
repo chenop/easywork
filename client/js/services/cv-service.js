@@ -4,7 +4,7 @@
 
 angular.module('easywork')
     .constant('ANONYMOUS', "anonymous")
-    .factory('cvService', function (Upload, localStorageService, dataManager, ANONYMOUS) {
+    .factory('cvService', function (Upload, localStorageService, dataManager, utils, ANONYMOUS) {
 
         function getCvByUserId(userId) {
             var cv = localStorageService.get(userId)
