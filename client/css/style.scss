@@ -274,6 +274,12 @@ ul li {
 
       .ui-select-toggle {
         text-align: right;
+
+		  .ui-select-match-text{
+			  span {
+				  text-align: right;
+			  }
+		  }
       }
     }
   }
