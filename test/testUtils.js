@@ -125,12 +125,6 @@ function createMockedCompanyPlainObject(name) {
         , city: "Haifa"
         , addresses: "Matam 1"
         , email: "chen.oppenhaim@toluna.com"
-        , technologies: ["AngularJS", "C#"]
-        //, owner: company.user
-        //, logo: company.logo
-        //, site: company.site
-        //, description: company.description
-        //, locations: company.locations
     };
     return newCompany;
 }

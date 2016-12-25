@@ -105,14 +105,14 @@ function getCompaniesAllowAllCvs(companies) {
 	}).exec();
 }
 
+// TODO Needed?
 function getCompaniesRelevantToSkills(companies, skills) {
 	if (utils.isEmptyArray(companies))
 		return null;
 
 	var filter = SkillService.prepareSkillsFilter({ skills: skills});
 
-	return Company.find({shouldFilterCvs: true}).exec();
+	filer.shouldFilterCvs = true;
 
-
-
+	return Company.find(filter).exec();
 }

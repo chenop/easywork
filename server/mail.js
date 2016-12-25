@@ -12,7 +12,7 @@ exports.sendMail = function (req) {
     var data = req.body;
     var cvData = data.cvData;
 
-    var companies = AppManager.filterCompanies(data.selectedCompanies, cvData);
+    var companies = AppManager.getRelevantCompanies(data.selectedCompanies, cvData);
 
 	return;
     if (isObjectId(userId)) {
