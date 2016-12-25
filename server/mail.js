@@ -14,7 +14,8 @@ exports.sendMail = function (req) {
 
     var companies = AppManager.getRelevantCompanies(data.selectedCompanies, cvData);
 
-	return;
+	return; // TODO Remove Me!!!!!!!!
+
     if (isObjectId(userId)) {
         return UserController.getUser(userId)
             .then(function (user) {

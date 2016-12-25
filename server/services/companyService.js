@@ -95,7 +95,7 @@ function buildIdArray(companies) {
 }
 function getCompaniesAllowAllCvs(companies) {
 	if (utils.isEmptyArray(companies))
-		return null;
+		return [];
 
 	var companiesIdArray = buildIdArray(companies);
 

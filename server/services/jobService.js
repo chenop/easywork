@@ -4,6 +4,8 @@
 
 var Job     = require('../models/job')
 const utils = require('../utils/utils');
+var SkillService = require('./skillService.ts')
+
 /***********
  * Public
  ***********/
@@ -15,7 +17,8 @@ module.exports = {
     , getJobs: getJobs
     , getCompanyNeededSkills: getCompanyNeededSkills
     , getCompaniesNeededSkills: getCompaniesNeededSkills
-    ,getJobsByCompanyAndSkill: getJobsByCompanyAndSkill
+    , getJobsByCompanyAndSkill: getJobsByCompanyAndSkill
+	, getRelevantJobs: getRelevantJobs
 }
 
 /***********
@@ -110,5 +113,9 @@ function getJobsByCompanyAndSkill(company, skill) {
         company: company,
         skills: skill
     }).lean().exec();
+}
 
+function getRelevantJobs(skills) {
+	var filter = SkillService.prepareSkillsFilter({ skills: skills});
+	return Job.find(filter).populate('company').lean().exec();
 }

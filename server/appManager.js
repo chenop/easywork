@@ -1,4 +1,5 @@
 var CompanyService = require('./services/companyService');
+var JobService = require('./services/jobService');
 
 /***********
  * Public
@@ -17,10 +18,23 @@ function getRelevantCompanies(companies, cvData) {
 
 	return JobService.getRelevantJobs(skills)
 		.then(function(jobs) {
-			return convertJobsToCompanies(jobs);
+			return jobsToCompanies(jobs);
 		})
 		.then(function(companies) {
-			return Array.concat(companiesAllowAllCvs, companies);
+			return companiesAllowAllCvs.concat(companies);
 		})
-	//return CompanyService.getCompaniesRelevantToSkills(companies, cvData.skills);
+}
+
+function jobsToCompanies(jobs) {
+	var companies = [];
+
+	if (utils.isEmptyArray(jobs))
+		return companies;
+
+	jobs.forEach(function(job) {
+		if (utils.isDefined(job) && utils.isDefined(job.company))
+			companies.push(job.company);
+	});
+
+	return companies;
 }
