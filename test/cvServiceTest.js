@@ -83,7 +83,7 @@ describe('Cv service', function () {
                         return CvService.createCv(cv3);
                     })
                     .then(function() {
-                        return CvService.getCvs({skills : "JavaScript"});
+                        return CvService.getCvs(new SkillService.SearchCriteria(["JavaScript"]));
                     })
                     .then(function (cvs) {
                         cvs.length.should.equal(2);
@@ -104,7 +104,7 @@ describe('Cv service', function () {
                         return CvService.createCv(cv3);
                     })
                     .then(function() {
-                        return CvService.getCvs({skills : ["GUI", "JavaScript"], operator: SkillService.BoolOperator.AND});
+                        return CvService.getCvs(new SkillService.SearchCriteria(["GUI", "JavaScript"], SkillService.BoolOperator.AND));
                     })
                     .then(function (cvs) {
                         cvs.length.should.equal(1);

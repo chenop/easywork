@@ -4,6 +4,7 @@
 
 var CvService = require('../services/cvService')
 var UserService = require('../services/userService')
+var SkillService = require('../services/skillService.ts')
 var docParserApi = require('../api/docParserApi');
 var utils = require('../utils/utils');
 var ADMIN_USER_ID = "56a411350a9af9d038552082";
@@ -162,7 +163,7 @@ function getCvs(req, res) {
         filter.skills = skills;
     }
 
-    return CvService.getCvs(filter)
+    return CvService.getCvs(new SkillService.SearchCriteria(filter.skills))
         .then(function success(cvs) {
                 return res.send(cvs);
             },
@@ -172,10 +173,11 @@ function getCvs(req, res) {
         );
 }
 
+// TODO Needed?
 function getCvsByFilter(req, res) {
-    var filter = req.body,filter;
+    var filter = req.body;
 
-    return CvService.getCvs(filter)
+    return CvService.getCvs(new SkillService.SearchCriteria(filter.skills))
         .then(function success(cvs) {
                 return res.send(cvs);
             },

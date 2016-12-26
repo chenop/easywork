@@ -260,3 +260,42 @@ describe('Job service - Testing CRUD operations', function () {
         });
     });
 });
+
+describe.only("Search Jobs", function() {
+	describe("Given search criteria", function() {
+		beforeEach(function () {
+			var mockJob1 = utils.createMockedJobPlainObject("TolunaJob", ["AngularJS", "JavaScript"]);
+			var mockJob2 = utils.createMockedJobPlainObject("IntelJob", ["Java", "JavaScript"]);
+
+			var createdJob;
+
+			return Promise.all([
+				JobService.createJob(mockJob1),
+				JobService.createJob(mockJob2)
+			]);
+		})
+		it("Basic single skill", function() {
+			return JobService.getRelevantJobs("Java")
+				.then(function(jobs) {
+					expect(jobs.length).to.equal(1);
+				})
+		})
+		it("single common skill", function() {
+			return JobService.getRelevantJobs("JavaScript")
+				.then(function(jobs) {
+					expect(jobs.length).to.equal(2);
+				})
+		})
+		it("Multiple skills", function() {
+			return JobService.getRelevantJobs(["Java", "AngularJS"])
+				.then(function(jobs) {
+					expect(jobs.length).to.equal(2);
+					return JobService.getRelevantJobs(["JavaScript"]);
+				})
+				.then(function(jobs) {
+					expect(jobs.length).to.equal(2);
+				});
+		})
+
+	})
+})

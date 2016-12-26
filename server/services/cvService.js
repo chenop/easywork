@@ -50,8 +50,8 @@ function getCv(cvId) {
 	return Cv.findById(cvId).exec();
 }
 
-function getCvs(filter) {
-	var filter = SkillService.prepareSkillsFilter(filter);
+function getCvs(searchCriteria) {
+	var filter = SkillService.prepareSkillsFilter(searchCriteria);
 
 	return Cv.find(filter).sort('-createdAt').select('-fileData -fileType');
 }

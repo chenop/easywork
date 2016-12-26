@@ -76,6 +76,17 @@ function prepareSkillsFilter(filter) {
     return filter;
 }
 
+class SearchCriteria {
+    skills: string[];
+    boolOperator: number = BoolOperator.OR;
+
+    constructor(skills: string[], boolOperator: number) {
+        skills = skills;
+        boolOperator = boolOperator;
+    }
+
+}
+
 /***********
  * Public
  ***********/
@@ -83,4 +94,5 @@ module.exports = {
     getSkills: getSkills
     , prepareSkillsFilter: prepareSkillsFilter
     , BoolOperator: BoolOperator
+    , SearchCriteria: SearchCriteria
 }

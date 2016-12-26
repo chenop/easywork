@@ -111,8 +111,7 @@ function getCompaniesRelevantToSkills(companies, skills) {
 		return null;
 
 	var filter = SkillService.prepareSkillsFilter({ skills: skills});
-
-	filer.shouldFilterCvs = true;
+	filter.shouldFilterCvs = true;
 
 	return Company.find(filter).exec();
 }

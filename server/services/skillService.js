@@ -65,12 +65,21 @@ function prepareSkillsFilter(filter) {
     }
     return filter;
 }
+var SearchCriteria = (function () {
+    function SearchCriteria(skills, boolOperator) {
+        this.boolOperator = BoolOperator.OR;
+        skills = skills;
+        boolOperator = boolOperator;
+    }
+    return SearchCriteria;
+})();
 /***********
  * Public
  ***********/
 module.exports = {
     getSkills: getSkills,
     prepareSkillsFilter: prepareSkillsFilter,
-    BoolOperator: BoolOperator
+    BoolOperator: BoolOperator,
+    SearchCriteria: SearchCriteria
 };
 //# sourceMappingURL=skillService.js.map
