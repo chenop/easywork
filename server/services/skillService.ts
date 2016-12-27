@@ -5,12 +5,7 @@
 var Cv = require('../models/cv');
 var utils = require('../utils/utils');
 
-var BoolOperator = {
-    OR: 0,
-    AND: 1
-}
-
-/***********
+/**********
  * Private
  ***********/
 
@@ -42,57 +37,69 @@ function getSkills() {
 			if (!Array.isArray(result)
 			|| utils.isEmptyArray(result)
 			|| utils.isUndefined(result[0].skills)) {
-				return Promise.reject();
+
+				return Promise.reject("Error");
 			}
 
 			return result[0].skills;
 		});
 }
 
-function prepareSkillsFilter(filter) {
-    if (!filter)
-        return {};
-
-    if (!filter.operator)
-        filter.operator = BoolOperator.OR;
-
-    if (filter.skills) {
-        if (filter.operator === BoolOperator.OR) {
-            if (Array.isArray(filter.skills)) {
-                filter = {skills: {"$in": filter.skills}};
-            }
-
-            if (utils.isString(filter.skills)) {
-                filter = {skills: {"$in": [filter.skills]}};
-            }
-        }
-        else { // AND
-            filter = {
-                skills: filter.skills
-            }
-        }
-    }
-
-    return filter;
+export enum BoolOperator {
+    OR,
+    AND
 }
 
-class SearchCriteria {
+export class SearchCriteria {
     skills: string[];
     boolOperator: number = BoolOperator.OR;
 
     constructor(skills: string[], boolOperator: number) {
-        skills = skills;
-        boolOperator = boolOperator;
+        this.skills = skills;
+        this.boolOperator = boolOperator;
     }
 
+    public isBoolOperator(boolOperator: BoolOperator) {
+        return this.boolOperator === boolOperator;
+    }
 }
+
+function prepareSkillsQuery(searchCriteria: SearchCriteria) {
+    var query = {};
+
+    if (!searchCriteria)
+        return query;
+
+    if (!searchCriteria.boolOperator)
+        searchCriteria.boolOperator = BoolOperator.OR;
+
+    if (searchCriteria.skills) {
+        if (searchCriteria.isBoolOperator(BoolOperator.OR)) {
+            if (Array.isArray(searchCriteria.skills)) {
+                query = {skills: {"$in": searchCriteria.skills}};
+            }
+
+            if (utils.isString(searchCriteria.skills)) {
+                query = {skills: {"$in": [searchCriteria.skills]}};
+            }
+        }
+        else { // AND
+            query = {
+                skills: searchCriteria.skills
+            }
+        }
+    }
+
+    return query;
+}
+
 
 /***********
  * Public
  ***********/
 module.exports = {
     getSkills: getSkills
-    , prepareSkillsFilter: prepareSkillsFilter
+    , prepareSkillsQuery: prepareSkillsQuery
     , BoolOperator: BoolOperator
     , SearchCriteria: SearchCriteria
 }

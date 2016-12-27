@@ -1,13 +1,10 @@
 /**
  * Created by Chen.Oppenhaim on 10/2/2016.
  */
+"use strict";
 var Cv = require('../models/cv');
 var utils = require('../utils/utils');
-var BoolOperator = {
-    OR: 0,
-    AND: 1
-};
-/***********
+/**********
  * Private
  ***********/
 /**
@@ -38,48 +35,57 @@ function getSkills() {
         if (!Array.isArray(result)
             || utils.isEmptyArray(result)
             || utils.isUndefined(result[0].skills)) {
-            return Promise.reject();
+            return Promise.reject("Error");
         }
         return result[0].skills;
     });
 }
-function prepareSkillsFilter(filter) {
-    if (!filter)
-        return {};
-    if (!filter.operator)
-        filter.operator = BoolOperator.OR;
-    if (filter.skills) {
-        if (filter.operator === BoolOperator.OR) {
-            if (Array.isArray(filter.skills)) {
-                filter = { skills: { "$in": filter.skills } };
-            }
-            if (utils.isString(filter.skills)) {
-                filter = { skills: { "$in": [filter.skills] } };
-            }
-        }
-        else {
-            filter = {
-                skills: filter.skills
-            };
-        }
-    }
-    return filter;
-}
+var BoolOperator;
+(function (BoolOperator) {
+    BoolOperator[BoolOperator["OR"] = 0] = "OR";
+    BoolOperator[BoolOperator["AND"] = 1] = "AND";
+})(BoolOperator = exports.BoolOperator || (exports.BoolOperator = {}));
 var SearchCriteria = (function () {
     function SearchCriteria(skills, boolOperator) {
         this.boolOperator = BoolOperator.OR;
-        skills = skills;
-        boolOperator = boolOperator;
+        this.skills = skills;
+        this.boolOperator = boolOperator;
     }
+    SearchCriteria.prototype.isBoolOperator = function (boolOperator) {
+        return this.boolOperator === boolOperator;
+    };
     return SearchCriteria;
-})();
+}());
+exports.SearchCriteria = SearchCriteria;
+function prepareSkillsQuery(searchCriteria) {
+    var query = {};
+    if (!searchCriteria)
+        return query;
+    if (!searchCriteria.boolOperator)
+        searchCriteria.boolOperator = BoolOperator.OR;
+    if (searchCriteria.skills) {
+        if (searchCriteria.isBoolOperator(BoolOperator.OR)) {
+            if (Array.isArray(searchCriteria.skills)) {
+                query = { skills: { "$in": searchCriteria.skills } };
+            }
+            if (utils.isString(searchCriteria.skills)) {
+                query = { skills: { "$in": [searchCriteria.skills] } };
+            }
+        }
+        else {
+            query = {
+                skills: searchCriteria.skills
+            };
+        }
+    }
+    return query;
+}
 /***********
  * Public
  ***********/
 module.exports = {
     getSkills: getSkills,
-    prepareSkillsFilter: prepareSkillsFilter,
+    prepareSkillsQuery: prepareSkillsQuery,
     BoolOperator: BoolOperator,
     SearchCriteria: SearchCriteria
 };
-//# sourceMappingURL=skillService.js.map

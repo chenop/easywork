@@ -4,7 +4,7 @@
 'use strict';
 
 var CvService = require('../server/services/cvService');
-var SkillService = require('../server/services/skillService.ts');
+var SkillService = require('../server/services/skillService');
 var UserService = require('../server/services/userService');
 var CvModel = require('../server/models/cv');
 var utils = require('./testUtils');

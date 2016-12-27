@@ -4,7 +4,7 @@
 
 var CvService = require('../services/cvService')
 var UserService = require('../services/userService')
-var SkillService = require('../services/skillService.ts')
+var SkillService = require('../services/skillService')
 var docParserApi = require('../api/docParserApi');
 var utils = require('../utils/utils');
 var ADMIN_USER_ID = "56a411350a9af9d038552082";

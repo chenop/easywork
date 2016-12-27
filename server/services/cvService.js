@@ -4,7 +4,7 @@
 
 var Cv = require('../models/cv');
 var utils = require('../utils/utils');
-var SkillService = require('./skillService.ts');
+var SkillService = require('./skillService');
 
 function createCv(cv) {
 	var cvInstance = createCvInstance(cv);
@@ -51,7 +51,7 @@ function getCv(cvId) {
 }
 
 function getCvs(searchCriteria) {
-	var filter = SkillService.prepareSkillsFilter(searchCriteria);
+	var filter = SkillService.prepareSkillsQuery(searchCriteria);
 
 	return Cv.find(filter).sort('-createdAt').select('-fileData -fileType');
 }

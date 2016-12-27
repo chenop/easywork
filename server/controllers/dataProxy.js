@@ -2,7 +2,7 @@
  * Created by Chen on 06/03/14.
  */
 
-var SkillService = require('../services/skillService.ts');
+var SkillService = require('../services/skillService');
 
 exports.getFiltersData = function (req, res) {
     var data = {

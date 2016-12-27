@@ -2,9 +2,9 @@
  * Created by Chen on 09/01/2016.
  */
 
-var Job     = require('../models/job')
+var Job     = require('../models/job');
 const utils = require('../utils/utils');
-var SkillService = require('./skillService.ts')
+var SkillService = require('./skillService');
 
 /***********
  * Public
@@ -19,7 +19,7 @@ module.exports = {
     , getCompaniesNeededSkills: getCompaniesNeededSkills
     , getJobsByCompanyAndSkill: getJobsByCompanyAndSkill
 	, getRelevantJobs: getRelevantJobs
-}
+};
 
 /***********
  * Private
@@ -116,6 +116,6 @@ function getJobsByCompanyAndSkill(company, skill) {
 }
 
 function getRelevantJobs(skills) {
-	var filter = SkillService.prepareSkillsFilter({ skills: skills});
-	return Job.find(filter).populate('company').lean().exec();
+	var query = SkillService.prepareSkillsQuery(new SkillService.SearchCriteria(skills) );
+	return Job.find(query).populate('company').lean().exec();
 }
