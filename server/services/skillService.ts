@@ -53,6 +53,7 @@ export enum BoolOperator {
 export class SearchCriteria {
     skills: string[];
     boolOperator: number = BoolOperator.OR;
+    public companyId: string;
 
     constructor(skills: string[], boolOperator: number) {
         this.skills = skills;

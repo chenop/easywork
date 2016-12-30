@@ -19,6 +19,7 @@ module.exports = {
     , getCompaniesNeededSkills: getCompaniesNeededSkills
     , getJobsByCompanyAndSkill: getJobsByCompanyAndSkill
 	, getRelevantJobs: getRelevantJobs
+    , isCvRelevant: isCvRelevant
 };
 
 /***********
@@ -115,7 +116,29 @@ function getJobsByCompanyAndSkill(company, skill) {
     }).lean().exec();
 }
 
-function getRelevantJobs(skills) {
-	var query = SkillService.prepareSkillsQuery(new SkillService.SearchCriteria(skills) );
-	return Job.find(query).populate('company').lean().exec();
+function getRelevantJobs(skills, companyId) {
+    var searchCriteria = new SkillService.SearchCriteria(skills);
+    if (companyId)
+        searchCriteria.companyId = companyId;
+
+	var query = SkillService.prepareSkillsQuery(searchCriteria );
+	return Job.find(query).populate('company').exec()
+        .then(function(jobs) {
+            if (!companyId)
+                return jobs;
+
+            return jobs.filter(function(job) {
+                if (!job.company || !job.company.id)
+                    return false;
+
+                return job.company.id === companyId;
+            })
+        })
+}
+
+function isCvRelevant(company, cvData) {
+    if (!company || cvData || cvData.skills)
+        return false;
+
+    return getRelevantJobs(skills, company.Id);
 }
