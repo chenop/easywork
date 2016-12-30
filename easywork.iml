@@ -9,7 +9,6 @@
     <orderEntry type="library" name="mocha-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="mongoose-DefinitelyTyped" level="application" />
     <orderEntry type="library" name="requirejs-DefinitelyTyped" level="application" />
-    <orderEntry type="library" name="easywork-AngularJS-NodeJS node_modules" level="project" />
     <orderEntry type="library" name="easywork node_modules" level="project" />
     <orderEntry type="library" name="typescript-DefinitelyTyped" level="application" />
   </component>

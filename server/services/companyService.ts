@@ -3,118 +3,104 @@
  */
 
 var Company         = require('../models/company');
-var SkillService    = require('../services/skillService');
+import SkillService    = require('../services/skillService');
 var utils           = require('../utils/utils');
 import mongoose     = require('mongoose');
 
-/***********
- * Public
- ***********/
-module.exports = {
-    createCompany: createCompany
-    , updateCompany: updateCompany
-    , deleteCompany: deleteCompany
-    , getCompany: getCompany
-    , getCompanies: getCompanies
-    , setPublish: setPublish
-	, getCompaniesAllowAllCvs: getCompaniesAllowAllCvs
-	, getCompaniesRelevantToSkills: getCompaniesRelevantToSkills
-}
+export class CompanyService {
+    public createCompany(company) {
+        var companyInstance = this.createCompanyInstance(company);
 
-/***********
- * Private
- ***********/
-function createCompany(company) {
-    var companyInstance = createCompanyInstance(company);
-
-    return companyInstance.save();
-}
-
-function updateCompany(company) {
-    var companyInstance = createCompanyInstance(company);
-    companyInstance._id = company._id;
-
-    var upsertCompany = companyInstance.toObject();
-    return Company.findOneAndUpdate({'_id': company._id}, upsertCompany, {upsert: true, new: true}).exec();
-}
-
-function createCompanyInstance(company) {
-    if (!company) {
-        return new Company();
+        return companyInstance.save();
     }
 
-    var newCompany = new Company(
-        {
-            name: company.name
-            , street: company.street
-            , city: company.city
-            , addresses: company.addresses
-            , email: company.email
-            , technologies: company.technologies
-            , owner: company.user
-            , logo: company.logo
-            , site: company.site
-            , description: company.description
-            , locations: company.locations
-            , shouldFilterCvs: company.shouldFilterCvs
+    public updateCompany(company) {
+        var companyInstance = this.createCompanyInstance(company);
+        companyInstance._id = company._id;
+
+        var upsertCompany = companyInstance.toObject();
+        return Company.findOneAndUpdate({'_id': company._id}, upsertCompany, {upsert: true, new: true}).exec();
+    }
+
+    private createCompanyInstance(company) {
+        if (!company) {
+            return new Company();
         }
-    );
 
-    return newCompany;
-}
+        var newCompany = new Company(
+            {
+                name: company.name
+                , street: company.street
+                , city: company.city
+                , addresses: company.addresses
+                , email: company.email
+                , technologies: company.technologies
+                , owner: company.user
+                , logo: company.logo
+                , site: company.site
+                , description: company.description
+                , locations: company.locations
+                , shouldFilterCvs: company.shouldFilterCvs
+            }
+        );
 
-function deleteCompany(id) {
-    return Company.remove({_id: id}).exec();
-}
+        return newCompany;
+    }
 
-function getCompany(companyId) {
-    return Company.findById(companyId).exec();
-}
+    public deleteCompany(id) {
+        return Company.remove({_id: id}).exec();
+    }
 
-function getCompanies(showPublishOnly) {
-    var conditions = {};
+    public getCompany(companyId) {
+        return Company.findById(companyId).exec();
+    }
 
-    if (utils.isDefined(showPublishOnly) && showPublishOnly === true)
-        conditions = {publish: showPublishOnly};
+    public getCompanies(showPublishOnly) {
+        var conditions = {};
 
-    return Company.find(conditions).exec();
-}
+        if (utils.isDefined(showPublishOnly) && showPublishOnly === true)
+            conditions = {publish: showPublishOnly};
 
-function setPublish(company, publish) {
-    return Company.update( {_id: company._id}, { publish: publish } ).lean().exec();
-}
+        return Company.find(conditions).exec();
+    }
 
-function buildIdArray(companies) {
-	var ids = [];
-	companies.forEach(function(company) {
-		if (!company.id)
-			return;
+    public setPublish(company, publish) {
+        return Company.update({_id: company._id}, {publish: publish}).lean().exec();
+    }
 
-		ids.push(mongoose.Types.ObjectId(company.id));
-	})
+    public buildIdArray(companies) {
+        var ids = [];
+        companies.forEach(function (company) {
+            if (!company.id)
+                return;
 
-	return ids;
-}
+            ids.push(mongoose.Types.ObjectId(company.id));
+        })
 
-function getCompaniesAllowAllCvs(selectedCompanies) {
-	if (utils.isEmptyArray(selectedCompanies))
-		return [];
+        return ids;
+    }
 
-	var companiesIdArray = buildIdArray(selectedCompanies);
+    public getCompaniesAllowAllCvs(selectedCompanies) {
+        if (utils.isEmptyArray(selectedCompanies))
+            return [];
 
-	return Company.find({
-		shouldFilterCvs: false
-		, '_id': {$in: companiesIdArray}
-	}).exec();
-}
+        var companiesIdArray = this.buildIdArray(selectedCompanies);
+
+        return Company.find({
+            shouldFilterCvs: false
+            , '_id': {$in: companiesIdArray}
+        }).exec();
+    }
 
 // TODO Needed?
-function getCompaniesRelevantToSkills(companies, skills) {
-	if (utils.isEmptyArray(companies))
-		return null;
+    public getCompaniesRelevantToSkills(companies, skills) {
+        if (utils.isEmptyArray(companies))
+            return null;
 
-	var query = SkillService.prepareSkillsQuery(new SkillService.SearchCriteria(skills));
-	query.shouldFilterCvs = true;
+        var query = SkillService.prepareSkillsQuery(new SkillService.SearchCriteria(skills));
+        query.shouldFilterCvs = true;
 
-	return Company.find(query).exec();
+        return Company.find(query).exec();
+    }
 }
+
