@@ -5,7 +5,7 @@
 var Company = require('../models/company');
 var SkillService = require('../services/skillService');
 var utils = require('../utils/utils');
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 /***********
  * Public
  ***********/
@@ -47,7 +47,8 @@ function createCompanyInstance(company) {
         logo: company.logo,
         site: company.site,
         description: company.description,
-        locations: company.locations
+        locations: company.locations,
+        shouldFilterCvs: company.shouldFilterCvs
     });
     return newCompany;
 }
@@ -75,10 +76,10 @@ function buildIdArray(companies) {
     });
     return ids;
 }
-function getCompaniesAllowAllCvs(companies) {
-    if (utils.isEmptyArray(companies))
+function getCompaniesAllowAllCvs(selectedCompanies) {
+    if (utils.isEmptyArray(selectedCompanies))
         return [];
-    var companiesIdArray = buildIdArray(companies);
+    var companiesIdArray = buildIdArray(selectedCompanies);
     return Company.find({
         shouldFilterCvs: false,
         '_id': { $in: companiesIdArray }

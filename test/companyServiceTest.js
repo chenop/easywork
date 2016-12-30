@@ -157,16 +157,5 @@ describe('Company service', function () {
             })
         })
     })
-
-    describe("skills matching", function() {
-        describe("Given a CV and list of jobs", function() {
-            describe ("When CV has skills", function() {
-                it("Should return only jobs with relevant skills", function() {
-
-                })
-            })
-        })
-    })
-
 });
 

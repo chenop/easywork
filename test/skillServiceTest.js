@@ -28,3 +28,4 @@ describe('Skill service', function () {
 			})
 	});
 });
+

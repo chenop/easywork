@@ -18,4 +18,3 @@ function sendFeedback(req, res) {
     mailService.sendFeedbackMail(data);
     return res.send("success");
 }
-//# sourceMappingURL=feedbackController.js.map

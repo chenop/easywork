@@ -56,6 +56,7 @@ function createCompanyInstance(company) {
             , site: company.site
             , description: company.description
             , locations: company.locations
+            , shouldFilterCvs: company.shouldFilterCvs
         }
     );
 
@@ -95,11 +96,11 @@ function buildIdArray(companies) {
 	return ids;
 }
 
-function getCompaniesAllowAllCvs(companies) {
-	if (utils.isEmptyArray(companies))
+function getCompaniesAllowAllCvs(selectedCompanies) {
+	if (utils.isEmptyArray(selectedCompanies))
 		return [];
 
-	var companiesIdArray = buildIdArray(companies);
+	var companiesIdArray = buildIdArray(selectedCompanies);
 
 	return Company.find({
 		shouldFilterCvs: false

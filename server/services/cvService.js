@@ -5,6 +5,7 @@
 var Cv = require('../models/cv');
 var utils = require('../utils/utils');
 var SkillService = require('./skillService');
+var mongoose     = require('mongoose');
 
 function createCv(cv) {
 	var cvInstance = createCvInstance(cv);

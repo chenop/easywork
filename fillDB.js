@@ -70,34 +70,6 @@ function searchCity(address) {
     return "";
 }
 
-function createCompany(company) {
-    var newAddresses = reformatAddresses(company);
-    var newCompany = new Company({
-        name: company.name
-        , site: company.site
-        , description: company.description
-        , street: company.street
-        , addresses: newAddresses
-        , city: company.city
-        , email: company.email
-        , technologies: company.technologies
-        , logo: company.logo
-        , owner: company.owner
-        , jobs: company.jobs
-    })
-
-    return newCompany.save(function (err, savedCompany) {
-        if (!err) {
-            console.log("company " + savedCompany.name + " saved in DB")
-            console.log("remove old company");
-
-
-        } else {
-            console.log(err);
-        }
-    });
-}
-
 function reformatAddresses(company) {
     if (company.addresses && company.addresses.length > 0) {
         var newAddresses = [];

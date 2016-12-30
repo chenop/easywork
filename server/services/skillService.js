@@ -40,11 +40,11 @@ function getSkills() {
         return result[0].skills;
     });
 }
-var BoolOperator;
 (function (BoolOperator) {
     BoolOperator[BoolOperator["OR"] = 0] = "OR";
     BoolOperator[BoolOperator["AND"] = 1] = "AND";
-})(BoolOperator = exports.BoolOperator || (exports.BoolOperator = {}));
+})(exports.BoolOperator || (exports.BoolOperator = {}));
+var BoolOperator = exports.BoolOperator;
 var SearchCriteria = (function () {
     function SearchCriteria(skills, boolOperator) {
         this.boolOperator = BoolOperator.OR;
