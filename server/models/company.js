@@ -32,7 +32,7 @@ var companySchema = new Schema({
 		}
 		, owner: {type: Schema.Types.ObjectId, ref: 'User'}
 		, publish: {type: Boolean, default: true}
-		, shouldFilterCvs: {type: Boolean, default: false}
+		, allowAllCvs: {type: Boolean, default: true}
 	},
 	{
 		timestamps: true

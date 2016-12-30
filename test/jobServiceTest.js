@@ -278,7 +278,7 @@ describe.only("Search Jobs", function () {
 					expect(jobs.length).to.equal(1);
 				})
 		});
-		it.only("Basic single skill2", function () {
+		it("Basic single skill2", function () {
 			return JobService.getRelevantJobs("Java")
 				.then(function (jobs) {
 					expect(jobs.length).to.equal(1);
@@ -299,6 +299,30 @@ describe.only("Search Jobs", function () {
 				.then(function (jobs) {
 					expect(jobs.length).to.equal(2);
 				});
+		})
+	})
+	describe.only("isCvRelevant", function() {
+		beforeEach(function () {
+			var mockJob1 = utils.createMockedJobPlainObject("TolunaJob", ["AngularJS", "JavaScript"]);
+			var mockJob2 = utils.createMockedJobPlainObject("IntelJob", ["Java", "JavaScript"]);
+			var cvData = {
+				skills: ["JavaScript"]
+			};
+
+			var mockCompany1 = utils.createMockedCompanyPlainObject("Company1");
+			var mockCompany2 = utils.createMockedCompanyPlainObject("Company2");
+			var mockCompany3 = utils.createMockedCompanyPlainObject("Company3");
+
+			return Promise.all([
+				JobService.createJob(mockJob1),
+				JobService.createJob(mockJob2),
+				CompanyService.createCompany(mockCompany1),
+				CompanyService.createCompany(mockCompany2),
+				CompanyService.createCompany(mockCompany3)
+			]);
+		});
+		it("All companies allowAllCvs - return all", function() {
+			return JobService.isCvRelevant()
 		})
 	})
 })

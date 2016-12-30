@@ -5,7 +5,7 @@
  */
 var User = require('./models/user')
     , LocalStrategy = require('passport-local').Strategy
-    , LinkedInStrategy = require('passport-linkedin').Strategy
+    //, LinkedInStrategy = require('passport-linkedin').Strategy
     , GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 
 var AuthService = require('./services/authService');
