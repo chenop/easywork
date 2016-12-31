@@ -5,10 +5,9 @@ var JobService = require('../server/services/jobService');
 var AppManager = require('../server/appManager');
 
 var utils = require('./testUtils');
-var should = require('chai').should;
 var expect = require('chai').expect;
 
-describe.only('appManager', function () {
+describe('appManager', function () {
 	this.timeout(utils.TIMEOUT);
 	describe('getRelevantCompanies', function () {
 		it('Given all companies allowAllCvs Then return all companies', function (done) {
