@@ -133,12 +133,19 @@ function getRelevantJobs(skills, companyId) {
 
                 return job.company.id === companyId;
             })
+        }, function(err) {
+            console.log(err);
         })
 }
 
 function isCvRelevant(company, cvData) {
-    if (!company || cvData || cvData.skills)
+    if (!company || !cvData || !cvData.skills)
         return false;
 
-    return getRelevantJobs(skills, company.Id);
+    return getRelevantJobs(cvData.skills, company.id)
+        .then(function(relevantJobs){
+            return !(utils.isEmptyArray(relevantJobs));
+        }, function(err) {
+            console.log(err);
+        })
 }

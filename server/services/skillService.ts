@@ -57,7 +57,7 @@ export class SearchCriteria {
 
     constructor(skills: string[], boolOperator: number) {
         this.skills = skills;
-        this.boolOperator = boolOperator;
+        this.boolOperator = boolOperator || BoolOperator.OR;
     }
 
     public isBoolOperator(boolOperator: BoolOperator) {
@@ -71,6 +71,7 @@ function prepareSkillsQuery(searchCriteria: SearchCriteria) {
     if (!searchCriteria)
         return query;
 
+    // Currently default is OR Operator
     if (!searchCriteria.boolOperator)
         searchCriteria.boolOperator = BoolOperator.OR;
 

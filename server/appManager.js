@@ -14,41 +14,20 @@ module.exports = {
 function getRelevantCompanies(companies, cvData) {
 	var relevantCompanies = [];
 
-	companies.forEach(function(company) {
-		if (company.allowAllCvs)
-			relevantCompanies.push(company);
-		else if (JobService.isCvRelevant(company, cvData))
-			relevantCompanies.push(company);
+	var promises = companies.map(function(company) {
+		if (company.allowAllCvs) {
+			Promise.resolve(relevantCompanies.push(company));
+		}
+		else {
+			return JobService.isCvRelevant(company, cvData)
+				.then(function(isCvRelevant) {
+					if (isCvRelevant)
+						relevantCompanies.push(company);
+				})
+		}
 	})
 
-	return relevantCompanies;
-
-	//
-	//// Sending to the selected companies
-	//var companiesAllowAllCvs = CompanyService.getCompaniesAllowAllCvs(companies);
-	//if (!cvData || cvData.skills)
-	//	return companiesAllowAllCvs;
-	//
-	//// Sending to the companies
-	//return JobService.getRelevantJobs(skills)
-	//	.then(function(jobs) {
-	//		return jobsToCompanies(jobs);
-	//	})
-	//	.then(function(companies) {
-	//		return companiesAllowAllCvs.concat(companies);
-	//	})
-}
-
-function jobsToCompanies(jobs) {
-	var companies = [];
-
-	if (utils.isEmptyArray(jobs))
-		return companies;
-
-	jobs.forEach(function(job) {
-		if (utils.isDefined(job) && utils.isDefined(job.company))
-			companies.push(job.company);
-	});
-
-	return companies;
+	return Promise.all(promises).then(function() {
+		return relevantCompanies;
+	})
 }

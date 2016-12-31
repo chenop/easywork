@@ -261,7 +261,7 @@ describe('Job service - Testing CRUD operations', function () {
 	});
 });
 
-describe.only("Search Jobs", function () {
+describe("Search Jobs", function () {
 	describe("Given search criteria", function () {
 		beforeEach(function () {
 			var mockJob1 = utils.createMockedJobPlainObject("TolunaJob", ["AngularJS", "JavaScript"]);
@@ -301,28 +301,72 @@ describe.only("Search Jobs", function () {
 				});
 		})
 	})
-	describe.only("isCvRelevant", function() {
+	describe("isCvRelevant", function() {
+		var createdCompany;
 		beforeEach(function () {
-			var mockJob1 = utils.createMockedJobPlainObject("TolunaJob", ["AngularJS", "JavaScript"]);
-			var mockJob2 = utils.createMockedJobPlainObject("IntelJob", ["Java", "JavaScript"]);
-			var cvData = {
-				skills: ["JavaScript"]
-			};
-
 			var mockCompany1 = utils.createMockedCompanyPlainObject("Company1");
-			var mockCompany2 = utils.createMockedCompanyPlainObject("Company2");
-			var mockCompany3 = utils.createMockedCompanyPlainObject("Company3");
+			mockCompany1.allowAllCvs = false;
 
-			return Promise.all([
-				JobService.createJob(mockJob1),
-				JobService.createJob(mockJob2),
-				CompanyService.createCompany(mockCompany1),
-				CompanyService.createCompany(mockCompany2),
-				CompanyService.createCompany(mockCompany3)
-			]);
+			return CompanyService.createCompany(mockCompany1)
+				.then(function (company) {
+					createdCompany = company;
+				})
 		});
-		it("All companies allowAllCvs - return all", function() {
-			return JobService.isCvRelevant()
+		it("Cv single skill is relevant for created job", function () {
+			var mockJob1 = utils.createMockedJobPlainObject("TolunaJob", ["AngularJS", "JavaScript"]);
+			mockJob1.company = createdCompany;
+
+			var cvData = { skills: ["JavaScript"] };
+
+			return JobService.createJob(mockJob1)
+				.then(function () {
+					return JobService.isCvRelevant(createdCompany, cvData)
+				})
+				.then(function (isCvRelevant) {
+					expect(isCvRelevant).to.be.true;
+				})
+		})
+		it("Cv single skill is not relevant for created job", function () {
+			var mockJob1 = utils.createMockedJobPlainObject("TolunaJob", ["AngularJS", "JavaScript"]);
+			mockJob1.company = createdCompany;
+
+			var cvData = { skills: ["Java"] };
+
+			return JobService.createJob(mockJob1)
+				.then(function () {
+					return JobService.isCvRelevant(createdCompany, cvData)
+				})
+				.then(function (isCvRelevant) {
+					expect(isCvRelevant).to.be.false;
+				})
+		})
+		it("Cv skills are all relevant for created job", function () {
+			var mockJob1 = utils.createMockedJobPlainObject("TolunaJob", ["AngularJS", "JavaScript"]);
+			mockJob1.company = createdCompany;
+
+			var cvData = { skills: ["AngularJS", "JavaScript"] };
+
+			return JobService.createJob(mockJob1)
+				.then(function () {
+					return JobService.isCvRelevant(createdCompany, cvData)
+				})
+				.then(function (isCvRelevant) {
+					expect(isCvRelevant).to.be.true;
+				})
+		})
+		it("Cv skills are partially relevant for created job", function () {
+			var mockJob1 = utils.createMockedJobPlainObject("TolunaJob", ["AngularJS", "JavaScript"]);
+			mockJob1.company = createdCompany;
+
+			var cvData = { skills: ["AngularJS", "Mocha"] };
+
+			return JobService.createJob(mockJob1)
+				.then(function () {
+					return JobService.isCvRelevant(createdCompany, cvData)
+				})
+				.then(function (isCvRelevant) {
+					expect(isCvRelevant).to.be.true;
+				})
 		})
 	})
 })

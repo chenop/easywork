@@ -49,7 +49,7 @@ var SearchCriteria = (function () {
     function SearchCriteria(skills, boolOperator) {
         this.boolOperator = BoolOperator.OR;
         this.skills = skills;
-        this.boolOperator = boolOperator;
+        this.boolOperator = boolOperator || BoolOperator.OR;
     }
     SearchCriteria.prototype.isBoolOperator = function (boolOperator) {
         return this.boolOperator === boolOperator;
@@ -61,6 +61,7 @@ function prepareSkillsQuery(searchCriteria) {
     var query = {};
     if (!searchCriteria)
         return query;
+    // Currently default is OR Operator
     if (!searchCriteria.boolOperator)
         searchCriteria.boolOperator = BoolOperator.OR;
     if (searchCriteria.skills) {
