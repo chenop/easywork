@@ -90,8 +90,7 @@ function getJobProviderUser() {
 
 function createAdminUser() {
     var promises = [
-        UserService.createUser(getAdminUser()),
-        UserService.createUser(getJobProviderUser())
+        UserService.createUser(getAdminUser())
     ];
 
     return Promise.all(promises);
