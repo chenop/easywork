@@ -27,6 +27,20 @@ angular.module('easywork')
 
                 $scope.user = selectedEntity;
                 initCvData(selectedEntity.cv, selectedEntity._id);
+                dataManager.getCompanies()
+                    .then(function (result) {
+                        $scope.companies = result;
+
+                        if ($scope.user) {
+                            var filteredArray = $scope.companies.filter(function (company) {
+                                return company._id === $scope.user.company;
+                            });
+
+                            if (filteredArray.length === 1) {
+                                $scope.user.company = filteredArray[0];
+                            }
+                        }
+                    })
                 $timeout(function () {
                     $('#userName').select();
                 }, 100);
@@ -45,10 +59,6 @@ angular.module('easywork')
             var DEFAULT_MESSAGE = common.DEFAULT_MESSAGE;
 
             $scope.userRoles = routingConfig.rolesArray;
-
-            dataManager.getCompanies().then(function (result) {
-                $scope.companies = result;
-            });
 
             $scope.$watch('user.name', function (value) {
                 if (value) {
@@ -103,6 +113,7 @@ angular.module('easywork')
             var debounceUpdateUser = debounce(function () {
                 return dataManager.updateUser($scope.user)
                     .then(function (entity) {
+
                         $scope.$emit('dataChanged', entity.data);
                     });
             }, 300, false);

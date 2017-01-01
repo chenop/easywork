@@ -90,12 +90,6 @@ angular.module('easywork')
                         }
                     }
                 });
-
-            dataManager.getUsers()
-                .then(function(users) {
-                    $scope.users = users;
-                });
-
             getCvs();
         }
 

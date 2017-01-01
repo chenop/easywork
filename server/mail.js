@@ -12,28 +12,31 @@ exports.sendMail = function (req) {
     var data = req.body;
     var cvData = data.cvData;
 
-    var companies = AppManager.getRelevantCompanies(data.selectedCompanies, cvData);
+    return AppManager.getRelevantCompanies(data.selectedCompanies, cvData)
+        .then(function(relevantCompanies) {
+            console.log(relevantCompanies);
 
-	return; // TODO Remove Me!!!!!!!!
+            return; // TODO Remove Me!!!!!!!!
 
-    if (isObjectId(userId)) {
-        return UserController.getUser(userId)
-            .then(function (user) {
-                    if (user) {
-                        sendUserCVToCompanies(user, companies, cvData);
-                        sendSummaryToUser(user, companies, cvData);
-                    } else {
-                        return sendAnonymizeUserCVToCompanies(companies, cvData);
-                    }
-                },
-                function (err) {
-                    console.log(err);
-                    return sendAnonymizeUserCVToCompanies(companies, cvData);
-                })
-    }
-    else {
-        return sendAnonymizeUserCVToCompanies(companies, cvData);
-    }
+            if (isObjectId(userId)) {
+                return UserController.getUser(userId)
+                    .then(function (user) {
+                            if (user) {
+                                sendUserCVToCompanies(user, relevantCompanies, cvData);
+                                sendSummaryToUser(user, relevantCompanies, cvData);
+                            } else {
+                                return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData);
+                            }
+                        },
+                        function (err) {
+                            console.log(err);
+                            return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData);
+                        })
+            }
+            else {
+                return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData);
+            }
+        });
 }
 
 function isObjectId(n) {

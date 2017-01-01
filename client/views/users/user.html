@@ -1,4 +1,4 @@
-<div class="" ng-controller="userDetailsCtrl">
+\<div class="" ng-controller="userDetailsCtrl">
     <form ng-hide=isLoading name="form" class="jumbotron form-horizontal align-center" ng-keyup="updateUser($event)" novalidate>
         <div class="form-group" ng-class="{ 'has-error' : !user.name}">
             <label class="col-sm-3 control-label">שם</label>
@@ -31,15 +31,12 @@
         <!--</div>-->
 
         <div ng-show="user.role === 'jobProvider'" class="form-group" access-level="admin">
-            <label class="col-sm-3 control-label">בעל חברה</label>
-
-            <div class="experience">
-                <select ui-select2="select2Options" ng-model="user.company" ng-click="updateUser()">
-                    <option ng-selected="{{user.company == company._id}}" ng-repeat="company in companies"
-                            value="{{company._id}}">{{company.name}}
-                    </option>
-                </select>
-            </div>
+                <label class="col-sm-3 control-label">בעל חברה</label>
+                <ui-select class="col-sm-9 no-horizontal-padding" ng-model="$parent.user.company" ng-click="updateUser()">
+                    <!-- using $parent - https://github.com/angular-ui/ui-select/issues/18 -->
+                    <ui-select-match class="company-selector">{{$select.selected.name}}</ui-select-match>
+                    <ui-select-choices repeat="company in companies | filter: {name: $select.search}">{{company.name}}</ui-select-choices>
+                </ui-select>
         </div>
 
         <div class="form-group" access-level="public">
