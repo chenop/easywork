@@ -59,11 +59,11 @@ function deleteUser(id) {
 }
 
 function getUser(userId) {
-    return User.findById(userId).populate('cv', '-fileData -fileType').exec();
+    return User.findById(userId).populate('cv', '-fileData -fileType').populate("company").exec();
 }
 
 function getUsers() {
-    return User.find().exec();
+    return User.find().populate("company").exec();
 }
 
 function deleteCv(userId) {

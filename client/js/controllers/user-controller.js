@@ -30,16 +30,6 @@ angular.module('easywork')
                 dataManager.getCompanies()
                     .then(function (result) {
                         $scope.companies = result;
-
-                        if ($scope.user) {
-                            var filteredArray = $scope.companies.filter(function (company) {
-                                return company._id === $scope.user.company;
-                            });
-
-                            if (filteredArray.length === 1) {
-                                $scope.user.company = filteredArray[0];
-                            }
-                        }
                     })
                 $timeout(function () {
                     $('#userName').select();

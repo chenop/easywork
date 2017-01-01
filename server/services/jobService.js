@@ -67,7 +67,7 @@ function getJobs(companyId) {
 
     if (utils.isDefined(companyId))
         conditions = {"company" : companyId}
-    return Job.find(conditions).exec();
+    return Job.find(conditions).populate("company").exec();
 }
 
 function concatSkills(skills, job) {

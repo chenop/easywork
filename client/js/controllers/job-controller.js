@@ -26,10 +26,6 @@ angular.module('easywork')
         }
 
         var debounceUpdateJob = debounce(function() {
-            if (!$scope.jobCompany || !$scope.jobCompany._id)
-                return;
-
-            $scope.job.company = $scope.jobCompany._id; // Update the selected company;
             return dataManager.updateJob($scope.job)
                 .then(function (entity) {
                     $scope.$emit('dataChanged', entity);
@@ -79,16 +75,6 @@ angular.module('easywork')
             dataManager.getCompanies()
                 .then(function (result) {
                     $scope.companies = result;
-
-                    if ($scope.job) {
-                        var filteredArray = $scope.companies.filter(function (company) {
-                            return company._id === $scope.job.company;
-                        });
-
-                        if (filteredArray.length === 1) {
-                            $scope.jobCompany = filteredArray[0];
-                        }
-                    }
                 });
             getCvs();
         }
