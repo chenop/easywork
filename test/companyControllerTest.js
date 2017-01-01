@@ -65,7 +65,7 @@ describe("Company controller", function () {
 
                     returnedCompany.should.not.empty;
                     returnedCompany.name.should.equal("Toluna");
-                    returnedCompany.street.should.equal("Matam 1");
+                    returnedCompany.locations[0].street.should.equal("Matam 1");
 
                     done();
                 });
