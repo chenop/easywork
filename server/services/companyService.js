@@ -48,7 +48,6 @@ function createCompanyInstance(company) {
             name: company.name
             , street: company.street
             , city: company.city
-            , addresses: company.addresses
             , email: company.email
             , technologies: company.technologies
             , owner: company.user

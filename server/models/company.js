@@ -21,10 +21,6 @@ var companySchema = new Schema({
 				, city: String
 			}
 		]
-		, addresses: [
-			{type: String}
-		]
-		, city: String
 		, email: String
 		, logo: {
 			data: Buffer,

@@ -17,7 +17,6 @@ var userSchema = new Schema({
 		, name: String
 		, username: String
 		, password: String
-		, experience: String
 		, message: String
 		, role: Object
 		, cv: {type: Schema.Types.ObjectId, ref: 'Cv'} // TODO should be array of CV

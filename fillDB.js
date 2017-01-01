@@ -70,48 +70,6 @@ function searchCity(address) {
     return "";
 }
 
-function reformatAddresses(company) {
-    if (company.addresses && company.addresses.length > 0) {
-        var newAddresses = [];
-
-        for (var i = 0; i < company.addresses.length; i++) {
-            var address = company.addresses[i];
-
-            if (address == "" || address.length <= 3)
-                continue;
-
-            var city = searchCity(address);
-
-            if (city !== "") { // Found a city - remove it from street
-                address = address.replace(", " + city, '');
-                address = address.replace("," + city, '');
-                address = address.replace(city, '');
-            }
-
-            newAddresses.push({
-                street: address
-                , city: city
-            })
-
-            console.log(company.addresses);
-        }
-        // resave company
-        console.log((JSON.stringify(newAddresses, null, 4)));
-        return newAddresses;
-    }
-}
-
-function updateCompany(company) {
-    var newAddresses = reformatAddresses(company);
-
-    if (company.name) {
-        var query = {name: company.name};
-        Company.update(query, {$set: {'addresses': newAddresses}}, null, function (error) {
-            console.log(company);
-        });
-    }
-}
-
 // TODO Chen - trying to move the city (inside the street) to the city field
 // 1. find a specific company with multi locations
 // 2. cut and paste the city

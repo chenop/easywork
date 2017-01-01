@@ -43,7 +43,6 @@ function createUserInstance(user) {
             , username: user.username
             , role: user.role
             , email: user.email
-            , experience: user.experience
             , message: user.message
             , skills: user.skills
             , cv: user.cv
