@@ -94,7 +94,7 @@ app.get('/public/job/:id', jobController.getJob)
 app.post('/api/job', jobController.createJob)
 app.put('/api/job/:id', jobController.updateJob)
 app.delete('/api/job/:id', jobController.deleteJob)
-app.get('/api/job/jobsBySkill/:companyId/:skill', jobController.getJobsByCompanyAndSkill);
+app.get('/public/job/jobsBySkill/:companyId/:skill', jobController.getJobsByCompanyAndSkill);
 
 // CVs
 app.get('/api/cv/list', cvController.getCvs)

@@ -265,7 +265,7 @@ angular.module('easywork')
         }
 
         function getJobsByCompanyAndSkill(skill, companyId) {
-            return apiHelper.get(false, 'job/jobsBySkill/' + companyId + '/' + skill)
+            return apiHelper.get(true, 'job/jobsBySkill/' + companyId + '/' + skill)
                 .then(function(result) {
                     return result.data;
                 });
