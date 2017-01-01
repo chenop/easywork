@@ -65,11 +65,6 @@ angular.module('easywork')
         $scope.user.role = 'jobSeeker';
         $scope.err = undefined;
 
-        $scope.select2Options = {
-            width: 200,
-            minimumResultsForSearch: -1 // Disable the search field in the combo box
-        };
-
         $scope.$watch('user.name', function (value) {
             if (value) {
                 $scope.user.message = defaultMessage + value;
@@ -108,16 +103,6 @@ angular.module('easywork')
                 );
         }
 
-        $scope.onFileSelect = function ($files) {
-            var file = $files[0];
-            $scope.user.fileName = file.name;
-            var fileReader = new FileReader();
-            fileReader.readAsDataURL(file); // Reading the file as base64
-            fileReader.onload = function (e) {
-                $scope.user.cv = e.target.result;
-            }
-        }
-
         $scope.shouldDisable = function() {
             return utils.isEmpty($scope.user.email) ||
                 utils.isEmpty($scope.user.password) ||
@@ -126,5 +111,14 @@ angular.module('easywork')
                 !utils.isEmpty($scope.user.verifyPassword) &&
                 $scope.user.password !== $scope.user.verifyPassword;
         }
+
+        $scope.updateRole = function (newRole) {
+            if (!$scope.user) {
+                return;
+            }
+
+            $scope.user.role = newRole;
+        }
+
     }
 );

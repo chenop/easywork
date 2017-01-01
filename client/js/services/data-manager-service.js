@@ -319,7 +319,7 @@ angular.module('easywork')
             if (!email)
                 return false;
 
-            return apiHelper.get(false, 'user/isEmailExist/' + email);
+            return apiHelper.get(true, 'user/isEmailExist/' + email);
         }
 
         function getCvByUserId(userId) {

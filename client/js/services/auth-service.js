@@ -51,7 +51,8 @@ angular.module('easywork')
             return apiHelper.post(true, 'register', user)
                 .then(function (result) {
                     setActiveUser(result.data.user);
-                    return user;
+                    if (result.data.token)
+                        handleNewToken(result.data.token);
                 });
         }
 
