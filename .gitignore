@@ -34,7 +34,7 @@ coverage
 build/Release
 
 # Dependency directories
-#node_modules
+node_modules
 jspm_packages
 
 # Optional npm cache directory
@@ -46,7 +46,7 @@ jspm_packages
 ### Example user template
 
 # IntelliJ project files
-.idea
+#.idea
 *.iml
 out
 gen
