@@ -60,6 +60,14 @@
             </div>
 
             <div class="form-group">
+                <label class="col-sm-2 control-label">סנן קורות חיים לפי משרות</label>
+                <div class="btn-group">
+                    <label class="btn btn-primary" ng-model="company.allowAllCvs" ng-change="updateCompany()" uib-btn-radio="false">כן</label>
+                    <label class="btn btn-primary" ng-model="company.allowAllCvs" ng-change="updateCompany()" uib-btn-radio="true">לא</label>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="col-sm-2 control-label">פרסם</label>
                 <div class="btn-group">
                     <label class="btn btn-primary" ng-model="company.publish" ng-change="updateCompany()" uib-btn-radio="true">כן</label>
