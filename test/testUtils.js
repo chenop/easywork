@@ -120,8 +120,10 @@ function createMockedJobPlainObject(name, skills) {
 function createMockedCompanyPlainObject(name) {
     var newCompany = {
         name: name
-        , street: "Matam 1"
-        , city: "Haifa"
+        , locations: [{
+            street: "Matam 1"
+            , city: "Haifa"
+        }]
         , addresses: "Matam 1"
         , email: "chen.oppenhaim@toluna.com"
     };

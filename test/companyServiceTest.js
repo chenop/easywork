@@ -20,7 +20,7 @@ describe('Company service', function () {
                     .then(function (createdCompany) {
                         // verify that the returned company is what we expect
                         createdCompany.name.should.equal('Toluna');
-                        createdCompany.city.should.equal('Haifa');
+                        createdCompany.locations[0].city.should.equal('Haifa');
                     });
             });
         });
@@ -36,7 +36,7 @@ describe('Company service', function () {
                     .then(function (fetchedCompany) {
                         // verify that the returned company is what we expect
                         fetchedCompany.name.should.equal('Toluna');
-                        fetchedCompany.city.should.equal('Haifa');
+                        fetchedCompany.locations[0].city.should.equal('Haifa');
 
                         return CompanyModel.count({'name': fetchedCompany.name}).exec()
                             .then(function (count) {
