@@ -9862,29 +9862,30 @@ header a, .caret {
 
 .send-cv-container {
   margin: 10px; }
-  .send-cv-container .send-cv-content {
-    margin: 0px 50px 0px 50px; }
-    .send-cv-container .send-cv-content .terms-agree-checkbox {
-      direction: rtl;
-      margin-top: 10px;
-      margin-bottom: 10px; }
-      .send-cv-container .send-cv-content .terms-agree-checkbox .radio, .send-cv-container .send-cv-content .terms-agree-checkbox .checkbox {
-        margin-top: 0px; }
-    .send-cv-container .send-cv-content .recommend-container {
-      margin-bottom: 10px;
-      display: table;
-      table-layout: fixed;
-      width: 65%; }
-      .send-cv-container .send-cv-content .recommend-container .recommend-label-container {
-        display: table-cell;
-        vertical-align: middle;
-        text-align: left;
-        width: 70%; }
-      .send-cv-container .send-cv-content .recommend-container .fb-like-container {
-        display: table-cell;
-        vertical-align: middle;
-        padding-top: 5px;
-        width: 35%; }
+  @media (min-width: 577px) {
+    .send-cv-container .send-cv-content {
+      margin: 0px 50px 0px 50px; } }
+  .send-cv-container .send-cv-content .terms-agree-checkbox {
+    direction: rtl;
+    margin-top: 10px;
+    margin-bottom: 10px; }
+    .send-cv-container .send-cv-content .terms-agree-checkbox .radio, .send-cv-container .send-cv-content .terms-agree-checkbox .checkbox {
+      margin-top: 0px; }
+  .send-cv-container .send-cv-content .recommend-container {
+    margin-bottom: 10px;
+    display: table;
+    table-layout: fixed;
+    width: 65%; }
+    .send-cv-container .send-cv-content .recommend-container .recommend-label-container {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: left;
+      width: 70%; }
+    .send-cv-container .send-cv-content .recommend-container .fb-like-container {
+      display: table-cell;
+      vertical-align: middle;
+      padding-top: 5px;
+      width: 35%; }
 
 .toast-top-center {
   top: 80px;

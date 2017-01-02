@@ -752,7 +752,9 @@ header a, .caret {
   margin: 10px;
 
   .send-cv-content {
-    margin: 0px 50px 0px 50px;
+    @media (min-width: 577px) {
+      margin: 0px 50px 0px 50px;
+    }
 
     .terms-agree-checkbox {
       direction: rtl;
