@@ -3,7 +3,7 @@
 var SEND_BUTTON_STR = 'שלח';
 
 angular.module('easywork')
-    .controller('HeaderController', function ($scope, authService, appManager, dataManager, $uibModal, $location, common) {
+    .controller('HeaderController', function ($scope, authService, appManager, dataManager, $uibModal, $location, common, $window) {
         $scope.isError = false;
         $scope.authService = authService;
         $scope.dataManager = dataManager;
@@ -82,7 +82,8 @@ angular.module('easywork')
             // Update send button label
             $scope.sendButtonLabel = SEND_BUTTON_STR;
             if (appManager.getSelectedCompaniesCount() > 0) {
-                $scope.sendButtonLabel += ' (' + appManager.getSelectedCompaniesCount() + ' חברות)';
+                $scope.sendButtonLabel += ' (' + appManager.getSelectedCompaniesCount();
+                $scope.sendButtonLabel += $window.innerWidth > 577 ?  ' חברות)' : ')';
             }
         }, true);
 

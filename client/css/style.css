@@ -9382,10 +9382,6 @@ body {
 .company-listing {
   line-height: 50px; }
 
-.logo {
-  max-width: 100px;
-  max-height: 60px; }
-
 .nav > li > a > img.small-logo {
   max-width: 30px;
   max-height: 60px; }
@@ -9739,17 +9735,30 @@ header a, .caret {
 .import-cv-box {
   float: right; }
 
-.street {
-  color: darkgray;
-  display: inline; }
-
-.company-card-header {
-  font-size: 24px; }
-
 .company-card-container {
   background-color: white;
   box-shadow: 5px 5px 1px #dfc88b;
   padding: 10px 0 10px 0; }
+  @media (min-width: 298px) {
+    .company-card-container .logo {
+      max-width: 50px;
+      max-height: 32px; } }
+  @media (min-width: 577px) {
+    .company-card-container .logo {
+      max-width: 70px;
+      max-height: 52px; } }
+  @media (min-width: 768px) {
+    .company-card-container .logo {
+      max-width: 100px;
+      max-height: 60px; } }
+  @media (max-width: 767px) {
+    .company-card-container .company-card-header {
+      font-size: 18px; } }
+  @media (min-width: 768px) {
+    .company-card-container .company-card-header {
+      font-size: 24px; } }
+  .company-card-container .street {
+    color: darkgray; }
   .company-card-container.selected {
     background-color: #C7E5AF; }
     .company-card-container.selected:hover {
@@ -9956,7 +9965,7 @@ header a, .caret {
   border-color: #483A3A; }
   #header-view .ui-select-container {
     height: 33px; }
-  @media only screen and (min-width: 298px) {
+  @media (min-width: 298px) {
     #header-view .navbar-brand {
       width: 100%;
       display: block;
