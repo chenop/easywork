@@ -9775,8 +9775,6 @@ header a, .caret {
   cursor: pointer; }
 
 .dashboard-entity-type {
-  display: inline-block;
-  padding-right: 9px;
   margin-bottom: 5px; }
 
 .transition-animation {
