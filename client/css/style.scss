@@ -877,36 +877,51 @@ header a, .caret {
   }
 
   .navbar-brand {
-    float: right;
-    .header-slogan {
-      @media (max-width: 767px) {
-        display: none;
-      }
+    @media and (min-width: 298px) {
+      width: 100%;
+      display: block;
+      text-align: center;
+      font-size: 17px;
+    }
+    @media (min-width: 377px) {
+      font-size: 24px;
+    }
+    @media (min-width: 577px) {
+      font-size: 40px;
+    }
 
-      @media (min-width: 768px) {
+    @media (min-width: 768px) {
+      float: right;
+      width: auto;
+      display: inline-block;
+      font-size: 18px;
+    }
+
+    .header-slogan {
         display: inline-block;
-      }
     }
   }
   .header-controllers {
-
     @media (max-width: 768px) {
-      width: 82%;
+      width: 100%;
+      display: block;
     }
 
     @media (min-width: 768px) {
       width: 66%;
+      float: right;
     }
 
     @media (min-width: 992px) {
       width: 73%;
+      float: right;
     }
 
     @media (min-width: 1200px) {
       width: 78%;
+      float: right;
     }
 
-    float: right;
     padding-right: 0px;
     margin-top: 5px;
 
@@ -934,13 +949,13 @@ header a, .caret {
         &.btn-disabled {
           font-size: medium;
         }
-        width: 22%;
+        width: 30%;
       }
       @media (min-width: 768px) {
         &.btn-disabled {
           font-size: medium;
         }
-        width: 33%;
+        width: 29%;
       }
 
       @media (min-width: 992px) {
@@ -950,6 +965,9 @@ header a, .caret {
     }
 
     .header-menu {
+      @media (max-width: 767px) {
+        display: none;
+      }
       @media (min-width: 768px) {
         width: 8%;
       }

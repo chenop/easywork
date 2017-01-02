@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /*!
- * Bootstrap v3.3.6 (http://getbootstrap.com)
- * Copyright 2011-2015 Twitter, Inc.
+ * Bootstrap v3.3.7 (http://getbootstrap.com)
+ * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
@@ -1089,7 +1089,6 @@ a {
     color: #23527c;
     text-decoration: underline; }
   a:focus {
-    outline: thin dotted;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
 
@@ -2428,7 +2427,6 @@ select[size] {
 input[type="file"]:focus,
 input[type="radio"]:focus,
 input[type="checkbox"]:focus {
-  outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px; }
 
@@ -2891,7 +2889,6 @@ select[multiple].input-lg,
   -ms-user-select: none;
   user-select: none; }
   .btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus {
-    outline: thin dotted;
     outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px; }
   .btn:hover, .btn:focus, .btn.focus {
@@ -9959,30 +9956,45 @@ header a, .caret {
   border-color: #483A3A; }
   #header-view .ui-select-container {
     height: 33px; }
-  #header-view .navbar-brand {
-    float: right; }
-    @media (max-width: 767px) {
-      #header-view .navbar-brand .header-slogan {
-        display: none; } }
-    @media (min-width: 768px) {
-      #header-view .navbar-brand .header-slogan {
-        display: inline-block; } }
+  @media only screen and (min-width: 298px) {
+    #header-view .navbar-brand {
+      width: 100%;
+      display: block;
+      text-align: center;
+      font-size: 17px; } }
+  @media (min-width: 377px) {
+    #header-view .navbar-brand {
+      font-size: 24px; } }
+  @media (min-width: 577px) {
+    #header-view .navbar-brand {
+      font-size: 40px; } }
+  @media (min-width: 768px) {
+    #header-view .navbar-brand {
+      float: right;
+      width: auto;
+      display: inline-block;
+      font-size: 18px; } }
+  #header-view .navbar-brand .header-slogan {
+    display: inline-block; }
   #header-view .header-controllers {
-    float: right;
     padding-right: 0px;
     margin-top: 5px; }
     @media (max-width: 768px) {
       #header-view .header-controllers {
-        width: 82%; } }
+        width: 100%;
+        display: block; } }
     @media (min-width: 768px) {
       #header-view .header-controllers {
-        width: 66%; } }
+        width: 66%;
+        float: right; } }
     @media (min-width: 992px) {
       #header-view .header-controllers {
-        width: 73%; } }
+        width: 73%;
+        float: right; } }
     @media (min-width: 1200px) {
       #header-view .header-controllers {
-        width: 78%; } }
+        width: 78%;
+        float: right; } }
     #header-view .header-controllers .header-search-bar {
       padding-top: 4px;
       padding-right: 0px;
@@ -10001,12 +10013,12 @@ header a, .caret {
       padding: 4px 15px 0px 15px; }
       @media (max-width: 767px) {
         #header-view .header-controllers #send-button {
-          width: 22%; }
+          width: 30%; }
           #header-view .header-controllers #send-button.btn-disabled {
             font-size: medium; } }
       @media (min-width: 768px) {
         #header-view .header-controllers #send-button {
-          width: 33%; }
+          width: 29%; }
           #header-view .header-controllers #send-button.btn-disabled {
             font-size: medium; } }
       @media (min-width: 992px) {
@@ -10017,6 +10029,9 @@ header a, .caret {
       float: left;
       direction: ltr;
       padding-left: 0; }
+      @media (max-width: 767px) {
+        #header-view .header-controllers .header-menu {
+          display: none; } }
       @media (min-width: 768px) {
         #header-view .header-controllers .header-menu {
           width: 8%; } }

@@ -1,29 +1,28 @@
 <div id="header-view" class="navbar navbar-default navbar-fixed-top header" ng-controller="HeaderController">
     <div class="container">
-        <div class="row-fluid">
-                    <a class="navbar-brand" href="/">
-                        <b>עבודה קלה</b>
-                        <div class="header-slogan">
-                         - שליחת קורות חיים
-                        </div>
-                    </a>
+            <a class="navbar-brand" href="/">
+                <b>עבודה קלה</b>
+                <div class="header-slogan">
+                    - שליחת קורות חיים
+                </div>
+            </a>
 
             <div class="header-controllers">
-                    <div ng-if="appManager.shouldDisplaySearchBarInHeader()">
-                        <div class="header-search-bar">
-                            <ui-select multiple ng-model="appManager.selectedAreas">
-                                <ui-select-match placeholder="בחר איזור">{{$item}}</ui-select-match>
-                                <ui-select-choices repeat="area in areas | filter: $select.search" value="{{area}}">{{area}}</ui-select-choices>
-                            </ui-select>
-                        </div>
-                        <div id="send-button">
-                            <button class="btn btn-block transition-animation"
-                                    ng-click="send()"
-                                    ng-class="{'btn-disabled':shouldDisableSend(), 'btn-primary':!shouldDisableSend()}"
-                                    ng-disabled="shouldDisableSend()">{{sendButtonLabel}}
-                            </button>
-                        </div>
+                <div ng-if="appManager.shouldDisplaySearchBarInHeader()">
+                    <div class="header-search-bar">
+                        <ui-select multiple ng-model="appManager.selectedAreas">
+                            <ui-select-match placeholder="בחר איזור">{{$item}}</ui-select-match>
+                            <ui-select-choices repeat="area in areas | filter: $select.search" value="{{area}}">{{area}}</ui-select-choices>
+                        </ui-select>
                     </div>
+                    <div id="send-button">
+                        <button class="btn btn-block transition-animation"
+                                ng-click="send()"
+                                ng-class="{'btn-disabled':shouldDisableSend(), 'btn-primary':!shouldDisableSend()}"
+                                ng-disabled="shouldDisableSend()">{{sendButtonLabel}}
+                        </button>
+                    </div>
+                </div>
 
 
                 <!-- Login or User menu -->
@@ -43,13 +42,17 @@
                         </div>
                         <div class="dropdown-container" ng-if="authService.isLoggedIn(user)">
                             <div uib-dropdown>
-                                <a href uib-dropdown-toggle><div class="display-name"><i class="fa fa-bars"></i><div class="display-name-text">{{getDisplayName()}}</div></div></a>
+                                <a href uib-dropdown-toggle>
+                                    <div class="display-name"><i class="fa fa-bars"></i>
+                                        <div class="display-name-text">{{getDisplayName()}}</div>
+                                    </div>
+                                </a>
                                 <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
                                     <li access-level="public">
                                         <a ui-sref="user_details">הפרופיל שלי</a>
                                     </li>
                                     <!--<li access-level="public">-->
-                                        <!--<a ui-sref="dashboard({contentTypeName: 'user'})">תראה לי משתמשים!</a>-->
+                                    <!--<a ui-sref="dashboard({contentTypeName: 'user'})">תראה לי משתמשים!</a>-->
                                     <!--</li>-->
                                     <li access-level="jobProvider">
                                         <a ui-sref="my_company">החברה שלי</a>
@@ -68,11 +71,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
-            </div>
-        </div>
-
     </div>
+
+</div>
 </div>
