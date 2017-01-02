@@ -151,16 +151,6 @@ textarea.cv-message {
   display: block;
 }
 
-#search-button {
-  height: 49px;
-  padding: 10px 50px;
-  font-size: 23px;
-  line-height: normal;
-  -webkit-border-radius: -34px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-}
-
 .align-center {
   text-align: center;
   display: block;
@@ -240,6 +230,26 @@ ul li {
   .ui-select-container {
     height: 34px;
     margin-top: 8px;
+  }
+
+  #search-button {
+    height: 49px;
+    padding: 10px 50px;
+    font-size: 23px;
+    line-height: normal;
+    -webkit-border-radius: -34px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+
+    @media (max-width: 577px) {
+      font-size: 18px;
+      padding: 10px 0px;
+    }
+    @media (max-width: 767px) {
+      display: block;
+      width: 50%;
+      margin: 20px auto auto;
+    }
   }
 }
 
