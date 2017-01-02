@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-	.factory('mailService', function ($http, authService, Upload, utils) {
+	.factory('mailService', function ($http, authService, Upload, utils, toaster) {
 
 		var sendMail = function (selectedCompanies, cvData) {
 			var activeUser = authService.getActiveUser();
@@ -33,9 +33,10 @@ angular.module('easywork')
 			}).progress(function (evt) {
 //                 console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
 			}).success(function (skills, status, headers, config) {
-//                 console.log("skills: " + skills);
+				toaster.pop('success', "קו\"ח נשלחו בהצלחה!");
 				return skills;
 			}).error(function (err) {
+				toaster.pop('error', "שגיאה ארעה בעת השליחה - אנא שלח פידבק");
 				console.log("upload finish with err" + err);
 			});
         }

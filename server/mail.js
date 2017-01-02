@@ -6,7 +6,7 @@ var nodemailer = require("nodemailer")
     , path     = require('path')
 	, AppManager = require('./appManager')
 
-exports.sendMail = function (req) {
+exports.sendMail = function (req, res) {
     // create reusable transport method (opens pool of SMTP connections)
     var userId = req.params.id;
     var data = req.body;
@@ -14,10 +14,6 @@ exports.sendMail = function (req) {
 
     return AppManager.getRelevantCompanies(data.selectedCompanies, cvData)
         .then(function(relevantCompanies) {
-            console.log(relevantCompanies);
-
-            return; // TODO Remove Me!!!!!!!!
-
             if (isObjectId(userId)) {
                 return UserController.getUser(userId)
                     .then(function (user) {
@@ -25,16 +21,19 @@ exports.sendMail = function (req) {
                                 sendUserCVToCompanies(user, relevantCompanies, cvData);
                                 sendSummaryToUser(user, relevantCompanies, cvData);
                             } else {
-                                return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData);
+                                sendAnonymizeUserCVToCompanies(relevantCompanies, cvData);
                             }
+                            return res.send("Mail was sent!");
                         },
                         function (err) {
                             console.log(err);
-                            return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData);
+                            sendAnonymizeUserCVToCompanies(relevantCompanies, cvData);
+                            return res.send("Mail was sent!");
                         })
             }
             else {
-                return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData);
+                sendAnonymizeUserCVToCompanies(relevantCompanies, cvData);
+                return res.send("Mail was sent!");
             }
         });
 }
@@ -44,7 +43,7 @@ function isObjectId(n) {
 }
 
 function sendAnonymizeUserCVToCompanies(companies, cvData) {
-    return sendUserCVToCompanies({name: "anonymous"}, companies, cvData);
+    sendUserCVToCompanies({name: "anonymous"}, companies, cvData);
 }
 
 function concatCompaniesNames(companies) {

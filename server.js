@@ -65,7 +65,7 @@ app.post('/public/login', userController.login)
 app.post('/public/logout', userController.logout)
 app.post('/public/register', userController.register)
 app.get('/public/authenticate/:token', userController.authenticate)
-app.post('/public/sendMail/:id', mail.sendMail)
+app.post('/public/sendMail/:id?', mail.sendMail)
 app.get('/public/filtersData', dataProxy.getFiltersData)
 
 // Users

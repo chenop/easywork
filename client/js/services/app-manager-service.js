@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-	.factory('appManager', function (authService, common, $uibModal, $rootScope, toaster, mailService, dataManager) {
+	.factory('appManager', function (authService, common, $uibModal, $rootScope, mailService, dataManager) {
 
         var selectedCompanies = [];
         var selectedTechnologies = [];
@@ -80,7 +80,7 @@ angular.module('easywork')
             currentContentType = contentType;
         }
 
-        function sendCVDialog(callBack) {
+        function sendCVDialog() {
                     var modalInstance = $uibModal.open({
                         templateUrl: '/views/users/sendCvDialog.html',
                         controller: 'SendCvDialogCtrl',
@@ -95,8 +95,6 @@ angular.module('easywork')
                     modalInstance.result.then(function (cvData) {
                         if (cvData) {
                             mailService.sendMail(selectedCompanies, cvData);
-                            if (callBack)
-                                callBack();
                         }
 
                         modalInstance.close();
@@ -104,9 +102,7 @@ angular.module('easywork')
         }
 
         function send() {
-            sendCVDialog(function () {
-                toaster.pop('success', "קו\"ח נשלחו בהצלחה!");
-            })
+            sendCVDialog();
         }
 
         function openLoginDialog (callBack) {
