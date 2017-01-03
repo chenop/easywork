@@ -54,7 +54,6 @@ body {
 }
 
 .view-container {
-	min-height: 400px;
 	padding: 40px;
 	background-color: $base-60-light;
 	border-radius: 6px;
@@ -67,6 +66,7 @@ body {
 	@media (min-width: 577px) {
 		padding: 40px;
 		margin-top: 150px;
+		min-height: 400px;
 	}
 }
 
