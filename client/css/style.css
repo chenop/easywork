@@ -9351,7 +9351,6 @@ body {
   direction: rtl; }
 
 .view-container {
-  min-height: 400px;
   padding: 40px;
   background-color: #EAE1C0;
   border-radius: 6px;
@@ -9363,7 +9362,8 @@ body {
   @media (min-width: 577px) {
     .view-container {
       padding: 40px;
-      margin-top: 150px; } }
+      margin-top: 150px;
+      min-height: 400px; } }
 
 .navlist li {
   display: inline;
