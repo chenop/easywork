@@ -151,7 +151,7 @@ function deleteCv(req, res) {
 }
 
 function getCvs(req, res) {
-    var filter = null;
+    var filter = {};
 
     var skills = req.query.skills;
 
@@ -159,7 +159,6 @@ function getCvs(req, res) {
         skills = [].concat(skills);
 
     if (skills && skills.length > 0) {
-        filter = {};
         filter.skills = skills;
     }
 
