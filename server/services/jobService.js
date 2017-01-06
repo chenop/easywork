@@ -138,6 +138,12 @@ function getRelevantJobs(skills, companyId) {
         })
 }
 
+/**
+ * Is the cvData is relevant for the jobs of the company passed
+ * @param company
+ * @param cvData
+ * @returns {boolean}
+ */
 function isCvRelevant(company, cvData) {
     if (!company || !cvData || !cvData.skills)
         return false;
