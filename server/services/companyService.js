@@ -117,3 +117,7 @@ function getCompaniesRelevantToSkills(companies, skills) {
 
     return Company.find(query).exec();
 }
+
+function isLogoExist(company) {
+    return company.logo !== undefined && !utils.isEmpty(logo.url);
+}

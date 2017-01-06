@@ -65,6 +65,11 @@ function getCompanies (req, res) {
                     return companies;
                 });
         })
+        .then(function(companies) {
+            companies.forEach(function(company) {
+
+            })
+        })
         .then(function success(companies) {
             return res.send(companies);
         },
