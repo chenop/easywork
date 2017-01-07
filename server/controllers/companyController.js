@@ -7,11 +7,9 @@
  */
 
 var Company          = require('../models/company')
-    , User           = require('../models/user')
     , CompanyService = require('../services/companyService')
     , JobService = require('../services/jobService')
-    , UserService = require('../services/UserService')
-    , Jobs           = require('./jobController.js')
+    , UserService = require('../services/userService')
     , utils          = require('../utils/utils')
     , fs             = require('fs')
     , googleApis     = require('../api/googleApis')
