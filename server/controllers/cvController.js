@@ -113,7 +113,7 @@ function getCvFile(req, res) {
         .then(function success(cv) {
                 res.set('Content-Disposition', 'attachment; filename=' + cv.fileName);
                 res.contentType(cv.fileType);
-                return res.send(new Buffer(cv.fileData, 'base64')); // TODO Chen check what is the usage - need to convert to Buffer?
+                return res.send(new Buffer(cv.fileData, 'base64'));
             },
             function error(err) {
                 return res.status(500).json(err);

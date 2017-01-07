@@ -70,7 +70,6 @@ function searchCity(address) {
     return "";
 }
 
-// TODO Chen - trying to move the city (inside the street) to the city field
 // 1. find a specific company with multi locations
 // 2. cut and paste the city
 // 3. repeat for all
