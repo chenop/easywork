@@ -2,7 +2,7 @@
 Easywork: CV Engine
 ============================================================
 
-Live demo can be found <a href="http://easywork.herokuapp.com/">here</a>.<br>
+Live demo can be found <a href="http://www.easywork.co.il/">here</a>.<br>
 
 <b>General idea of the application</b>
 <ul>
@@ -17,5 +17,6 @@ Live demo can be found <a href="http://easywork.herokuapp.com/">here</a>.<br>
 <li>The ability to scan CV (Doc format) and give a company the ability to search for users that have interesting keywords in their CV (Java , Technion...)</li>
 <li>Intuitive UI</li>
 <li>Mobile Compatible</li>
+<li>Hebrew Only</li>
 </ul>
 
