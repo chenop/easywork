@@ -32,6 +32,7 @@ var companySchema = new Schema({
 	},
 	{
 		timestamps: true
+		, minimize: false // Added for logo property - passed it although it empty http://stackoverflow.com/questions/29188131/mongoose-set-default-as-empty-object
 	}
 );
 

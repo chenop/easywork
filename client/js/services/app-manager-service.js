@@ -199,6 +199,21 @@ angular.module('easywork')
             return loadingIndicatorVisibile;
         }
 
+		function createEmptyCompanyForActiveUser() {
+			var activeUser = getActiveUser();
+			var emptyCompany = dataManager.createEmptyCompany(activeUser);
+			return dataManager.createCompany(emptyCompany)
+                .then(function(result) {
+                    var createdCompany = result.data;
+
+                    // Update client's activeUser with the new company he has
+                    activeUser.company = createdCompany.id;
+                    setActiveUser(activeUser)
+
+                    return createdCompany;
+                });
+		}
+
         return {
 			shouldDisplaySearchBarInHeader: shouldDisplaySearchBarInHeader
 			, setDisplaySearchBarInHeader: setDisplaySearchBarInHeader
@@ -224,6 +239,7 @@ angular.module('easywork')
             , createEmptyEntity: createEmptyEntity
             , setLoadingIndicatorVisibility: setLoadingIndicatorVisibility
             , getLoadingIndicatorVisibility: getLoadingIndicatorVisibility
+			, createEmptyCompanyForActiveUser: createEmptyCompanyForActiveUser
         }
 	}
 );

@@ -28,7 +28,7 @@ describe("Company controller", function () {
         it("GET", function (done) {
             server.post("/api/user")
                 .set('Authorization', 'Bearer ' + token)
-                .send(utils.createMockedUserPlainObject())
+                .send({user: utils.createMockedUserPlainObject()})
                 .end(function (err, res) {
                     if (err)
                         done(err);
@@ -57,7 +57,7 @@ describe("Company controller", function () {
         it("POST", function (done) {
             server.post("/api/company")
                 .set('Authorization', 'Bearer ' + token)
-                .send(utils.createMockedCompanyPlainObject("Toluna"))
+                .send({company: utils.createMockedCompanyPlainObject("Toluna")})
                 .expect("Content-type", /json/)
                 .expect(200) // THis is HTTP response
                 .end(function (err, res) {
@@ -65,6 +65,7 @@ describe("Company controller", function () {
 
                     returnedCompany.should.not.empty;
                     returnedCompany.name.should.equal("Toluna");
+                    returnedCompany.logo.should.be.not.null;
                     returnedCompany.locations[0].street.should.equal("Matam 1");
 
                     done();
@@ -73,7 +74,7 @@ describe("Company controller", function () {
         it("DELETE", function (done) {
             server.post("/api/company")
                 .set('Authorization', 'Bearer ' + token)
-                .send(utils.createMockedCompanyPlainObject())
+                .send({company: utils.createMockedCompanyPlainObject()})
                 .end(function (err, res) {
                     var returnedCompany = res.body;
 

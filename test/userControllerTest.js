@@ -29,7 +29,7 @@ describe("User controller", function () {
         it("GET", function (done) {
             server.post("/api/user")
                 .set('Authorization', 'Bearer ' + token)
-                .send(utils.createMockedUserPlainObject())
+                .send({user: utils.createMockedUserPlainObject()})
                 .end(function(err, res) {
 
                     server.get("/api/user/list")
@@ -48,7 +48,7 @@ describe("User controller", function () {
         it("POST", function (done) {
             server.post("/api/user")
                 .set('Authorization', 'Bearer ' + token)
-                .send(utils.createMockedUserPlainObject())
+                .send({user: utils.createMockedUserPlainObject()})
                 .expect("Content-type", /json/)
                 .expect(200) // THis is HTTP response
                 .end(function (err, res) {
@@ -66,7 +66,7 @@ describe("User controller", function () {
         it("DELETE", function (done) {
             server.post("/api/user")
                 .set('Authorization', 'Bearer ' + token)
-                .send(utils.createMockedUserPlainObject())
+                .send({user: utils.createMockedUserPlainObject()})
                 .end(function (err, res) {
                     var returnedUser = res.body;
 

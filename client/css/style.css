@@ -9533,6 +9533,11 @@ ul li {
 #company-view .image-container {
   max-height: 150px;
   max-width: 200px; }
+#company-view #no-company {
+  text-align: center;
+  display: block;
+  width: 50%;
+  margin: auto; }
 
 .table > tbody > tr > td {
   vertical-align: middle;

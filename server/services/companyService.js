@@ -19,6 +19,7 @@ module.exports = {
     , setPublish: setPublish
     , getCompaniesAllowAllCvs: getCompaniesAllowAllCvs
     , getCompaniesRelevantToSkills: getCompaniesRelevantToSkills
+    , isLogoExist: isLogoExist
 }
 
 /***********
@@ -50,8 +51,8 @@ function createCompanyInstance(company) {
             , city: company.city
             , email: company.email
             , technologies: company.technologies
-            , owner: company.user
-            , logo: company.logo
+            , owner: company.owner
+            , logo: company.logo // utils.isDefined(company.logo) ? company.logo : {data: new Buffer(), url: ""}
             , site: company.site
             , description: company.description
             , locations: company.locations
@@ -119,5 +120,7 @@ function getCompaniesRelevantToSkills(companies, skills) {
 }
 
 function isLogoExist(company) {
-    return company.logo !== undefined && !utils.isEmpty(logo.url);
+    return utils.isDefined(company) &&
+           utils.isDefined(company.logo) &&
+           !utils.isEmpty(company.logo.url);
 }

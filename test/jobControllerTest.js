@@ -60,7 +60,7 @@ describe("Job controller", function () {
         it("POST - with company", function (done) {
             server.post("/api/company")
                 .set('Authorization', 'Bearer ' + token)
-                .send(utils.createMockedCompanyPlainObject("Toluna"))
+                .send({company: utils.createMockedCompanyPlainObject("Toluna")})
                 .end(function (err, res) {
                     var createdCompany = res.body;
 

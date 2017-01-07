@@ -86,11 +86,7 @@ angular.module('easywork')
         var getCompany = function (id) {
             return getEntity(common.CONTENT_TYPE.COMPANY, id)
                 .then(function (result) {                 // Get the logo
-                    var company = result.data;
-                    return getCompanyLogo(id, company)
-                        .then(function (logoUrl) {
-                            return company;
-                        })
+                    return result.data;
                 })
         }
 
@@ -284,14 +280,16 @@ angular.module('easywork')
             return job;
         }
 
-        function createEmptyCompany() {
+        function createEmptyCompany(owner) {
             var company = {
                 name: "Untitled Company",
                 street: '',
                 city: '',
                 email: '',
                 technologies: '',
-                logo: {}
+                logo: null,
+				owner: utils.isDefined(owner) ? owner : ''
+
             };
 
             return company;
@@ -309,6 +307,8 @@ angular.module('easywork')
                 company: null,
                 file: ''
             };
+
+			return user;
         }
 
         function setPublish(companyId, publish) {

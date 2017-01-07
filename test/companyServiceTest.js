@@ -20,6 +20,7 @@ describe('Company service', function () {
                     .then(function (createdCompany) {
                         // verify that the returned company is what we expect
                         createdCompany.name.should.equal('Toluna');
+                        createdCompany.logo.should.be.not.null;
                         createdCompany.locations[0].city.should.equal('Haifa');
                     });
             });

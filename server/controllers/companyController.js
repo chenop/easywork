@@ -10,6 +10,7 @@ var Company          = require('../models/company')
     , User           = require('../models/user')
     , CompanyService = require('../services/companyService')
     , JobService = require('../services/jobService')
+    , UserService = require('../services/UserService')
     , Jobs           = require('./jobController.js')
     , utils          = require('../utils/utils')
     , fs             = require('fs')
@@ -23,7 +24,6 @@ module.exports = {
     , updateCompany: updateCompany
     , upload: upload
     , deleteCompany: deleteCompany
-    , getCompanyLogo: getCompanyLogo
     , setPublish: setPublish
 }
 
@@ -34,10 +34,21 @@ module.exports = {
  * @returns {*}
  */
 function createCompany(req, res) {
-    var company = req.body;
+    var company = req.body.company;
 
     return CompanyService.createCompany(company)
         .then(function success(savedCompany) {
+			if (utils.isDefined(savedCompany.owner)) {
+				UserService.getUser(savedCompany.owner)
+					.then(function(user) {
+						if (!user)
+							return;
+
+						user.company = savedCompany;
+						UserService.updateUser(user);
+						return res.send(savedCompany);
+					})
+			}
             return res.send(savedCompany);
         },
         function error(err) {
@@ -64,11 +75,6 @@ function getCompanies (req, res) {
 
                     return companies;
                 });
-        })
-        .then(function(companies) {
-            companies.forEach(function(company) {
-
-            })
         })
         .then(function success(companies) {
             return res.send(companies);
@@ -102,6 +108,9 @@ function updateCompany(req, res) {
     var company = req.body;
 
     return CompanyService.updateCompany(company)
+        .then(function success(company) {
+            return fillCompanyLogo(company);
+        })
         .then(function success(company) {
             return res.send(company);
         },
@@ -141,29 +150,21 @@ function upload (req, res) {
     });
 }
 
-function getCompanyLogo(req, res, next) {
-    var force = req.params.force;
+function fillCompanyLogo(company) {
 
-    return CompanyService.getCompany(req.params.id)
-        .then(function (company) {
-                if (force || company.logo === undefined || company.logo.url === undefined || company.logo.url.length === 0) {
+    if (CompanyService.isLogoExist(company) ||
+        (utils.isUndefined(company.name) || company.name.length < 4)) // Do not fill company logo for name shorter than 4
+        return Promise.resolve(company);
 
-                    return googleApis.fetchFirstImage(company.name + ' logo image', function (firstImageUrl) {
-                        if (firstImageUrl instanceof Error)
-                            return res.send(false);
+    return googleApis.fetchFirstImage(company.name + ' logo image')
+        .then(function (firstImageUrl) {
+            if (firstImageUrl instanceof Error)
+                return Promise.resolve(company);
 
-                        company.logo.url = firstImageUrl;
-                        company.save(); // update local DB
-                        return res.send(firstImageUrl);
-                    })
-                }
-
-                return res.send(company.logo.url);
-            },
-            function error(err) {
-                return res.status(500).json(err);
-            });
-};
+            company.logo.url = firstImageUrl;
+            return CompanyService.updateCompany(company); // update local DB
+        });
+}
 
 function setPublish(req, res) {
     var companyId = req.params.id;

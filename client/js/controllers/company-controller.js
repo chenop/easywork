@@ -2,15 +2,22 @@
 
 
 angular.module('easywork')
-    .controller('CompanyCtrl', function ($scope, Upload, $http, appManager, dataManager, $timeout, $state, $stateParams, $uibModal, debounce, common) {
+    .controller('CompanyCtrl', function ($scope, Upload, $http, appManager, dataManager, $timeout, $state, $stateParams, $uibModal, debounce, common, utils) {
         $scope.publish = false;
+		$scope.isLoading = true;
 
         var companyId = appManager.getRelevantEntityId($state.current.isDashboard, $stateParams.entityId, common.CONTENT_TYPE.COMPANY.name);
 
-        appManager.getRelevantEntity($state.current.isDashboard, companyId, common.CONTENT_TYPE.COMPANY.name)
-            .then(function(company) {
-                refreshCompany(company);
-            })
+		if (companyId) {
+			appManager.getRelevantEntity($state.current.isDashboard, companyId, common.CONTENT_TYPE.COMPANY.name)
+				.then(function (company) {
+					refreshCompany(company);
+					$scope.isLoading = false;
+				})
+		}
+		else {
+			$scope.isLoading = false;
+		}
 
         function refreshCompany(selectedEntity) {
             if (selectedEntity == null)
@@ -62,18 +69,15 @@ angular.module('easywork')
 
 
         var debounceUpdateCompany = debounce(function() {
+            if (!$scope.form.$valid)
+                return;
+
             return dataManager.updateCompany($scope.company)
-                .then(function (entity) {
-                    $scope.$emit('dataChanged', entity);
-                    return entity.data;
+                .then(function (result) {
+                    $scope.$emit('dataChanged', result);
+                    $scope.company = result.data;
                 })
-                .then(function(company) {
-                    dataManager.getCompanyLogo(company._id, company, true)
-                        .then(function(url) {
-                            $scope.company.logo.url = url;
-                        })
-                })
-        }, 300, false);
+        }, 500, false);
 
         $scope.updateCompany = function () {
             debounceUpdateCompany();
@@ -105,5 +109,15 @@ angular.module('easywork')
             });
         }
 
+		$scope.isCompanyExist = function() {
+			return utils.isDefined($scope.company);
+		}
+
+		$scope.createCompany = function() {
+			appManager.createEmptyCompanyForActiveUser()
+				.then(function(emptyCompany) {
+					$scope.company = emptyCompany;
+				})
+		}
     }
 );

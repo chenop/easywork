@@ -54,7 +54,7 @@ function login(req, res, next) {
  * @returns {*}
  */
 function createUser(req, res) {
-    var newUser = req.body;
+    var newUser = req.body.user;
 
     return UserService.createUser(newUser).
         then(function success(user) {
