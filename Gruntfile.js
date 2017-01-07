@@ -92,7 +92,7 @@ module.exports = function (grunt) {
 
         , 'client/js/directives/directives.js'
         , 'client/js/directives/company-card.js'
-        , 'client/js/directives/user-card.js'
+        , 'client/js/directives/cv-card.js'
 
         , 'client/js/upload-cv/upload-cv-directive.js'
     ]
