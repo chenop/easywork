@@ -9,6 +9,11 @@ angular.module('easywork')
                 cv: '='
             },
             templateUrl: '/views/users/cv-card.html',
+			controller: function($scope, cvService) {
+				$scope.cardClicked = function() {
+					cvService.openCvDocViewModal($scope.cv);
+				}
+			},
             link: function (scope, element, attrs) {
             }
         }
@@ -19,8 +24,6 @@ angular.module('easywork')
             scope: {
                 requiredSkill: '=',
                 cv: '='
-            },
-            controller: function($scope, $uibModal) {
             },
             template: '<span class="skill-tag"><i class="glyphicon glyphicon-tag skill-icon"></i>{{::requiredSkill}}</span>'
         }

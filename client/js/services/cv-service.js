@@ -4,7 +4,7 @@
 
 angular.module('easywork')
     .constant('ANONYMOUS', "anonymous")
-    .factory('cvService', function (Upload, localStorageService, dataManager, utils, ANONYMOUS) {
+    .factory('cvService', function (Upload, localStorageService, dataManager, utils, ANONYMOUS, $uibModal) {
 
         function getCvByUserId(userId) {
             var cv = localStorageService.get(userId)
@@ -76,10 +76,21 @@ angular.module('easywork')
             return blob;
         }
 
-        return {
+		function openCvDocViewModal(cv) {
+			var modalInstance = $uibModal.open({
+				template: '<cv-doc-view cv="cv"/>',
+				controller: function ($scope)
+				{
+					$scope.cv = cv;
+				}
+			});
+		}
+
+		return {
             uploadFile: uploadFile
             , convertBase64ToBlob: convertBase64ToBlob
             , getCvByUserId: getCvByUserId
+			, openCvDocViewModal: openCvDocViewModal
         }
     });
 

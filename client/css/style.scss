@@ -118,10 +118,6 @@ body {
 	padding-bottom: 19px;
 }
 
-.skill-tag {
-	color: orange;
-}
-
 .my-drop-zone {
 	border: dashed 3px lightgray;
 	margin-top: 25px;
@@ -648,6 +644,7 @@ header a, .caret {
 }
 
 .skill-tag {
+	color: orange;
 	a:hover {
 		cursor: pointer;
 	}

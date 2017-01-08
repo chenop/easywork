@@ -95,6 +95,7 @@ module.exports = function (grunt) {
         , 'client/js/directives/cv-card.js'
 
         , 'client/js/upload-cv/upload-cv-directive.js'
+        , 'client/js/cv-doc-view/cv-doc-view-directive.js'
     ]
 
     var isDevMode = function () {

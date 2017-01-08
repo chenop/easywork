@@ -9402,9 +9402,6 @@ body {
   float: left;
   padding-bottom: 19px; }
 
-.skill-tag {
-  color: orange; }
-
 .my-drop-zone {
   border: dashed 3px lightgray;
   margin-top: 25px;
@@ -9797,8 +9794,10 @@ header a, .caret {
   font-size: 27px;
   color: #8FB98B; }
 
-.skill-tag a:hover {
-  cursor: pointer; }
+.skill-tag {
+  color: orange; }
+  .skill-tag a:hover {
+    cursor: pointer; }
 
 .dashboard-entity-type {
   margin-bottom: 5px; }
