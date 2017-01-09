@@ -108,10 +108,10 @@ app.post('/public/' +
 
 app.use(function (err, req, res, next) {
 	 if (err.name === 'UnauthorizedError') {
-		res.status(401).send('[Error] - invalid token, message: ' + err.message);
+		res.status(403).send('[Error] - invalid token, message: ' + err.message);
 	}
 	else if (err.name === 'PermissionError') {
-		 res.status(401).send('[Error] - Permission denied!');
+		 res.status(403).send('[Error] - Permission denied!');
 	 }
 });
 
@@ -129,7 +129,7 @@ function PermissionError () {
 	Error.call(this, error.message);
 	Error.captureStackTrace(this, this.constructor);
 	this.name = "PermissionDenied";
-	this.status = 401;
+	this.status = 403;
 }
 
 function isAdmin (user) {

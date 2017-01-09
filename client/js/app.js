@@ -119,7 +119,9 @@ app.config(
                     return config || $q.when(config);
                 },
                 responseError: function(error) {
-
+					if (error.status === 401) // 401 status should be dealt by the controller
+						return $q.reject(error);
+					
                     console.log("Found responseError: ", error);
                     var common = $injector.get('common');
 

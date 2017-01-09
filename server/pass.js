@@ -26,10 +26,10 @@ module.exports = function (passport, app, baseUrl) {
 					return done(err);
 				}
 				if (!user) {
-					return done(null, false, { message: 'Incorrect username.' });
+					return done(null, false, { message: 'שם משתמש שגוי - אנא נסה שנית' });
 				}
 				if (!user.validPassword(password)) {
-					return done(null, false, { message: 'Incorrect password.' });
+					return done(null, false, { message: 'סיסמה שגויה - אנא נסה שנית' });
 				}
 
 				return done(null, user);

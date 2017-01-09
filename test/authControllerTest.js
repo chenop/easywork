@@ -43,7 +43,7 @@ describe("Authentication controller", function () {
 
 					server.get("/api/user/list")
 						.set('Authorization', 'Bearer ' + token)
-						.expect(401, done); // THis is HTTP response
+						.expect(403, done); // THis is HTTP response
 				})
 		})
 	})

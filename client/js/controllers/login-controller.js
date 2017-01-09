@@ -70,7 +70,7 @@ angular.module('easywork')
 								vm.errorMessage = SOMETHING_WENT_WRONG_MSG;
 							}
 							else {
-								vm.errorMessage = err.message;
+								vm.errorMessage = err.data.message;
 							}
 						}
 					);
