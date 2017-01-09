@@ -11,6 +11,7 @@ angular.module('easywork')
 			templateUrl: '/js/cv-doc-view/cv-doc-view.html',
 			controller : ["$scope", "$sce", "FileSaver", function ($scope, $sce, FileSaver) {
 				var cvId = $scope.cv.id;
+				$scope.isIframeLoading = true;
 				$scope.url = "http://docs.google.com/gview?url=http://www.easywork.co.il/public/cv/download/" + cvId + "&embedded=true";
 
 				$scope.trustSrc = function(src) {
@@ -32,6 +33,11 @@ angular.module('easywork')
 							var blob = cvService.convertBase64ToBlob(cv.fileData, cv.fileType);
 							FileSaver.saveAs(blob, cv.fileName);
 						})
+				}
+
+				$scope.iframeLoadedCallBack = function(){
+					$scope.isIframeLoading = false;
+					$scope.$apply();
 				}
 			}],
 			link: function (scope, element, attrs) {

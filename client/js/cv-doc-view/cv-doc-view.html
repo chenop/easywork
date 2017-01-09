@@ -11,11 +11,16 @@
             </button>
         </div>
     </h3>
-    <ul>
-        <li ng-repeat="skill in cv.skills">{{skill}}</li>
-    </ul>
+    <div class="skill-container">
+        <span ng-repeat="requiredSkill in cv.skills" class="skill">
+            <cv-skill-tag required-skill="requiredSkill"/>
+        </span>
+    </div>
     <button class="btn btn-block btn-primary download-cv-btn" ng-click="downloadCv()">Download CV</button>
-    <div>
-        <iframe ng-src={{trustSrc(url)}} class="iframe" frameborder="0"></iframe>
+    <div class="iframe-container">
+        <div data-ng-show=isIframeLoading class="iframe-loading-indicator">
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+        <iframe data-ng-hide=isIframeLoading iframe-onload="iframeLoadedCallBack()" ng-src={{trustSrc(url)}} class="iframe" frameborder="0"></iframe>
     </div>
 </div>

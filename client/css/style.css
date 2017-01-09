@@ -9400,7 +9400,8 @@ body {
   max-height: 10px;
   padding-right: 15px;
   float: left;
-  padding-bottom: 19px; }
+  padding-bottom: 19px;
+  direction: ltr; }
 
 .my-drop-zone {
   border: dashed 3px lightgray;
@@ -9795,7 +9796,7 @@ header a, .caret {
   color: #8FB98B; }
 
 .skill-tag {
-  color: orange; }
+  color: #b97800; }
   .skill-tag a:hover {
     cursor: pointer; }
 
@@ -9943,11 +9944,23 @@ header a, .caret {
   margin-top: 10px;
   margin-left: 5px; }
 
-.cv-view-container .download-cv-btn {
-  margin-bottom: 10px; }
-.cv-view-container .iframe {
-  width: 100%;
-  height: 600px; }
+.cv-view-container {
+  direction: rtl; }
+  .cv-view-container .skill-container {
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 10px; }
+  .cv-view-container .download-cv-btn {
+    margin-bottom: 10px; }
+  .cv-view-container .iframe-container .iframe-loading-indicator {
+    margin: auto;
+    text-align: center;
+    font-size: 10em;
+    color: grey;
+    opacity: 0.5; }
+  .cv-view-container .iframe-container .iframe {
+    width: 100%;
+    height: 600px; }
 
 .aboutus {
   text-align: center;

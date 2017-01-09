@@ -116,6 +116,7 @@ body {
 	padding-right: 15px;
 	float: left;
 	padding-bottom: 19px;
+	direction: ltr;
 }
 
 .my-drop-zone {
@@ -644,7 +645,7 @@ header a, .caret {
 }
 
 .skill-tag {
-	color: orange;
+	color: #b97800;//orange;
 	a:hover {
 		cursor: pointer;
 	}
@@ -856,13 +857,30 @@ header a, .caret {
 }
 
 .cv-view-container {
+	direction: rtl;
+
+	.skill-container {
+		overflow: hidden;
+		width: 100%;
+		margin-bottom: 10px;
+	}
+
 	.download-cv-btn {
 		margin-bottom: 10px;
 	}
 
-	.iframe {
-		width: 100%;
-		height: 600px;
+	.iframe-container {
+		.iframe-loading-indicator {
+			margin: auto;
+			text-align: center;
+			font-size: 10em;
+			color: grey;
+			opacity: 0.5;
+		}
+		.iframe {
+			width: 100%;
+			height: 600px;
+		}
 	}
 }
 
