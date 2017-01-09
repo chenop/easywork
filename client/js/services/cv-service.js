@@ -77,7 +77,7 @@ angular.module('easywork')
         }
 
 		function openCvDocViewModal(cv) {
-			var modalInstance = $uibModal.open({
+			$uibModal.open({
 				template: '<cv-doc-view cv="cv"/>',
 				controller: function ($scope)
 				{

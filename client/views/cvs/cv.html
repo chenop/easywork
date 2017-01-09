@@ -1,21 +1,3 @@
-<div class="jumbotron cv-view-container" ng-controller="cvDetailsCtrl">
-    <h3>מיומנויות
-    <div class="refresh-skills">
-        <button class="btn btn-default align-left" ng-click="refreshSkills()">
-                    <span data-ng-hide="isLoading">
-                        <i class="fa fa-refresh"></i>
-                    </span>
-                    <span data-ng-show="isLoading">
-                        <i class="fa fa-refresh fa-spin"></i>
-                    </span>
-        </button>
-    </div>
-    </h3>
-    <ul>
-        <li ng-repeat="skill in cv.skills">{{skill}}</li>
-    </ul>
-    <button class="btn btn-block btn-primary download-cv-btn" ng-click="downloadCv()">Download CV</button>
-    <div >
-        <iframe ng-src={{trustSrc(url)}} class="iframe" frameborder="0"></iframe>
-    </div>
+<div class="jumbotron" ng-controller="cvDetailsCtrl">
+    <cv-doc-view cv="cv"/>
 </div>
