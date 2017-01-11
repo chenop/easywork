@@ -64,10 +64,9 @@ html {
 
 .view-container {
 	direction: rtl;
-	height: 400px; //
 
 	@media (max-width: 576px) {
-		padding: 0px 40px 40px 40px;
+		padding-bottom: 40px;
 		margin-top: 86px;
 	}
 	@media (min-width: 577px) {
@@ -235,7 +234,7 @@ ul li {
 #home-view {
 	background-color:rgba(234, 225, 192, 0.85);
 	border-radius: 6px;
-	height: 100%;
+	height: 400px;
 	position: relative;
 	margin:auto;
 	max-width: 750px;
@@ -279,12 +278,8 @@ ul li {
 		border-bottom-right-radius: 8px;
 
 		@media (max-width: 577px) {
-			font-size: 18px;
-			padding: 10px 0px;
 		}
 		@media (max-width: 767px) {
-			display: block;
-			margin: 20px auto auto;
 		}
 	}
 }
@@ -292,7 +287,15 @@ ul li {
 #companies-board-view{
 	background-color: rgba(234,225,192,.85);
 	border-radius: 6px;
-	padding: 40px;
+
+	@media (max-width: 576px) {
+		padding: 0px 40px 40px 40px;
+		margin-top: 86px;
+	}
+	@media (min-width: 577px) {
+		padding: 40px 40px 5px 40px;;
+		margin-top: 150px;
+	}
 }
 
 #job-view {
@@ -982,7 +985,7 @@ header a, .caret {
 			font-size: 24px;
 		}
 		@media (min-width: 577px) {
-			font-size: 40px;
+			font-size: 30px;
 		}
 
 		@media (min-width: 768px) {
