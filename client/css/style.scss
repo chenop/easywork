@@ -12,7 +12,7 @@ $fa-font-path: "../lib/font-awesome/fonts/";
 /* Colors */
 $base10: #483A3A;
 $base30-1: #8FB98B;
-$base30-2: #70674c;
+$base30-2: #c7bc8e;
 $base60-lighter: #F5EEDB;
 $base-60-light: #EAE1C0;
 $font-color-on-light-background: $base30-2;
@@ -25,8 +25,14 @@ $base60-darker: darken($base60-lighter, 20%);
 	background: #dcdae5;
 }
 
+html {
+	height: 100%;
+}
+
 body {
-	background: $base60-lighter;
+	//background: $base60-lighter;
+	background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 38%, rgba(0, 0, 0, 0) 28%, rgba(0, 0, 0, 0.8) 100%), url(http://cdn.caandesign.com/wp-content/uploads/2015/05/Google-Tel-Aviv-Office-03.jpg)  ;
+	background-size:100%;
 }
 
 .navbar .nav > li > a.brand {
@@ -48,14 +54,11 @@ body {
 }
 
 .content {
-	width: 100%;
-	position: relative;
-	direction: rtl;
 }
 
 .view-container {
 	padding: 40px;
-	background-color: $base-60-light;
+	//background-color: $base-60-light;
 	border-radius: 6px;
 	direction: rtl;
 
@@ -385,7 +388,7 @@ ul li {
 }
 
 .big-title {
-	color: $font-color-on-light-background;
+	color: lighten($base30-2, 30%);
 	margin-right: 3px;
 }
 
@@ -585,7 +588,7 @@ header a, .caret {
 }
 
 .company-card-container {
-	background-color: lighten($base60-lighter, 20%);
+	background-color: $base60-lighter;
 	box-shadow: 5px 5px 1px $base60-darker;
 	padding: 10px 0 10px 0;
 
@@ -626,7 +629,7 @@ header a, .caret {
 		}
 	}
 	&:hover {
-		background-color: $base60-lighter;
+		background-color: darken($base60-lighter, 10%);
 	}
 }
 
@@ -813,7 +816,7 @@ header a, .caret {
 	h4 {
 		float: right;
 		padding: 0px 20px 0px;
-		color: rgba(0, 0, 0, 0.54);
+		color: lighten( $base30-2, 30%);
 	}
 }
 
@@ -887,7 +890,7 @@ header a, .caret {
 .aboutus {
 	text-align: center;
 	font-size: 18px;
-	color: #6f6f6f;
+	color: lighten( $base30-2, 30%);//#d1d1d1;
 	margin-top: 28px;
 	direction: rtl;
 }
@@ -924,6 +927,7 @@ header a, .caret {
 
 .navbar {
 	direction: rtl;
+	margin-bottom: 0px;
 }
 
 #header-view {

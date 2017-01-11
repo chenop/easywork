@@ -9328,8 +9328,12 @@ th {
 .col2 {
   background: #dcdae5; }
 
+html {
+  height: 100%; }
+
 body {
-  background: #F5EEDB; }
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, transparent 38%, transparent 28%, rgba(0, 0, 0, 0.8) 100%), url(http://cdn.caandesign.com/wp-content/uploads/2015/05/Google-Tel-Aviv-Office-03.jpg);
+  background-size: 100%; }
 
 .navbar .nav > li > a.brand {
   padding-left: 20px;
@@ -9345,14 +9349,8 @@ body {
   float: right;
   direction: ltr; }
 
-.content {
-  width: 100%;
-  position: relative;
-  direction: rtl; }
-
 .view-container {
   padding: 40px;
-  background-color: #EAE1C0;
   border-radius: 6px;
   direction: rtl; }
   @media (max-width: 576px) {
@@ -9602,7 +9600,7 @@ ul li {
   padding-right: 5px; }
 
 .big-title {
-  color: #70674c;
+  color: #faf9f4;
   margin-right: 3px; }
 
 .navbar-default .navbar-brand {
@@ -9754,7 +9752,7 @@ header a, .caret {
   float: right; }
 
 .company-card-container {
-  background-color: white;
+  background-color: #F5EEDB;
   box-shadow: 5px 5px 1px #dfc88b;
   padding: 10px 0 10px 0; }
   @media (min-width: 298px) {
@@ -9782,7 +9780,7 @@ header a, .caret {
     .company-card-container.selected:hover {
       background-color: #badf9c; }
   .company-card-container:hover {
-    background-color: #F5EEDB; }
+    background-color: #eadbb3; }
 
 .skill-icon {
   margin-right: 7px; }
@@ -9914,7 +9912,7 @@ header a, .caret {
   .select-all h4 {
     float: right;
     padding: 0px 20px 0px;
-    color: rgba(0, 0, 0, 0.54); }
+    color: #faf9f4; }
 
 .account-type {
   display: inline-block;
@@ -9965,7 +9963,7 @@ header a, .caret {
 .aboutus {
   text-align: center;
   font-size: 18px;
-  color: #6f6f6f;
+  color: #faf9f4;
   margin-top: 28px;
   direction: rtl; }
 
@@ -9994,7 +9992,8 @@ header a, .caret {
     /* account for padding and border if not using box-sizing: border-box; */ }
 
 .navbar {
-  direction: rtl; }
+  direction: rtl;
+  margin-bottom: 0px; }
 
 #header-view {
   background: #483A3A;
