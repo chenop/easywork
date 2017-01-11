@@ -1,6 +1,6 @@
-<div data-ng-controller="DashboardCtrl">
+<div id="dashboard" class="view" data-ng-controller="DashboardCtrl">
     <div class="row">
-        <div class="col-sm-4 btn-group" id="buttonGroup">
+        <div class="col-sm-4 btn-group">
                 <button ng-class="{ 'active' : contentType.value == '0' }"
                         ng-click="contentTypeSelected('job')"
                         access-level="jobProvider" type="button" class="btn btn-default col-xs-3"

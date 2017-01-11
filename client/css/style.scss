@@ -231,8 +231,11 @@ ul li {
 	margin: 0px 15px 10px 0px;
 }
 
-#home-view {
+.view {
 	background-color:rgba(234, 225, 192, 0.85);
+}
+
+#home-view {
 	border-radius: 6px;
 	height: 400px;
 	position: relative;
@@ -286,7 +289,6 @@ ul li {
 }
 
 #companies-board-view{
-	background-color: rgba(234,225,192,.85);
 	border-radius: 6px;
 
 	@media (max-width: 576px) {
@@ -294,9 +296,14 @@ ul li {
 		margin-top: 86px;
 	}
 	@media (min-width: 577px) {
-		padding: 40px 40px 5px 40px;;
+		padding: 0px 40px 5px 40px;;
 		margin-top: 150px;
 	}
+}
+
+#dashboard {
+	border-radius: 6px;
+	padding: 20px;
 }
 
 #job-view {
@@ -926,6 +933,7 @@ header a, .caret {
 	font-size: 18px;
 	color: lighten( $base30-2, 30%);//#d1d1d1;
 	margin-top: 28px;
+	margin-bottom: 30px;
 	direction: rtl;
 }
 
