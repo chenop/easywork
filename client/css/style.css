@@ -9532,6 +9532,11 @@ ul li {
         display: block;
         margin: 20px auto auto; } }
 
+#companies-board-view {
+  background-color: rgba(234, 225, 192, 0.85);
+  border-radius: 6px;
+  padding: 40px; }
+
 #job-view .tab-content {
   padding-top: 20px; }
 #job-view .image-container {
