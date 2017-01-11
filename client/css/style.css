@@ -9332,7 +9332,7 @@ html {
   height: 100%; }
 
 body {
-  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, transparent 38%, transparent 28%, rgba(0, 0, 0, 0.8) 100%), url(http://cdn.caandesign.com/wp-content/uploads/2015/05/Google-Tel-Aviv-Office-03.jpg);
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, transparent 38%, transparent 28%, rgba(0, 0, 0, 0.8) 100%), url("../img/home/google1.png");
   background-repeat: no-repeat;
   background-position: center;
   background-attachment: fixed;
