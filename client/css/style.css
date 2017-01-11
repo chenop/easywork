@@ -9513,10 +9513,11 @@ ul li {
   #home-view #search-button {
     position: absolute;
     bottom: 0px;
-    height: 70px;
+    height: 90px;
     width: 100%;
     padding: 10px 50px;
     font-size: 35px;
+    font-weight: bold;
     line-height: normal;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
