@@ -394,7 +394,7 @@ ul li {
 }
 
 .big-title {
-	color: lighten($base30-2, 30%);
+	color: $base10;
 	margin-right: 3px;
 }
 
@@ -645,7 +645,7 @@ header a, .caret {
 
 .glyphicon-unchecked {
 	font-size: 27px;
-	color: lightgray;
+	color: #806e2b;
 }
 
 .glyphicon-check {
@@ -822,7 +822,7 @@ header a, .caret {
 	h4 {
 		float: right;
 		padding: 0px 20px 0px;
-		color: lighten( $base30-2, 30%);
+		color: $base10;
 	}
 }
 

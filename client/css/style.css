@@ -9357,7 +9357,6 @@ body {
 
 .view-container {
   padding: 40px;
-  background-color: #EAE1C0;
   background-color: rgba(234, 225, 192, 0.85);
   border-radius: 6px;
   direction: rtl; }
@@ -9608,7 +9607,7 @@ ul li {
   padding-right: 5px; }
 
 .big-title {
-  color: #faf9f4;
+  color: #483A3A;
   margin-right: 3px; }
 
 .navbar-default .navbar-brand {
@@ -9795,7 +9794,7 @@ header a, .caret {
 
 .glyphicon-unchecked {
   font-size: 27px;
-  color: lightgray; }
+  color: #806e2b; }
 
 .glyphicon-check {
   font-size: 27px;
@@ -9920,7 +9919,7 @@ header a, .caret {
   .select-all h4 {
     float: right;
     padding: 0px 20px 0px;
-    color: #faf9f4; }
+    color: #483A3A; }
 
 .account-type {
   display: inline-block;
