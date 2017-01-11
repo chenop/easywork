@@ -19,17 +19,6 @@
             <textarea class="col-sm-9 form-control cv-message" ng-model="user.message"/>
         </div>
 
-        <!--<div class="form-group" access-level="admin">-->
-            <!--<label class="col-sm-3 control-label">Role</label>-->
-            <!--&lt;!&ndash;<label class="col-sm-9">{{user.role}}</label>&ndash;&gt;-->
-            <!--<div class="experience">-->
-                <!--<select ui-select2="select2Options" ng-model="user.role" ng-click="updateUser()">-->
-                    <!--<option value=""></option>-->
-                    <!--<option ng-repeat="role in userRoles" value="{{role}}">{{role}}</option>-->
-                <!--</select>-->
-            <!--</div>-->
-        <!--</div>-->
-
         <div ng-show="user.role === 'jobProvider'" class="form-group" access-level="admin">
                 <label class="col-sm-3 control-label">בעל חברה</label>
                 <ui-select class="col-sm-9 no-horizontal-padding" ng-model="$parent.user.company" ng-click="updateUser()">
