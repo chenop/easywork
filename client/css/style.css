@@ -9486,7 +9486,8 @@ ul li {
   margin: 0px 15px 10px 0px; }
 
 .view {
-  background-color: rgba(234, 225, 192, 0.85); }
+  background-color: rgba(234, 225, 192, 0.85);
+  border-radius: 6px; }
 
 #home-view {
   border-radius: 6px;
@@ -9523,16 +9524,14 @@ ul li {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px; }
 
-#companies-board-view {
-  border-radius: 6px; }
-  @media (max-width: 576px) {
-    #companies-board-view {
-      padding: 0px 40px 40px 40px;
-      margin-top: 86px; } }
-  @media (min-width: 577px) {
-    #companies-board-view {
-      padding: 0px 40px 5px 40px;
-      margin-top: 150px; } }
+@media (max-width: 576px) {
+  #companies-board-view {
+    padding: 0px 40px 40px 40px;
+    margin-top: 86px; } }
+@media (min-width: 577px) {
+  #companies-board-view {
+    padding: 0px 40px 5px 40px;
+    margin-top: 150px; } }
 
 #dashboard {
   border-radius: 6px;

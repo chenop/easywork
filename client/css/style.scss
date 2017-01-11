@@ -233,6 +233,7 @@ ul li {
 
 .view {
 	background-color:rgba(234, 225, 192, 0.85);
+	border-radius: 6px;
 }
 
 #home-view {
@@ -289,8 +290,6 @@ ul li {
 }
 
 #companies-board-view{
-	border-radius: 6px;
-
 	@media (max-width: 576px) {
 		padding: 0px 40px 40px 40px;
 		margin-top: 86px;
