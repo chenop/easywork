@@ -41,6 +41,7 @@ angular.module('easywork')
             }
         };
 
+        $scope.isLoading = true;
         dataManager.getCompanies(true).then(function (companies) {
             $scope.companies = companies;
             angular.forEach($scope.companies, function (company, key) {
@@ -49,6 +50,7 @@ angular.module('easywork')
                     location.formattedLocation = prepareFormattedLocation(location);
                 })
             });
+            $scope.isLoading = false;
         });
 
         appManager.setDisplaySearchBarInHeader(true);
