@@ -3,7 +3,10 @@
         <h3 class="big-title">חברות</h3>
     </div>
 
-    <div class="row">
+    <div ng-show=isLoading>
+        <loading size="2"/>
+    </div>
+    <div class="row" ng-hide=isLoading>
         <div class="select-all" ng-click="toggleSelectAll()"><i ng-class="{'glyphicon glyphicon-unchecked': !isSelectAll, 'glyphicon glyphicon-check' : isSelectAll}"></i>
             <h4>בחר הכל</h4>
         </div>

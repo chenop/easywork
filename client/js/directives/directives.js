@@ -64,8 +64,13 @@ angular.module('easywork')
     .directive('loading', [function() {
         return {
             return: 'E',
+            scope: {
+                size: '='
+            },
             template: '<div id="loading-wrapper"><div id="spinner"><i class="fa fa-refresh fa-spin fa-4x"></i></div></div>',
             link: function (scope, element, attrs) {
+                var fontSize = (!scope.size) ? '2em' : scope.size * 2 + 'em';
+                element.css({'font-size': fontSize});
             }
         }
     }])

@@ -10007,16 +10007,12 @@ header a, .caret {
   display: inline-block; }
 
 #loading-wrapper {
-  text-align: center;
-  height: 300px;
-  position: relative; }
+  display: flex;
+  justify-content: center;
+  height: 300px; }
   #loading-wrapper #spinner {
-    display: inline-block;
-    position: absolute;
-    top: 50%;
-    opacity: 0.3;
-    margin-top: -50px;
-    /* account for padding and border if not using box-sizing: border-box; */ }
+    align-self: center;
+    opacity: 0.3; }
 
 .navbar {
   direction: rtl;

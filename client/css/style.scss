@@ -953,16 +953,13 @@ header a, .caret {
 }
 
 #loading-wrapper {
-	text-align: center;
+	display: flex;
+	justify-content: center;
 	height: 300px;
-	position: relative;
 
 	#spinner {
-		display: inline-block;
-		position: absolute;
-		top: 50%;
+		align-self: center;
 		opacity: 0.3;
-		margin-top: -50px; /* account for padding and border if not using box-sizing: border-box; */
 	}
 }
 
