@@ -10169,7 +10169,8 @@ header a, .caret {
               background-color: #F5EEDB; }
         #header-view .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
           padding-left: 5px;
-          display: inline-block; }
+          display: inline-block;
+          font-size: 16px; }
           @media (max-width: 991px) {
             #header-view .header-controllers .header-menu .header-actions .dropdown-container .display-name .display-name-text {
               display: none; } }
