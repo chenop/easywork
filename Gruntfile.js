@@ -10,7 +10,8 @@ module.exports = function (grunt) {
         , 'client/lib/angularjs-toaster/toaster.min.css'
         , 'client/lib/font-awesome/css/font-awesome.min.css'
         , 'client/lib/feedback-directive/dist/feedback.css'
-		, 'https://fonts.googleapis.com/css?family=Assistant'
+		//, 'https://fonts.googleapis.com/css?family=Assistant'
+        , 'client/css/font.css'
         , 'client/css/style.css'
     ];
 
