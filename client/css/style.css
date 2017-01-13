@@ -9491,13 +9491,23 @@ ul li {
 
 #home-view {
   border-radius: 6px;
-  height: 400px;
   position: relative;
   margin: auto;
   max-width: 750px; }
+  @media (max-width: 576px) {
+    #home-view {
+      height: 300px; } }
+  @media (min-width: 577px) {
+    #home-view {
+      height: 400px; } }
   #home-view #home-view-top {
-    padding: 50px;
     height: 100%; }
+    @media (max-width: 576px) {
+      #home-view #home-view-top {
+        padding: 20px; } }
+    @media (min-width: 577px) {
+      #home-view #home-view-top {
+        padding: 50px; } }
     #home-view #home-view-top #big-title {
       color: #483A3A;
       margin-right: 5px;
@@ -9513,9 +9523,7 @@ ul li {
   #home-view #search-button {
     position: absolute;
     bottom: 0px;
-    height: 90px;
     width: 100%;
-    padding: 10px 50px;
     font-size: 35px;
     font-weight: bold;
     line-height: normal;
@@ -9523,6 +9531,14 @@ ul li {
     border-top-right-radius: 0px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px; }
+    @media (max-width: 576px) {
+      #home-view #search-button {
+        height: 70px;
+        padding: 0px; } }
+    @media (min-width: 577px) {
+      #home-view #search-button {
+        height: 90px;
+        padding: 10px 50px; } }
 
 @media (max-width: 576px) {
   #companies-board-view {
