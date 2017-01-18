@@ -12,7 +12,8 @@ angular.module('easywork')
 			controller : ["$scope", "$sce", "FileSaver", function ($scope, $sce, FileSaver) {
 				var cvId = $scope.cv.id;
 				$scope.isIframeLoading = true;
-				$scope.url = "http://docs.google.com/gview?url=http://www.easywork.co.il/public/cv/download/" + cvId + "&embedded=true";
+				//$scope.url = "http://docs.google.com/gview?url=http://www.easywork.co.il/public/cv/download/" + cvId + "&embedded=true";
+				$scope.url = "https://docs.google.com/viewerng/viewer?url=http://www.easywork.co.il/public/cv/download/" + cvId + "&embedded=true";
 
 				$scope.trustSrc = function(src) {
 					return $sce.trustAsResourceUrl(src);

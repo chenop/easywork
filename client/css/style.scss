@@ -384,28 +384,61 @@ ul li {
 	background-color: $base-60-light;
 }
 
-.job-container {
-	margin: 50px 50px 50px 50px;
+#job-details-view {
+	margin: 20px;
+
+	.job-header {
+		border-bottom: 1px solid #999;
+		display: table;
+		position: relative;
+		width: 100%;
+		padding-bottom: 6px;
+		margin-bottom: 6px;
+
+		.company-image-container {
+			display: table-cell;
+
+			.company-image {
+				background-color: white;
+				max-height: 150px;
+				max-width: 150px;
+				margin-bottom: 10px;
+			}
+
+			.company-name {
+				font-size: 18px;
+				text-align: center;
+			}
+		}
+
+		.job-title-container {
+			font-size: 28px;;
+			font-weight: bold;
+			width: 100%;
+			display: table-cell;
+
+			.job-title {
+				position: absolute;
+				bottom: 4px;
+				right: 0px;
+			}
+		}
+
+	}
+
+	.job-description {
+		font-size: 16px;
+		dir:auto;
+	}
 }
 
-.job-header {
-	border-bottom: 2px solid #999;
-}
 
-.job-image-container {
+.job-image-container1 {
 	float: right;
 	vertical-align: middle;
 	text-align: center;
 	display: table-cell;
-	max-height: 150px;
-	max-width: 200px;
-}
 
-.job-title-container {
-	padding-top: 15px;
-	padding-bottom: 15px;
-	border-right: 2px solid #999;
-	display: table-cell;
 }
 
 .upload-file-name {
@@ -1200,4 +1233,4 @@ header a, .caret {
 			}
 		}
 	}
-}
+	}
