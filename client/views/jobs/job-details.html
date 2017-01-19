@@ -3,7 +3,8 @@
         <div class="company-image-container">
             <img class="company-image" ng-src="{{company.logo.url}}"/>
             <div class="company-name">
-                <bdi><a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank" class="company-card-header">{{::company.name}}</a></bdi>
+                <bdi><a ng-href="{{company.site|linkFixer}}" stop-propagation target="_blank"
+                        class="company-card-header">{{::company.name}}</a></bdi>
             </div>
         </div>
         <div class="job-title-container">
@@ -12,9 +13,7 @@
             </div>
         </div>
     </div>
-    <div class="job-description">
-        <bdi>
-            {{job.description}}
-        </bdi>
+    <div class="job-description" ng-class="job.description | direction">
+        {{job.description}}
     </div>
 </div>

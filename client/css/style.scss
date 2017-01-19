@@ -428,7 +428,6 @@ ul li {
 
 	.job-description {
 		font-size: 16px;
-		dir:auto;
 	}
 }
 
@@ -997,6 +996,10 @@ header a, .caret {
 	direction: rtl;
 }
 
+.ltr-direction {
+	direction: ltr;
+}
+
 .refresh-skills {
 	display: inline-block;
 }
@@ -1233,4 +1236,4 @@ header a, .caret {
 			}
 		}
 	}
-	}
+}

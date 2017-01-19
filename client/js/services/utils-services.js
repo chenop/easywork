@@ -66,4 +66,11 @@ angular.module('easywork')
 			, isEmpty: isEmpty
 			, removeObject: removeObject
 		}
+	})
+	.filter('direction', function () {
+		return function (text) {
+			var rtlRegex = new RegExp('[\u0591-\u07FF\uFB1D-\uFDFD\uFE70-\uFEFC]+');
+			var textalign = ( rtlRegex.test(text) ) ? 'rtl-direction' : 'ltr-direction';
+			return textalign;
+		}
 	});
