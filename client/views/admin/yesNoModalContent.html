@@ -1,7 +1,9 @@
-<div class="modal-header">
-    <h3 class="modal-title">{{text}}</h3>
-</div>
-<div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="onYes()">כן</button>
-    <button class="btn btn-warning" type="button" ng-click="onNo()">לא</button>
+<div id="yes-no-modal">
+    <div class="modal-header">
+        <h3 class="modal-title">{{text}}</h3>
+    </div>
+    <div class="buttons-container">
+        <button class="btn btn-primary btn-left" type="button" ng-click="onYes()">כן</button>
+        <button class="btn btn-warning" type="button" ng-click="onNo()">לא</button>
+    </div>
 </div>
