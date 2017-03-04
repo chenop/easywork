@@ -2,24 +2,24 @@
  * Created by Chen on 19/10/2016.
  */
 
-var mailService     = require('../mail');
+var mailService = require('../services/mailService');
 
 /***********
  * Public
  ***********/
 module.exports = {
-    sendFeedback: sendFeedback
+	sendFeedback: sendFeedback
 }
 
 /***********
  * Private
  ***********/
 function sendFeedback(req, res) {
-    var data = req.body.data;
+	var data = req.body.data;
 
-    if (!data.content)
-        return; // todo write error to log
+	if (!data.content)
+		return; // todo write error to log
 
-    mailService.sendFeedbackMail(data);
-    return res.send("success");
+	mailService.sendFeedbackMail(data);
+	return res.send("success");
 }

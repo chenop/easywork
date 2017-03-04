@@ -3,24 +3,24 @@
 angular.module('easywork')
 	.factory('mailService', function ($http, authService, Upload, utils, toaster) {
 
-		var sendMail = function (selectedCompanies, cvData) {
+		var sendCv = function (selectedCompanies, cvData) {
 			var activeUser = authService.getActiveUser();
 			var activeUserId = (activeUser) ? activeUser._id : null;
 
-            sendCVToServer(activeUserId, cvData, selectedCompanies);
+			sendCVToServer(activeUserId, cvData, selectedCompanies);
 		}
 
-        /**
-         * $files: an array of files selected, each file has name, size, and type.
-         * @param fileData
-         * @param skills
-         * @param activeUserId
-         */
-        function sendCVToServer(activeUserId, cvData, selectedCompanies) {
+		/**
+		 * $files: an array of files selected, each file has name, size, and type.
+		 * @param fileData
+		 * @param skills
+		 * @param activeUserId
+		 */
+		function sendCVToServer(activeUserId, cvData, selectedCompanies) {
 
-	        var url = '/public/sendMail/';
+			var url = '/public/sendMail/';
 
-	        if (!utils.isEmpty(activeUserId))
+			if (!utils.isEmpty(activeUserId))
 				url += activeUserId;
 
 			return Upload.upload({
@@ -39,9 +39,9 @@ angular.module('easywork')
 				toaster.pop('error', "שגיאה ארעה בעת השליחה - אנא שלח פידבק");
 				console.log("upload finish with err" + err);
 			});
-        }
+		}
 
-        return {
-			sendMail: sendMail
+		return {
+			sendCv: sendCv
 		}
 	});

@@ -6,6 +6,7 @@
     "node": "0.12.2"
   },
   "dependencies": {
+    "aws-sdk": "^2.22.0",
     "body-parser": "^1.11.0",
     "bower": "^1.2.8",
     "cookie-parser": "^1.3.3",
@@ -32,7 +33,7 @@
     "mocha": "^2.3.4",
     "mongoose": "^4",
     "multer": "^0.1.7",
-    "nodemailer": "^1",
+    "nodemailer": "^3",
     "passport": "~0.3",
     "passport-google-oauth2": "^0.1.6",
     "passport-local": "^1.0.0",

@@ -4,24 +4,24 @@ if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development'
 // https://stackoverflow.com/questions/20433287/node-js-request-cert-has-expired/20497028#20497028
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-var express = require('express')
-	, path = require('path')
-	, passport = require('passport')
-	, userController = require('./server/controllers/userController')
-	, jobController = require('./server/controllers/jobController')
-	, cvController = require('./server/controllers/cvController')
-	, mail = require('./server/mail')
-	, companyController = require('./server/controllers/companyController')
+var express              = require('express')
+	, path               = require('path')
+	, passport           = require('passport')
+	, userController     = require('./server/controllers/userController')
+	, jobController      = require('./server/controllers/jobController')
+	, cvController       = require('./server/controllers/cvController')
+	, mail               = require('./server/services/mailService')
+	, companyController  = require('./server/controllers/companyController')
 	, feedbackController = require('./server/controllers/feedbackController')
-	, dataProxy = require('./server/controllers/dataProxy')
-    , cookieParser = require('cookie-parser')
-    , bodyParser = require('body-parser')
-    , multer  = require('multer')
-    , methodOverride = require('method-override')
-	, mongoose = require('mongoose')
-    , url = require('url')
-    , config = require('./server/config')
-	, logger = require('./server/utils/logger');
+	, dataProxy          = require('./server/controllers/dataProxy')
+	, cookieParser       = require('cookie-parser')
+	, bodyParser         = require('body-parser')
+	, multer             = require('multer')
+	, methodOverride     = require('method-override')
+	, mongoose           = require('mongoose')
+	, url                = require('url')
+	, config             = require('./server/config')
+	, logger             = require('./server/utils/logger');
 
 var ejwt = require('express-jwt');
 
@@ -30,17 +30,17 @@ require('heroku-self-ping')(config.baseUrl);
 var app = express(); // comment
 
 if (process.env.NODE_ENV === "development") {
-    var errorhandler = require('errorhandler');
-    app.use(errorhandler())
+	var errorhandler = require('errorhandler');
+	app.use(errorhandler())
 }
 
 logger.info("DB URL: " + config.dbUrl);
 logger.info("BASE URL: " + config.baseUrl);
 logger.info("DOC PARSER URL: " + config.docParserUrl);
 
-//mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;
 mongoose.connect(config.dbUrl); // comment
-mongoose.connection.on('error', function(err, req, res, next)  {
+mongoose.connection.on('error', function (err, req, res, next) {
 	logger.error("Cant connect to MongoDB - please verify that it was started.");
 });
 
@@ -103,16 +103,15 @@ app.get('/api/cv/filter', cvController.getCvsByFilter)
 app.post('/public/cv', cvController.createCv)
 app.delete('/api/cv/:id', cvController.deleteCv)
 app.put('/public/cv/analyzeCv/:id', cvController.analyzeExistingCv)
-app.post('/public/' +
-	'', feedbackController.sendFeedback)
+app.post('/public/feedback', feedbackController.sendFeedback)
 
 app.use(function (err, req, res, next) {
-	 if (err.name === 'UnauthorizedError') {
+	if (err.name === 'UnauthorizedError') {
 		res.status(403).send('[Error] - invalid token, message: ' + err.message);
 	}
 	else if (err.name === 'PermissionError') {
-		 res.status(403).send('[Error] - Permission denied!');
-	 }
+		res.status(403).send('[Error] - Permission denied!');
+	}
 });
 
 app.get('*', function (req, res) {
@@ -125,14 +124,14 @@ app.listen(app.get('port'), function () {
 
 module.exports = app;
 
-function PermissionError () {
+function PermissionError() {
 	Error.call(this, error.message);
 	Error.captureStackTrace(this, this.constructor);
 	this.name = "PermissionDenied";
 	this.status = 403;
 }
 
-function isAdmin (user) {
+function isAdmin(user) {
 	if (!user || !user.role)
 		return false;
 
