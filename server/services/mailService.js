@@ -49,7 +49,10 @@ exports.sendMail = function (req, res) {
 						return res.send("Mail was sent!");
 					})
 			}
-		});
+		})
+		.catch(function(error) {
+			return res.status(500).send("[mailService.sendMail()] - Error sending mail companies {0}, cvData {1}".format(date.selectedCompanies, cvData));
+		}) ;
 }
 
 function isObjectId(n) {
@@ -175,11 +178,12 @@ function sendEmailApi(options, callback) {
 	console.log("transport.sendMail is starting" + mailOptions);
 	return transport.sendMail(mailOptions)
 		.then(function (info) {
-			console.log("transport.sendMail was successful" + info);
-			console.log('Message sent: ' + info.response);
+			console.log("transport.sendMail was successful");
+			if (info.envelope && info.envelope.from && info.envelope.to && info.envelope.to[0])
+				console.log('from: {0}, to: {1}', info.envelop.from, info.evelope.to[0]);
 		})
 		.catch(function (error) {
-			console.log("transport.sendMail was failed" + error);
+			console.log("transport.sendMail was failed");
 			if (error)
 				console.log(error);
 		});
