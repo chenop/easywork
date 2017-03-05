@@ -20,6 +20,8 @@ function sendFeedback(req, res) {
 	if (!data.content)
 		return; // todo write error to log
 
-	mailService.sendFeedbackMail(data);
-	return res.send("success");
+	return mailService.sendFeedbackMail(data)
+		.then (function() {
+			return res.send("Feedback was sent!");
+		})
 }

@@ -21,22 +21,33 @@ exports.sendMail = function (req, res) {
 				return UserController.getUser(userId)
 					.then(function (user) {
 							if (user) {
-								sendUserCVToCompanies(user, relevantCompanies, cvData);
-								sendSummaryToUser(user, relevantCompanies, cvData);
+								return sendUserCVToCompanies(user, relevantCompanies, cvData)
+									.then(function() {
+										return sendSummaryToUser(user, relevantCompanies, cvData);
+									})
+									.then (function() {
+										return res.send("Mail was sent!");
+									})
+
 							} else {
-								sendAnonymizeUserCVToCompanies(relevantCompanies, cvData);
+								return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData)
+									.then(function () {
+										return res.send("Mail was sent!");
+									})
 							}
-							return res.send("Mail was sent!");
 						},
 						function (err) {
-							console.log(err);
-							sendAnonymizeUserCVToCompanies(relevantCompanies, cvData);
-							return res.send("Mail was sent!");
+							return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData)
+								.then (function() {
+									return res.send("Mail was sent!");
+								})
 						})
 			}
 			else {
-				sendAnonymizeUserCVToCompanies(relevantCompanies, cvData);
-				return res.send("Mail was sent!");
+				return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData)
+					.then (function() {
+						return res.send("Mail was sent!");
+					})
 			}
 		});
 }
@@ -46,7 +57,7 @@ function isObjectId(n) {
 }
 
 function sendAnonymizeUserCVToCompanies(companies, cvData) {
-	sendUserCVToCompanies({name: "anonymous"}, companies, cvData);
+	return sendUserCVToCompanies({name: "anonymous"}, companies, cvData);
 }
 
 function concatCompaniesNames(companies) {
@@ -73,7 +84,7 @@ function sendSummaryToUser(user, companies, cvData) {
 
 	var companiesNames = concatCompaniesNames(companies);
 
-	sendEmailApi({
+	return sendEmailApi({
 		to: user.email
 		, subject: 'Easy Work - CV was sent successfully!'
 		, html: "<b>Hi " + user.name + ", CV was sent to the following companies:</b><br>" + companiesNames
@@ -88,7 +99,7 @@ function sendUserCVToCompanies(user, companies, cvData) {
 		if (!company || !company.email)
 			continue;
 
-		sendEmailApi({
+		return sendEmailApi({
 			to: company.email
 			, subject: 'Easy work presents ' + user.name
 			, html: renderHtml(company._id)
@@ -113,7 +124,7 @@ function convertBase64ToBuffer(fileData) {
 }
 
 exports.sendMailCompanyWasUnpublished = function (company) {
-	sendEmailApi({
+	return sendEmailApi({
 		to: "chenop@gmail.com"
 		, subject: 'Company ' + company.name + ' was unpublished :('
 	});
@@ -128,7 +139,7 @@ exports.sendFeedbackMail = function (data) {
 	if (data.content)
 		message += data.content;
 
-	sendEmailApi({
+	return sendEmailApi({
 		to: "chenop@gmail.com"
 		, subject: 'New feedback!'
 		, message: message
@@ -139,7 +150,7 @@ function sendEmailApi(options, callback) {
 	var transport = nodemailer.createTransport({
 		SES: new aws.SES({
 			apiVersion: '2010-12-01',
-			region: "eu-west-1" 
+			region: "eu-west-1"
 		})
 	});
 
@@ -161,16 +172,14 @@ function sendEmailApi(options, callback) {
 		];
 	}
 
-	return transport.sendMail(mailOptions,
-		function (error, info) {
-			if (error) {
+	return transport.sendMail(mailOptions)
+		.then(function (info) {
+			console.log('Message sent: ' + info.response);
+		})
+		.catch(function (error) {
+			if (error)
 				console.log(error);
-			} else {
-				console.log('Message sent: ' + info.response);
-				if (callback)
-					callback();
-			};
-		}
-	)
+		});
 }
+
 exports.sendEmailApi = sendEmailApi

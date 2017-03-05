@@ -170,8 +170,10 @@ function setPublish(req, res) {
 
 	return CompanyService.getCompany(companyId)
 		.then(function (company) {
-			mailService.sendMailCompanyWasUnpublished(company);
-			return CompanyService.setPublish(company, publish)
+			return mailService.sendMailCompanyWasUnpublished(company)
+				.then(function () {
+					return CompanyService.setPublish(company, publish)
+				})
 		})
 		.then(function () {
 			return res.send();
