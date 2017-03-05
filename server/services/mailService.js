@@ -171,7 +171,6 @@ function sendEmailApi(options) {
 		];
 	}
 
-	console.log("transport.sendMail is starting" + mailOptions);
 	return transport.sendMail(mailOptions)
 		.then(function (info) {
 			console.log("transport.sendMail has succeeded");
