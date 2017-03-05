@@ -275,6 +275,18 @@ ul li {
 				border-radius: 0px;
 				margin-top: 8px;
 			}
+
+			padding-bottom: 10px;
+		}
+
+		#where-skills {
+			color: $base10;
+			opacity: 0.8;
+
+			a {
+				text-decoration: underline;
+				cursor: pointer;
+			}
 		}
 	}
 

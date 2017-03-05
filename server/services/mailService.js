@@ -139,13 +139,13 @@ function sendEmailApi(options, callback) {
 	var transport = nodemailer.createTransport({
 		SES: new aws.SES({
 			apiVersion: '2010-12-01',
-			region: "eu-west-1"
+			region: "eu-west-1" 
 		})
 	});
 
 	// send some mail
 	var mailOptions = {
-		from: "chenop@gmail.com", // TODO currently on "sandbox" mode but this should be replaced with the following: options.from || "chenop@gmail.com",
+		from: options.from || "chenop@gmail.com",
 		to: options.to,
 		subject: options.subject,
 		text: options.message,
