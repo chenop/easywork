@@ -6,42 +6,32 @@ var nodemailer       = require("nodemailer")
 	, path           = require('path')
 	, AppManager     = require('./../appManager');
 
-const util = require('util');
-
 // Import the AWS SDK
 var aws = require('aws-sdk');
 
 exports.sendMail = function (req, res) {
 	// create reusable transport method (opens pool of SMTP connections)
-	console.log("sendMail starts");
 	var userId = req.params.id;
 	var data = req.body;
 	var cvData = data.cvData;
 
 	return AppManager.getRelevantCompanies(data.selectedCompanies, cvData)
 		.then(function (relevantCompanies) {
-			console.log("sendMail check1");
 			if (isObjectId(userId)) {
 				return UserController.getUser(userId)
 					.then(function (user) {
-							console.log("sendMail check2");
 							if (user) {
-								console.log("sendMail check-2a");
 								return sendUserCVToCompanies(user, relevantCompanies, cvData)
 									.then(function() {
-										console.log("sendMail check-2a-i");
 										return sendSummaryToUser(user, relevantCompanies, cvData);
 									})
 									.then (function() {
-										console.log("sendMail check-2a-ii");
 										return res.send("Mail was sent!");
 									})
 
 							} else {
-								console.log("sendMail check-2b");
 								return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData)
 									.then(function () {
-										console.log("sendMail check-2b-end");
 										return res.send("Mail was sent!");
 									})
 							}
@@ -57,9 +47,6 @@ exports.sendMail = function (req, res) {
 		.catch(function(error) {
 			if (error)
 				console.log(error);
-			if (error.message)
-				console.log(error.message);
-			console.log("sendMail general error");
 			return res.status(500).send("[mailService.sendMail()] - Error sending mail companies {0}, cvData {1}, error: " .format(date.selectedCompanies, cvData, error));
 		}) ;
 }
@@ -110,11 +97,6 @@ function sendUserCVToCompanies(user, companies, cvData) {
 
 		if (!company || !company.email)
 			continue;
-
-		console.log("company.email: " + company.email);
-		console.log("company._id: " + company._id);
-		console.log("user.name: " + user.name);
-		console.log("html: " + renderHtml(company._id));
 
 		return sendEmailApi({
 			to: company.email
@@ -180,15 +162,6 @@ function sendEmailApi(options) {
 		html: options.html
 	};
 
-	console.log("mailOptions");
-	console.log("from:" + mailOptions.from);
-	console.log("to:" + mailOptions.to);
-	console.log("subject:" + mailOptions.subject);
-	console.log("text:" + mailOptions.text);
-	console.log("html:" + mailOptions.html);
-
-	console.log(util.inspect(options.cvData));
-
 	if (options.cvData) {
 		mailOptions.attachments = [
 			{
@@ -201,12 +174,12 @@ function sendEmailApi(options) {
 	console.log("transport.sendMail is starting" + mailOptions);
 	return transport.sendMail(mailOptions)
 		.then(function (info) {
-			console.log("transport.sendMail was successful");
+			console.log("transport.sendMail has succeeded");
 			if (info.envelope && info.envelope.from && info.envelope.to && info.envelope.to[0])
-				console.log('from: {0}, to: {1}', info.envelope.from, info.envelope.to[0]);
+				console.log('from: {0}, to: {1}'.format(info.envelope.from, info.envelope.to[0]));
 		})
 		.catch(function (error) {
-			console.log("transport.sendMail was failed");
+			console.log("transport.sendMail has failed");
 			if (error)
 				console.log(error);
 		});
