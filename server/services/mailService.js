@@ -60,7 +60,7 @@ exports.sendMail = function (req, res) {
 			if (error.message)
 				console.log(error.message);
 			console.log("sendMail general error");
-			return res.status(500).send("[mailService.sendMail()] - Error sending mail companies {0}, cvData {1}".format(date.selectedCompanies, cvData));
+			return res.status(500).send("[mailService.sendMail()] - Error sending mail companies {0}, cvData {1}, error: " .format(date.selectedCompanies, cvData, error));
 		}) ;
 }
 
