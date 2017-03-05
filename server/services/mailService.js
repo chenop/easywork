@@ -172,11 +172,14 @@ function sendEmailApi(options, callback) {
 		];
 	}
 
+	console.log("transport.sendMail is starting" + mailOptions);
 	return transport.sendMail(mailOptions)
 		.then(function (info) {
+			console.log("transport.sendMail was successful" + info);
 			console.log('Message sent: ' + info.response);
 		})
 		.catch(function (error) {
+			console.log("transport.sendMail was failed" + error);
 			if (error)
 				console.log(error);
 		});
