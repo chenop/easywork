@@ -3,7 +3,8 @@
   "private": true,
   "version": "0.0.1",
   "engines": {
-    "node": "6.10.0"
+    "node": "6.10.0",
+    "npm": "3.10.9"
   },
   "dependencies": {
     "aws-sdk": "^2.22.0",
