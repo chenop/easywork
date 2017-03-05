@@ -11,16 +11,20 @@ var aws = require('aws-sdk');
 
 exports.sendMail = function (req, res) {
 	// create reusable transport method (opens pool of SMTP connections)
+	console.log("sendMail starts");
 	var userId = req.params.id;
 	var data = req.body;
 	var cvData = data.cvData;
 
 	return AppManager.getRelevantCompanies(data.selectedCompanies, cvData)
 		.then(function (relevantCompanies) {
+			console.log("sendMail check1");
 			if (isObjectId(userId)) {
 				return UserController.getUser(userId)
 					.then(function (user) {
+							console.log("sendMail check2");
 							if (user) {
+								console.log("sendMail check-2a");
 								return sendUserCVToCompanies(user, relevantCompanies, cvData)
 									.then(function() {
 										return sendSummaryToUser(user, relevantCompanies, cvData);
@@ -30,17 +34,13 @@ exports.sendMail = function (req, res) {
 									})
 
 							} else {
+								console.log("sendMail check-2b");
 								return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData)
 									.then(function () {
+										console.log("sendMail check-2b-end");
 										return res.send("Mail was sent!");
 									})
 							}
-						},
-						function (err) {
-							return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData)
-								.then (function() {
-									return res.send("Mail was sent!");
-								})
 						})
 			}
 			else {
@@ -51,6 +51,7 @@ exports.sendMail = function (req, res) {
 			}
 		})
 		.catch(function(error) {
+			console.log("sendMail general error");
 			return res.status(500).send("[mailService.sendMail()] - Error sending mail companies {0}, cvData {1}".format(date.selectedCompanies, cvData));
 		}) ;
 }
