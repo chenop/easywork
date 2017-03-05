@@ -6,6 +6,8 @@ var nodemailer       = require("nodemailer")
 	, path           = require('path')
 	, AppManager     = require('./../appManager');
 
+const util = require('util');
+
 // Import the AWS SDK
 var aws = require('aws-sdk');
 
@@ -27,9 +29,11 @@ exports.sendMail = function (req, res) {
 								console.log("sendMail check-2a");
 								return sendUserCVToCompanies(user, relevantCompanies, cvData)
 									.then(function() {
+										console.log("sendMail check-2a-i");
 										return sendSummaryToUser(user, relevantCompanies, cvData);
 									})
 									.then (function() {
+										console.log("sendMail check-2a-ii");
 										return res.send("Mail was sent!");
 									})
 
@@ -103,6 +107,11 @@ function sendUserCVToCompanies(user, companies, cvData) {
 		if (!company || !company.email)
 			continue;
 
+		console.log("company.email: " + company.email);
+		console.log("company._id: " + company._id);
+		console.log("user.name: " + user.name);
+		console.log("html: " + renderHtml(company._id));
+
 		return sendEmailApi({
 			to: company.email
 			, subject: 'Easy work presents ' + user.name
@@ -150,7 +159,7 @@ exports.sendFeedbackMail = function (data) {
 	});
 }
 
-function sendEmailApi(options, callback) {
+function sendEmailApi(options) {
 	var transport = nodemailer.createTransport({
 		SES: new aws.SES({
 			apiVersion: '2010-12-01',
@@ -167,6 +176,15 @@ function sendEmailApi(options, callback) {
 		html: options.html
 	};
 
+	console.log("mailOptions");
+	console.log("from:" + mailOptions.from);
+	console.log("to:" + mailOptions.to);
+	console.log("subject:" + mailOptions.subject);
+	console.log("text:" + mailOptions.text);
+	console.log("html:" + mailOptions.html);
+
+	console.log(util.inspect(options.cvData));
+
 	if (options.cvData) {
 		mailOptions.attachments = [
 			{
@@ -181,7 +199,7 @@ function sendEmailApi(options, callback) {
 		.then(function (info) {
 			console.log("transport.sendMail was successful");
 			if (info.envelope && info.envelope.from && info.envelope.to && info.envelope.to[0])
-				console.log('from: {0}, to: {1}', info.envelop.from, info.evelope.to[0]);
+				console.log('from: {0}, to: {1}', info.envelope.from, info.envelope.to[0]);
 		})
 		.catch(function (error) {
 			console.log("transport.sendMail was failed");
