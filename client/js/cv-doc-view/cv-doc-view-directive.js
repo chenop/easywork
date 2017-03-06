@@ -2,7 +2,7 @@
  * Created by Chen.Oppenhaim on 1/8/2017.
  */
 angular.module('easywork')
-	.directive('cvDocView', function (cvService, dataManager, Upload, localStorageService, utils, ANONYMOUS) {
+	.directive('cvDocView', function (cvService, dataManager) {
 		return {
 			restrict: 'E',
 			scope: {
