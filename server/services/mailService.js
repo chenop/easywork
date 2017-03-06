@@ -177,8 +177,7 @@ function sendEmailApi(options) {
 	return transport.sendMail(mailOptions)
 		.then(function (info) {
 			logger.info("transport.sendMail has succeeded");
-			if (info.envelope && info.envelope.from && info.envelope.to && info.envelope.to[0])
-				logger.info(util.format('from: %s, to: %s', info.envelope.from, info.envelope.to[0]));
+			logger.info(util.format('from: %s, to: %s, subject: %s', mailOptions.from, mailOptions.to, mailOptions.subject));
 		})
 		.catch(function (error) {
 			logger.log("transport.sendMail has failed");
