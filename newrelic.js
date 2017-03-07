@@ -10,7 +10,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name: easywork,
+  app_name: "easywork",
   /**
    * Your New Relic license key.
    */
