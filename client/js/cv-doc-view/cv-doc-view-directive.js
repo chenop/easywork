@@ -13,7 +13,10 @@ angular.module('easywork')
 				var cvId = $scope.cv.id;
 				$scope.isIframeLoading = true;
 				//$scope.url = "http://docs.google.com/gview?url=http://www.easywork.co.il/public/cv/download/" + cvId + "&embedded=true";
-				$scope.url = "https://docs.google.com/viewerng/viewer?url=http://www.easywork.co.il/public/cv/download/" + cvId + "&embedded=true";
+				//$scope.url = "https://docs.google.com/viewerng/viewer?url=http://www.easywork.co.il/public/cv/download/" + cvId + "&embedded=true";
+
+				// http://stackoverflow.com/questions/27957766/how-to-render-word-documentdoc-docx-in-browser-using-javascript
+				$scope.url = "https://view.officeapps.live.com/op/embed.aspx?src=http://www.easywork.co.il/public/cv/download/" + cvId + "&embedded=true";
 
 				$scope.trustSrc = function(src) {
 					return $sce.trustAsResourceUrl(src);
