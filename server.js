@@ -1,4 +1,5 @@
-require('newrelic');
+//require('newrelic');
+console.log("process.env.NODE_ENV: " + process.env.NODE_ENV);
 if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development'
 
 // To enable sending mail

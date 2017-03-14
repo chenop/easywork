@@ -47,6 +47,6 @@ jspm_packages
 
 # IntelliJ project files
 #.idea
-*.iml
+#*.iml
 out
 gen
