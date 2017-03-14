@@ -149,9 +149,9 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
 
-        cssFiles: generateFilesList(cssFiles, minifiedCssFile, "css"),
-        vendorJsFiles: generateFilesList(vendorJsFiles, minifiedVendorsFile, "js"),
-        appJsFiles: generateFilesList(appJsFiles, minifiedAppFile, "js"),
+        cssFiles: generateFilesList(cssFiles, minifiedCssFile, "css", true),
+        vendorJsFiles: generateFilesList(vendorJsFiles, minifiedVendorsFile, "js", true),
+        appJsFiles: generateFilesList(appJsFiles, minifiedAppFile, "js", true),
 
         express: { // Start Express server
             options: {
