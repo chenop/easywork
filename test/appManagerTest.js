@@ -1,10 +1,11 @@
 'use strict';
 
+var utils = require('./testUtils');
+
 var CompanyService = require('../server/services/companyService');
 var JobService = require('../server/services/jobService');
 var AppManager = require('../server/appManager');
 
-var utils = require('./testUtils');
 var expect = require('chai').expect;
 
 describe.skip('appManager', function () {
