@@ -9,7 +9,7 @@ var CompanyModel = require('../server/models/company');
 var utils = require('./testUtils');
 var should = require('chai').should();
 
-describe.skip('Company service', function () {
+describe('Company service', function () {
     this.timeout(utils.TIMEOUT);
     describe('CRUD operations', function () {
         describe('Create', function () {
