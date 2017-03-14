@@ -9,8 +9,8 @@ var PRODUCTION_DB = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/herok
 var LOCALHOST_ADDRESS = 'http://localhost:3000';
 var PRODUCTION_ADDRESS = 'http://www.easywork.co.il';
 
-var LOCALHOST_DOC_PARSER = 'http://localhost:8080/webapi/files/upload';
-var PRODUCTION_DOC_PARSER = 'http://doc-parser.herokuapp.com/webapi/files/upload';
+var LOCALHOST_DOC_PARSER = 'http://localhost:8080/webapi/';
+var PRODUCTION_DOC_PARSER = 'http://doc-parser.herokuapp.com/webapi/';
 
 if (!module.exports.dbUrl)
     init();

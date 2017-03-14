@@ -1,15 +1,16 @@
-var CompanyService = require('./services/companyService');
-var JobService = require('./services/jobService');
-
+var JobService 		= require('./services/jobService');
+var docParserApi 	= require('./api/docParserApi');
+var logger          = require('./server/utils/logger');
 /***********
  * Public
  ***********/
 module.exports = {
-	getRelevantCompanies: getRelevantCompanies
+	getRelevantCompanies: getRelevantCompanies,
+	wakeupDocParser: wakeupDocParser
 }
 
 /***********
- * Private
+ * Public
  ***********/
 function getRelevantCompanies(companies, cvData) {
 	var relevantCompanies = [];
@@ -30,4 +31,9 @@ function getRelevantCompanies(companies, cvData) {
 	return Promise.all(promises).then(function() {
 		return relevantCompanies;
 	})
+}
+
+function wakeupDocParser() {
+	logger.info("Waking up DocParser");
+	return docParserApi.wakeupDocParser();
 }

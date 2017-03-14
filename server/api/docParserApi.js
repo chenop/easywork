@@ -9,7 +9,8 @@ var config = require('../config');
  * Public
  ***********/
 module.exports = {
-    analyzeCv: analyzeCv
+    analyzeCv: analyzeCv,
+	wakeupDocParser: wakeupDocParser
 }
 
 
@@ -22,7 +23,7 @@ function analyzeCv(fileName, fileData) {
 
     var options = {
         method: 'POST',
-        uri: config.docParserUrl,
+        uri: config.docParserUrl + 'files/upload',
         formData: formData,
         headers: {
             'content-type': 'multipart/form-data' // Set automatically
@@ -44,3 +45,14 @@ function analyzeCv(fileName, fileData) {
         });
 }
 
+function wakeupDocParser() {
+	var options = {
+		method: 'GET',
+		uri: config.docParserUrl + 'files/wakeup'
+	};
+
+	return rp(options)
+		.catch(function (err) {
+			console.log(err);
+		});
+}

@@ -126,6 +126,16 @@ describe('appManager', function () {
 						});
 				});
 		})
+	});
 
+	describe('General', function () {
+		it('Wake up DocParser', function (done) {
+			// Create Companies
+
+			return AppManager.wakeupDocParser()
+				.then(function(result) {
+					done();
+				})
+		})
 	});
 });

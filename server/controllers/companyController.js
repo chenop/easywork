@@ -13,7 +13,8 @@ var Company          = require('../models/company')
 	, utils          = require('../utils/utils')
 	, fs             = require('fs')
 	, googleApis     = require('../api/googleApis')
-	, mailService    = require('../services/mailService');
+	, mailService    = require('../services/mailService')
+	, appManager	 = require('../appManager');
 
 module.exports = {
 	createCompany: createCompany
@@ -56,6 +57,9 @@ function createCompany(req, res) {
 }
 
 function getCompanies(req, res) {
+	// Wake up docParser
+	appManager.wakeupDocParser();
+
 	var showPublishOnly = Boolean(req.query.showPublishOnly);
 
 	return CompanyService.getCompanies(showPublishOnly)
