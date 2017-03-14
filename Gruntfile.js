@@ -25,7 +25,6 @@ module.exports = function (grunt) {
         , 'client/lib/angular/angular.js'
         , 'client/lib/angular-cookies/angular-cookies.js'
         , 'client/lib/angular-animate/angular-animate.js'
-        , 'client/lib/angular-sanitize/angular-sanitize.js'
         , 'client/lib/angular-messages/angular-messages.js'
         , 'client/lib/bootstrap/dist/js/bootstrap.js'
         , 'client/lib/angular-bootstrap/ui-bootstrap-tpls.js'
