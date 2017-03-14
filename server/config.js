@@ -16,7 +16,6 @@ if (!module.exports.dbUrl)
     init();
 
 function init() {
-	console.log("process.env.NODE_ENV: " + process.env.NODE_ENV);
     module.exports.secret = 'zipori';
 
     switch (process.env.NODE_ENV) {

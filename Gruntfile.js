@@ -271,7 +271,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', ['express:dev', 'watch']);
     grunt.registerTask('dev', ['template']);
-    grunt.registerTask('prod', ['clean', 'template', 'cssmin', 'ngAnnotate', 'uglify:prod']);
+    grunt.registerTask('prod', ['template']);
+    //grunt.registerTask('prod', ['clean', 'template', 'cssmin', 'ngAnnotate', 'uglify:prod']);
     // grunt.registerTask('runTemplate', ['clean', 'template']);
 };
 

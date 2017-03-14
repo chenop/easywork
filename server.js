@@ -1,7 +1,8 @@
-//require('newrelic');
-if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development'
-console.log("process.env.NODE_ENV: " + process.env.NODE_ENV);
+require('newrelic');
+if (!process.env.NODE_ENV)
+	process.env.NODE_ENV = 'development'
 
+console.log("process.env.NODE_ENV: " + process.env.NODE_ENV);
 
 // To enable sending mail
 // https://stackoverflow.com/questions/20433287/node-js-request-cert-has-expired/20497028#20497028
