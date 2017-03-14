@@ -4,7 +4,10 @@ var nodemailer       = require("nodemailer")
 	, mongoose       = require('mongoose')
 	, UserController = require('./userService')
 	, path           = require('path')
-	, AppManager     = require('./../appManager');
+	, AppManager     = require('./../appManager')
+	, logger         = require('../utils/logger')
+	, util           = require('util')
+;
 
 // Import the AWS SDK
 var aws = require('aws-sdk');
@@ -46,7 +49,7 @@ exports.sendMail = function (req, res) {
 		})
 		.catch(function(error) {
 			if (error)
-				console.log(error);
+				logger.error(error);
 			return res.status(500).send("[mailService.sendMail()] - Error sending mail companies {0}, cvData {1}, error: " .format(date.selectedCompanies, cvData, error));
 		}) ;
 }
@@ -173,14 +176,13 @@ function sendEmailApi(options) {
 
 	return transport.sendMail(mailOptions)
 		.then(function (info) {
-			console.log("transport.sendMail has succeeded");
-			if (info.envelope && info.envelope.from && info.envelope.to && info.envelope.to[0])
-				console.log('from: {0}, to: {1}'.format(info.envelope.from, info.envelope.to[0]));
+			logger.info("transport.sendMail has succeeded");
+			logger.info(util.format('from: %s, to: %s, subject: %s', mailOptions.from, mailOptions.to, mailOptions.subject));
 		})
 		.catch(function (error) {
-			console.log("transport.sendMail has failed");
+			logger.log("transport.sendMail has failed");
 			if (error)
-				console.log(error);
+				logger.error(error);
 		});
 }
 

@@ -57,8 +57,9 @@ function deleteUser(id) {
     return User.remove({_id: id}).exec();
 }
 
-function getUser(userId) {
-    return User.findById(userId).populate('cv', '-fileData -fileType').populate("company").exec();
+function getUser(userId, shouldFetchFullCvData) {
+	var cvDataCondition = shouldFetchFullCvData ? "" : "-fileData -fileType";
+    return User.findById(userId).populate('cv', cvDataCondition).populate("company").exec();
 }
 
 function getUsers() {
@@ -78,7 +79,7 @@ function findUserByEmail(email) {
 }
 
 function getCvByUserId(userId) {
-    return getUser(userId)
+    return getUser(userId, true)
         .then(function (user) {
             return user.cv;
         });

@@ -8,7 +8,7 @@ angular.module('easywork')
 
         function getCvByUserId(userId) {
             var cv = localStorageService.get(userId)
-            if (cv)
+            if (isCvValid(cv))
                 return Promise.resolve(cv);
 
             if (!isValidUserId(userId)) {
@@ -22,6 +22,10 @@ angular.module('easywork')
                 .catch(function () {
                     return Promise.reject();
                 })
+        }
+
+        function isCvValid(cv) {
+            return cv && cv.fileData && cv.fileName;
         }
 
         function isValidUserId(userId) {
