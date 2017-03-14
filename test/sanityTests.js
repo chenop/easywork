@@ -9,7 +9,7 @@ var app = require('../server');
 
 var server = supertest.agent(app);
 
-describe.skip("Sanity tests", function () {
+describe("Sanity tests", function () {
 
     // #1 should return home page
     it("should return home page", function (done) {

@@ -130,6 +130,7 @@ describe('appManager', function () {
 	});
 
 	describe('General', function () {
+		this.timeout(50000);
 		it('Wake up DocParser', function (done) {
 			// Create Companies
 
