@@ -3,7 +3,6 @@
  */
 var utils = require('./testUtils');
 var mailService = require('../server/services/mailService');
-var config = require('../server/config');
 
 describe('Mail Service', function () {
 	this.timeout(utils.TIMEOUT);
