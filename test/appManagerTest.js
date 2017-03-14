@@ -8,7 +8,7 @@ var AppManager = require('../server/appManager');
 
 var expect = require('chai').expect;
 
-describe.skip('appManager', function () {
+describe('appManager', function () {
 	this.timeout(utils.TIMEOUT);
 	describe('getRelevantCompanies', function () {
 		it('Given all companies allowAllCvs Then return all companies', function (done) {
