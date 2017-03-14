@@ -8,7 +8,7 @@ var CvService = require('../server/services/cvService');
 var utils = require('./testUtils');
 var should = require('chai').should();
 
-describe.skip('Skill service', function () {
+describe('Skill service', function () {
 	this.timeout(utils.TIMEOUT);
 	it('should return all skills', function (done) {
 		var newCv1 = utils.createMockedCvPlainObject(["GUI", "JavaScript"]);

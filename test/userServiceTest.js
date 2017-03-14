@@ -12,7 +12,7 @@ var utils = require('./testUtils');
 var should = require('chai').should();
 var expect = require('chai').expect;
 
-describe.skip('User service - Testing CRUD operations', function () {
+describe('User service - Testing CRUD operations', function () {
     this.timeout(utils.TIMEOUT);
     describe('Create', function () {
         it('should return the user after created', function () {

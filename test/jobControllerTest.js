@@ -9,7 +9,7 @@ var app = require('../server');
 
 var server = supertest.agent(app);
 
-describe.skip("Job controller", function () {
+describe("Job controller", function () {
     this.timeout(utils.TIMEOUT);
 
     var token = null;

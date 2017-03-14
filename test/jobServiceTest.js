@@ -10,7 +10,7 @@ var utils = require('./testUtils');
 var should = require('chai').should;
 var expect = require('chai').expect;
 
-describe.skip('Job service - Testing CRUD operations', function () {
+describe('Job service - Testing CRUD operations', function () {
 	this.timeout(utils.TIMEOUT);
 	describe('Create', function () {
 		it('should return the job after created', function () {
