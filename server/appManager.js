@@ -1,6 +1,6 @@
 var JobService 		= require('./services/jobService');
 var docParserApi 	= require('./api/docParserApi');
-var logger          = require('./server/utils/logger');
+var logger          = require('./utils/logger');
 /***********
  * Public
  ***********/
