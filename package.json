@@ -53,7 +53,7 @@
   "scripts": {
     "start": "node server.js",
     "postinstall": "bower install && grunt prod",
-    "test": "set NODE_ENV=test && mocha",
+    "test": "set NODE_ENV=test&& mocha", // no space! test&& http://stackoverflow.com/questions/25112510/how-to-set-environment-variables-from-within-package-json-node-js
     "dev": "grunt dev --environment development"
   },
   "description": "Easywork: Building an App with AngularJS, Express andNode.js\r ============================================================",
