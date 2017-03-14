@@ -149,9 +149,9 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
 
-        cssFiles: generateFilesList(cssFiles, minifiedCssFile, "css", true),
-        vendorJsFiles: generateFilesList(vendorJsFiles, minifiedVendorsFile, "js", true),
-        appJsFiles: generateFilesList(appJsFiles, minifiedAppFile, "js", true),
+        cssFiles: generateFilesList(cssFiles, minifiedCssFile, "css"),
+        vendorJsFiles: generateFilesList(vendorJsFiles, minifiedVendorsFile, "js"),
+        appJsFiles: generateFilesList(appJsFiles, minifiedAppFile, "js"),
 
         express: { // Start Express server
             options: {
@@ -271,8 +271,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', ['express:dev', 'watch']);
     grunt.registerTask('dev', ['template']);
-    grunt.registerTask('prod', ['template']);
-    //grunt.registerTask('prod', ['clean', 'template', 'cssmin', 'ngAnnotate', 'uglify:prod']);
+    grunt.registerTask('prod', ['clean', 'template', 'cssmin', 'ngAnnotate', 'uglify:prod']);
     // grunt.registerTask('runTemplate', ['clean', 'template']);
 };
 
