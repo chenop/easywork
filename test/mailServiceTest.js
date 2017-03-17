@@ -11,8 +11,8 @@ describe('Mail Service', function () {
 	it.only('Send Email', function (done) {
 		mailService.sendEmailApi({
 			from: "webmaster@easywork.co.il",
-			to: "chenop@gmail.com" // "success@simulator.amazonses.com"
-			, subject: "webmaster@easywork.co.il was tested!"
+			to: "webmaster@easywork.co.il" // "success@simulator.amazonses.com"
+			, subject: "webmaster@easywork.co.il is working"
 			, message: "test worked!"
 		})
 		.then(done);
