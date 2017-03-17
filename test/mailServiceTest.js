@@ -8,11 +8,11 @@ describe('Mail Service', function () {
 	this.timeout(utils.TIMEOUT);
 
 
-	it('Send Email', function (done) {
+	it.only('Send Email', function (done) {
 		mailService.sendEmailApi({
-			from: "chenop@gmail.com",
+			from: "webmaster@easywork.co.il",
 			to: "chenop@gmail.com" // "success@simulator.amazonses.com"
-			, subject: "amazon test123"
+			, subject: "webmaster@easywork.co.il was tested!"
 			, message: "test worked!"
 		})
 		.then(done);

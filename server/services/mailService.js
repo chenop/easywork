@@ -11,7 +11,7 @@ var nodemailer       = require("nodemailer")
 
 // Import the AWS SDK
 var aws = require('aws-sdk');
-
+var FROM_EMAIL = "webmaster@easywork.co.il";
 exports.sendMail = function (req, res) {
 	// create reusable transport method (opens pool of SMTP connections)
 	var userId = req.params.id;
@@ -158,7 +158,7 @@ function sendEmailApi(options) {
 
 	// send some mail
 	var mailOptions = {
-		from: options.from || "chenop@gmail.com",
+		from: options.from || FROM_EMAIL,
 		to: options.to,
 		subject: options.subject,
 		text: options.message,
