@@ -5,6 +5,7 @@ var nodemailer       = require("nodemailer")
 	, UserController = require('./userService')
 	, path           = require('path')
 	, AppManager     = require('./../appManager')
+	, config         = require('./../config')
 	, logger         = require('../utils/logger')
 	, util           = require('util')
 ;
@@ -128,7 +129,7 @@ exports.sendSummaryToUser = sendSummaryToUser;
 
 function renderHtml(companyId) {
 	var html = "<b>Hi, Please see CV Attached</b>";
-	var unsuscribeLink = "http://localhost:3000/company/" + companyId + "/unsuscribe";
+	var unsuscribeLink = config.baseUrl + "/company/" + companyId + "/unsuscribe";
 	html += '<span  style="font-size: xx-small; color: gray; "><br><br>Disclaimer:<br>This mail was send from http://www.easywork.co.il<br>This mail is not an advertisment.<br>If you would like to stop getting CVs from Easy-Work,<br>please <a href=' + unsuscribeLink + '>unsuscribe</a>.';
 	return html;
 }
