@@ -129,8 +129,8 @@ exports.sendSummaryToUser = sendSummaryToUser;
 
 function renderHtml(companyId) {
 	var html = "<b>Hi, Please see CV Attached</b>";
-	var unsuscribeLink = config.baseUrl + "/company/" + companyId + "/unsuscribe";
-	html += '<span  style="font-size: xx-small; color: gray; "><br><br>Disclaimer:<br>This mail was send from http://www.easywork.co.il<br>This mail is not an advertisment.<br>If you would like to stop getting CVs from Easy-Work,<br>please <a href=' + unsuscribeLink + '>unsuscribe</a>.';
+	var unsubscribeLink = config.baseUrl + "/company/" + companyId + "/unsuscribe";
+	html += '<span  style="font-size: xx-small; color: gray; "><br><br>Disclaimer:<br>This mail was send from http://www.easywork.co.il<br>This mail is not an advertisment.<br>If you would like to stop getting CVs from Easy-Work,<br>please <a href=' + unsubscribeLink + '>unsuscribe</a>.';
 	return html;
 }
 

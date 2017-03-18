@@ -3,7 +3,7 @@
  */
 
 angular.module("easywork")
-.controller("unsuscribe-controller", function($stateParams, dataManager, $scope) {
+.controller("unsubscribeController", function($stateParams, dataManager, $scope) {
     var companyId = $stateParams.companyId;
 
     dataManager.getCompany(companyId)

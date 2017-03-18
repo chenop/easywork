@@ -8,7 +8,7 @@ describe('Mail Service', function () {
 	this.timeout(utils.TIMEOUT);
 
 
-	it.only('Send Email', function (done) {
+	it('Send Email', function (done) {
 		mailService.sendEmailApi({
 			from: "webmaster@easywork.co.il",
 			to: "webmaster@easywork.co.il" // "success@simulator.amazonses.com"
