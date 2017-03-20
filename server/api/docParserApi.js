@@ -23,7 +23,7 @@ function analyzeCv(fileName, fileData) {
 
     var options = {
         method: 'POST',
-        uri: config.docParserUrl + 'files/upload',
+        uri: config.docParserUrl + '/upload',
         formData: formData,
         headers: {
             'content-type': 'multipart/form-data' // Set automatically
@@ -48,7 +48,7 @@ function analyzeCv(fileName, fileData) {
 function wakeupDocParser() {
 	var options = {
 		method: 'GET',
-		uri: config.docParserUrl + 'files/wakeup'
+		uri: config.docParserUrl + '/wakeup'
 	};
 
 	return rp(options)
