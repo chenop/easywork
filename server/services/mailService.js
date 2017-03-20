@@ -5,21 +5,26 @@ var nodemailer       = require("nodemailer")
 	, UserController = require('./userService')
 	, path           = require('path')
 	, AppManager     = require('./../appManager')
+	, config         = require('./../config')
 	, logger         = require('../utils/logger')
 	, util           = require('util')
 ;
 
 // Import the AWS SDK
 var aws = require('aws-sdk');
+var FROM_EMAIL = "webmaster@easywork.co.il";
+var WEBMASTER_EMAIL = "webmaster@easywork.co.il";
 
 exports.sendMail = function (req, res) {
 	// create reusable transport method (opens pool of SMTP connections)
 	var userId = req.params.id;
 	var data = req.body;
 	var cvData = data.cvData;
+	var companies;
 
 	return AppManager.getRelevantCompanies(data.selectedCompanies, cvData)
 		.then(function (relevantCompanies) {
+			companies = relevantCompanies;
 			if (isObjectId(userId)) {
 				return UserController.getUser(userId)
 					.then(function (user) {
@@ -28,30 +33,38 @@ exports.sendMail = function (req, res) {
 									.then(function() {
 										return sendSummaryToUser(user, relevantCompanies, cvData);
 									})
-									.then (function() {
-										return res.send("Mail was sent!");
-									})
-
 							} else {
 								return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData)
-									.then(function () {
-										return res.send("Mail was sent!");
-									})
 							}
 						})
 			}
 			else {
 				return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData)
-					.then (function() {
-						return res.send("Mail was sent!");
-					})
 			}
+		})
+		.then (function() {
+			if (companies)
+				return notifyWebmaster(companies, cvData);
+		})
+		.then (function() {
+			return res.send("Mail was sent!");
 		})
 		.catch(function(error) {
 			if (error)
 				logger.error(error);
 			return res.status(500).send("[mailService.sendMail()] - Error sending mail companies {0}, cvData {1}, error: " .format(date.selectedCompanies, cvData, error));
 		}) ;
+}
+
+function notifyWebmaster(companies, cvData) {
+	var companiesNames = concatCompaniesNames(companies);
+
+	return sendEmailApi({
+		to: WEBMASTER_EMAIL
+		, subject: 'Webmaster Summary - CV was sent successfully!'
+		, html: "<b>A CV was sent to the following companies:</b><br>" + companiesNames
+		, cvData: cvData
+	});
 }
 
 function isObjectId(n) {
@@ -116,8 +129,8 @@ exports.sendSummaryToUser = sendSummaryToUser;
 
 function renderHtml(companyId) {
 	var html = "<b>Hi, Please see CV Attached</b>";
-	var unsuscribeLink = "http://localhost:3000/company/" + companyId + "/unsuscribe";
-	html += '<span  style="font-size: xx-small; color: gray; "><br><br>Disclaimer:<br>This mail was send from http://www.easywork.co.il<br>This mail is not an advertisment.<br>If you would like to stop getting CVs from Easy-Work,<br>please <a href=' + unsuscribeLink + '>unsuscribe</a>.';
+	var unsubscribeLink = config.baseUrl + "/company/" + companyId + "/unsuscribe";
+	html += '<span  style="font-size: xx-small; color: gray; "><br><br>Disclaimer:<br>This mail was send from http://www.easywork.co.il<br>This mail is not an advertisment.<br>If you would like to stop getting CVs from Easy-Work,<br>please <a href=' + unsubscribeLink + '>unsuscribe</a>.';
 	return html;
 }
 
@@ -127,7 +140,7 @@ function convertBase64ToBuffer(fileData) {
 
 exports.sendMailCompanyWasUnpublished = function (company) {
 	return sendEmailApi({
-		to: "chenop@gmail.com"
+		to: WEBMASTER_EMAIL
 		, subject: 'Company ' + company.name + ' was unpublished :('
 	});
 }
@@ -142,7 +155,7 @@ exports.sendFeedbackMail = function (data) {
 		message += data.content;
 
 	return sendEmailApi({
-		to: "chenop@gmail.com"
+		to: WEBMASTER_EMAIL
 		, subject: 'New feedback!'
 		, message: message
 	});
@@ -158,7 +171,7 @@ function sendEmailApi(options) {
 
 	// send some mail
 	var mailOptions = {
-		from: options.from || "chenop@gmail.com",
+		from: options.from || FROM_EMAIL,
 		to: options.to,
 		subject: options.subject,
 		text: options.message,

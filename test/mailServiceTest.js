@@ -10,9 +10,9 @@ describe('Mail Service', function () {
 
 	it('Send Email', function (done) {
 		mailService.sendEmailApi({
-			from: "chenop@gmail.com",
-			to: "chenop@gmail.com" // "success@simulator.amazonses.com"
-			, subject: "amazon test123"
+			from: "webmaster@easywork.co.il",
+			to: "webmaster@easywork.co.il" // "success@simulator.amazonses.com"
+			, subject: "webmaster@easywork.co.il is working"
 			, message: "test worked!"
 		})
 		.then(done);
