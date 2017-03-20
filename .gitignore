@@ -3,6 +3,7 @@ client/lib/
 .idea/workspace.xml
 .idea/tasks.xml
 client/index.html
+client/dist
 
 ### Node template
 # Logs
