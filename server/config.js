@@ -6,11 +6,11 @@ var logger = require('./utils/logger');
 var TEST_DB_URL = "mongodb://chenop:selavi99@ds039185.mongolab.com:39185/heroku_hjgps9xv";
 var PRODUCTION_DB = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
 
-var LOCALHOST_ADDRESS = 'http://localhost:3000';
-var PRODUCTION_ADDRESS = 'http://www.easywork.co.il';
+var DEVELOPMENT_ADDRESS = 'http://localhost:3000';
+var DEVELOPMENT_DOC_PARSER = 'http://localhost:4200/webapi';
 
-var LOCALHOST_DOC_PARSER = 'http://localhost:8080/webapi/';
-var PRODUCTION_DOC_PARSER = 'http://doc-parser.herokuapp.com/webapi/';
+var PRODUCTION_ADDRESS = 'http://www.easywork.co.il';
+var PRODUCTION_DOC_PARSER = 'http://doc-parser.herokuapp.com/webapi';
 
 if (!module.exports.dbUrl)
     init();
@@ -31,7 +31,7 @@ function init() {
 	        logger.info("Development Mode!");
 
             module.exports.dbUrl = PRODUCTION_DB;
-            module.exports.baseUrl = LOCALHOST_ADDRESS;
+            module.exports.baseUrl = DEVELOPMENT_ADDRESS;
             module.exports.docParserUrl = PRODUCTION_DOC_PARSER;
             break;
         }

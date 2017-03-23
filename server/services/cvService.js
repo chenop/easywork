@@ -3,9 +3,8 @@
  */
 
 var Cv = require('../models/cv');
-var utils = require('../utils/utils');
 var SkillService = require('./skillService');
-var mongoose     = require('mongoose');
+var utils = require('../utils/utils');
 
 function createCv(cv) {
 	var cvInstance = createCvInstance(cv);
@@ -24,6 +23,7 @@ function createCvInstance(cv) {
 	var newCv = new Cv(
 		{
 			user: cv.userId
+			, email: cv.email
 			, fileData: fileData //new Buffer(fileData, "base64")
 			, fileType: fileType
 			, fileName: cv.fileName
@@ -57,6 +57,14 @@ function getCvs(searchCriteria) {
 	return Cv.find(filter).sort('-createdAt').select('-fileData -fileType');
 }
 
+function createOrUpdate(cv) {
+	if (utils.isDefined(cv._id))
+		return updateCv(cv);
+	else
+		return createCv(cv);
+
+}
+
 /***********
  * Public
  ***********/
@@ -66,4 +74,5 @@ module.exports = {
 	, getCvs: getCvs
 	, updateCv: updateCv
 	, deleteCv: deleteCv
+	, createOrUpdate: createOrUpdate
 }

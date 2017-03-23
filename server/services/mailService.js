@@ -58,11 +58,22 @@ exports.sendMail = function (req, res) {
 
 function notifyWebmaster(companies, cvData) {
 	var companiesNames = concatCompaniesNames(companies);
+	var html = "<b>A CV was sent to the following companies:</b><br>" + companiesNames;
+
+	if (cvData) {
+		if (cvData.skills) {
+			html += "<br>" + cvData.skills
+		}
+
+		if (cvData.email) {
+			html += "<br>" + cvData.email
+		}
+	}
 
 	return sendEmailApi({
 		to: WEBMASTER_EMAIL
 		, subject: 'Webmaster Summary - CV was sent successfully!'
-		, html: "<b>A CV was sent to the following companies:</b><br>" + companiesNames
+		, html: html
 		, cvData: cvData
 	});
 }
@@ -172,6 +183,7 @@ function sendEmailApi(options) {
 	// send some mail
 	var mailOptions = {
 		from: options.from || FROM_EMAIL,
+		replyTo: options.replyTo,
 		to: options.to,
 		subject: options.subject,
 		text: options.message,

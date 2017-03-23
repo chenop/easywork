@@ -35,14 +35,17 @@ function analyzeCv(fileName, fileData) {
             if (body) {
                 var data = JSON.parse(body);
                 if (data) {
-                    return data.keywords;
+                    return data;
                 }
             }
             return null;
         })
         .catch(function (err) {
-            console.log(err);
-        });
+			console.log(err);
+
+			if (err)
+				throw new Error("Could not analyze cv")
+		});
 }
 
 function wakeupDocParser() {

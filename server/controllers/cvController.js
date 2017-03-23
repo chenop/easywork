@@ -64,12 +64,11 @@ function analyzeExistingCv(req, res) {
 
 function analyzeAndSaveCv(cv) {
     return docParserApi.analyzeCv(cv.fileName, cv.fileData)
-        .then(function (skills) {
-            cv.skills = skills;
-            if (utils.isDefined(cv._id))
-                return CvService.updateCv(cv);
-            else
-                return CvService.createCv(cv);
+        .then(function (data) {
+            cv.skills = data.skills;
+            cv.email = data.email;
+
+			return CvService.createOrUpdate(cv);
         })
         .then(function (cv) {
             if (!cv || !cv.user) // user is not defined, just return the cv

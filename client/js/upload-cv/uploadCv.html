@@ -1,6 +1,7 @@
 <div id="upload-cv-view">
     <div class="upload-area btn btn-default" ngf-select="onFileSelect($file)">
         <div ng-show="status === STATUS.GOT_CV" id="got-cv">
+            <pre>{{cv.email}}</pre>
             <div class="icon">
                 <i class="fa fa-file-text fa-2x"></i>
             </div>
