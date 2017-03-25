@@ -4,12 +4,22 @@
 
 angular.module('easywork')
     .constant('ANONYMOUS', "anonymous")
-    .factory('cvService', function (Upload, localStorageService, dataManager, utils, ANONYMOUS, $uibModal) {
+    .factory('cvService', function (Upload, localStorageService, dataManager, utils, ANONYMOUS, $uibModal, $rootScope) {
+
+        var ESTATUS = {
+            NO_CV: 0,
+            UPLOADING_CV: 1,
+            GOT_CV: 2
+        };
+
+        var cvStatus;// = ESTATUS.NO_CV;
 
         function getCvByUserId(userId) {
             var cv = localStorageService.get(userId)
-            if (isCvValid(cv))
-                return Promise.resolve(cv);
+            if (isCvValid(cv)) {
+	            $rootScope.$broadcast('cvUploaded',cv);
+	            return Promise.resolve(cv);
+            }
 
             if (!isValidUserId(userId)) {
                 return Promise.reject();
@@ -17,6 +27,7 @@ angular.module('easywork')
 
             return dataManager.getCvByUserId(userId)
                 .then(function (cv) {
+	                $rootScope.$broadcast('cvUploaded',cv);
                     return cv;
                 })
                 .catch(function () {
@@ -42,10 +53,9 @@ angular.module('easywork')
                         url: 'public/cv',
                         data: {file: file, data: dataUrl, userId: userId}
                     }).then(function (response) {
-                        return response.data;
-                        //$timeout(function () {
-                        //    file.fileData = response.data;
-                        //});
+	                    var cv = response.data;
+	                    $rootScope.$broadcast('cvUploaded',cv);
+	                    return cv;
                     }, function (response) {
                         //if (response.status > 0)
                         //    $scope.errorMsg = response.status + ': ' + response.data;
@@ -90,11 +100,32 @@ angular.module('easywork')
 			});
 		}
 
+        function getCvEmail(userId) {
+            if (!userId)
+                return Promise.reject();
+
+            return getCvByUserId(userId)
+                .then(function(cv) {
+                    if (!cv)
+                         return Promise.reject();;
+
+                    return cv.email;
+                });
+        }
+
+        function setCVStatus(value) {
+            this.cvStatus = value;
+        }
+
 		return {
             uploadFile: uploadFile
             , convertBase64ToBlob: convertBase64ToBlob
             , getCvByUserId: getCvByUserId
 			, openCvDocViewModal: openCvDocViewModal
+            , getCvEmail: getCvEmail
+            , setCVStatus: setCVStatus
+            , cvStatus: cvStatus
+            , ESTATUS: ESTATUS
         }
     });
 

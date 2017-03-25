@@ -9945,6 +9945,20 @@ header a, .caret {
   @media (min-width: 577px) {
     .send-cv-container .send-cv-content {
       margin: 0px 50px 0px 50px; } }
+  .send-cv-container .send-cv-content #reply-to-container {
+    display: block;
+    text-align: right;
+    padding-top: 10px; }
+    .send-cv-container .send-cv-content #reply-to-container .reply-label {
+      float: right;
+      padding-left: 15px;
+      padding-top: 7px; }
+    .send-cv-container .send-cv-content #reply-to-container .reply-input {
+      overflow: hidden; }
+      .send-cv-container .send-cv-content #reply-to-container .reply-input input {
+        width: 100%; }
+      .send-cv-container .send-cv-content #reply-to-container .reply-input .form-control {
+        display: inline-block; }
   .send-cv-container .send-cv-content .terms-agree-checkbox {
     direction: rtl;
     margin-top: 10px;
@@ -9953,19 +9967,14 @@ header a, .caret {
       margin-top: 0px; }
   .send-cv-container .send-cv-content .recommend-container {
     margin-bottom: 10px;
-    display: table;
-    table-layout: fixed;
-    width: 65%; }
-    .send-cv-container .send-cv-content .recommend-container .recommend-label-container {
-      display: table-cell;
-      vertical-align: middle;
-      text-align: left;
-      width: 70%; }
+    display: block;
+    text-align: right; }
     .send-cv-container .send-cv-content .recommend-container .fb-like-container {
-      display: table-cell;
       vertical-align: middle;
-      padding-top: 5px;
-      width: 35%; }
+      padding-top: 5px; }
+    .send-cv-container .send-cv-content .recommend-container .recommend-label-container {
+      vertical-align: middle;
+      display: inline-block; }
 
 .toast-top-center {
   top: 80px;

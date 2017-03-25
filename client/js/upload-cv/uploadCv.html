@@ -1,7 +1,6 @@
 <div id="upload-cv-view">
     <div class="upload-area btn btn-default" ngf-select="onFileSelect($file)">
-        <div ng-show="status === STATUS.GOT_CV" id="got-cv">
-            <pre>{{cv.email}}</pre>
+        <div ng-show="cvService.cvStatus === ESTATUS.GOT_CV" id="got-cv">
             <div class="icon">
                 <i class="fa fa-file-text fa-2x"></i>
             </div>
@@ -14,13 +13,13 @@
             </div>
         </div>
 
-        <div ng-show="status === STATUS.UPLOADING_CV" id="uploading-cv">
+        <div ng-show="cvService.cvStatus === ESTATUS.UPLOADING_CV" id="uploading-cv">
             <div class="icon">
                 <i class="fa fa-spinner fa-pulse fa-3x"></i>
             </div>
         </div>
 
-        <div ng-show="status === STATUS.NO_CV" id="no-cv">
+        <div ng-show="cvService.cvStatus === ESTATUS.NO_CV" id="no-cv">
             <div class="file-upload">
                 <div class="file-upload-text">לחץ להעלאת קו"ח</div>
                 <input type="file" class="upload"/>

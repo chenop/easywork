@@ -127,6 +127,7 @@ function sendUserCVToCompanies(user, companies, cvData) {
 
 		return sendEmailApi({
 			to: company.email
+			, replyTo: cvData.email || FROM_EMAIL
 			, subject: 'Easy work presents ' + user.name
 			, html: renderHtml(company._id)
 			, cvData: cvData

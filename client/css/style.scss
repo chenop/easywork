@@ -872,6 +872,31 @@ header a, .caret {
 			margin: 0px 50px 0px 50px;
 		}
 
+
+		#reply-to-container {
+			display: block;
+			text-align: right;
+			padding-top: 10px;
+
+			.reply-label {
+				float: right;
+				padding-left: 15px;
+				padding-top: 7px;
+			}
+
+			.reply-input {
+				overflow: hidden;
+
+				input {
+					width: 100%;
+				}
+
+				.form-control {
+					display: inline-block;
+
+				}
+			}
+		}
 		.terms-agree-checkbox {
 			direction: rtl;
 			margin-top: 10px;
@@ -883,23 +908,19 @@ header a, .caret {
 
 		.recommend-container {
 			margin-bottom: 10px;
-			display: table;
-			table-layout: fixed;
-			width: 65%;
-
-			.recommend-label-container {
-				display: table-cell;
-				vertical-align: middle;
-				text-align: left;
-				width: 70%;
-			}
+			display: block;
+			text-align: right;
 
 			.fb-like-container {
-				display: table-cell;
 				vertical-align: middle;
 				padding-top: 5px;
-				width: 35%;
 			}
+
+			.recommend-label-container {
+				vertical-align: middle;
+				display: inline-block;
+			}
+
 		}
 	}
 }

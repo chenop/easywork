@@ -3,9 +3,22 @@
  */
 
 angular.module('easywork')
-    .controller('SendCvDialogCtrl', function ($scope, $uibModalInstance, userId) {
+    .controller('SendCvDialogCtrl', function ($scope, $uibModalInstance, appManager, cvService) {
         $scope.modIns = $uibModalInstance;
-        $scope.userId = userId;
+        $scope.userId = appManager.getActiveUserId();
+        $scope.cvService = cvService;
+
+        $scope.$on('cvUploaded', function(event, cv) {
+            if (!cv)
+                return;
+
+            $scope.cvData = cv;
+        });
+
+        cvService.getCvEmail($scope.userId)
+            .then(function(email) {
+                $scope.cvData.email = email;
+            });
 
         $scope.isSendEnable = function () {
             return $scope.cvData != null && $scope.cvData.fileName != null && $scope.termsAgree;

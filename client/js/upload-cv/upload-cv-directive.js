@@ -12,11 +12,8 @@ angular.module('easywork')
             },
             templateUrl: '/js/upload-cv/uploadCv.html',
             controller : ["$scope", function($scope) {
-                $scope.STATUS = {
-                    NO_CV: 0,
-                    UPLOADING_CV: 1,
-                    GOT_CV: 2
-                }
+                $scope.ESTATUS = cvService.ESTATUS;
+                $scope.cvService = cvService;
 
                 var userId = $scope.userId();
                 userId = (!userId) ? ANONYMOUS : userId;
@@ -42,17 +39,13 @@ angular.module('easywork')
                     cvService.getCvByUserId(userId)
                         .then(function (cv) {
                             if (cv) {
-                                $scope.cv = {
-                                    fileName: cv.fileName,
-                                    fileData: cv.fileData,
-                                    skills: cv.skills
-                                };
+                                $scope.cv = cv;
                             }
 
-                            $scope.status = ($scope.cv) ? $scope.STATUS.GOT_CV : $scope.STATUS.NO_CV;
+                            cvService.setCVStatus(($scope.cv) ? $scope.ESTATUS.GOT_CV : $scope.ESTATUS.NO_CV);
                         })
                         .catch(function error(err) {
-                            $scope.status = $scope.STATUS.NO_CV;
+                            cvService.setCVStatus($scope.ESTATUS.NO_CV);
                         });
                 }
 
@@ -60,16 +53,16 @@ angular.module('easywork')
                     $scope.cv = cv;
 
                     localStorageService.set(userId, $scope.cv);
-                    $scope.status = ($scope.cv) ? $scope.STATUS.GOT_CV : $scope.STATUS.NO_CV;
+                    cvService.setCVStatus(($scope.cv) ? $scope.ESTATUS.GOT_CV : $scope.ESTATUS.NO_CV);
                 }
 
                 $scope.onFileSelect = function (file) {
                     if (!file) {
-                        $scope.status = $scope.STATUS.NO_CV;
+                        cvService.setCVStatus($scope.ESTATUS.NO_CV);
                         return;
                     }
 
-                    $scope.status = $scope.STATUS.UPLOADING_CV;
+                    cvService.setCVStatus($scope.ESTATUS.UPLOADING_CV);
                     cvService.uploadFile(file, userId)
                         .then(function(createdCv) {
                             OnCvDataChanged(createdCv);

@@ -14,7 +14,7 @@ var cvSchema = new Schema({
 		user: {type: Schema.Types.ObjectId, ref: 'User'}
 		, fileData: String // Saving binary file data in base64 representation
 		, skills: [String]
-		, email: [String]
+		, email: String
 		, fileName: String
 		, fileType: String
 	},
