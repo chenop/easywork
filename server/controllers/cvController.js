@@ -86,7 +86,6 @@ function analyzeAndSaveCv(cv) {
         })
 }
 
-// Comment
 function createCv(req, res) {
     var file = req.files.file;
     var userId = calcUser(req.body.userId);
