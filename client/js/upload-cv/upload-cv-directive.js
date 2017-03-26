@@ -27,15 +27,7 @@ angular.module('easywork')
                     return !(utils.isEmptyArray($scope.cv.skills));
                 }
 
-                $scope.$watch('cv', function(value) {
-                    if (!value)
-                        return;
-                    $scope.cv = value;
-                })
-
                 function initCvData() {
-                    // todo if (isLoggedIn) {  $scope.cvData = user.cvData; return; };
-
                     cvService.getCvByUserId(userId)
                         .then(function (cv) {
                             if (cv) {

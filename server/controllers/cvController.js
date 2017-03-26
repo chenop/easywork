@@ -65,7 +65,7 @@ function analyzeExistingCv(req, res) {
 function analyzeAndSaveCv(cv) {
     return docParserApi.analyzeCv(cv.fileName, cv.fileData)
         .then(function (data) {
-            cv.skills = data.skills;
+            cv.skills = data.keywords;
             cv.email = data.email;
 
 			return CvService.createOrUpdate(cv);
