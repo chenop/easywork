@@ -17,34 +17,19 @@ var WEBMASTER_EMAIL = "webmaster@easywork.co.il";
 
 exports.sendMail = function (req, res) {
 	// create reusable transport method (opens pool of SMTP connections)
-	var userId = req.params.id;
+	//var userId = req.params.id;
 	var data = req.body;
 	var cvData = data.cvData;
-	var companies;
 
 	return AppManager.getRelevantCompanies(data.selectedCompanies, cvData)
-		.then(function (relevantCompanies) {
-			companies = relevantCompanies;
-			if (isObjectId(userId)) {
-				return UserController.getUser(userId)
-					.then(function (user) {
-							if (user) {
-								return sendUserCVToCompanies(user, relevantCompanies, cvData)
-									.then(function() {
-										return sendSummaryToUser(user, relevantCompanies, cvData);
-									})
-							} else {
-								return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData)
-							}
-						})
-			}
-			else {
-				return sendAnonymizeUserCVToCompanies(relevantCompanies, cvData)
-			}
-		})
-		.then (function() {
-			if (companies)
-				return notifyWebmaster(companies, cvData);
+		.then(function (companies) {
+			var promises = [
+				sendUserCVToCompanies(companies, cvData),
+				sendSummaryToUser(companies, cvData),
+				notifyWebmaster(companies, cvData)
+			];
+
+			return Promise.all(promises);
 		})
 		.then (function() {
 			return res.send("Mail was sent!");
@@ -104,31 +89,33 @@ function concatCompaniesNames(companies) {
  * @param cvData.fileData
  * @param cvData.fileName
  */
-function sendSummaryToUser(user, companies, cvData) {
-	if (!user || !user.email)
+function sendSummaryToUser(companies, cvData) {
+	if (!cvData || !cvData.email)
 		return;
 
 	var companiesNames = concatCompaniesNames(companies);
 
 	return sendEmailApi({
-		to: user.email
+		to: cvData.email
 		, subject: 'Easy Work - CV was sent successfully!'
-		, html: "<b>Hi " + user.name + ", CV was sent to the following companies:</b><br>" + companiesNames
+		, html: "<b>Hi " + cvData.email + ", CV was sent to the following companies:</b><br>" + companiesNames
 		, cvData: cvData
 	});
 }
 
-function sendUserCVToCompanies(user, companies, cvData) {
+function sendUserCVToCompanies(companies, cvData) {
 	for (var i = 0; i < companies.length; i++) {
 		var company = companies[i];
 
 		if (!company || !company.email)
 			continue;
 
+		var replyToEmail = cvData.email || FROM_EMAIL;
+
 		return sendEmailApi({
 			to: company.email
-			, replyTo: cvData.email || FROM_EMAIL
-			, subject: 'Easy work presents ' + user.name
+			, replyTo: replyToEmail
+			, subject: 'Easy work presents ' + replyToEmail
 			, html: renderHtml(company._id)
 			, cvData: cvData
 		})
