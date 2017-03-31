@@ -22,7 +22,6 @@
 		"grunt-contrib-cssmin": "^0.14.0",
 		"grunt-contrib-uglify": "^0.9.2",
 		"grunt-contrib-watch": "latest",
-		"grunt-env": "^0.4.4",
 		"grunt-express-server": "latest",
 		"grunt-ng-annotate": "^1.0.1",
 		"grunt-open": "~0.2.2",
@@ -55,7 +54,7 @@
 		"start": "node server.js",
 		"postinstall": "bower install && grunt prod",
 		"test": "set NODE_ENV=test&& mocha",
-		"dev": "grunt dev --environment development"
+		"dev": "set NODE_ENV=development&& grunt dev"
 	},
 	"description": "Easywork: Building an App with AngularJS, Express andNode.js\r ============================================================",
 	"main": "Gruntfile.js",

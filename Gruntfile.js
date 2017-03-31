@@ -4,13 +4,10 @@ module.exports = function (grunt) {
 
 
 	var cssFiles = [
-		//'client/lib/bootstrap/dist/css/bootstrap.min.css'
-		//, 'client/lib/bootstrap-rtl/dist/css/bootstrap-rtl.css'
 		'client/lib/angular-ui-select/dist/select.css'
 		, 'client/lib/angularjs-toaster/toaster.min.css'
 		, 'client/lib/font-awesome/css/font-awesome.min.css'
 		, 'client/lib/feedback-directive/dist/feedback.css'
-		//, 'https://fonts.googleapis.com/css?family=Assistant'
 		, 'client/css/font.css'
 		, 'client/css/style.css'
 	];
@@ -18,8 +15,6 @@ module.exports = function (grunt) {
 	var vendorJsFiles = [
 
 		'client/lib/jquery/dist/jquery.min.js'
-		//, 'client/lib/bootstrap-rtl/dist/js/html5shiv.js' // Remove - not needed (I think...)
-		//, 'client/lib/bootstrap-rtl/dist/js/respond.min.js' // Remove - not needed (I think...)
 
 		// Angular
 		, 'client/lib/angular/angular.js'
@@ -148,10 +143,6 @@ module.exports = function (grunt) {
 
 	grunt.initConfig({
 
-		cssFiles: generateFilesList(cssFiles, minifiedCssFile, "css"),
-		vendorJsFiles: generateFilesList(vendorJsFiles, minifiedVendorsFile, "js"),
-		appJsFiles: generateFilesList(appJsFiles, minifiedAppFile, "js"),
-
 		express: { // Start Express server
 			options: {
 				port: process.env.PORT || 3000
@@ -173,9 +164,9 @@ module.exports = function (grunt) {
 			'process-html-template': {
 				'options': {
 					'data': {
-						cssFiles: '<%= cssFiles %>',
-						vendorJsFiles: '<%= vendorJsFiles %>',
-						appJsFiles: '<%= appJsFiles %>',
+						cssFiles: generateFilesList(cssFiles, minifiedCssFile, "css"),
+						vendorJsFiles: generateFilesList(vendorJsFiles, minifiedVendorsFile, "js"),
+						appJsFiles: generateFilesList(appJsFiles, minifiedAppFile, "js")
 					}
 				},
 				'files': {
