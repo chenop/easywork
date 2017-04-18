@@ -4,6 +4,6 @@ var logger = new Logger({
 });
 
 //var logger = require('winston');
-//logger.level = 'info';
+//logger.level = 'info'; //
 
 module.exports = logger;
