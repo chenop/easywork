@@ -181,6 +181,13 @@ module.exports = function (grunt) {
 					reload: true
 				}
 			},
+			html: {
+				files: 'client/index-tpl.html',
+				tasks: ['template'],
+				options: {
+					livereload: true,
+				},
+			},
 			bower: {
 				files: ['bower.json'],
 				tasks: ['dev'],
@@ -194,6 +201,9 @@ module.exports = function (grunt) {
 			},
 			options: {
 				debounceDelay: 100,
+				options: {
+					livereload: true,
+				},
 			},
 		},
 		sass: {
@@ -257,7 +267,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-sass');
 
 	grunt.registerTask('default', ['express:dev', 'watch']);
-	grunt.registerTask('dev', ['template', 'watch']);
+	grunt.registerTask('dev', ['template', 'express:dev', 'watch']);
 	grunt.registerTask('prod', ['clean', 'template', 'cssmin', 'ngAnnotate', 'uglify:prod']);
 	// grunt.registerTask('runTemplate', ['clean', 'template']);
 };
