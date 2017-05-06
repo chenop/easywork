@@ -31,14 +31,14 @@ exports.sendMail = function (req, res) {
 
 			return Promise.all(promises);
 		})
-		.then (function() {
+		.then(function () {
 			return res.send("Mail was sent!");
 		})
-		.catch(function(error) {
+		.catch(function (error) {
 			if (error)
 				logger.error(error);
-			return res.status(500).send("[mailService.sendMail()] - Error sending mail companies {0}, cvData {1}, error: " .format(date.selectedCompanies, cvData, error));
-		}) ;
+			return res.status(500).send("[mailService.sendMail()] - Error sending mail companies {0}, cvData {1}, error: ".format(date.selectedCompanies, cvData, error));
+		});
 }
 
 function notifyWebmaster(companies, cvData) {
@@ -148,7 +148,7 @@ exports.sendFeedbackMail = function (data) {
 	var message = "";
 
 	if (data.email)
-		message += "from: " + data.email +"\n";
+		message += "from: " + data.email + "\n";
 
 	if (data.content)
 		message += data.content;
@@ -181,7 +181,7 @@ function sendEmailApi(options) {
 	if (options.cvData) {
 		mailOptions.attachments = [
 			{
-				filename: encodeURI(options.cvData.fileName),
+				filename: options.cvData.fileName,
 				content: convertBase64ToBuffer(options.cvData.fileData)
 			}
 		];
