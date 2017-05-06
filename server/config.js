@@ -13,38 +13,39 @@ var PRODUCTION_ADDRESS = 'http://www.easywork.co.il';
 var PRODUCTION_DOC_PARSER = 'http://doc-parser.herokuapp.com/webapi';
 
 if (!module.exports.dbUrl)
-    init();
+	init();
 
 function init() {
-    module.exports.secret = 'zipori';
+	module.exports.secret = 'zipori';
+	module.exports.TEST_DB_URL = TEST_DB_URL;
 
-    switch (process.env.NODE_ENV) {
-        case "production" : {
-            logger.info("Production Mode!")
+	switch (process.env.NODE_ENV) {
+		case "production" : {
+			logger.info("Production Mode!")
 
-            module.exports.dbUrl = PRODUCTION_DB;
-            module.exports.baseUrl = PRODUCTION_ADDRESS;
-            module.exports.docParserUrl = PRODUCTION_DOC_PARSER;
-            break;
-        }
-        case "development" : {
-	        logger.info("Development Mode!");
+			module.exports.dbUrl = PRODUCTION_DB;
+			module.exports.baseUrl = PRODUCTION_ADDRESS;
+			module.exports.docParserUrl = PRODUCTION_DOC_PARSER;
+			break;
+		}
+		case "development" : {
+			logger.info("Development Mode!");
 
-            module.exports.dbUrl = PRODUCTION_DB;
-            module.exports.baseUrl = DEVELOPMENT_ADDRESS;
-            module.exports.docParserUrl = PRODUCTION_DOC_PARSER;
-            break;
-        }
-        case "test" : {
-	        logger.info("Testing Mode!")
+			module.exports.dbUrl = PRODUCTION_DB;
+			module.exports.baseUrl = DEVELOPMENT_ADDRESS;
+			module.exports.docParserUrl = PRODUCTION_DOC_PARSER;
+			break;
+		}
+		case "test" : {
+			logger.info("Testing Mode!")
 
-            module.exports.dbUrl = TEST_DB_URL;
-            module.exports.baseUrl = PRODUCTION_ADDRESS;
-            module.exports.docParserUrl = PRODUCTION_DOC_PARSER;
-            break;
-        }
-        default :{
-	        logger.error("Error! No Mode was set!")
-        }
-    }
+			module.exports.dbUrl = TEST_DB_URL;
+			module.exports.baseUrl = PRODUCTION_ADDRESS;
+			module.exports.docParserUrl = PRODUCTION_DOC_PARSER;
+			break;
+		}
+		default : {
+			logger.error("Error! No Mode was set!")
+		}
+	}
 }
