@@ -181,7 +181,7 @@ function sendEmailApi(options) {
 	if (options.cvData) {
 		mailOptions.attachments = [
 			{
-				filename: options.cvData.fileName,
+				filename: encodeURI(options.cvData.fileName),
 				content: convertBase64ToBuffer(options.cvData.fileData)
 			}
 		];
