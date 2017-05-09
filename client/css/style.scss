@@ -39,6 +39,30 @@ html {
     -o-background-size: cover;
     background-size: cover;
     font-family: 'Assistant', serif;
+
+    animation-name: fadeIn;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 

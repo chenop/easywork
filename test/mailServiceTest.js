@@ -8,7 +8,7 @@ describe('Mail Service', function () {
 	this.timeout(utils.TIMEOUT);
 
 
-	it.only('Send Email', function (done) {
+	it('Send Email', function (done) {
 		mailService.sendEmailApi({
 			from: "webmaster@easywork.co.il"
 			, replyTo: "hadas.abutbul@gmail.com"
@@ -16,6 +16,6 @@ describe('Mail Service', function () {
 			, subject: "webmaster@easywork.co.il is working"
 			, message: "test worked!"
 		})
-		.then(done);
+			.then(done);
 	});
 });
