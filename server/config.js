@@ -45,7 +45,7 @@ function init() {
 			break;
 		}
 		default : {
-			logger.error("Error! No Mode was set!")
+			logger.err("Error! No Mode was set!")
 		}
 	}
 }
