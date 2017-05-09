@@ -44,7 +44,7 @@ logger.info("DOC PARSER URL: " + config.docParserUrl);
 mongoose.Promise = global.Promise;
 mongoose.connect(config.dbUrl); // comment
 mongoose.connection.on('error', function (err, req, res, next) {
-	logger.error("Cant connect to MongoDB - please verify that it was started.");
+	logger.err("Cant connect to MongoDB - please verify that it was started.");
 });
 
 var clientDir = path.join(__dirname, 'client')

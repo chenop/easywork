@@ -36,7 +36,7 @@ exports.sendMail = function (req, res) {
 		})
 		.catch(function(error) {
 			if (error)
-				logger.error(error);
+				logger.err(error);
 			return res.status(500).send("[mailService.sendMail()] - Error sending mail companies {0}, cvData {1}, error: " .format(date.selectedCompanies, cvData, error));
 		}) ;
 }
@@ -193,9 +193,9 @@ function sendEmailApi(options) {
 			logger.info(util.format('from: %s, to: %s, subject: %s', mailOptions.from, mailOptions.to, mailOptions.subject));
 		})
 		.catch(function (error) {
-			logger.log("transport.sendMail has failed");
+			logger.info("transport.sendMail has failed");
 			if (error)
-				logger.error(error);
+				logger.err(error);
 		});
 }
 
