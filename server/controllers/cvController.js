@@ -110,17 +110,14 @@ function getCvFile(req, res) {
 
 	return CvService.getCv(id)
 		.then(function success(cv) {
-				res.set('Content-Disposition', 'attachment; filename=' + encodeURI(cv.fileName));
+				var fileName = !(cv.fileName) ? "cv.doc" : encodeURI(cv.fileName);
+				res.set('Content-Disposition', 'attachment; filename=' + fileName;
 				res.contentType(cv.fileType);
 				return res.send(new Buffer(cv.fileData, 'base64'));
 			},
 			function error(err) {
 				return res.status(500).json(err);
-			})
-	// .catch(function (err) {
-	// 	throw new Error("[cvController.getCvFile()] - Failed to retrieve cv from db");
-	// });
-
+			});
 }
 
 function getCv(req, res) {
