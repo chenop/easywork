@@ -111,7 +111,7 @@ function getCvFile(req, res) {
 	return CvService.getCv(id)
 		.then(function success(cv) {
 				var fileName = !(cv.fileName) ? "cv.doc" : encodeURI(cv.fileName);
-				res.set('Content-Disposition', 'attachment; filename=' + fileName;
+				res.set('Content-Disposition', 'attachment; filename=' + fileName);
 				res.contentType(cv.fileType);
 				return res.send(new Buffer(cv.fileData, 'base64'));
 			},
