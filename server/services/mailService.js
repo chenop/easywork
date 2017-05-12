@@ -8,7 +8,7 @@ var nodemailer       = require("nodemailer")
 	, config         = require('./../config')
 	, logger         = require('../utils/logger')
 	, util           = require('util')
-;
+	;
 
 // Import the AWS SDK
 var aws = require('aws-sdk');
@@ -37,8 +37,8 @@ exports.sendMail = function (req, res) {
 		.catch(function (error) {
 			if (error)
 				logger.err(error);
-			return res.status(500).send("[mailService.sendMail()] - Error sending mail companies {0}, cvData {1}, error: " .format(date.selectedCompanies, cvData, error));
-		}) ;
+			return res.status(500).send("[mailService.sendMail()] - Error sending mail companies {0}, cvData {1}, error: ".format(date.selectedCompanies, cvData, error));
+		});
 }
 
 function notifyWebmaster(companies, cvData) {
@@ -189,6 +189,7 @@ function sendEmailApi(options) {
 
 	return transport.sendMail(mailOptions)
 		.then(function (info) {
+			console.log("consolelog - transport.sendMail has succeeded");
 			logger.info("transport.sendMail has succeeded");
 			logger.info(util.format('from: %s, to: %s, subject: %s', mailOptions.from, mailOptions.to, mailOptions.subject));
 		})
