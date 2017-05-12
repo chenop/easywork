@@ -116,6 +116,7 @@ function getCvFile(req, res) {
 				return res.send(new Buffer(cv.fileData, 'base64'));
 			},
 			function error(err) {
+				console.log("[cvController.getCvFile] - Error" + err);
 				return res.status(500).json(err);
 			});
 }
