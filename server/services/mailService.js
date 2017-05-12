@@ -6,7 +6,6 @@ var nodemailer       = require("nodemailer")
 	, path           = require('path')
 	, AppManager     = require('./../appManager')
 	, config         = require('./../config')
-	, logger         = require('../utils/logger')
 	, util           = require('util')
 	;
 
@@ -36,7 +35,7 @@ exports.sendMail = function (req, res) {
 		})
 		.catch(function (error) {
 			if (error)
-				logger.err(error);
+				console.log(error);
 			return res.status(500).send("[mailService.sendMail()] - Error sending mail companies {0}, cvData {1}, error: ".format(date.selectedCompanies, cvData, error));
 		});
 }
@@ -189,14 +188,13 @@ function sendEmailApi(options) {
 
 	return transport.sendMail(mailOptions)
 		.then(function (info) {
-			console.log("consolelog - transport.sendMail has succeeded");
-			logger.info("transport.sendMail has succeeded");
-			logger.info(util.format('from: %s, to: %s, subject: %s', mailOptions.from, mailOptions.to, mailOptions.subject));
+			console.log("transport.sendMail has succeeded");
+			console.log(util.format('from: %s, to: %s, subject: %s', mailOptions.from, mailOptions.to, mailOptions.subject));
 		})
 		.catch(function (error) {
-			logger.info("transport.sendMail has failed");
+			console.log("transport.sendMail has failed");
 			if (error)
-				logger.err(error);
+				console.log(error);
 		});
 }
 

@@ -24,7 +24,8 @@ var express              = require('express')
 	, mongoose           = require('mongoose')
 	, url                = require('url')
 	, config             = require('./server/config')
-	, logger             = require('./server/utils/logger');
+    //	, logger             = require('./server/utils/logger')
+	;
 
 var ejwt = require('express-jwt');
 
@@ -37,14 +38,14 @@ if (process.env.NODE_ENV === "development") {
 	app.use(errorhandler())
 }
 
-logger.info("DB URL: " + config.dbUrl);
-logger.info("BASE URL: " + config.baseUrl);
-logger.info("DOC PARSER URL: " + config.docParserUrl);
+console.log("DB URL: " + config.dbUrl);
+console.log("BASE URL: " + config.baseUrl);
+console.log("DOC PARSER URL: " + config.docParserUrl);
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.dbUrl); // comment
 mongoose.connection.on('error', function (err, req, res, next) {
-	logger.err("Cant connect to MongoDB - please verify that it was started.");
+	console.log("Error - Cant connect to MongoDB - please verify that it was started.");
 });
 
 var clientDir = path.join(__dirname, 'client')
@@ -122,7 +123,7 @@ app.get('*', function (req, res) {
 })
 
 app.listen(app.get('port'), function () {
-	logger.info("Express server listening on port " + app.get('port'));
+	console.log("Express server listening on port " + app.get('port'));
 });
 
 module.exports = app;

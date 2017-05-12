@@ -1,6 +1,5 @@
-var JobService 		= require('./services/jobService');
-var docParserApi 	= require('./api/docParserApi');
-var logger          = require('./utils/logger');
+var JobService = require('./services/jobService');
+var docParserApi = require('./api/docParserApi');
 /***********
  * Public
  ***********/
@@ -15,25 +14,25 @@ module.exports = {
 function getRelevantCompanies(companies, cvData) {
 	var relevantCompanies = [];
 
-	var promises = companies.map(function(company) {
+	var promises = companies.map(function (company) {
 		if (company.allowAllCvs) {
 			Promise.resolve(relevantCompanies.push(company));
 		}
 		else {
 			return JobService.isCvRelevant(company, cvData)
-				.then(function(isCvRelevant) {
+				.then(function (isCvRelevant) {
 					if (isCvRelevant)
 						relevantCompanies.push(company);
 				})
 		}
 	})
 
-	return Promise.all(promises).then(function() {
+	return Promise.all(promises).then(function () {
 		return relevantCompanies;
 	})
 }
 
 function wakeupDocParser() {
-	logger.info("Waking up DocParser");
+	console.log("Waking up DocParser");
 	return docParserApi.wakeupDocParser();
 }
