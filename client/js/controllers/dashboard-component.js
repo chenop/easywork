@@ -7,7 +7,7 @@
 (function (angular) {
 	'use strict';
 
-	function DashboardController(dataManager, appManager) {
+	function DashboardController(dataManager, appManager, $state) {
 		var ctrl = this;
 		appManager.setDisplaySearchBarInHeader(false);
 		//$scope.contentTypeSelected = function(newContentTypeName) {
@@ -48,10 +48,10 @@
 		}
 	}
 
-	DashboardController.$inject = ['dataManager', 'appManager'];
+	DashboardController.$inject = ['dataManager', 'appManager', '$state'];
 
 	angular.module('easywork').component('dashboard', {
-		templateUrl: 'dashboard.html',
+		templateUrl: '/views/admin/dashboard.html',
 		controller: DashboardController
 	});
 })(window.angular);

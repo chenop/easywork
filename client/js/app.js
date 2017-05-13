@@ -35,7 +35,7 @@ app.config(
 				isDashboard: false
 			})
 			.state('dashboard', {
-				abstract: true,
+				//abstract: true,
 				url: "/dashboard",
 				component: "dashboard",
 				isDashboard: true
