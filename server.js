@@ -62,6 +62,7 @@ app.use(methodOverride()); // Lets you use HTTP verbs such as PUT or DELETE
 app.use(passport.initialize());
 app.use('/api', ejwt({secret: config.secret}));
 app.use(express.static(clientDir));
+app.use(express.static(path.join(__dirname, 'node_modules')));
 
 require('./server/pass.js')(passport, app, config.baseUrl);
 

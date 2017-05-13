@@ -1,7 +1,7 @@
 (function (angular) {
 	'use strict';
 
-	function DasuboardListController($scope, $element, $attrs) {
+	function DashboardListController($scope, $element, $attrs) {
 
 		var contentTypeName = $stateParams.contentTypeName;
 		var selectedEntityId = $stateParams.entityId;
@@ -189,11 +189,11 @@
 		}
 	}
 
-	DasuboardListController.$inject = ['$scope', 'dataManager', 'appManager', 'common', '$stateParams', '$state', 'utils'];
+	DashboardListController.$inject = ['$scope', 'dataManager', 'appManager', 'common', '$stateParams', '$state', 'utils'];
 
 	angular.module('easywork').component('dashboardList', {
 		templateUrl: 'dashboard-list.html',
-		controller: DashboardListCtrl
+		controller: DashboardListController
 	});
 })(window.angular);
 

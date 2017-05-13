@@ -3,24 +3,25 @@
  */
 
 angular.module('easywork')
-    .config(function ( $httpProvider) {
-        $httpProvider.defaults.useXDomain = true;
-        delete $httpProvider.defaults.headers.common['X-Requested-With'];
-    })
-    .factory('linkedIn', function ($http, $rootScope) {
-        function linkedInLogin() {
-            $http.get('/auth/linkedin')
-                .then(function(result) {
-                    console.log(result);
-                })
-        }
-        function linkedInConnect() {
+	.config(function ($httpProvider) {
+		$httpProvider.defaults.useXDomain = true;
+		delete $httpProvider.defaults.headers.common['X-Requested-With'];
+	})
+	.factory('linkedIn', function ($http, $rootScope) {
+			function linkedInLogin() {
+				$http.get('/auth/linkedin')
+					.then(function (result) {
+						console.log(result);
+					})
+			}
 
-            // TODO trying get authorization code...
-            // https://developer.linkedin.com/documents/authentication
-            $http({
-                method: 'GET',
-                url: 'https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=773ypiul1vn3og&state=DCEEFWF45453sdffef424&redirect_uri=http://localhost:3000',
+			function linkedInConnect() {
+
+				// TODO trying get authorization code...
+				// https://developer.linkedin.com/documents/authentication
+				$http({
+					method: 'GET',
+					url: 'https://www.linkedin.com/uas/oauth2/authorization?response_type=code&client_id=773ypiul1vn3og&state=DCEEFWF45453sdffef424&redirect_uri=http://localhost:3000',
 //                headers: {
 //                    "Access-Control-Allow-Origin": "*"
 ////                    , "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
@@ -28,18 +29,18 @@ angular.module('easywork')
 //                    , "Access-Control-Allow-Credentials": "true"
 ////                    "Content-Type": "application/json"
 //                }
-            })
-                .success(function (result) {
-                    console.log(result);
-                })
-                .error(function(err, status, headers, config) {
-                    console.log(err)
-                });
-        }
-        return {
-            linkedInConnect: linkedInConnect
-            , linkedInLogin: linkedInLogin
-        }
-    }
-);
+				})
+					.then(function (result) {
+						console.log(result);
+					}, function (err, status, headers, config) {
+						console.log(err)
+					});
+			}
+
+			return {
+				linkedInConnect: linkedInConnect
+				, linkedInLogin: linkedInLogin
+			}
+		}
+	);
 

@@ -29,23 +29,15 @@ app.config(
 				url: "/home?token",
 				templateUrl: "/views/home.html"
 			})
-			.state('login', {
-				url: "/login",
-				templateUrl: "/views/users/login.html"
-			})
 			.state('my_company', {
 				url: "/my_company",
 				templateUrl: "/views/companies/company.html",
 				isDashboard: false
 			})
-			.state('job_full', {
-				url: "/job_full",
-				templateUrl: "/views/jobs/job-full.html"
-			})
 			.state('dashboard', {
 				abstract: true,
 				url: "/dashboard",
-				templateUrl: "/views/admin/dashboard.html",
+				component: "dashboard",
 				isDashboard: true
 			})
 			//.state('dashboard.list', {
@@ -95,16 +87,6 @@ app.config(
 			.state('terms_agreement', {
 				url: "/terms_agreement",
 				templateUrl: "/views/admin/terms-agreement.html",
-				isDashboard: false
-			})
-			.state('register', {             // DEBUG ONLY
-				url: "/register",
-				templateUrl: "/views/users/register.html",
-				isDashboard: false
-			})
-			.state('login1', {             // DEBUG ONLY
-				url: "/login",
-				templateUrl: "/views/users/login.html",
 				isDashboard: false
 			})
 

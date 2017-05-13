@@ -4,46 +4,46 @@ module.exports = function (grunt) {
 
 
 	var cssFiles = [
-		'client/lib/angular-ui-select/dist/select.css'
-		, 'client/lib/angularjs-toaster/toaster.min.css'
-		, 'client/lib/font-awesome/css/font-awesome.min.css'
-		, 'client/lib/feedback-directive/dist/feedback.css'
+		'node_modules/ui-select/dist/select.css'
+		, 'node_modules/angularjs-toaster/toaster.min.css'
+		, 'node_modules/font-awesome/css/font-awesome.min.css'
+		, 'node_modules/feedback-directive/dist/feedback.css'
 		, 'client/css/font.css'
 		, 'client/css/style.css'
 	];
 
 	var vendorJsFiles = [
 
-		'client/lib/jquery/dist/jquery.min.js'
+		'node_modules/jquery/dist/jquery.min.js'
 
 		// Angular
-		, 'client/lib/angular/angular.js'
-		, 'client/lib/angular-cookies/angular-cookies.js'
-		, 'client/lib/angular-animate/angular-animate.js'
-		, 'client/lib/angular-messages/angular-messages.js'
-		, 'client/lib/bootstrap/dist/js/bootstrap.js'
-		, 'client/lib/angular-bootstrap/ui-bootstrap-tpls.js'
-		, 'client/lib/angular-ui-router/release/angular-ui-router.js'
+		, 'node_modules/angular/angular.js'
+		, 'node_modules/angular-cookies/angular-cookies.js'
+		, 'node_modules/angular-animate/angular-animate.js'
+		, 'node_modules/angular-messages/angular-messages.js'
+		, 'node_modules/bootstrap/dist/js/bootstrap.js'
+		, 'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js'
+		, 'node_modules/angular-ui-router/release/angular-ui-router.js'
 
 		// Ui-Select2
-		, 'client/lib/angular-ui-select/dist/select.js'
+		, 'node_modules/ui-select/dist/select.js'
 
 		// Toaster
-		, 'client/lib/angularjs-toaster/toaster.js'
+		, 'node_modules/angularjs-toaster/toaster.js'
 
 		// feedback-directive
-		, 'client/lib/feedback-directive/dist/feedback.js'
+		, 'node_modules/feedback-directive/dist/feedback.js'
 
 		// File Upload - - danial.farid
-		, 'client/lib/ng-file-upload/ng-file-upload.js'
-		, 'client/lib/angular-file-saver/dist/angular-file-saver.bundle.js'
+		, 'node_modules/ng-file-upload/dist/ng-file-upload.js'
+		, 'node_modules/angular-file-saver/dist/angular-file-saver.bundle.js'
 
-		, 'client/lib/bootstrap-rtl/dist/js/holder.js'
+		, 'node_modules/bootstrap-rtl/dist/js/holder.js'
 
 		// localForage
-		, 'client/lib/angular-local-storage/dist/angular-local-storage.js'
-		, 'client/lib/localforage/dist/localforage.js'
-		, 'client/lib/angular-localforage/dist/angular-localForage.js'
+		, 'node_modules/angular-local-storage/dist/angular-local-storage.js'
+		, 'node_modules/localforage/dist/localforage.js'
+		, 'node_modules/angular-localforage/dist/angular-localForage.js'
 	];
 
 	var appJsFiles = [
@@ -56,7 +56,7 @@ module.exports = function (grunt) {
 		, 'client/js/controllers/company-board-controller.js'
 		, 'client/js/controllers/company-controller.js'
 		, 'client/js/controllers/home-controller.js'
-		, 'client/js/controllers/dashboard-controller.js'
+		, 'client/js/controllers/dashboard-component.js'
 		, 'client/js/controllers/dashboard-list-controller.js'
 		, 'client/js/controllers/user-controller.js'
 		, 'client/js/controllers/job-controller.js'
@@ -134,7 +134,8 @@ module.exports = function (grunt) {
 	}
 
 	var removeClientDirFromPath = function (filePath) {
-		return filePath.replace(/client/, ".");
+		var try1 = filePath.replace(/node_modules/, ".");
+		return try1.replace(/client/, ".");
 	}
 
 	var minifiedCssFile     = 'client/dist/app.css',
@@ -181,19 +182,18 @@ module.exports = function (grunt) {
 					reload: true
 				}
 			},
+			server: {
+				files: ['server.js'],
+				options: {
+					reload: true
+				}
+			},
 			html: {
 				files: 'client/index-tpl.html',
 				tasks: ['template'],
 				options: {
 					livereload: true,
 				},
-			},
-			bower: {
-				files: ['bower.json'],
-				tasks: ['dev'],
-				options: {
-					reload: true
-				}
 			},
 			css: {
 				files: 'client/css/**/*.scss',

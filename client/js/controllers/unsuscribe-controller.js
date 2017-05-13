@@ -3,16 +3,19 @@
  */
 
 angular.module("easywork")
-.controller("unsubscribeController", function($stateParams, dataManager, $scope) {
-    var companyId = $stateParams.companyId;
+	.controller("unsubscribeController", function ($stateParams, dataManager, $scope) {
+		var companyId = $stateParams.companyId;
 
-    dataManager.getCompany(companyId)
-        .then(function(company) {
-            if (!company || !company.name)
-                $scope.companyName = 'Company';
-            else
-                $scope.companyName = company.name;
-        })
+		if (!companyId)
+			return;
 
-    dataManager.setPublish(companyId, false);
-});
+		dataManager.getCompany(companyId)
+			.then(function (company) {
+				if (!company || !company.name)
+					$scope.companyName = 'Company';
+				else
+					$scope.companyName = company.name;
+			})
+
+		dataManager.setPublish(companyId, false);
+	});
