@@ -1,77 +1,77 @@
 <div id="header-view" class="navbar navbar-default navbar-fixed-top header" ng-controller="HeaderController">
     <div class="container">
-            <a class="navbar-brand" href="/">
-                <b>עבודה קלה</b>
-                <div class="header-slogan">
-                    - שליחת קורות חיים
+        <a class="navbar-brand" href="/">
+            <b>עבודה קלה</b>
+            <div class="header-slogan">
+                - שליחת קורות חיים
+            </div>
+        </a>
+
+        <div class="header-controllers">
+            <div ng-if="appManager.shouldDisplaySearchBarInHeader()">
+                <div class="header-search-bar">
+                    <ui-select multiple ng-model="appManager.selectedAreas">
+                        <ui-select-match placeholder="בחר איזור">{{$item}}</ui-select-match>
+                        <ui-select-choices repeat="area in areas | filter: $select.search" value="{{area}}">{{area}}</ui-select-choices>
+                    </ui-select>
                 </div>
-            </a>
-
-            <div class="header-controllers">
-                <div ng-if="appManager.shouldDisplaySearchBarInHeader()">
-                    <div class="header-search-bar">
-                        <ui-select multiple ng-model="appManager.selectedAreas">
-                            <ui-select-match placeholder="בחר איזור">{{$item}}</ui-select-match>
-                            <ui-select-choices repeat="area in areas | filter: $select.search" value="{{area}}">{{area}}</ui-select-choices>
-                        </ui-select>
-                    </div>
-                    <div id="send-button">
-                        <button class="btn btn-block transition-animation"
-                                ng-click="send()"
-                                ng-class="{'btn-disabled':shouldDisableSend(), 'btn-primary':!shouldDisableSend()}"
-                                ng-disabled="shouldDisableSend()">{{sendButtonLabel}}
-                        </button>
-                    </div>
+                <div id="send-button">
+                    <button class="btn btn-block transition-animation"
+                            ng-click="send()"
+                            ng-class="{'btn-disabled':shouldDisableSend(), 'btn-primary':!shouldDisableSend()}"
+                            ng-disabled="shouldDisableSend()">{{sendButtonLabel}}
+                    </button>
                 </div>
+            </div>
 
 
-                <!-- Login or User menu -->
-                <div class="header-menu">
-                    <div class="header-actions">
-                        <div class="register-login-container" ng-if="!authService.isLoggedIn(user)">
-                            <div class="register-login-common login">
-                                <a href="#" ng-click="openLoginDialog()">
-                                    כניסה
-                                </a>
-                            </div>
-                            <div class="register-login-common register">
-                                <a href="#" ng-click="openRegisterDialog()">
-                                    הרשמה
-                                </a>
-                            </div>
+            <!-- Login or User menu -->
+            <div class="header-menu">
+                <div class="header-actions">
+                    <div class="register-login-container" ng-if="!authService.isLoggedIn(user)">
+                        <div class="register-login-common login">
+                            <a href="#" ng-click="openLoginDialog()">
+                                כניסה
+                            </a>
                         </div>
-                        <div class="dropdown-container" ng-if="authService.isLoggedIn(user)">
-                            <div uib-dropdown>
-                                <a href uib-dropdown-toggle>
-                                    <div class="display-name"><i class="fa fa-bars"></i>
-                                        <div class="display-name-text">{{getDisplayName()}}</div>
-                                    </div>
-                                </a>
-                                <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
-                                    <li access-level="public">
-                                        <a ui-sref="user_details">הפרופיל שלי</a>
-                                    </li>
-                                    <!--<li access-level="public">-->
-                                    <!--<a ui-sref="dashboard({contentTypeName: 'user'})">תראה לי משתמשים!</a>-->
-                                    <!--</li>-->
-                                    <li access-level="jobProvider">
-                                        <a ui-sref="my_company">החברה שלי</a>
-                                    </li>
-                                    <li access-level="jobProvider">
-                                        <a ui-sref="dashboard({contentTypeName: 'job'})">משרות</a>
-                                    </li>
-                                    <li access-level="admin">
-                                        <a ui-sref="dashboard({contentTypeName: 'company'})">מנהל תוכן</a>
-                                    </li>
-                                    <li access-level="public" active-user="authService.getActiveUser()">
-                                        <a ui-sref="home" ng-click="logout()">יציאה</a>
-                                    </li>
-                                </ul>
-                            </div>
+                        <div class="register-login-common register">
+                            <a href="#" ng-click="openRegisterDialog()">
+                                הרשמה
+                            </a>
+                        </div>
+                    </div>
+                    <div class="dropdown-container" ng-if="authService.isLoggedIn(user)">
+                        <div uib-dropdown>
+                            <a href uib-dropdown-toggle>
+                                <div class="display-name"><i class="fa fa-bars"></i>
+                                    <div class="display-name-text">{{getDisplayName()}}</div>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu" uib-dropdown-menu aria-labelledby="simple-dropdown">
+                                <li access-level="public">
+                                    <a ui-sref="user_details">הפרופיל שלי</a>
+                                </li>
+                                <!--<li access-level="public">-->
+                                <!--<a ui-sref="dashboard({contentTypeName: 'user'})">תראה לי משתמשים!</a>-->
+                                <!--</li>-->
+                                <li access-level="jobProvider">
+                                    <a ui-sref="my_company">החברה שלי</a>
+                                </li>
+                                <li access-level="jobProvider">
+                                    <a ui-sref="dashboard({contentTypeName: 'job'})">משרות</a>
+                                </li>
+                                <li access-level="admin">
+                                    <a ui-sref="dashboard.company({entityId: -1})">מנהל תוכן</a>
+                                </li>
+                                <li access-level="public" active-user="authService.getActiveUser()">
+                                    <a ui-sref="home" ng-click="logout()">יציאה</a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
 
 </div>

@@ -1,12 +1,15 @@
-angular.module('easywork')
-	.controller('DashboardListCtrl', function ($scope, dataManager, appManager, common, $stateParams, $state, utils) {
+(function (angular) {
+	'use strict';
+
+	function DasuboardListController($scope, $element, $attrs) {
+
 		var contentTypeName = $stateParams.contentTypeName;
-		var selectedEntityId = $stateParams.selectedEntityId;
+		var selectedEntityId = $stateParams.entityId;
 		$scope.appManager = appManager;
 		$scope.isLoading = false;
 
-		refreshEntities(contentTypeName, selectedEntityId)
-		$scope.$watch('appManager.getLoadingIndicatorVisibility()', function(value) {
+		refreshEntities(contentTypeName, selectedEntityId);
+		$scope.$watch('appManager.getLoadingIndicatorVisibility()', function (value) {
 			$scope.isLoading = value;
 		})
 
@@ -26,7 +29,7 @@ angular.module('easywork')
 			if (utils.isUndefined($scope.entities) || $scope.entities.length === 0) {
 				$state.go("dashboard.list.empty");
 			}
-			else if (entityId === '-1') {
+			else if (!entityId || entityId === '-1') {
 				// Just take the first entity
 				var entity = $scope.entities[0];
 				setSelectedEntity(entity);
@@ -184,4 +187,13 @@ angular.module('easywork')
 					return entity.fileName;
 			}
 		}
+	}
+
+	DasuboardListController.$inject = ['$scope', 'dataManager', 'appManager', 'common', '$stateParams', '$state', 'utils'];
+
+	angular.module('easywork').component('dashboardList', {
+		templateUrl: 'dashboard-list.html',
+		controller: DashboardListCtrl
 	});
+})(window.angular);
+
