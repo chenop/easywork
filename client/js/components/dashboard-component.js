@@ -47,6 +47,8 @@
 					return common.CONTENT_TYPE.CV;
 			}
 		}
+
+
 	}
 
 	DashboardController.$inject = ['dataManager', 'appManager', '$state'];

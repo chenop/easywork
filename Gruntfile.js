@@ -23,7 +23,7 @@ module.exports = function (grunt) {
 		, 'node_modules/angular-messages/angular-messages.js'
 		, 'node_modules/bootstrap/dist/js/bootstrap.js'
 		, 'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js'
-		, 'node_modules/angular-ui-router/release/angular-ui-router.js'
+		, 'node_modules/@uirouter/angularjs/release/angular-ui-router.js'
 
 		// Ui-Select2
 		, 'node_modules/ui-select/dist/select.js'
@@ -179,6 +179,7 @@ module.exports = function (grunt) {
 		watch: { // Watch for file changes
 			configFiles: {
 				files: ['Gruntfile.js'],
+				tasks: ['template'],
 				options: {
 					reload: true
 				}
@@ -190,7 +191,7 @@ module.exports = function (grunt) {
 				}
 			},
 			html: {
-				files: 'client/index-tpl.html',
+				files: ['client/views/**/*.html', 'client/index-tpl.html'],
 				tasks: ['template'],
 				options: {
 					livereload: true,

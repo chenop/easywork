@@ -1,8 +1,6 @@
 <div id="dashboard" class="view">
-    Hiiiiiii!!!!
-
-    <!-- dashboard-header  is not being displayed... how many content-disposition will I have?, very slow!!! Need to think about it -->
     <dashboard-header on-content-type-select="$ctrl.contentTypeSelect(type)" contentType="$ctrl.contentType"></dashboard-header>
+    <dashboard-list entities="$ctrl.entites"></dashboard-list>
     <!--<div ui-view></div>-->
 </div>
 
