@@ -9,15 +9,16 @@
 
 	function DashboardController(dataManager, appManager, $state) {
 		var ctrl = this;
+
 		appManager.setDisplaySearchBarInHeader(false);
-		//$scope.contentTypeSelected = function(newContentTypeName) {
-		//    $scope.contentType = getContentType(newContentTypeName);
-		//
-		//    $state.go("dashboard.list", {
-		//        "contentTypeName": newContentTypeName
-		//        , "selectedEntityId" : '-1'
-		//    });
-		//}
+
+		this.contentTypeSelected = function (newContentTypeName) {
+			this.contentType = getContentType(newContentTypeName);
+
+			$state.go("dashboard." + this.contentType, {
+				"selectedEntityId": '-1'
+			});
+		}
 
 		this.contentType = $state.current.contentTypeName;
 		//this.contentTypeSelected(contentTypeName);
@@ -52,6 +53,6 @@
 
 	angular.module('easywork').component('dashboard', {
 		templateUrl: '/views/admin/dashboard.html',
-		controller: DashboardController
+		controller: DashboardController,
 	});
 })(window.angular);
