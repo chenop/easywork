@@ -195,11 +195,14 @@ module.exports = function (grunt) {
 				},
 			},
 			html: {
-				files: ['client/views/**/*.html', 'client/index-tpl.html'],
-				tasks: ['template'],
+				files: ['client/views/**/*.html'],
 				options: {
 					livereload: true,
 				},
+			},
+			indexTemplate: {
+				files: ['client/index-tpl.html'],
+				tasks: ['template']
 			},
 			css: {
 				files: 'client/css/**/*.scss',

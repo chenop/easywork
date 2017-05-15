@@ -129,7 +129,7 @@
 			}
 		})
 
-		function getDisplayName(entity) {
+		ctrl.getDisplayName = function (entity) {
 			switch (entity.contentType) {
 				case common.EContentType.Job:
 				case common.EContentType.Company:
