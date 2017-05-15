@@ -8,15 +8,16 @@
 	function DashboardContentController($scope, dataManager, appManager, common, $stateParams, $state, utils) {
 		var ctrl = this;
 
-		ctrl.isLoading = false;
+		// ctrl.isLoading = false;
 
-		$scope.$watch('appManager.getLoadingIndicatorVisibility()', function (value) {
-			ctrl.isLoading = value;
-		})
+		// $scope.$watch('appManager.getLoadingIndicatorVisibility()', function (value) {
+		// 	console.log("getLoadingIndicatorVisibility: " + value);
+		// 	ctrl.isLoading = value;
+		// })
 
 		// ctrl.$onChanges = function (changes) {
-		// 	if (changes.entities && changes.entities.currentValue)
-		// 		ctrl.entities = changes.entities.currentValue;
+		// 	if (changes.isLoading)
+		// 		ctrl.isLoading = changes.isLoading.currentValue;
 		// };
 
 		function setSelectedEntity(entity) {
