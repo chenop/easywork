@@ -5,10 +5,6 @@
 angular.module('easywork')
 	.factory('dataManager', function ($http, common, utils, $q, apiHelper) {
 
-			var jobs = null;
-			var companies = null;
-			var users = null;
-			var skillsToJobs = null;
 			var filterData = null;
 
 			// Optimizing filterData call
@@ -44,8 +40,7 @@ angular.module('easywork')
 
 				return apiHelper.get(true, url)
 					.then(function (result) {
-							jobs = result.data;
-							return jobs;
+							return result.data;
 						},
 						function (err1, err2) {
 							console.log(err1);

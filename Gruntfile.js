@@ -58,7 +58,7 @@ module.exports = function (grunt) {
 		, 'client/js/controllers/home-controller.js'
 		, 'client/js/components/dashboard-header-component.js'
 		, 'client/js/components/dashboard-component.js'
-		, 'client/js/controllers/dashboard-list-controller.js'
+		, 'client/js/components/dashboard-content-component.js'
 		, 'client/js/controllers/user-controller.js'
 		, 'client/js/controllers/job-controller.js'
 		, 'client/js/controllers/job-full-controller.js'
@@ -106,14 +106,12 @@ module.exports = function (grunt) {
 		var postFix = "";
 
 		switch (fileType) {
-			case ('css') :
-			{
+			case ('css') : {
 				preFix = "\t<link href=\"";
 				postFix = "\" rel=\"stylesheet\">\n";
 				break;
 			}
-			case ('js') :
-			{
+			case ('js') : {
 				preFix = "\t<script type=\"text/javascript\" src=\"";
 				postFix = "\"></script>\n";
 				break;
@@ -189,6 +187,12 @@ module.exports = function (grunt) {
 				options: {
 					reload: true
 				}
+			},
+			js: {
+				files: 'client/js/**/*.js',
+				options: {
+					livereload: true,
+				},
 			},
 			html: {
 				files: ['client/views/**/*.html', 'client/index-tpl.html'],

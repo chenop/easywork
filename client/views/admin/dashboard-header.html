@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-4 btn-group">
         <button ng-class="{ 'active' : contentType.value == '0' }"
-                ui-sref="dashboard.job({entityId: -1})"
+                ui-sref="dashboard.job"
                 access-level="jobProvider" type="button" class="btn btn-default col-xs-3"
                 data-toggle="tooltip" data-original-title="Jobs">
             <!--Jobs-->
@@ -10,7 +10,7 @@
             </i>
         </button>
         <button ng-class="{ 'active' : contentType.value == '1' }"
-                ui-sref="dashboard.company({entityId: -1})"
+                ui-sref="dashboard.company"
                 access-level="admin" type="button" class="btn btn-default col-xs-3"
                 data-toggle="tooltip" data-original-title="Companies">
             <!--Companies-->
@@ -19,7 +19,7 @@
             </i>
         </button>
         <button ng-class="{ 'active' : contentType.value == '2' }"
-                ui-sref="dashboard.user({entityId: -1})"
+                ui-sref="dashboard.user"
                 access-level="admin" type="button" class="btn btn-default col-xs-3"
                 data-toggle="tooltip" data-original-title="Users">
             <!--Users-->
@@ -28,7 +28,7 @@
             </i>
         </button>
         <button ng-class="{ 'active' : contentType.value == '3' }"
-                ui-sref="dashboard.cv({entityId: -1})"
+                ui-sref="dashboard.cv"
                 access-level="admin" type="button" class="btn btn-default col-xs-3"
                 data-toggle="tooltip" data-original-title="Cvs">
             <!--Users-->

@@ -35,37 +35,64 @@ app.config(
 				isDashboard: false
 			})
 			.state('dashboard', {
-				//abstract: true,
+				abstract: true,
 				url: "/dashboard",
 				component: "dashboard",
 				isDashboard: true
 			})
-			//.state('dashboard.list', {
-			//	url: "/:contentTypeName/:selectedEntityId",
-			//	templateUrl: "/views/admin/dashboard-list.html"
-			//})
 			.state('dashboard.job', {
-				url: "/job/:entityId",
-				templateUrl: "/views/jobs/job.html",
-				contentTypeName: "job"
+				// url: "/job/:entityId",
+				url: "/job",
+				// templateUrl: "/views/jobs/job.html",
+				component: "dashboardContent",
+				contentTypeName: "job",
+				resolve: {
+					entities: function (appManager) {
+						return appManager.getJobs()
+							.then(function (jobs) {
+								return jobs;
+							});
+					}
+				}
 			})
 			.state('dashboard.company', {
-				url: "/company/:entityId",
-				templateUrl: "/views/companies/company.html",
+				// url: "/company/:entityId",
+				url: "/company",
+				// templateUrl: "/views/companies/company.html",
+				component: "dashboardContent",
 				isDashboard: true,
-				contentTypeName: "company"
+				contentTypeName: "company",
+				resolve: {
+					entities: function (appManager) {
+						return appManager.getCompanies();
+					}
+				}
 			})
 			.state('dashboard.user', {
-				url: "/user/:entityId",
-				templateUrl: "/views/users/user.html",
+				// url: "/user/:entityId",
+				url: "/user/",
+				// templateUrl: "/views/users/user.html",
+				component: "dashboardContent",
 				contentTypeName: "user",
-				isDashboard: true
+				isDashboard: true,
+				resolve: {
+					entities: function (appManager) {
+						return appManager.getUsers();
+					}
+				}
 			})
 			.state('dashboard.cv', {
-				url: "/cv/:entityId",
-				templateUrl: "/views/cvs/cv.html",
+				url: "/cv",
+				// url: "/cv/:entityId",
+				// templateUrl: "/views/cvs/cv.html",
+				component: "dashboardContent",
 				contentTypeName: "cv",
-				isDashboard: true
+				isDashboard: true,
+				resolve: {
+					entities: function (appManager) {
+						return appManager.getCvs();
+					}
+				}
 			})
 			.state('dashboard.list.empty', {
 				url: "/list/empty",

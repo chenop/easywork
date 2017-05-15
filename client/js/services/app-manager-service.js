@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-	.factory('appManager', function (authService, common, $uibModal, $rootScope, mailService, dataManager) {
+	.factory('appManager', function (authService, common, $uibModal, $rootScope, mailService, dataManager, utils, $state) {
 
 			var selectedCompanies = [];
 			var selectedTechnologies = [];
@@ -147,9 +147,9 @@ angular.module('easywork')
 			}
 
 			function getRelevantEntityId(isDashboard, entityId, contentTypeName) {
+				debugger;
 				if (isDashboard) {
-					var selectedEntity = getSelectedEntity();
-					entityId = (!selectedEntity) ? entityId : selectedEntity._id;
+					return entityId;
 				} else {
 					if (!entityId) {
 						switch (contentTypeName) {
@@ -214,6 +214,106 @@ angular.module('easywork')
 					});
 			}
 
+			function contentTypeSelected(contentType) {
+				setCurrentContentType(contentType);
+				return refreshEntities(contentType);
+			}
+
+			function refreshEntities(contentTypeName, nextEntityIdToSelect) {
+				if (contentTypeName == undefined) {
+					contentTypeName = getCurrentContentType().name;
+				}
+
+				switch (contentTypeName) {
+
+					case common.CONTENT_TYPE.JOB.name:
+						return getJobs().then(function (entities) {
+							// onEntitiesFetch(common.CONTENT_TYPE.JOB, entities, nextEntityIdToSelect);
+							return entities;
+						});
+						break;
+
+					case common.CONTENT_TYPE.COMPANY.name:
+						return getCompanies().then(function (entities) {
+							// onEntitiesFetch(common.CONTENT_TYPE.COMPANY, entites, nextEntityIdToSelect);
+							return entities;
+						});
+						break;
+
+					case common.CONTENT_TYPE.USER.name:
+						return getUsers().then(function (entities) {
+							// onEntitiesFetch(common.CONTENT_TYPE.USER, entites, nextEntityIdToSelect);
+							return entities;
+						});
+						break;
+					case common.CONTENT_TYPE.CV.name:
+						return getCvs().then(function (entities) {
+							// onEntitiesFetch(common.CONTENT_TYPE.CV, entites, nextEntityIdToSelect);
+							return entities;
+						});
+						break;
+				}
+			}
+
+			function getJobs() {
+				if (getActiveUser().role == "admin") {
+					return dataManager.getJobs();
+				}
+				else {
+					var companyId = getActiveCompanyId();
+					return dataManager.getJobs(companyId);
+				}
+			}
+
+			function getCompanies() {
+				return dataManager.getCompanies();
+			}
+
+			function getUsers() {
+				return dataManager.getUsers();
+			}
+
+			function getCvs() {
+				return dataManager.getCvs();
+			}
+
+			function onEntitiesFetch(entityType, entites, nextEntityIdToSelect) {
+				ctrl.entities = entites;
+				handleSelection(nextEntityIdToSelect);
+			}
+
+			function handleSelection(entityId, entities, contentType) {
+				debugger;
+				if (utils.isUndefined(entities) || entities.length === 0) {
+					$state.go("dashboard.list.empty");
+				}
+				else if (!entityId || entityId === '-1') {
+					// Just take the first entity
+					var entity = entities[0];
+					setSelectedEntity(entity);
+					$state.go("dashboard." + contentType, {entityId: entity._id});
+				}
+				else {
+					// Need to select the entity
+					var selectedEntity = getEntity(entities, entityId);
+					setSelectedEntity(selectedEntity);
+					$state.go("dashboard." + contentType, {entityId: selectedEntity._id});
+				}
+			}
+
+			function getEntity(entities, id) {
+				for (var index in entities) {
+					if (entities.hasOwnProperty(index)) {
+						var entity = entities[index];
+						if (entity._id === id) {
+							return entity;
+						}
+					}
+				}
+				return null;
+			}
+
+
 			return {
 				shouldDisplaySearchBarInHeader: shouldDisplaySearchBarInHeader
 				, setDisplaySearchBarInHeader: setDisplaySearchBarInHeader
@@ -240,6 +340,12 @@ angular.module('easywork')
 				, setLoadingIndicatorVisibility: setLoadingIndicatorVisibility
 				, getLoadingIndicatorVisibility: getLoadingIndicatorVisibility
 				, createEmptyCompanyForActiveUser: createEmptyCompanyForActiveUser
+				, contentTypeSelected: contentTypeSelected
+				, handleSelection: handleSelection
+				, getJobs: getJobs
+				, getCompanies: getCompanies
+				, getCvs: getCvs
+				, getUsers: getUsers
 			}
 		}
 	);
