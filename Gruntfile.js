@@ -59,6 +59,7 @@ module.exports = function (grunt) {
 		, 'client/js/components/dashboard-header-component.js'
 		, 'client/js/components/dashboard-component.js'
 		, 'client/js/components/dashboard-content-component.js'
+		, 'client/js/components/dashboard-list-component.js'
 		, 'client/js/controllers/user-controller.js'
 		, 'client/js/controllers/job-controller.js'
 		, 'client/js/controllers/job-full-controller.js'

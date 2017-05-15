@@ -1,0 +1,17 @@
+<input class="form-control top-padding searchCotainer" placeholder="חפש..." ng-model="searchStr"/>
+<a class="clearSearchStrIcon" ng-click="$ctrl.searchStr = ''">
+    <span class="glyphicon glyphicon-remove"></span>
+</a>
+
+<div class="no-padding dashboard-list">
+    <ul class="nav nav-pills nav-stacked">
+        <li ng-repeat="entity in $ctrl.entities | filter:$ctrl.searchStr" ng-class="{'active': $ctrl.isSelected(entity)}"
+            ng-click="$ctrl.setSelected(entity, $index)">
+            <a>
+                {{$ctrl.getDisplayName(entity)}}
+                <img class="small-logo" ng-if="entity.logo" ng-src="{{entity.logo.url}}"/>
+                <span class="glyphicon glyphicon-remove btn btn-sm delete-entity-icon" ng-click="$ctrl.deleteEntity(entity, $index)" style="float: left"></span>
+            </a>
+        </li>
+    </ul>
+</div>

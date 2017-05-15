@@ -130,18 +130,6 @@
 		// 	}
 		// })
 
-		ctrl.getDisplayName = function (entity) {
-			switch (entity.contentType) {
-				case common.EContentType.Job:
-				case common.EContentType.Company:
-					return entity.name;
-				case common.EContentType.User:
-					return entity.name || entity.email;
-				case common.EContentType.CV:
-					return entity.fileName;
-			}
-		}
-
 	}
 
 	DashboardContentController.$inject = ['$scope', 'dataManager', 'appManager', 'common', '$stateParams', '$state', 'utils'];
