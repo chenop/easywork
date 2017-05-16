@@ -3,10 +3,10 @@
  * @type {{Job: number, Company: number, User: number, CV: number}}
  */
 var EContentType = {
-	Job: 0
-	, Company: 1
-	, User: 2
-	, CV: 3
+	Job: "job"
+	, Company: "company"
+	, User: "user"
+	, CV: "cv"
 }
 
 module.exports = {

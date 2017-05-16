@@ -5,7 +5,7 @@
 (function (angular) {
 	'use strict';
 
-	function DashboardListController(common) {
+	function DashboardListController(EContentType, common, utils, dataManager) {
 		var ctrl = this;
 
 		ctrl.$onChanges = function (changes) {
@@ -14,48 +14,69 @@
 		};
 
 		ctrl.isSelected = function (entity) {
-			// var selectedEntity = appManager.getSelectedEntity();
-			// if (entity == undefined || selectedEntity == undefined)
-			// 	return false;
-			// return selectedEntity._id == entity._id;
+			var selectedEntity = ctrl.selectedEntity;
+			if (entity == undefined || selectedEntity == undefined)
+				return false;
+			return selectedEntity._id == entity._id;
 		}
 
 		ctrl.setSelected = function (entity, $index) {
-			console.log("setSelected: " + ctrl.getDisplayName(entity));
-			// handleSelection(entity._id);
+			ctrl.selectedEntity = entity;
 		}
 
 		ctrl.getDisplayName = function (entity) {
 			switch (entity.contentType) {
-				case common.EContentType.Job:
-				case common.EContentType.Company:
+				case EContentType.Job:
+				case EContentType.Company:
 					return entity.name;
-				case common.EContentType.User:
+				case EContentType.User:
 					return entity.name || entity.email;
-				case common.EContentType.CV:
+				case EContentType.Cv:
 					return entity.fileName;
 			}
 		}
 
 		ctrl.deleteEntity = function (entity, index) {
-			// common.openYesNoModal("äàí àúä áèåç?", function () {
-			// 	var contentType = appManager.getCurrentContentType();
-			// 	var nextEntityToSelect = prepareNextEntityToSelect(index);
-			// 	utils.removeObject(ctrl.entities, entity);
-			//
-			// 	handleSelection(nextEntityToSelect._id);
-			// 	dataManager.deleteEntity(contentType, entity._id);
-			// })
+			if (!entity)
+				return;
+
+			common.openYesNoModal("×”×× ××ª×” ×‘×˜×•×—?", function () {
+				var nextEntityToSelect = prepareNextEntityToSelect(index);
+				utils.removeObject(ctrl.entities, entity);
+
+				ctrl.selectedEntity = nextEntityToSelect;
+				dataManager.deleteEntity(entity.contentType, entity.id);
+			})
 		}
 
+		function prepareNextEntityToSelect(index) {
+			if (index === undefined)
+				return ctrl.entities[0];
+
+			if (ctrl.entities != undefined) {
+				if (!isLastEntity(index)) {
+					index++;
+				}
+				else if (index != 0) {
+					index--;
+				}
+				return ctrl.entities[index];
+			}
+
+			return null;
+		}
+
+		function isLastEntity(index) {
+			return index == ctrl.entities.length - 1;
+		}
 	}
 
-	DashboardListController.$inject = ['common'];
+	DashboardListController.$inject = ['EContentType', 'common', 'utils', 'dataManager'];
 
 	angular.module('easywork').component('dashboardList', {
 		templateUrl: '/views/admin/dashboard-list.html',
 		bindings: {
-			entities: '<'
+			entities: '<',
 		},
 		controller: DashboardListController
 	});

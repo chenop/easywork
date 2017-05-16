@@ -48,7 +48,7 @@ module.exports = function (grunt) {
 
 	var appJsFiles = [
 		'client/js/app.js'
-
+		, 'client/js/models/EContentType.js'
 		, 'client/js/routingConfig.js'
 		, 'client/js/controllers/header-controller.js'
 		, 'client/js/controllers/footer-controller.js'
@@ -85,7 +85,6 @@ module.exports = function (grunt) {
 		, 'client/js/services/cv-service.js'
 		, 'client/js/services/login-register-service.js'
 
-		, 'client/js/models/job.js'
 		, 'client/js/models/modelTransformer.js'
 
 		, 'client/js/directives/directives.js'
@@ -94,6 +93,7 @@ module.exports = function (grunt) {
 
 		, 'client/js/upload-cv/upload-cv-directive.js'
 		, 'client/js/cv-doc-view/cv-doc-view-directive.js'
+		, 'client/js/app-config.js'
 	]
 
 	var isDevMode = function () {
@@ -178,15 +178,18 @@ module.exports = function (grunt) {
 		watch: { // Watch for file changes
 			configFiles: {
 				files: ['Gruntfile.js'],
-				tasks: ['template'],
+				tasks: ['template', 'express:dev'],
 				options: {
-					reload: true
+					//reload: true,
+					spawn: false
 				}
 			},
 			server: {
-				files: ['server.js'],
+				files: ['server.js', 'server/**/*.js'],
+				tasks: ['template', 'express:dev'],
 				options: {
-					reload: true
+					// reload: true,
+					spawn: false
 				}
 			},
 			js: {

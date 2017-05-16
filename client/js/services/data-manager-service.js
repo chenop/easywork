@@ -131,19 +131,19 @@ angular.module('easywork')
 			}
 
 			var deleteCompany = function (id) {
-				return deleteEntity(common.CONTENT_TYPE.COMPANY, id);
+				return deleteEntity(common.CONTENT_TYPE.COMPANY.name, id);
 			}
 
 			var deleteJob = function (id) {
-				return deleteEntity(common.CONTENT_TYPE.JOB, id);
+				return deleteEntity(common.CONTENT_TYPE.JOB.name, id);
 			}
 
 			var deleteUser = function (id) {
-				return deleteEntity(common.CONTENT_TYPE.USER, id);
+				return deleteEntity(common.CONTENT_TYPE.USER.name, id);
 			}
 
 			var deleteCv = function (id) {
-				return deleteEntity(common.CONTENT_TYPE.CV, id);
+				return deleteEntity(common.CONTENT_TYPE.CV.name, id);
 			}
 
 			var updateCompany = function (entity) {
@@ -179,7 +179,7 @@ angular.module('easywork')
 			var deleteEntity = function (entityType, id) {
 				if (id == undefined)
 					return;
-				return apiHelper.delete1(false, entityType.name + '/' + id);
+				return apiHelper.delete1(false, entityType + '/' + id);
 			}
 
 			var updateEntity = function (entityType, entity) {

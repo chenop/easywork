@@ -283,7 +283,6 @@ angular.module('easywork')
 			}
 
 			function handleSelection(entityId, entities, contentType) {
-				debugger;
 				if (utils.isUndefined(entities) || entities.length === 0) {
 					$state.go("dashboard.list.empty");
 				}
