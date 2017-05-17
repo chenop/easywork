@@ -34,7 +34,18 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 					return appManager.getJobs();
 				}
 			}
-
+		})
+		.state('dashboard.job.id', {
+			url: "/:entityId",
+			templateUrl: "/views/jobs/job.html",
+			data: {},
+			resolve: {
+				selectedEntity: function ($stateParams, dataManager) {
+					if ($stateParams.entityId)
+						return dataManager.getJob($stateParams.entityId);
+					return null;
+				}
+			}
 		})
 		.state('dashboard.company', {
 			url: "/company",
@@ -69,7 +80,18 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 					return appManager.getUsers();
 				},
 			}
-
+		})
+		.state('dashboard.user.id', {
+			url: "/:entityId",
+			templateUrl: "/views/users/user.html",
+			data: {},
+			resolve: {
+				selectedEntity: function ($stateParams, dataManager) {
+					if ($stateParams.entityId)
+						return dataManager.getJob($stateParams.entityId);
+					return null;
+				}
+			}
 		})
 		.state('dashboard.cv', {
 			url: "/cv",
@@ -83,7 +105,18 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 					return appManager.getCvs();
 				},
 			}
-
+		})
+		.state('dashboard.cv.id', {
+			url: "/:entityId",
+			templateUrl: "/views/cvs/cv.html",
+			data: {},
+			resolve: {
+				selectedEntity: function ($stateParams, dataManager) {
+					if ($stateParams.entityId)
+						return dataManager.getCv($stateParams.entityId);
+					return null;
+				}
+			}
 		})
 		.state('dashboard.list.empty', {
 			url: "/list/empty",
