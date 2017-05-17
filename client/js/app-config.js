@@ -39,12 +39,22 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 		.state('dashboard.company', {
 			url: "/company",
 			component: "dashboardContent",
-			isDashboard: true,
-			contentTypeName: "company",
 			resolve: {
 				entities: function (appManager) {
 					return appManager.getCompanies();
-				},
+				}
+			}
+		})
+		.state('dashboard.company.id', {
+			url: "/:entityId",
+			templateUrl: "/views/companies/company.html",
+			data: {},
+			resolve: {
+				selectedEntity: function ($stateParams, dataManager) {
+					if ($stateParams.entityId)
+						return dataManager.getCompany($stateParams.entityId);
+					return null;
+				}
 			}
 		})
 		.state('dashboard.user', {

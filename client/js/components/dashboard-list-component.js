@@ -5,13 +5,25 @@
 (function (angular) {
 	'use strict';
 
-	function DashboardListController(EContentType, common, utils, dataManager) {
+	function DashboardListController(EContentType, common, utils, dataManager, $stateParams, $state) {
 		var ctrl = this;
 
 		ctrl.$onChanges = function (changes) {
-			if (changes.entities && changes.entities.currentValue)
-				ctrl.setSelected(ctrl.entities[0]);
+			if (changes.entities && changes.entities.currentValue) {
+				var entityToSelect = analyzeEntityToSelect(ctrl.contentType, $stateParams.entityId);
+
+				if (entityToSelect)
+					ctrl.setSelected(entityToSelect);
+			}
 		};
+
+		// TODO that should be outside the list component - entity to select should be provided to the entities list
+		function analyzeEntityToSelect(contentType, entityId) {
+			if (entityId)
+				return null; //entityToSelect = appManager.getEntity(contentType, $stateParams.entityId)
+			else
+				return ctrl.entities[0];
+		}
 
 		ctrl.isSelected = function (entity) {
 			var selectedEntity = ctrl.selectedEntity;
@@ -22,6 +34,9 @@
 
 		ctrl.setSelected = function (entity, $index) {
 			ctrl.selectedEntity = entity;
+			$state.go("dashboard." + entity.contentType + ".id", {
+				entityId: entity.id
+			})
 		}
 
 		ctrl.getDisplayName = function (entity) {
@@ -71,7 +86,7 @@
 		}
 	}
 
-	DashboardListController.$inject = ['EContentType', 'common', 'utils', 'dataManager'];
+	DashboardListController.$inject = ['EContentType', 'common', 'utils', 'dataManager', '$stateParams', '$state'];
 
 	angular.module('easywork').component('dashboardList', {
 		templateUrl: '/views/admin/dashboard-list.html',

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-sm-4 btn-group">
-        <button ng-class="{ 'active' : contentType.value == '0' }"
+        <button ng-class="{ 'active' : $ctrl.contentType == '0' }"
                 ui-sref="dashboard.job"
                 access-level="jobProvider" type="button" class="btn btn-default col-xs-3"
                 data-toggle="tooltip" data-original-title="Jobs">
@@ -9,7 +9,7 @@
                 <div class="hidden-xs hidden-sm hidden-md dashboard-entity-type">משרות</div>
             </i>
         </button>
-        <button ng-class="{ 'active' : contentType.value == '1' }"
+        <button ng-class="{ 'active' : $ctrl.contentType == '1' }"
                 ui-sref="dashboard.company"
                 access-level="admin" type="button" class="btn btn-default col-xs-3"
                 data-toggle="tooltip" data-original-title="Companies">
@@ -18,7 +18,7 @@
                 <div class="hidden-xs hidden-sm hidden-md dashboard-entity-type">חברות</div>
             </i>
         </button>
-        <button ng-class="{ 'active' : contentType.value == '2' }"
+        <button ng-class="{ 'active' : $ctrl.contentType == '2' }"
                 ui-sref="dashboard.user"
                 access-level="admin" type="button" class="btn btn-default col-xs-3"
                 data-toggle="tooltip" data-original-title="Users">
@@ -27,7 +27,7 @@
                 <div class="hidden-xs hidden-sm hidden-md dashboard-entity-type">משתמשים</div>
             </i>
         </button>
-        <button ng-class="{ 'active' : contentType.value == '3' }"
+        <button ng-class="{ 'active' : $ctrl.contentType == '3' }"
                 ui-sref="dashboard.cv"
                 access-level="admin" type="button" class="btn btn-default col-xs-3"
                 data-toggle="tooltip" data-original-title="Cvs">
@@ -38,7 +38,7 @@
         </button>
     </div>
     <div class="col-sm-6 btn-group">
-        <button class="btn btn-primary" ng-disabled="contentType.value == '3'" ng-click="addEntity()">New</button>
+        <button class="btn btn-primary" ng-disabled="$ctrl.contentType == '3'" ng-click="addEntity()">New</button>
     </div>
 </div>
 <hr>

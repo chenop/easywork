@@ -138,7 +138,9 @@
 		templateUrl: '/views/admin/dashboard-content.html',
 		controller: DashboardContentController,
 		bindings: {
-			entities: '<'
+			entities: '<',
+			contentType: '<',
+			entityId: '<',
 		},
 	});
 })(window.angular);

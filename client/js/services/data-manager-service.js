@@ -79,7 +79,7 @@ angular.module('easywork')
 			}
 
 			var getCompany = function (id) {
-				return getEntity(common.CONTENT_TYPE.COMPANY, id)
+				return getEntity(common.CONTENT_TYPE.COMPANY.name, id)
 					.then(function (result) {                 // Get the logo
 						return result.data;
 					})
@@ -90,21 +90,21 @@ angular.module('easywork')
 			}
 
 			var getJob = function (id) {
-				return getEntity(common.CONTENT_TYPE.JOB, id)
+				return getEntity(common.CONTENT_TYPE.JOB.name, id)
 					.then(function (result) {
 						return result.data;
 					});
 			}
 
 			var getUser = function (id) {
-				return getEntity(common.CONTENT_TYPE.USER, id)
+				return getEntity(common.CONTENT_TYPE.USER.name, id)
 					.then(function (result) {
 						return result.data;
 					});
 			}
 
 			var getCv = function (id) {
-				return getEntity(common.CONTENT_TYPE.CV, id)
+				return getEntity(common.CONTENT_TYPE.CV.name, id)
 					.then(function (result) {
 						return result.data;
 					});
@@ -169,7 +169,7 @@ angular.module('easywork')
 			var getEntity = function (entityType, id) {
 				if (id == undefined)
 					return;
-				return apiHelper.get(true, entityType.name + '/' + id);
+				return apiHelper.get(true, entityType + '/' + id);
 			}
 
 			var createEntity = function (entityType, entity) {

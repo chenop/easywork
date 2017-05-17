@@ -147,7 +147,6 @@ angular.module('easywork')
 			}
 
 			function getRelevantEntityId(isDashboard, entityId, contentTypeName) {
-				debugger;
 				if (isDashboard) {
 					return entityId;
 				} else {
