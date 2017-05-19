@@ -1,87 +1,87 @@
-<div class="jumbotron" id="company-view" ng-controller="CompanyCtrl">
+<div class="jumbotron" id="company-view">
     <div ng-show=isLoading>
         <loading size="2"/>
     </div>
     <div ng-hide=isLoading>
         <div class="row">
-            <div data-ng-show="!isCompanyExist()" id="no-company">
+            <div data-ng-show="!$ctrl.isCompanyExist()" id="no-company">
                 <div><h4>
                     לא נמצאה חברה...
                 </h4></div>
                 <button class="btn btn-lg btn-primary" ng-click="createCompany()">צור חברה</button>
             </div>
-            <div data-ng-show="isCompanyExist()">
-                <form name="form" class="form-horizontal" novalidate>
+            <div data-ng-show="$ctrl.isCompanyExist()">
+                <form name="$ctrl.form" class="form-horizontal" novalidate>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">שם</label>
-                        <input id="companyName" type="text" class="col-sm-10 form-control" ng-model="company.name"
+                        <input id="companyName" type="text" class="col-sm-10 form-control" ng-model="$ctrl.company.name"
                                name="cName"
                                placeholder="Company name" ng-model-options="{ debounce: 400 }"
-                               ng-change="updateCompany()"/>
+                               ng-change="$ctrl.updateCompany()"/>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">כישורים נדרשים</label>
                         <div class="col-sm-10 no-horizontal-padding">
-                            <ui-select multiple ng-model="company.skills" search-enabled="true" ng-disabled="true">
+                            <ui-select multiple ng-model="$ctrl.company.skills" search-enabled="true" ng-disabled="true">
                                 <ui-select-match placeholder="אין מידע">{{$item}}</ui-select-match>
-                                <ui-select-choices repeat="skill in skills" value="{{skill}}">{{skill}}
+                                <ui-select-choices repeat="skill in $ctrl.skills" value="{{skill}}">{{skill}}
                                 </ui-select-choices>
                             </ui-select>
                         </div>
                     </div>
 
-                    <div ng-if="company.locations.length > 0">
-                        <div class="form-group" ng-repeat="location in company.locations">
+                    <div ng-if="$ctrl.company.locations.length > 0">
+                        <div class="form-group" ng-repeat="location in $ctrl.company.locations">
                             <label class="col-sm-2 control-label">{{$index > 0 ? "" : 'משרדים'}}</label>
                             <input class="col-sm-4 form-control" type="text" ng-model="location.street" id="cStreet"
                                    name="cStreet" placeholder="Street and Number"
-                                   ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
+                                   ng-model-options="{ debounce: 400 }" ng-change="$ctrl.updateCompany()"/>
                             <input class="col-sm-3 col-sm-offset-1 form-control" type="text"
                                    ng-model="location.city" id="cCity" name="cCity"
                                    placeholder="City name"
-                                   ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
-                <span class="glyphicon glyphicon-remove btn btn-sm" ng-click="removeLocation($index)"
-                      style="float: left"></span>
+                                   ng-model-options="{ debounce: 400 }" ng-change="$ctrl.updateCompany()"/>
+                            <span class="glyphicon glyphicon-remove btn btn-sm" ng-click="$ctrl.removeLocation($index)"
+                                  style="float: left"></span>
                         </div>
                     </div>
 
-                    <div class="form-group" ng-if="company.locations.length == 0">
+                    <div class="form-group" ng-if="$ctrl.company.locations.length == 0">
                         <label class="col-sm-2 control-label">{{$index > 0 ? "" : 'משרדים'}}</label>
-                        <div class="col-sm-10 no-office" ng-if="company.locations.length == 0">אין מידע על מיקום
+                        <div class="col-sm-10 no-office" ng-if="$ctrl.company.locations.length == 0">אין מידע על מיקום
                             המשרדים...
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <button class="btn btn-xs col-sm-offset-2" ng-click="addLocation()">Add Location</button>
+                        <button class="btn btn-xs col-sm-offset-2" ng-click="$ctrl.addLocation()">Add Location</button>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="cMail">מייל לשליחת קו"ח</label>
-                        <input class="col-sm-10 form-control" type="email" class="form-control" ng-model="company.email"
+                        <input class="col-sm-10 form-control" type="email" class="form-control" ng-model="$ctrl.company.email"
                                id="cMail" name="cMail" placeholder="Job's Mail"
-                               ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
+                               ng-model-options="{ debounce: 400 }" ng-change="$ctrl.updateCompany()"/>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="cMail">אתר</label>
-                        <input class="col-sm-10 form-control" type="text" class="form-control" ng-model="company.site"
+                        <input class="col-sm-10 form-control" type="text" class="form-control" ng-model="$ctrl.company.site"
                                id="cSite" name="cSite" placeholder="Web Site"
-                               ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
+                               ng-model-options="{ debounce: 400 }" ng-change="$ctrl.updateCompany()"/>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="cMail">על החברה</label>
-                <textarea rows="5" class="col-sm-10 form-control" type="text" class="form-control"
-                          ng-model="company.description"
-                          id="cDescription" name="cDescription" placeholder="Few words about the company..."
-                          ng-model-options="{ debounce: 400 }" ng-change="updateCompany()"/>
+                        <textarea rows="5" class="col-sm-10 form-control" type="text" class="form-control"
+                                  ng-model="$ctrl.company.description"
+                                  id="cDescription" name="cDescription" placeholder="Few words about the company..."
+                                  ng-model-options="{ debounce: 400 }" ng-change="$ctrl.updateCompany()"/>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">סנן קורות חיים לפי משרות</label>
                         <div class="btn-group">
-                            <label class="btn btn-primary" ng-model="company.allowAllCvs" ng-change="updateCompany()"
+                            <label class="btn btn-primary" ng-model="$ctrl.company.allowAllCvs" ng-change="$ctrl.updateCompany()"
                                    uib-btn-radio="false">כן</label>
-                            <label class="btn btn-primary" ng-model="company.allowAllCvs" ng-change="updateCompany()"
+                            <label class="btn btn-primary" ng-model="$ctrl.company.allowAllCvs" ng-change="$ctrl.updateCompany()"
                                    uib-btn-radio="true">לא</label>
                         </div>
                     </div>
@@ -89,9 +89,9 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">פרסם</label>
                         <div class="btn-group">
-                            <label class="btn btn-primary" ng-model="company.publish" ng-change="updateCompany()"
+                            <label class="btn btn-primary" ng-model="$ctrl.company.publish" ng-change="$ctrl.updateCompany()"
                                    uib-btn-radio="true">כן</label>
-                            <label class="btn btn-primary" ng-model="company.publish" ng-change="updateCompany()"
+                            <label class="btn btn-primary" ng-model="$ctrl.company.publish" ng-change="$ctrl.updateCompany()"
                                    uib-btn-radio="false">לא</label>
                         </div>
                     </div>
@@ -103,14 +103,14 @@
                         <div class="col-sm-10 col-md-10 no-padding">
                             <div class="no-padding">
                                 <div>
-                                    <img class="image-container" ng-src="{{company.logo.url}}"
-                                         ng-click="showLogoGallery()"></img>
+                                    <img class="image-container" ng-src="{{$ctrl.company.logo.url}}"
+                                         ng-click="$ctrl.showLogoGallery()"></img>
                                 </div>
                                 <div class="btn btn-default btn-file top-margin">Upload
                                     <input id="uploadBtn" type="file" class="upload" ng-file-select
-                                           ng-file-change="onImageSelect($files)"/>
+                                           ng-file-change="$ctrl.onImageSelect($files)"/>
                                 </div>
-                                <button class="btn btn-default top-margin" ng-click="showLogoGallery(company)">גלריה
+                                <button class="btn btn-default top-margin" ng-click="$ctrl.showLogoGallery(company)">גלריה
                                 </button>
                             </div>
                         </div>

@@ -10,7 +10,7 @@
 
 		appManager.setDisplaySearchBarInHeader(false);
 		ctrl.contentTypeSelect = function (newContentTypeName) {
-			ctrl.onContentTypeSelect({type: newContentTypeName}); // parameter does not propogate
+			ctrl.onContentTypeSelect({type: newContentTypeName});
 		}
 
 		// var contentTypeName = $stateParams.contentTypeName;

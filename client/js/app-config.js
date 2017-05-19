@@ -24,15 +24,15 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 			isDashboard: true
 		})
 		.state('dashboard.job', {
-			// url: "/job/:entityId",
 			url: "/job",
-			// templateUrl: "/views/jobs/job.html",
 			component: "dashboardContent",
-			contentTypeName: "job",
 			resolve: {
-				entities: function (appManager) {
-					return appManager.getJobs();
-				}
+				contentType: function (EContentType) {
+					return EContentType.Job;
+				},
+				// entities: function (appManager) {
+				// 	return appManager.getJobs();
+				// }
 			}
 		})
 		.state('dashboard.job.id', {
@@ -51,17 +51,20 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 			url: "/company",
 			component: "dashboardContent",
 			resolve: {
-				entities: function (appManager) {
-					return appManager.getCompanies();
-				}
+				contentType: function (EContentType) {
+					return EContentType.Company;
+				},
+				// entities: function (appManager) {
+				// 	return appManager.getCompanies();
+				// }
 			}
 		})
 		.state('dashboard.company.id', {
 			url: "/:entityId",
-			templateUrl: "/views/companies/company.html",
+			component: "company",
 			data: {},
 			resolve: {
-				selectedEntity: function ($stateParams, dataManager) {
+				company: function ($stateParams, dataManager) {
 					if ($stateParams.entityId)
 						return dataManager.getCompany($stateParams.entityId);
 					return null;
@@ -69,22 +72,15 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 			}
 		})
 		.state('dashboard.user', {
-			// url: "/user/:entityId",
 			url: "/user/",
-			// templateUrl: "/views/users/user.html",
 			component: "dashboardContent",
-			contentTypeName: "user",
-			isDashboard: true,
-			resolve: {
-				entities: function (appManager) {
-					return appManager.getUsers();
-				},
+			contentType: function (EContentType) {
+				return EContentType.User;
 			}
 		})
 		.state('dashboard.user.id', {
 			url: "/:entityId",
 			templateUrl: "/views/users/user.html",
-			data: {},
 			resolve: {
 				selectedEntity: function ($stateParams, dataManager) {
 					if ($stateParams.entityId)
@@ -95,15 +91,9 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 		})
 		.state('dashboard.cv', {
 			url: "/cv",
-			// url: "/cv/:entityId",
-			// templateUrl: "/views/cvs/cv.html",
 			component: "dashboardContent",
-			contentTypeName: "cv",
-			isDashboard: true,
-			resolve: {
-				entities: function (appManager) {
-					return appManager.getCvs();
-				},
+			contentType: function (EContentType) {
+				return EContentType.Cv;
 			}
 		})
 		.state('dashboard.cv.id', {

@@ -220,7 +220,7 @@ angular.module('easywork')
 
 			function refreshEntities(contentTypeName, nextEntityIdToSelect) {
 				if (contentTypeName == undefined) {
-					contentTypeName = getCurrentContentType().name;
+					contentTypeName = getCurrentContentType();
 				}
 
 				switch (contentTypeName) {
@@ -330,7 +330,6 @@ angular.module('easywork')
 				, getSelectedEntity: getSelectedEntity
 				, getIndexOf: getIndexOf
 				, getCurrentContentType: getCurrentContentType
-				, setCurrentContentType: setCurrentContentType
 				, send: send
 				, getRelevantEntity: getRelevantEntity
 				, getRelevantEntityId: getRelevantEntityId
@@ -339,7 +338,6 @@ angular.module('easywork')
 				, getLoadingIndicatorVisibility: getLoadingIndicatorVisibility
 				, createEmptyCompanyForActiveUser: createEmptyCompanyForActiveUser
 				, contentTypeSelected: contentTypeSelected
-				, handleSelection: handleSelection
 				, getJobs: getJobs
 				, getCompanies: getCompanies
 				, getCvs: getCvs

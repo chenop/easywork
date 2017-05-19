@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-xs-12 col-sm-4">
-        <dashboard-list entities="$ctrl.entities" contentType="$ctrl.contentType" entityId="$ctrl.entityId"></dashboard-list>
+        <dashboard-list entities="$ctrl.entities" on-entity-select="$ctrl.entitySelected(entity)"></dashboard-list>
     </div>
 
     <div class="col-xs-12 col-sm-8">
@@ -8,6 +8,6 @@
             <loading/>
         </div>
 
-        <div ng-hide=isLoading ui-view></div>
+        <div ng-hide=isLoading ui-view on-update="$ctrl.onUpdate(entity)"></div>
     </div>
 </div>

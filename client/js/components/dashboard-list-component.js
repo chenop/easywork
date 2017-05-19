@@ -34,9 +34,7 @@
 
 		ctrl.setSelected = function (entity, $index) {
 			ctrl.selectedEntity = entity;
-			$state.go("dashboard." + entity.contentType + ".id", {
-				entityId: entity.id
-			})
+			ctrl.onEntitySelect({entity: entity});
 		}
 
 		ctrl.getDisplayName = function (entity) {
@@ -92,6 +90,7 @@
 		templateUrl: '/views/admin/dashboard-list.html',
 		bindings: {
 			entities: '<',
+			onEntitySelect: '&'
 		},
 		controller: DashboardListController
 	});
