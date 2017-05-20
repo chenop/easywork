@@ -2,7 +2,7 @@
  * Created by Chen on 09/01/2016.
  */
 
-var Job     = require('../models/job');
+var Job = require('../models/job');
 const utils = require('../utils/utils');
 var SkillService = require('./skillService');
 
@@ -10,142 +10,142 @@ var SkillService = require('./skillService');
  * Public
  ***********/
 module.exports = {
-    createJob: createJob
-    , updateJob: updateJob
-    , deleteJob: deleteJob
-    , getJob: getJob
-    , getJobs: getJobs
-    , getCompanyNeededSkills: getCompanyNeededSkills
-    , getCompaniesNeededSkills: getCompaniesNeededSkills
-    , getJobsByCompanyAndSkill: getJobsByCompanyAndSkill
+	createJob: createJob
+	, updateJob: updateJob
+	, deleteJob: deleteJob
+	, getJob: getJob
+	, getJobs: getJobs
+	, getCompanyNeededSkills: getCompanyNeededSkills
+	, getCompaniesNeededSkills: getCompaniesNeededSkills
+	, getJobsByCompanyAndSkill: getJobsByCompanyAndSkill
 	, getRelevantJobs: getRelevantJobs
-    , isCvRelevant: isCvRelevant
+	, isCvRelevant: isCvRelevant
 };
 
 /***********
  * Private
  ***********/
 function createJob(job) {
-    var jobInstance = createJobInstance(job);
+	var jobInstance = createJobInstance(job);
 
-    return jobInstance.save();
+	return jobInstance.save();
 }
 
 function updateJob(job) {
-    var jobInstance = createJobInstance(job);
-    jobInstance._id = job._id;
+	var jobInstance = createJobInstance(job);
+	jobInstance._id = job._id;
 
-    var upsertJob = jobInstance.toObject();
-    return Job.findOneAndUpdate({'_id': job._id}, upsertJob, {upsert: true, new: true}).lean().exec();
+	var upsertJob = jobInstance.toObject();
+	return Job.findOneAndUpdate({'_id': job._id}, upsertJob, {upsert: true, new: true}).lean().exec();
 }
 
 function createJobInstance(job) {
-    var newJob = new Job(
-        {
-            name: job.name
-            , code: job.code
-            , city: job.city
-            , description: job.description
-            , company: job.company
-            , skills: job.skills
-        }
-    );
+	var newJob = new Job(
+		{
+			name: job.name
+			, code: job.code
+			, city: job.city
+			, description: job.description
+			, company: job.company
+			, skills: job.skills
+		}
+	);
 
-    return newJob;
+	return newJob;
 }
 
 function deleteJob(id) {
-    return Job.remove({_id: id}).exec();
+	return Job.remove({_id: id}).exec();
 }
 
 function getJob(jobId) {
-    return Job.findById(jobId).lean().exec();
+	return Job.findById(jobId).populate("company").lean().exec();
 }
 
 function getJobs(companyId) {
-    var conditions = {};
+	var conditions = {};
 
-    if (utils.isDefined(companyId))
-        conditions = {"company" : companyId}
-    return Job.find(conditions).populate("company").exec();
+	if (utils.isDefined(companyId))
+		conditions = {"company": companyId}
+	return Job.find(conditions).populate("company").exec();
 }
 
 function concatSkills(skills, job) {
-    skills = skills.concat(job.skills.filter(function (item) { // concatenating all jobs skills and filter duplications
-            return skills.indexOf(item) < 0;
-        }));
-    return skills;
+	skills = skills.concat(job.skills.filter(function (item) { // concatenating all jobs skills and filter duplications
+		return skills.indexOf(item) < 0;
+	}));
+	return skills;
 }
 function getCompanyNeededSkills(companyId) {
-    return Job.find({company: companyId}).lean().exec()
-        .then(function (jobs) {
-            var skills = [];
-            for (var i = 0; i < jobs.length; i++) {
-                var job = jobs[i];
-                if (job.skills && job.skills.length > 0) {
-                    skills = concatSkills(skills, job);
-                }
-            }
-            return skills;
-        })
+	return Job.find({company: companyId}).lean().exec()
+		.then(function (jobs) {
+			var skills = [];
+			for (var i = 0; i < jobs.length; i++) {
+				var job = jobs[i];
+				if (job.skills && job.skills.length > 0) {
+					skills = concatSkills(skills, job);
+				}
+			}
+			return skills;
+		})
 }
 
 function getCompaniesNeededSkills() {
-    var companies = {};
-    return Job.find().exec()
-        .then(function(jobs) {
-            jobs.forEach(function(job) {
-                if (job && job.company && job.skills) {
-                    if (!companies[job.company.toString()])
-                        companies[job.company.toString()] = job.skills;
-                    else {
-                        var skills = companies[job.company.toString()];
-                        companies[job.company.toString()] = concatSkills(skills, job);
-                    }
+	var companies = {};
+	return Job.find().exec()
+		.then(function (jobs) {
+			jobs.forEach(function (job) {
+				if (job && job.company && job.skills) {
+					if (!companies[job.company.toString()])
+						companies[job.company.toString()] = job.skills;
+					else {
+						var skills = companies[job.company.toString()];
+						companies[job.company.toString()] = concatSkills(skills, job);
+					}
 
-                }
-            })
-            return companies;
-        })
+				}
+			})
+			return companies;
+		})
 }
 
 function getJobsByCompanyAndSkill(company, skill) {
-    return Job.find({
-        company: company,
-        skills: skill
-    }).lean().exec();
+	return Job.find({
+		company: company,
+		skills: skill
+	}).lean().exec();
 }
 
 function getRelevantJobs(skills, companyId) {
-    var searchCriteria = new SkillService.SearchCriteria(skills);
-    if (companyId)
-        searchCriteria.companyId = companyId;
+	var searchCriteria = new SkillService.SearchCriteria(skills);
+	if (companyId)
+		searchCriteria.companyId = companyId;
 
-	var query = SkillService.prepareSkillsQuery(searchCriteria );
+	var query = SkillService.prepareSkillsQuery(searchCriteria);
 	return Job.find(query).populate('company').exec()
-        .then(function(jobs) {
-            if (!companyId)
-                return jobs;
+		.then(function (jobs) {
+			if (!companyId)
+				return jobs;
 
-            return jobs.filter(function(job) {
-                if (!job.company || !job.company.id)
-                    return false;
+			return jobs.filter(function (job) {
+				if (!job.company || !job.company.id)
+					return false;
 
-                return job.company.id === companyId;
-            })
-        }, function(err) {
-            console.log(err);
-        })
+				return job.company.id === companyId;
+			})
+		}, function (err) {
+			console.log(err);
+		})
 }
 
 function isCvRelevant(company, cvData) {
-    if (!company || !cvData || !cvData.skills)
-        return false;
+	if (!company || !cvData || !cvData.skills)
+		return false;
 
-    return getRelevantJobs(cvData.skills, company.id)
-        .then(function(relevantJobs){
-            return !(utils.isEmptyArray(relevantJobs));
-        }, function(err) {
-            console.log(err);
-        })
+	return getRelevantJobs(cvData.skills, company.id)
+		.then(function (relevantJobs) {
+			return !(utils.isEmptyArray(relevantJobs));
+		}, function (err) {
+			console.log(err);
+		})
 }

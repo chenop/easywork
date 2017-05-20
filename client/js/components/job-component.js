@@ -2,9 +2,6 @@
  * Created by Chen on 17/03/14.
  */
 
-'use strict';
-
-
 (function (angular) {
 	'use strict';
 
@@ -17,7 +14,7 @@
 		return false;
 	}
 
-	function JobController($scope, dataManager, common, appManager, $timeout, $stateParams, $rootScope, debounce) {
+	function JobController(dataManager, $timeout, debounce) {
 		var ctrl = this;
 
 		ctrl.$onInit = function () {

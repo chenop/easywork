@@ -66,6 +66,7 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 				contentType: function (EContentType) {
 					return EContentType.Company;
 				},
+
 			}
 		})
 		.state('dashboard.company.id', {
@@ -80,7 +81,7 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 			}
 		})
 		.state('dashboard.user', {
-			url: "/user/",
+			url: "/user",
 			component: "dashboardContent",
 			contentType: function (EContentType) {
 				return EContentType.User;
@@ -88,12 +89,15 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 		})
 		.state('dashboard.user.id', {
 			url: "/:entityId",
-			templateUrl: "/views/users/user.html",
+			component: "user",
 			resolve: {
 				user: function ($stateParams, dataManager) {
 					if ($stateParams.entityId)
 						return dataManager.getUser($stateParams.entityId);
 					return null;
+				},
+				companies: function (dataManager) {
+					return dataManager.getCompanies();
 				}
 			}
 		})

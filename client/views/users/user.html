@@ -1,31 +1,32 @@
-<div class="" ng-controller="userDetailsCtrl">
-    <form ng-hide=isLoading name="form" class="jumbotron form-horizontal align-center" ng-keyup="updateUser($event)" novalidate>
-        <div class="form-group" ng-class="{ 'has-error' : !user.name}">
+<div>
+    <form ng-hide=isLoading name="form" class="jumbotron form-horizontal align-center" ng-keyup="$ctrl.updateUser($event)" novalidate>
+        <div class="form-group" ng-class="{ 'has-error' : !$ctrl.user.name}">
             <label class="col-sm-3 control-label">שם</label>
-            <input id="userName" class="col-sm-9 form-control" type="text" ng-model="user.name" name="name"
+            <input id="userName" class="col-sm-9 form-control" type="text" ng-model="$ctrl.user.name" name="name"
                    placeholder="Your name"/>
         </div>
 
-        <div class="form-group" ng-class="{ 'has-error' : form.email.$error.email || !user.email}">
+        <div class="form-group" ng-class="{ 'has-error' : form.email.$error.email || !$ctrl.user.email}">
             <label class="col-sm-3 control-label">דואר אלקטרוני</label>
-            <input class="col-sm-9 form-control" type="email" ng-model="user.email" name="email" required="true"
+            <input class="col-sm-9 form-control" type="email" ng-model="$ctrl.user.email" name="email" required="true"
                    placeholder="Your E-mail"/>
         </div>
 
-        <!--<upload-cv user-id="userId" cv="cvData" ng-show="user.role === 'jobSeeker'"></upload-cv>-->
+        <!--<upload-cv user-id="userId" cv="cvData" ng-show="ctrl.user.role === 'jobSeeker'"></upload-cv>-->
 
-        <div class="form-group" ng-show="user.role === 'jobSeeker'">
+        <div class="form-group" ng-show="$ctrl.user.role === 'jobSeeker'">
             <label class="col-sm-3 control-label">כמה מילים על עצמך...</label>
-            <textarea class="col-sm-9 form-control cv-message" ng-model="user.message"/>
+            <textarea class="col-sm-9 form-control cv-message" ng-model="$ctrl.user.message"/>
         </div>
 
-        <div ng-show="user.role === 'jobProvider'" class="form-group" access-level="admin">
-                <label class="col-sm-3 control-label">בעל חברה</label>
-                <ui-select class="col-sm-9 no-horizontal-padding" ng-model="$parent.user.company" ng-click="updateUser()">
-                    <!-- using $parent - https://github.com/angular-ui/ui-select/issues/18 -->
-                    <ui-select-match class="company-selector">{{$select.selected.name}}</ui-select-match>
-                    <ui-select-choices repeat="company in companies | filter: {name: $select.search}">{{company.name}}</ui-select-choices>
-                </ui-select>
+        <div ng-show="$ctrl.user.role === 'jobProvider'" class="form-group" access-level="admin">
+            <label class="col-sm-3 control-label">בעל חברה</label>
+            <ui-select class="col-sm-9 no-horizontal-padding" ng-model="$ctrl.user.company" ng-click="$ctrl.updateUser()">
+
+                <!-- using $parent - https://github.com/angular-ui/ui-select/issues/18 -->
+                <ui-select-match class="company-selector">{{$select.selected.name}}</ui-select-match>
+                <ui-select-choices repeat="company in $ctrl.companies | filter: {name: $select.search}">{{company.name}}</ui-select-choices>
+            </ui-select>
         </div>
 
         <div class="form-group" access-level="public">
@@ -33,9 +34,16 @@
 
             <div class="no-padding col-sm-9">
                 <div class="btn-group account-type" data-toggle="buttons-checkbox">
-                    <button ng-click="updateRole('jobSeeker')" type="button" class="btn btn-default" ng-disabled="!isAllowToSwitchRole(user, 'jobSeeker')" ng-model="user.role" uib-btn-radio="'jobSeeker'">מועמד</button>
-                    <button ng-click="updateRole('jobProvider')"type="button" class="btn btn-default" ng-disabled="!isAllowToSwitchRole(user, 'jobProvider')" ng-model="user.role" uib-btn-radio="'jobProvider'">מעסיק</button>
-                    <button ng-if="activeUser.role === 'admin'" ng-click="updateRole('admin')"type="button" class="btn btn-default"  ng-model="user.role" uib-btn-radio="'admin'">Admin</button>
+                    <button ng-click="$ctrl.updateRole('jobSeeker')" type="button" class="btn btn-default" ng-disabled="!$ctrl.isAllowToSwitchRole($ctrl.user, 'jobSeeker')" ng-model="$ctrl.user.role"
+                            uib-btn-radio="'jobSeeker'">מועמד
+                    </button>
+                    <button ng-click="$ctrl.updateRole('jobProvider')" type="button" class="btn btn-default" ng-disabled="!$ctrl.isAllowToSwitchRole($ctrl.user, 'jobProvider')"
+                            ng-model="$ctrl.user.role"
+                            uib-btn-radio="'jobProvider'">מעסיק
+                    </button>
+                    <button ng-if="$ctrl.user.role === 'admin'" ng-click="$ctrl.updateRole('admin')" type="button" class="btn btn-default" ng-model="$ctrl.user.role" uib-btn-radio="'admin'">
+                        Admin
+                    </button>
                 </div>
             </div>
         </div>

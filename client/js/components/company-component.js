@@ -7,9 +7,6 @@
 	function CompanyController(Upload, $timeout, $uibModal, debounce, utils) {
 		var ctrl = this;
 
-		ctrl.publish = false;
-		ctrl.isLoading = true;
-
 		ctrl.$onInit = function () {
 			setCursorInCompanyName();
 		}

@@ -48,7 +48,7 @@ angular.module('easywork')
 			}
 
 			var getUsers = function () {
-				return getEntities(common.CONTENT_TYPE.USER);
+				return getEntities(false, common.CONTENT_TYPE.USER);
 			}
 
 			var getCvs = function (skills) {
@@ -159,8 +159,8 @@ angular.module('easywork')
 			}
 
 			// Entities
-			var getEntities = function (entityType) {
-				return apiHelper.get(true, entityType + '/list')
+			var getEntities = function (isPublic, entityType) {
+				return apiHelper.get(isPublic, entityType + '/list')
 					.then(function (result) {
 						return result.data;
 					});

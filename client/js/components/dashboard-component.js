@@ -30,7 +30,7 @@
 
 			if (!contentType && !entityId) {
 				// url: /dashboard
-				ctrl.contentType = EContentType.Cv
+				ctrl.contentType = EContentType.Company
 				$state.go("dashboard." + ctrl.contentType);
 				return;
 			}
