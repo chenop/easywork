@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-4 btn-group">
-        <button ng-class="{ 'active' : $ctrl.contentType == '0' }"
-                ui-sref="dashboard.job"
+        <button ng-class="{ 'active' : $ctrl.contentType == $ctrl.EContentType.Job }"
+                ui-sref="dashboard({contentType: 'job'})"
                 access-level="jobProvider" type="button" class="btn btn-default col-xs-3"
                 data-toggle="tooltip" data-original-title="Jobs">
             <!--Jobs-->
@@ -9,8 +9,8 @@
                 <div class="hidden-xs hidden-sm hidden-md dashboard-entity-type">משרות</div>
             </i>
         </button>
-        <button ng-class="{ 'active' : $ctrl.contentType == '1' }"
-                ui-sref="dashboard.company"
+        <button ng-class="{ 'active' : $ctrl.contentType == $ctrl.EContentType.Company }"
+                ui-sref="dashboard({contentType: 'company'})"
                 access-level="admin" type="button" class="btn btn-default col-xs-3"
                 data-toggle="tooltip" data-original-title="Companies">
             <!--Companies-->
@@ -18,8 +18,8 @@
                 <div class="hidden-xs hidden-sm hidden-md dashboard-entity-type">חברות</div>
             </i>
         </button>
-        <button ng-class="{ 'active' : $ctrl.contentType == '2' }"
-                ui-sref="dashboard.user"
+        <button ng-class="{ 'active' : $ctrl.contentType == $ctrl.EContentType.User }"
+                ui-sref="dashboard({contentType: 'user'})"
                 access-level="admin" type="button" class="btn btn-default col-xs-3"
                 data-toggle="tooltip" data-original-title="Users">
             <!--Users-->
@@ -27,8 +27,8 @@
                 <div class="hidden-xs hidden-sm hidden-md dashboard-entity-type">משתמשים</div>
             </i>
         </button>
-        <button ng-class="{ 'active' : $ctrl.contentType == '3' }"
-                ui-sref="dashboard.cv"
+        <button ng-class="{ 'active' : $ctrl.contentType == $ctrl.EContentType.Cv }"
+                ui-sref="dashboard({contentType: 'cv'})"
                 access-level="admin" type="button" class="btn btn-default col-xs-3"
                 data-toggle="tooltip" data-original-title="Cvs">
             <!--Users-->

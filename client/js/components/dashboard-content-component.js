@@ -5,18 +5,18 @@
 (function (angular) {
 	'use strict';
 
-	function DashboardContentController(appManager, $state) {
+	function DashboardContentController(dataManager, $state, $stateParams) {
 		var ctrl = this;
 
 		ctrl.$onInit = function () {
-			appManager.contentTypeSelected(ctrl.contentType)
+			dataManager.getEntities(ctrl.contentType)
 				.then(function (entities) {
 					ctrl.entities = entities;
 				})
 		}
 
 		ctrl.onUpdate = function (entity) {
-			console.log("updating " + entity.name);
+			return dataManager.updateEntity(ctrl.contentType, entity);
 		}
 
 		ctrl.entitySelected = function (entity) {
@@ -28,15 +28,13 @@
 		}
 	}
 
-	DashboardContentController.$inject = ['appManager', '$state'];
+	DashboardContentController.$inject = ['dataManager', '$state', '$stateParams'];
 
 	angular.module('easywork').component('dashboardContent', {
 		templateUrl: '/views/admin/dashboard-content.html',
 		controller: DashboardContentController,
 		bindings: {
-			entities: '<',
 			contentType: '<',
-			entityId: '<',
 		},
 	});
 })(window.angular);

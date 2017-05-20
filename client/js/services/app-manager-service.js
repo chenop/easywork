@@ -213,47 +213,6 @@ angular.module('easywork')
 					});
 			}
 
-			function contentTypeSelected(contentType) {
-				setCurrentContentType(contentType);
-				return refreshEntities(contentType);
-			}
-
-			function refreshEntities(contentTypeName, nextEntityIdToSelect) {
-				if (contentTypeName == undefined) {
-					contentTypeName = getCurrentContentType();
-				}
-
-				switch (contentTypeName) {
-
-					case common.CONTENT_TYPE.JOB.name:
-						return getJobs().then(function (entities) {
-							// onEntitiesFetch(common.CONTENT_TYPE.JOB, entities, nextEntityIdToSelect);
-							return entities;
-						});
-						break;
-
-					case common.CONTENT_TYPE.COMPANY.name:
-						return getCompanies().then(function (entities) {
-							// onEntitiesFetch(common.CONTENT_TYPE.COMPANY, entites, nextEntityIdToSelect);
-							return entities;
-						});
-						break;
-
-					case common.CONTENT_TYPE.USER.name:
-						return getUsers().then(function (entities) {
-							// onEntitiesFetch(common.CONTENT_TYPE.USER, entites, nextEntityIdToSelect);
-							return entities;
-						});
-						break;
-					case common.CONTENT_TYPE.CV.name:
-						return getCvs().then(function (entities) {
-							// onEntitiesFetch(common.CONTENT_TYPE.CV, entites, nextEntityIdToSelect);
-							return entities;
-						});
-						break;
-				}
-			}
-
 			function getJobs() {
 				if (getActiveUser().role == "admin") {
 					return dataManager.getJobs();
@@ -337,7 +296,6 @@ angular.module('easywork')
 				, setLoadingIndicatorVisibility: setLoadingIndicatorVisibility
 				, getLoadingIndicatorVisibility: getLoadingIndicatorVisibility
 				, createEmptyCompanyForActiveUser: createEmptyCompanyForActiveUser
-				, contentTypeSelected: contentTypeSelected
 				, getJobs: getJobs
 				, getCompanies: getCompanies
 				, getCvs: getCvs

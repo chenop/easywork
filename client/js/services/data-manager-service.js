@@ -160,7 +160,7 @@ angular.module('easywork')
 
 			// Entities
 			var getEntities = function (entityType) {
-				return apiHelper.get(false, entityType.name + '/list')
+				return apiHelper.get(true, entityType + '/list')
 					.then(function (result) {
 						return result.data;
 					});
@@ -183,7 +183,7 @@ angular.module('easywork')
 			}
 
 			var updateEntity = function (entityType, entity) {
-				return apiHelper.put(false, entityType.name + '/' + entity._id, entity);
+				return apiHelper.put(false, entityType + '/' + entity._id, entity);
 			}
 
 			var getCompanyLogo = function (id, company, force) {
@@ -335,6 +335,8 @@ angular.module('easywork')
 				, getDashboardSelect2Options: getDashboardSelect2Options
 
 				, getEntity: getEntity
+				, getEntities: getEntities
+				, updateEntity: updateEntity
 
 				// Companies
 				, getCompanies: getCompanies

@@ -98,6 +98,7 @@
 		controller: CompanyController,
 		bindings: {
 			company: '<',
+			entityId: '<', // Used for the url
 			onUpdate: '&'
 		},
 	});

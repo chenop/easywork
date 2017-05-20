@@ -5,16 +5,16 @@
 (function (angular) {
 	'use strict';
 
-	function DashboardHeaderController($scope, authService, appManager, dataManager, common, $state, $stateParams) {
+	function DashboardHeaderController($scope, EContentType, appManager, dataManager, common, $state, $stateParams) {
 		var ctrl = this;
 
+		ctrl.EContentType = EContentType;
 		appManager.setDisplaySearchBarInHeader(false);
-		ctrl.contentTypeSelect = function (newContentTypeName) {
-			ctrl.onContentTypeSelect({type: newContentTypeName});
-		}
 
-		// var contentTypeName = $stateParams.contentTypeName;
-		// ctrl.contentTypeSelected(contentTypeName);
+		// ctrl.contentTypeSelect = function (newContentType) {
+		// 	ctrl.contentType = newContentType; // Check - do we need it? I think it would change when parent will update contentType
+		// 	ctrl.onContentTypeSelect({type: newContentType});
+		// }
 
 		ctrl.select2Options = dataManager.getDashboardSelect2Options();
 
@@ -28,22 +28,9 @@
 					});
 				})
 		}
-
-		function getContentType(contentTypeName) {
-			switch (contentTypeName) {
-				case common.CONTENT_TYPE.COMPANY.name:
-					return common.CONTENT_TYPE.COMPANY;
-				case common.CONTENT_TYPE.JOB.name:
-					return common.CONTENT_TYPE.JOB;
-				case common.CONTENT_TYPE.USER.name:
-					return common.CONTENT_TYPE.USER;
-				case common.CONTENT_TYPE.CV.name:
-					return common.CONTENT_TYPE.CV;
-			}
-		}
 	}
 
-	DashboardHeaderController.$inject = ['$scope', 'authService', 'appManager', 'dataManager', 'common', '$state', '$stateParams'];
+	DashboardHeaderController.$inject = ['$scope', 'EContentType', 'appManager', 'dataManager', 'common', '$state', '$stateParams'];
 
 	angular.module('easywork').component('dashboardHeader', {
 		templateUrl: '/views/admin/dashboard-header.html',
