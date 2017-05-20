@@ -21,7 +21,6 @@
 
 		ctrl.entitySelected = function (entity) {
 			$state.go("dashboard." + entity.contentType + ".id", {
-				company: entity,
 				entityId: entity.id,
 				onUpdate: ctrl.onUpdate
 			})

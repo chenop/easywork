@@ -10,7 +10,9 @@
 		ctrl.publish = false;
 		ctrl.isLoading = true;
 
-		setCursorInCompanyName();
+		ctrl.$onInit = function () {
+			setCursorInCompanyName();
+		}
 
 		function setCursorInCompanyName() {
 			$timeout(function () {

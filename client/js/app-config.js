@@ -41,13 +41,21 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 		})
 		.state('dashboard.job.id', {
 			url: "/:entityId",
-			templateUrl: "/views/jobs/job.html",
-			data: {},
+			component: "job",
 			resolve: {
 				job: function ($stateParams, dataManager) {
 					if ($stateParams.entityId)
 						return dataManager.getJob($stateParams.entityId);
 					return null;
+				},
+				skills: function (dataManager) {
+					return dataManager.getFiltersData()
+						.then(function (result) {
+							return result.data.skills;
+						});
+				},
+				companies: function (dataManager) {
+					return dataManager.getCompanies()
 				}
 			}
 		})
