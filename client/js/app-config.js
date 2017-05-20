@@ -110,8 +110,7 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 		})
 		.state('dashboard.cv.id', {
 			url: "/:entityId",
-			templateUrl: "/views/cvs/cv.html",
-			data: {},
+			component: "cv",
 			resolve: {
 				cv: function ($stateParams, dataManager) {
 					if ($stateParams.entityId)

@@ -71,7 +71,7 @@ module.exports = function (grunt) {
 		, 'client/js/controllers/send-cv-dialog-controller.js'
 		, 'client/js/controllers/yesNoModal-controller.js'
 		, 'client/js/controllers/unsuscribe-controller.js'
-		, 'client/js/controllers/cv-controller.js'
+		, 'client/js/cv-doc-view/cv-component.js'
 		, 'client/js/controllers/login-controller.js'
 		, 'client/js/controllers/register-controller.js'
 
@@ -92,7 +92,6 @@ module.exports = function (grunt) {
 		, 'client/js/directives/cv-card.js'
 
 		, 'client/js/upload-cv/upload-cv-directive.js'
-		, 'client/js/cv-doc-view/cv-doc-view-directive.js'
 		, 'client/js/app-config.js'
 	]
 

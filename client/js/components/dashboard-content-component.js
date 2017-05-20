@@ -9,7 +9,7 @@
 		var ctrl = this;
 
 		ctrl.$onInit = function () {
-			var isPublic = ctrl.contentType !== EContentType.User;
+			var isPublic = ctrl.contentType === EContentType.Company || ctrl.contentType === EContentType.Job;
 			dataManager.getEntities(isPublic, ctrl.contentType)
 				.then(function (entities) {
 					ctrl.entities = entities;

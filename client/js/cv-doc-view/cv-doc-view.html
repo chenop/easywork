@@ -1,26 +1,23 @@
 <div class="modal-body cv-view-container">
     <h3>מיומנויות
         <div class="refresh-skills">
-            <button class="btn btn-default align-left" ng-click="refreshSkills()">
-                    <span data-ng-hide="isLoading">
+            <button class="btn btn-default align-left" ng-click="$ctrl.refreshSkills()">
+                    <span data-ng-hide="$ctrl.isLoading">
                         <i class="fa fa-refresh"></i>
                     </span>
-                    <span data-ng-show="isLoading">
+                <span data-ng-show="$ctrl.isLoading">
                         <i class="fa fa-refresh fa-spin"></i>
                     </span>
             </button>
         </div>
     </h3>
     <div class="skill-container">
-        <span ng-repeat="requiredSkill in cv.skills" class="skill">
+        <span ng-repeat="requiredSkill in $ctrl.cv.skills" class="skill">
             <cv-skill-tag required-skill="requiredSkill"/>
         </span>
     </div>
-    <button class="btn btn-block btn-primary download-cv-btn" ng-click="downloadCv()">Download CV</button>
+    <button class="btn btn-block btn-primary download-cv-btn" ng-click="$ctrl.downloadCv()">Download CV</button>
     <div class="iframe-container">
-        <div data-ng-show=isIframeLoading class="iframe-loading-indicator">
-            <i class="fa fa-refresh fa-spin"></i>
-        </div>
-        <iframe data-ng-hide=isIframeLoading iframe-onload="iframeLoadedCallBack()" ng-src={{trustSrc(url)}} class="iframe" frameborder="0"></iframe>
+        <iframe ng-src={{$ctrl.trustSrc($ctrl.url)}} class="iframe" frameborder="0"></iframe>
     </div>
 </div>
