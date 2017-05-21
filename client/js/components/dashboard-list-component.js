@@ -21,6 +21,9 @@
 		function analyzeEntityToSelect(contentType, entityId) {
 			if (entityId)
 				return null; //entityToSelect = appManager.getEntity(contentType, $stateParams.entityId)
+			else if ($stateParams.selectedEntity) {
+				return $stateParams.selectedEntity; // Passed in params - Used when creating a new entity via the "New" button
+			}
 			else
 				return ctrl.entities[0];
 		}
@@ -90,7 +93,8 @@
 		templateUrl: '/views/admin/dashboard-list.html',
 		bindings: {
 			entities: '<',
-			onEntitySelect: '&'
+			onEntitySelect: '&',
+			selectedEntity: '<'
 		},
 		controller: DashboardListController
 	});

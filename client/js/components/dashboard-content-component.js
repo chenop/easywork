@@ -37,6 +37,7 @@
 		controller: DashboardContentController,
 		bindings: {
 			contentType: '<',
+			selectedEntity: '<'
 		},
 	});
 })(window.angular);

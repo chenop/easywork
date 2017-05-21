@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('easywork')
-	.factory('appManager', function (authService, common, $uibModal, $rootScope, mailService, dataManager, utils, $state) {
+	.factory('appManager', function (authService, common, $uibModal, $rootScope, mailService, dataManager, utils, $state, EContentType) {
 
 			var selectedCompanies = [];
 			var selectedTechnologies = [];
@@ -132,15 +132,15 @@ angular.module('easywork')
 
 				switch (contentTypeName) {
 
-					case common.CONTENT_TYPE.JOB.name:
+					case EContentType.Job:
 						var company = getActiveCompanyId();
 						entity = dataManager.createEmptyJob(company)
 						return dataManager.createJob(entity);
-					case common.CONTENT_TYPE.COMPANY.name:
+					case EContentType.Company:
 						entity = dataManager.createEmptyCompany()
 						entity.ownerId = getActiveUserId();
 						return dataManager.createCompany(entity);
-					case common.CONTENT_TYPE.USER.name:
+					case EContentType.User:
 						entity = dataManager.createEmptyUser()
 						return dataManager.createUser(entity);
 				}
@@ -202,8 +202,7 @@ angular.module('easywork')
 				var activeUser = getActiveUser();
 				var emptyCompany = dataManager.createEmptyCompany(activeUser);
 				return dataManager.createCompany(emptyCompany)
-					.then(function (result) {
-						var createdCompany = result.data;
+					.then(function (createdCompany) {
 
 						// Update client's activeUser with the new company he has
 						activeUser.company = createdCompany.id;

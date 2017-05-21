@@ -115,19 +115,31 @@ angular.module('easywork')
 			}
 
 			var createCompany = function (company) {
-				return createEntity(common.CONTENT_TYPE.COMPANY, {company: company});
+				return createEntity(common.CONTENT_TYPE.COMPANY, {company: company})
+					.then(function (result) {
+						return result.data;
+					});
 			}
 
 			var createJob = function (job) {
-				return createEntity(common.CONTENT_TYPE.JOB, {job: job});
+				return createEntity(common.CONTENT_TYPE.JOB, {job: job})
+					.then(function (result) {
+						return result.data;
+					});
 			}
 
 			var createUser = function (user) {
-				return createEntity(common.CONTENT_TYPE.USER, {user: user});
+				return createEntity(common.CONTENT_TYPE.USER, {user: user})
+					.then(function (result) {
+						return result.data;
+					});
 			}
 
 			var createCv = function (cv) {
-				return apiHelper.post(true, common.CONTENT_TYPE.CV.name, cv);
+				return apiHelper.post(true, common.CONTENT_TYPE.CV.name, cv)
+					.then(function (result) {
+						return result.data;
+					});
 			}
 
 			var deleteCompany = function (id) {

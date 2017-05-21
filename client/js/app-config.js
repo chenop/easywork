@@ -37,7 +37,10 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 				contentType: function (EContentType) {
 					return EContentType.Job;
 				},
-			}
+			},
+			params: {
+				selectedEntity: null
+			},
 		})
 		.state('dashboard.job.id', {
 			url: "/:entityId",
@@ -66,8 +69,10 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 				contentType: function (EContentType) {
 					return EContentType.Company;
 				},
-
-			}
+			},
+			params: {
+				selectedEntity: null
+			},
 		})
 		.state('dashboard.company.id', {
 			url: "/:entityId",
@@ -83,9 +88,14 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 		.state('dashboard.user', {
 			url: "/user",
 			component: "dashboardContent",
-			contentType: function (EContentType) {
-				return EContentType.User;
-			}
+			resolve: {
+				contentType: function (EContentType) {
+					return EContentType.User;
+				}
+			},
+			params: {
+				selectedEntity: null
+			},
 		})
 		.state('dashboard.user.id', {
 			url: "/:entityId",
@@ -104,9 +114,14 @@ app.config(function ($locationProvider, $stateProvider, $urlRouterProvider) {
 		.state('dashboard.cv', {
 			url: "/cv",
 			component: "dashboardContent",
-			contentType: function (EContentType) {
-				return EContentType.Cv;
-			}
+			resolve: {
+				contentType: function (EContentType) {
+					return EContentType.Cv;
+				}
+			},
+			params: {
+				selectedEntity: null
+			},
 		})
 		.state('dashboard.cv.id', {
 			url: "/:entityId",

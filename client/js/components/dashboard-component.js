@@ -9,17 +9,18 @@
 		var ctrl = this;
 
 		ctrl.$onInit = function () {
+			appManager.setDisplaySearchBarInHeader(false);
 			init();
 		}
 
-		appManager.setDisplaySearchBarInHeader(false);
+		ctrl.addEntity = function () {
+			if (!ctrl.contentType)
+				return;
 
-		this.addEntity = function () {
-			appManager.createEmptyEntity(this.contentType.name)
-				.then(function (result) {
-					$state.go("dashboard.list", {
-						"contentTypeName": this.contentType.name
-						, "selectedEntityId": result.data._id
+			appManager.createEmptyEntity(ctrl.contentType)
+				.then(function (entity) {
+					$state.go("dashboard." + ctrl.contentType, {
+						"selectedEntity": entity
 					});
 				})
 		}
