@@ -7,25 +7,25 @@ console.log("process.env.NODE_ENV: " + process.env.NODE_ENV);
 // https://stackoverflow.com/questions/20433287/node-js-request-cert-has-expired/20497028#20497028
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-var express              = require('express')
-	, path               = require('path')
-	, passport           = require('passport')
-	, userController     = require('./server/controllers/userController')
-	, jobController      = require('./server/controllers/jobController')
-	, cvController       = require('./server/controllers/cvController')
-	, mail               = require('./server/services/mailService')
-	, companyController  = require('./server/controllers/companyController')
+var express = require('express')
+	, path = require('path')
+	, passport = require('passport')
+	, userController = require('./server/controllers/userController')
+	, jobController = require('./server/controllers/jobController')
+	, cvController = require('./server/controllers/cvController')
+	, mail = require('./server/services/mailService')
+	, companyController = require('./server/controllers/companyController')
 	, feedbackController = require('./server/controllers/feedbackController')
-	, dataProxy          = require('./server/controllers/dataProxy')
-	, cookieParser       = require('cookie-parser')
-	, bodyParser         = require('body-parser')
-	, multer             = require('multer')
-	, methodOverride     = require('method-override')
-	, mongoose           = require('mongoose')
-	, url                = require('url')
-	, config             = require('./server/config')
-    //	, logger             = require('./server/utils/logger')
-	;
+	, dataProxy = require('./server/controllers/dataProxy')
+	, cookieParser = require('cookie-parser')
+	, bodyParser = require('body-parser')
+	, multer = require('multer')
+	, methodOverride = require('method-override')
+	, mongoose = require('mongoose')
+	, url = require('url')
+	, config = require('./server/config')
+	//	, logger             = require('./server/utils/logger')
+;
 
 var ejwt = require('express-jwt');
 
