@@ -10,7 +10,8 @@ var config = require('../config');
  ***********/
 module.exports = {
     analyzeCv: analyzeCv,
-	wakeupDocParser: wakeupDocParser
+	wakeupDocParser: wakeupDocParser,
+    getKeywords: getKeywords
 }
 
 
@@ -58,4 +59,16 @@ function wakeupDocParser() {
 		.catch(function (err) {
 			console.log(err);
 		});
+}
+
+function getKeywords() {
+    var options = {
+        method: 'GET',
+        uri: config.docParserUrl + '/keywords'
+    };
+
+    return rp(options)
+        .catch(function (err) {
+            console.log(err);
+        });
 }

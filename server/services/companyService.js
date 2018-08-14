@@ -3,7 +3,7 @@
  */
 
 var Company         = require('../models/company');
-var SkillService    = require('../services/skillService');
+var SkillService    = require('./skillService');
 var utils           = require('../utils/utils');
 var mongoose        = require('mongoose');
 
