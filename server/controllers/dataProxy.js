@@ -40,13 +40,15 @@ var data = {
         , 'חדרה'
         , 'נתניה'
     ],
+    skills: [".NET","AJAX","Android","AngularJS","ASP.NET","B.A.","B.Sc","B.sc.","C#","C++","CSS","ERP","Flash","GUI","HTML","IOS","java","JavaScript","JQuery","MySQL","Office","Oracle","Perl","PhoneGap","Photoshop","QA","SAP","SQL","SQLite","Visual Basic","Web","אדריכל","אופיס","ארכיטקט","בגרות","הנדסאי","הנהלת חשבונות","טכנאי","מהנדס","מהנדס ביצוע","מזכירה","מכירות","מנהלת משרד","מפקח","משאבי אנוש","סייעת","קלינאית תקשורת","רכז גיוס","רכזת גיוס","רכש","שירות לקוחות","שרות לקוחות","שרטט","תואר ראשון"]
 };
 
 exports.getFiltersData = function (req, res) {
-    return docParserApi.getKeywords()
-        .then(function(result) {
-            data.skills = result;
-            return res.send(data);
-        });
+    return data;
+    // return docParserApi.getKeywords()
+    //     .then(function(result) {
+    //         data.skills = result;
+    //         return res.send(data);
+    //     });
 };
 
