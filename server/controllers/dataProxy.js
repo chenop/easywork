@@ -44,7 +44,9 @@ var data = {
 };
 
 exports.getFiltersData = function (req, res) {
-    return data;
+    return res.send(data);
+
+    // 15/08/2018 Since this extra call to docParserApi took a long time (probably due to docParser's sandbox mode - I decided to return skills hardcoded
     // return docParserApi.getKeywords()
     //     .then(function(result) {
     //         data.skills = result;
