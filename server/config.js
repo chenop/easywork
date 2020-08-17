@@ -3,7 +3,8 @@
  */
 
 var TEST_DB_URL = "mongodb://chenop:selavi99@ds039185.mongolab.com:39185/heroku_hjgps9xv";
-var PRODUCTION_DB = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
+//var PRODUCTION_DB = "mongodb://chenop:selavi99@ds061188.mongolab.com:61188/heroku_app27550058";
+var PRODUCTION_DB = "mongodb+srv://chenop:selavi99@cluster-app27550058.nxme7.mongodb.net/heroku_app27550058?retryWrites=true&w=majority";
 
 var DEVELOPMENT_ADDRESS = 'http://localhost:3000';
 var DEVELOPMENT_DOC_PARSER = 'http://localhost:4200/webapi';
